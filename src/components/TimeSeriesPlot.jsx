@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import Plot from 'react-plotly.js';
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const CREAM_BG = '#FFF8F0';
+const CREAM_BG = '#f5f0e8';
 
 export default function TimeSeriesPlot({ baseline, reporting, noNRA }) {
   const traces = useMemo(() => {
@@ -44,10 +44,10 @@ export default function TimeSeriesPlot({ baseline, reporting, noNRA }) {
       data={traces}
       layout={{
         title: { text: 'Monthly Electricity: Baseline vs. Reporting Period', font: { size: 15, color: '#1a365d' } },
-        xaxis: { title: 'Month', gridcolor: '#e8e0d0' },
-        yaxis: { title: 'Monthly Electricity (kWh)', gridcolor: '#e8e0d0' },
+        xaxis: { title: 'Month', gridcolor: '#e0d8c8' },
+        yaxis: { title: 'Monthly Electricity (kWh)', gridcolor: '#e0d8c8' },
         showlegend: true,
-        legend: { x: 0.01, y: 0.99, bgcolor: 'rgba(255,248,240,0.8)' },
+        legend: { x: 0.01, y: 0.99, bgcolor: 'rgba(245,240,232,0.8)' },
         height: 500,
         margin: { t: 50, r: 40, b: 55, l: 80 },
         paper_bgcolor: CREAM_BG,

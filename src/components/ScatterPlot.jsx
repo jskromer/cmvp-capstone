@@ -3,7 +3,7 @@ import Plot from 'react-plotly.js';
 import { fiveParam, threeParamHeating } from '../utils/statistics';
 
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-const CREAM_BG = '#FFF8F0';
+const CREAM_BG = '#f5f0e8';
 
 export default function ScatterPlot({ data, fuelType, modelParams, modelType }) {
   const traces = useMemo(() => {
@@ -61,8 +61,8 @@ export default function ScatterPlot({ data, fuelType, modelParams, modelType }) 
       data={traces}
       layout={{
         title: { text: title, font: { size: 15, color: '#1a365d' } },
-        xaxis: { title: 'Average Outdoor Air Temperature (°F)', gridcolor: '#e8e0d0' },
-        yaxis: { title: yLabel, gridcolor: '#e8e0d0' },
+        xaxis: { title: 'Average Outdoor Air Temperature (°F)', gridcolor: '#e0d8c8' },
+        yaxis: { title: yLabel, gridcolor: '#e0d8c8' },
         showlegend: true,
         height: 480,
         margin: { t: 50, r: 40, b: 55, l: 80 },

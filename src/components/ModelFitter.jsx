@@ -5,7 +5,7 @@ import {
   nmbe, cvrmse, rSquared,
 } from '../utils/statistics';
 
-const CREAM_BG = '#FFF8F0';
+const CREAM_BG = '#f5f0e8';
 
 function ValidationRow({ label, value, limit, limitLabel, passTest }) {
   const passed = passTest(parseFloat(value));
