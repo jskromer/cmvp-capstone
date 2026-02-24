@@ -9,15 +9,15 @@ import './App.css';
 const TABS = [
   { id: 'overview', label: 'Overview' },
   { id: 'scatter', label: 'Scatter Plots' },
-  { id: 'timeseries', label: 'Time Series' },
   { id: 'model', label: 'Model Fitting' },
+  { id: 'timeseries', label: 'Time Series' },
 ];
 
 function App() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
-  const [elecFit, setElecFit] = useState(null);
+  const [modelResult, setModelResult] = useState(null);
   const [showAnswerKey, setShowAnswerKey] = useState(false);
 
   useEffect(() => {
@@ -26,12 +26,12 @@ function App() {
       .finally(() => setLoading(false));
   }, []);
 
-  const handleFitComplete = useCallback((result) => {
-    setElecFit(result);
+  const handleModelUpdate = useCallback((result) => {
+    setModelResult(result);
   }, []);
 
   if (loading) {
-    return <div className="loading">Loading Greenfield Municipal Center data...</div>;
+    return <div className="loading">Loading Greenfield Municipal Center data…</div>;
   }
 
   if (!data) {
@@ -60,94 +60,146 @@ function App() {
       <main>
         {activeTab === 'overview' && (
           <section>
-            <h2>Project Summary</h2>
+            <h2>The Building</h2>
             <div className="info-grid">
-              <div className="info-card">
-                <h3>Building</h3>
-                <p>62,000 sq ft mixed-use government facility</p>
-                <p>2 stories, ~1995 construction, mid-Atlantic CZ 4A</p>
+              <div className="info-card wing-a">
+                <h3>Wing A — Office</h3>
+                <p>35,000 sq ft · 2 floors</p>
+                <p>Open-plan + private offices</p>
+                <p>AHU-1: Gas furnace, DX cooling, 15 HP fan</p>
+                <p>M–F 7am–6pm</p>
               </div>
-              <div className="info-card">
-                <h3>Retrofit Package</h3>
-                <ul>
-                  <li>ECM-1: LED lighting + controls</li>
-                  <li>ECM-2: Chiller/DX replacement</li>
-                  <li>ECM-3: Roof insulation (R-15 → R-30)</li>
-                  <li>ECM-4: VFDs on AHU supply fans</li>
-                </ul>
+              <div className="info-card wing-b">
+                <h3>Wing B — Library</h3>
+                <p>15,000 sq ft · 2 floors</p>
+                <p>Reading rooms, stacks, meeting rooms</p>
+                <p>AHU-2: Heat pump, DX cooling, 10 HP fan</p>
+                <p>M–Sat 8am–9pm, Sun 12–5pm</p>
               </div>
-              <div className="info-card">
-                <h3>Key Challenge</h3>
-                <p>Data center expansion (NRA) in month 8 adds ~19,000 kWh/month, masking true savings of 10.5%.</p>
+              <div className="info-card wing-c">
+                <h3>Wing C — Data Center</h3>
+                <p>2,000 sq ft</p>
+                <p>IT infrastructure, 24/7 operation</p>
+                <p>CRAC-1: 5-ton DX</p>
+              </div>
+              <div className="info-card wing-cm">
+                <h3>Common Areas</h3>
+                <p>10,000 sq ft</p>
+                <p>Lobby, corridors, mechanical</p>
+                <p>AHU-3: Gas furnace, DX cooling, 5 HP fan</p>
+                <p>M–F 6am–10pm</p>
               </div>
             </div>
-            <h2>Annual Summary</h2>
+
+            <h2>Retrofit Package (ESPC)</h2>
+            <div className="info-grid">
+              <div className="info-card">
+                <h3>ECM-1: LED Lighting + Controls</h3>
+                <p>T8 fluorescent → LED in Wings A &amp; B</p>
+                <p>Occupancy and daylight controls</p>
+              </div>
+              <div className="info-card">
+                <h3>ECM-2: Chiller/DX Replacement</h3>
+                <p>Higher COP units across all wings</p>
+              </div>
+              <div className="info-card">
+                <h3>ECM-3: Roof Insulation</h3>
+                <p>R-15 → R-30 entire building envelope</p>
+              </div>
+              <div className="info-card">
+                <h3>ECM-4: VFDs on AHU Fans</h3>
+                <p>Variable frequency drives on AHU-1, 2, 3</p>
+              </div>
+            </div>
+
+            <h2>Contract Context</h2>
+            <p>15-year Energy Savings Performance Contract. Annual M&amp;V reporting required. Savings shortfall risk borne by ESCO; surplus shared 80/20 (owner/ESCO).</p>
+
+            <h2>Baseline Year Summary</h2>
             <SummaryTable
               baseline={data.baseline}
-              reporting={showAnswerKey ? data.noNRA : data.reporting}
-              noNRA={data.noNRA}
+              reporting={data.reporting}
+              noNRA={showAnswerKey ? data.noNRA : null}
+              showAnswerKey={showAnswerKey}
             />
-            <label className="toggle">
-              <input
-                type="checkbox"
-                checked={showAnswerKey}
-                onChange={(e) => setShowAnswerKey(e.target.checked)}
-              />
-              Show answer key (no-NRA reporting data)
-            </label>
+            <div className="instructor-toggle">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={showAnswerKey}
+                  onChange={(e) => setShowAnswerKey(e.target.checked)}
+                />
+                Instructor: show answer key data
+              </label>
+            </div>
           </section>
         )}
 
         {activeTab === 'scatter' && (
           <section>
-            <h2>Baseline Scatter Plots</h2>
-            <p>Identify the change-point model shapes. Electric should show 5-parameter (heating + cooling legs); gas should show 3-parameter heating-only.</p>
+            <h2>Baseline Energy vs. Outdoor Air Temperature</h2>
+            <div className="prompt-box">
+              <strong>Observe</strong>
+              What patterns do you see? How does energy use respond to temperature?
+              How many distinct operating regimes can you identify?
+            </div>
             <ScatterPlot
               data={data.baseline}
               fuelType="electric"
-              modelParams={elecFit?.elecParams}
-              modelType={elecFit?.modelType}
+              modelParams={modelResult?.elecParams}
+              modelType={modelResult?.elecModelType}
             />
             <ScatterPlot
               data={data.baseline}
               fuelType="gas"
-              modelParams={elecFit?.gasParams}
+              modelParams={modelResult?.gasParams}
               modelType="3PH"
             />
-          </section>
-        )}
-
-        {activeTab === 'timeseries' && (
-          <section>
-            <h2>Reporting Period Time Series</h2>
-            <p>Compare baseline vs reporting period. Note the NRA step change starting in August (month 8). The red shaded region highlights where data center expansion inflates consumption.</p>
-            <TimeSeriesPlot
-              baseline={data.baseline}
-              reporting={data.reporting}
-              noNRA={showAnswerKey ? data.noNRA : null}
-            />
-            <label className="toggle">
-              <input
-                type="checkbox"
-                checked={showAnswerKey}
-                onChange={(e) => setShowAnswerKey(e.target.checked)}
-              />
-              Show no-NRA trace (answer key)
-            </label>
+            <div className="prompt-box">
+              <strong>Discuss</strong>
+              Why does gas consumption have a different shape than electric?
+              What building systems drive each pattern?
+            </div>
           </section>
         )}
 
         {activeTab === 'model' && (
           <section>
-            <h2>Change-Point Model Fitting</h2>
-            <p>Fit a baseline model, then check ASHRAE Guideline 14 validation criteria (NMBE ±5%, CV(RMSE) ≤15%, R² ≥0.75 for monthly data).</p>
-            <ModelFitter baseline={data.baseline} onFitComplete={handleFitComplete} />
+            <h2>Baseline Model Fitting</h2>
+            <p>Select a model type, fit it to the baseline data, and evaluate against ASHRAE Guideline 14 criteria.</p>
+            <ModelFitter baseline={data.baseline} onModelUpdate={handleModelUpdate} />
+          </section>
+        )}
+
+        {activeTab === 'timeseries' && (
+          <section>
+            <h2>Baseline vs. Reporting Period</h2>
+            <div className="prompt-box">
+              <strong>Observe</strong>
+              Compare the baseline and reporting period traces month by month.
+              Is the pattern what you expected? Are there any surprises?
+            </div>
+            <TimeSeriesPlot
+              baseline={data.baseline}
+              reporting={data.reporting}
+              noNRA={showAnswerKey ? data.noNRA : null}
+            />
+            <div className="instructor-toggle">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={showAnswerKey}
+                  onChange={(e) => setShowAnswerKey(e.target.checked)}
+                />
+                Instructor: show answer key trace
+              </label>
+            </div>
           </section>
         )}
       </main>
 
       <footer>
-        <p>CMVP Capstone Project — Greenfield Municipal Center — EnergyPlus 25.1.0 Simulation Data</p>
+        <p>CMVP Capstone — EnergyPlus 25.1.0 Simulation · Mid-Atlantic CZ 4A</p>
       </footer>
     </div>
   );

@@ -1,193 +1,323 @@
+/* ===== CMVP Capstone — Warm Cream Theme ===== */
+:root {
+  --cream: #FFF8F0;
+  --cream-dark: #F5EDE0;
+  --blue: #2980b9;
+  --blue-dark: #1a365d;
+  --blue-light: #e8f4f8;
+  --dark: #2c3e50;
+  --green: #27ae60;
+  --orange: #e67e22;
+  --red: #e74c3c;
+  --purple: #8e44ad;
+  --gray-50: #fafaf7;
+  --gray-100: #f5f0e8;
+  --gray-200: #e8e0d0;
+  --gray-300: #d5ccc0;
+  --gray-500: #8c8478;
+  --gray-700: #4a4540;
+  --gray-900: #2c2820;
+  --pass: #27ae60;
+  --fail: #e74c3c;
+  --border: #e0d8cc;
+  --shadow: 0 1px 3px rgba(44, 40, 32, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--cream);
+  color: var(--gray-700);
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  line-height: 1.55;
+}
+
 .app {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: 1rem 2rem 2rem;
 }
 
 header {
   text-align: center;
   margin-bottom: 1.5rem;
-  border-bottom: 2px solid #e0e0e0;
+  border-bottom: 2px solid var(--border);
   padding-bottom: 1rem;
 }
 
 header h1 {
   font-size: 2rem;
   margin: 0;
-  color: #1a365d;
+  color: var(--blue-dark);
 }
 
 .subtitle {
-  color: #666;
+  color: var(--gray-500);
   margin: 0.25rem 0 0;
   font-size: 1.1rem;
 }
 
-/* Tabs */
+/* Tabs — large for projection */
 .tabs {
   display: flex;
   gap: 0.25rem;
-  border-bottom: 2px solid #e0e0e0;
+  border-bottom: 2px solid var(--border);
   margin-bottom: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .tabs button {
-  padding: 0.6rem 1.2rem;
+  padding: 0.7rem 1.3rem;
   border: none;
   background: none;
   cursor: pointer;
-  font-size: 0.95rem;
-  color: #555;
+  font-size: 1rem;
+  color: var(--gray-500);
   border-bottom: 3px solid transparent;
-  transition: all 0.2s;
+  transition: all 0.15s;
+  white-space: nowrap;
 }
 
 .tabs button:hover {
-  color: #1a365d;
-  background: #f0f4f8;
+  color: var(--blue-dark);
+  background: var(--cream-dark);
 }
 
 .tabs button.active {
-  color: #1a365d;
-  border-bottom-color: #2b6cb0;
+  color: var(--blue-dark);
+  border-bottom-color: var(--blue);
   font-weight: 600;
 }
 
-/* Info grid */
+/* Info cards */
 .info-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .info-card {
-  background: #f7fafc;
-  border: 1px solid #e2e8f0;
+  background: white;
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 1rem 1.25rem;
+  box-shadow: var(--shadow);
 }
 
 .info-card h3 {
   margin: 0 0 0.5rem;
-  color: #2d3748;
+  color: var(--dark);
   font-size: 1rem;
+  border-bottom: 1px solid var(--gray-200);
+  padding-bottom: 0.4rem;
 }
 
 .info-card p, .info-card li {
   margin: 0.25rem 0;
-  color: #4a5568;
+  color: var(--gray-700);
   font-size: 0.9rem;
 }
 
-.info-card ul {
-  padding-left: 1.2rem;
-  margin: 0;
-}
+.info-card ul { padding-left: 1.2rem; margin: 0; }
+
+/* Wing accent colors */
+.wing-a { border-left: 4px solid var(--blue); }
+.wing-b { border-left: 4px solid var(--purple); }
+.wing-c { border-left: 4px solid var(--red); }
+.wing-cm { border-left: 4px solid #d4ac0d; }
 
 /* Tables */
-.summary-table {
+.summary-table, .stats-table {
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
   font-size: 0.9rem;
 }
 
-.summary-table th,
-.summary-table td {
+.summary-table th, .summary-table td,
+.stats-table th, .stats-table td {
   padding: 0.5rem 0.75rem;
   text-align: left;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
 }
 
-.summary-table th {
-  background: #edf2f7;
+.summary-table th, .stats-table th {
+  background: var(--dark);
+  color: white;
   font-weight: 600;
-  color: #2d3748;
-}
-
-.summary-table td {
-  color: #4a5568;
-}
-
-.stats-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0.5rem 0 1rem;
   font-size: 0.85rem;
 }
 
-.stats-table th,
-.stats-table td {
-  padding: 0.4rem 0.6rem;
-  text-align: left;
-  border: 1px solid #e2e8f0;
+.summary-table tbody tr:nth-child(even),
+.stats-table tbody tr:nth-child(even) {
+  background: var(--gray-50);
 }
 
-.stats-table th {
-  background: #edf2f7;
-}
+.pass { color: var(--pass); font-weight: 600; }
+.fail { color: var(--fail); font-weight: 600; }
 
 /* Model fitter */
-.model-fitter {
-  margin: 1rem 0;
-}
+.model-fitter { margin: 1rem 0; }
 
 .controls {
   display: flex;
   align-items: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.controls label {
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  font-weight: 500;
 }
 
 .controls select {
-  padding: 0.4rem;
+  padding: 0.4rem 0.6rem;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--gray-300);
+  background: white;
   margin-left: 0.5rem;
+  font-size: 0.9rem;
 }
 
-.controls button {
+.controls button, .btn-primary {
   padding: 0.5rem 1.2rem;
-  background: #2b6cb0;
+  background: var(--blue);
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
+  font-size: 0.9rem;
 }
 
-.controls button:hover {
-  background: #2c5282;
+.controls button:hover, .btn-primary:hover {
+  background: var(--blue-dark);
+}
+
+.btn-secondary {
+  padding: 0.4rem 1rem;
+  background: white;
+  color: var(--blue);
+  border: 1px solid var(--blue);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.btn-secondary:hover {
+  background: var(--blue-light);
 }
 
 .stats-panel {
-  background: #f7fafc;
-  border: 1px solid #e2e8f0;
+  background: white;
+  border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 1rem;
+  padding: 1rem 1.25rem;
   margin-bottom: 1rem;
+  box-shadow: var(--shadow);
 }
 
 .stats-panel h4 {
   margin: 0 0 0.5rem;
+  color: var(--dark);
 }
 
 .params {
   margin-top: 0.5rem;
   font-size: 0.85rem;
-  color: #4a5568;
+  color: var(--gray-500);
+  font-family: 'SF Mono', 'Consolas', monospace;
 }
 
-/* Toggle */
+/* Slider group */
+.slider-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin: 0.75rem 0;
+  padding: 0.75rem 1rem;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+}
+
+.slider-group label {
+  font-size: 0.85rem;
+  color: var(--gray-700);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.slider-group input[type="range"] {
+  width: 160px;
+  accent-color: var(--blue);
+}
+
+.slider-value {
+  font-weight: 600;
+  color: var(--dark);
+  min-width: 3.5rem;
+  text-align: right;
+}
+
+/* Residual plots side by side */
+.residual-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 800px) {
+  .residual-row { grid-template-columns: 1fr; }
+}
+
+/* Toggles */
 .toggle {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   margin-top: 0.75rem;
   font-size: 0.9rem;
-  color: #4a5568;
+  color: var(--gray-500);
   cursor: pointer;
+}
+
+.instructor-toggle {
+  background: var(--cream-dark);
+  border: 1px dashed var(--orange);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--orange);
+}
+
+/* Prompt box */
+.prompt-box {
+  background: var(--blue-light);
+  border-left: 4px solid var(--blue);
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.95rem;
+  color: var(--dark);
+}
+
+.prompt-box strong {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--blue);
+  margin-bottom: 0.25rem;
 }
 
 /* Loading & error */
@@ -195,31 +325,29 @@ header h1 {
   text-align: center;
   padding: 3rem;
   font-size: 1.1rem;
-  color: #666;
+  color: var(--gray-500);
 }
 
-.error {
-  color: #c53030;
-}
+.error { color: var(--red); }
 
 /* Footer */
 footer {
   margin-top: 2rem;
   padding: 1rem 0;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--border);
   text-align: center;
   font-size: 0.8rem;
-  color: #a0aec0;
+  color: var(--gray-300);
 }
 
 /* Section headings */
 section h2 {
-  color: #1a365d;
+  color: var(--blue-dark);
   margin-bottom: 0.5rem;
 }
 
 section > p {
-  color: #666;
+  color: var(--gray-500);
   margin-bottom: 1rem;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
