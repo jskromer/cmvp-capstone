@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html><head><title>Greenfield Baseline v2 - 5P Check</title>
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script></head><body>
+<div id="p1" style="width:950px;height:550px;"></div>
+<div id="p2" style="width:950px;height:550px;"></div>
+<script>
+var oat=[32.997923387096776, 34.90869419642857, 45.90013104838711, 54.430625, 64.68941532258061, 72.53356249999993, 76.14627016129032, 73.39516129032262, 68.18971874999998, 53.45057459677418, 46.06603124999997, 33.77825604838709];var elec=[93338.01256851824, 83270.43700774059, 88660.27905391643, 86768.00783699223, 95264.3773245292, 95062.0331609744, 104694.7785647781, 100181.06979422978, 92637.8063612361, 90240.2050413935, 85794.53732288313, 92096.67816779991];var gas=[1871.6801448446156, 1270.1949222028197, 723.4239041556713, 454.79334898824624, 295.4164503731043, 225.64943363590993, 237.53007131702705, 238.3787629600075, 246.79834543443653, 489.17220515991914, 736.4657951814003, 1651.4091462853416];
+var mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+Plotly.newPlot('p1',[{x:oat,y:elec,mode:'markers+text',text:mo,textposition:'top center',
+marker:{size:14,color:'blue'},name:'Monthly kWh'}],
+{title:'Baseline Electricity vs OAT — 5P Change-Point Check',
+xaxis:{title:'Avg OAT (°F)'},yaxis:{title:'Monthly Electricity (kWh)'},
+shapes:[{type:'line',x0:50,y0:Math.min(...elec)*0.9,x1:50,y1:Math.max(...elec)*1.1,line:{color:'green',dash:'dash'}},
+{type:'line',x0:65,y0:Math.min(...elec)*0.9,x1:65,y1:Math.max(...elec)*1.1,line:{color:'orange',dash:'dash'}}],
+annotations:[{x:50,y:Math.max(...elec)*1.05,text:'Heating CP',showarrow:false,font:{color:'green'}},
+{x:65,y:Math.max(...elec)*1.05,text:'Cooling CP',showarrow:false,font:{color:'orange'}}]});
+Plotly.newPlot('p2',[{x:oat,y:gas,mode:'markers+text',text:mo,textposition:'top center',
+marker:{size:14,color:'red'},name:'Monthly therms'}],
+{title:'Baseline Gas vs OAT — Heating Change-Point Check',
+xaxis:{title:'Avg OAT (°F)'},yaxis:{title:'Monthly Gas (therms)'}});
+</script></body></html>

@@ -1,0 +1,2080 @@
+! Greenfield Municipal Center — Baseline Model
+! 62,000 sq ft (5,760 m2), 2-story mixed-use government building
+! Location: Mid-Atlantic US (Washington Dulles TMY3 — proxy for Baltimore)
+! Vintage: ~1995 construction, no prior retrofits
+! Purpose: Generate 5P change-point baseline data for CMVP Capstone Project
+!
+! Zones: WingA_Office, WingB_Library, WingC_DataCenter, CommonAreas
+! HVAC: Constant volume AHUs with gas boiler + air-cooled chiller
+!
+! Units: SI (EnergyPlus default)
+!   Areas in m2, temperatures in C, power in W
+
+  Version,25.1;
+
+!-   ===========  ALL OBJECTS IN CLASS: BUILDING ===========
+
+  Building,
+    Greenfield Municipal Center,  !- Name
+    0.,                      !- North Axis {deg} (long axis E-W)
+    Suburbs,                 !- Terrain
+    0.04,                    !- Loads Convergence Tolerance Value {W}
+    0.4,                     !- Temperature Convergence Tolerance Value {deltaC}
+    FullExterior,            !- Solar Distribution
+    25,                      !- Maximum Number of Warmup Days
+    6;                       !- Minimum Number of Warmup Days
+
+  Timestep,4;
+
+  SurfaceConvectionAlgorithm:Inside,TARP;
+  SurfaceConvectionAlgorithm:Outside,DOE-2;
+  HeatBalanceAlgorithm,ConductionTransferFunction;
+
+  GlobalGeometryRules,
+    UpperLeftCorner,         !- Starting Vertex Position
+    CounterClockWise,        !- Vertex Entry Direction
+    World;                   !- Coordinate System
+
+!-   ===========  SIMULATION CONTROL ===========
+
+  SimulationControl,
+    Yes,                     !- Do Zone Sizing Calculation
+    Yes,                     !- Do System Sizing Calculation
+    Yes,                     !- Do Plant Sizing Calculation
+    No,                      !- Run Simulation for Sizing Periods
+    Yes,                     !- Run Simulation for Weather File Run Periods
+    No,                      !- Do HVAC Sizing Simulation for Sizing Periods
+    1;                       !- Maximum Number of HVAC Sizing Simulation Passes
+
+!-   ===========  RUN PERIOD ===========
+
+  RunPeriod,
+    Annual Run,              !- Name
+    1,                       !- Begin Month
+    1,                       !- Begin Day of Month
+    ,                        !- Begin Year
+    12,                      !- End Month
+    31,                      !- End Day of Month
+    ,                        !- End Year
+    Tuesday,                 !- Day of Week for Start Day
+    Yes,                     !- Use Weather File Holidays and Special Days
+    Yes,                     !- Use Weather File Daylight Saving Period
+    No,                      !- Apply Weekend Holiday Rule
+    Yes,                     !- Use Weather File Rain Indicators
+    Yes;                     !- Use Weather File Snow Indicators
+
+!-   ===========  SITE LOCATION ===========
+
+  Site:Location,
+    Washington Dc Dulles IntL Ar_VA_USA,  !- Name
+    38.98,                   !- Latitude {deg}
+    -77.47,                  !- Longitude {deg}
+    -5.00,                   !- Time Zone {hr}
+    82.00;                   !- Elevation {m}
+
+!-   ===========  DESIGN DAYS ===========
+
+  SizingPeriod:DesignDay,
+    Washington Dulles Ann Htg 99% Condns DB,  !- Name
+    1,                       !- Month
+    21,                      !- Day of Month
+    WinterDesignDay,         !- Day Type
+    -9,                      !- Maximum Dry-Bulb Temperature {C}
+    0.0,                     !- Daily Dry-Bulb Temperature Range {C}
+    DefaultMultipliers,      !- Dry-Bulb Temperature Range Modifier Type
+    ,                        !- Dry-Bulb Temperature Range Modifier Schedule Name
+    Wetbulb,                 !- Humidity Condition Type
+    -9,                      !- Wetbulb at Maximum Dry-Bulb {C}
+    ,                        !- Humidity Indicating Day Schedule Name
+    ,                        !- Humidity Ratio at Maximum Dry-Bulb {kgWater/kgDryAir}
+    ,                        !- Enthalpy at Maximum Dry-Bulb {J/kg}
+    ,                        !- Daily Wet-Bulb Temperature Range {deltaC}
+    100344.,                 !- Barometric Pressure {Pa}
+    2.7,                     !- Wind Speed {m/s}
+    310,                     !- Wind Direction {Degrees; N=0, S=180}
+    No,                      !- Rain {Yes/No}
+    No,                      !- Snow on ground {Yes/No}
+    No,                      !- Daylight Savings Time Indicator
+    ASHRAEClearSky,          !- Solar Model Indicator
+    ,                        !- Beam Solar Day Schedule Name
+    ,                        !- Diffuse Solar Day Schedule Name
+    ,                        !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)
+    ,                        !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)
+    0.00;                    !- Clearness {0.0 to 1.1}
+
+  SizingPeriod:DesignDay,
+    Washington Dulles Ann Clg 1% Condns DB=>MWB,  !- Name
+    7,                       !- Month
+    21,                      !- Day of Month
+    SummerDesignDay,         !- Day Type
+    32.7,                    !- Maximum Dry-Bulb Temperature {C}
+    11.4,                    !- Daily Dry-Bulb Temperature Range {C}
+    DefaultMultipliers,      !- Dry-Bulb Temperature Range Modifier Type
+    ,                        !- Dry-Bulb Temperature Range Modifier Schedule Name
+    Wetbulb,                 !- Humidity Condition Type
+    23.5,                    !- Wetbulb at Maximum Dry-Bulb {C}
+    ,                        !- Humidity Indicating Day Schedule Name
+    ,                        !- Humidity Ratio at Maximum Dry-Bulb {kgWater/kgDryAir}
+    ,                        !- Enthalpy at Maximum Dry-Bulb {J/kg}
+    ,                        !- Daily Wet-Bulb Temperature Range {deltaC}
+    100344.,                 !- Barometric Pressure {Pa}
+    4,                       !- Wind Speed {m/s}
+    290,                     !- Wind Direction {Degrees; N=0, S=180}
+    No,                      !- Rain {Yes/No}
+    No,                      !- Snow on ground {Yes/No}
+    No,                      !- Daylight Savings Time Indicator
+    ASHRAETau,               !- Solar Model Indicator
+    ,                        !- Beam Solar Day Schedule Name
+    ,                        !- Diffuse Solar Day Schedule Name
+    0.544,                   !- ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)
+    1.787;                   !- ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)
+
+!-   ===========  SCHEDULE TYPE LIMITS ===========
+
+  ScheduleTypeLimits,
+    Any Number;              !- Name
+
+  ScheduleTypeLimits,
+    Fraction,                !- Name
+    0.0,                     !- Lower Limit Value
+    1.0,                     !- Upper Limit Value
+    CONTINUOUS;              !- Numeric Type
+
+  ScheduleTypeLimits,
+    Temperature,             !- Name
+    -60,                     !- Lower Limit Value
+    200,                     !- Upper Limit Value
+    CONTINUOUS,              !- Numeric Type
+    Temperature;             !- Unit Type
+
+  ScheduleTypeLimits,
+    On/Off,                  !- Name
+    0,                       !- Lower Limit Value
+    1,                       !- Upper Limit Value
+    DISCRETE;                !- Numeric Type
+
+  ScheduleTypeLimits,
+    Control Type,            !- Name
+    0,                       !- Lower Limit Value
+    4,                       !- Upper Limit Value
+    DISCRETE;                !- Numeric Type
+
+!-   ===========  SCHEDULES ===========
+! Office occupancy/operation: M-F 7am-6pm (occupied), some evening/weekend activity
+! Library: M-Sat 8am-9pm, Sun 12-5pm
+! Data center: 24/7
+! Common areas: M-F 6am-10pm, Sat 7am-10pm
+
+! --- OFFICE SCHEDULES (Wing A) ---
+
+  Schedule:Compact,
+    Office Occ Schedule,     !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 7:00, 0.0,        !- Field 3-4
+    Until: 8:00, 0.5,        !- ramp up
+    Until: 12:00, 1.0,       !- full occupancy
+    Until: 13:00, 0.8,       !- lunch
+    Until: 17:00, 1.0,       !- afternoon
+    Until: 18:00, 0.5,       !- wind down
+    Until: 20:00, 0.10,      !- evening stragglers
+    Until: 24:00, 0.0,       !- overnight
+    For: Saturday,           !- Field 14
+    Until: 8:00, 0.0,        !-
+    Until: 13:00, 0.15,      !- some weekend work
+    Until: 17:00, 0.10,      !-
+    Until: 24:00, 0.0,       !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 0.0;       !-
+
+  Schedule:Compact,
+    Office Light Schedule,   !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 7:00, 0.05,       !- night lights
+    Until: 8:00, 0.7,        !- ramp up
+    Until: 18:00, 1.0,       !- full on
+    Until: 20:00, 0.3,       !- cleaning crew
+    Until: 24:00, 0.05,      !- night lights
+    For: Saturday,           !-
+    Until: 8:00, 0.05,       !-
+    Until: 13:00, 0.3,       !-
+    Until: 17:00, 0.15,      !-
+    Until: 24:00, 0.05,      !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 0.05;      !-
+
+  Schedule:Compact,
+    Office Equip Schedule,   !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 7:00, 0.30,       !- standby
+    Until: 8:00, 0.7,        !- ramp up
+    Until: 17:00, 1.0,       !- full on
+    Until: 18:00, 0.7,       !-
+    Until: 24:00, 0.30,      !- standby overnight
+    For: Saturday,           !-
+    Until: 8:00, 0.30,       !-
+    Until: 13:00, 0.5,       !-
+    Until: 24:00, 0.30,      !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 0.30;      !-
+
+! --- LIBRARY SCHEDULES (Wing B) ---
+
+  Schedule:Compact,
+    Library Occ Schedule,    !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 8:00, 0.0,        !-
+    Until: 9:00, 0.3,        !- opening
+    Until: 12:00, 0.7,       !-
+    Until: 14:00, 1.0,       !- peak afternoon
+    Until: 17:00, 0.9,       !-
+    Until: 20:00, 0.6,       !- evening
+    Until: 21:00, 0.3,       !- winding down
+    Until: 24:00, 0.0,       !-
+    For: Saturday,           !-
+    Until: 8:00, 0.0,        !-
+    Until: 9:00, 0.2,        !-
+    Until: 12:00, 0.8,       !-
+    Until: 17:00, 1.0,       !- Saturday peak
+    Until: 20:00, 0.6,       !-
+    Until: 21:00, 0.2,       !-
+    Until: 24:00, 0.0,       !-
+    For: Sunday,             !-
+    Until: 12:00, 0.0,       !-
+    Until: 13:00, 0.3,       !-
+    Until: 16:00, 0.6,       !- Sunday afternoon
+    Until: 17:00, 0.3,       !-
+    Until: 24:00, 0.0,       !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 0.0;       !-
+
+  Schedule:Compact,
+    Library Light Schedule,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 8:00, 0.05,       !-
+    Until: 9:00, 0.7,        !-
+    Until: 21:00, 1.0,       !- on during library hours
+    Until: 22:00, 0.3,       !- cleaning
+    Until: 24:00, 0.05,      !-
+    For: Saturday,           !-
+    Until: 8:00, 0.05,       !-
+    Until: 9:00, 0.7,        !-
+    Until: 21:00, 1.0,       !-
+    Until: 22:00, 0.3,       !-
+    Until: 24:00, 0.05,      !-
+    For: Sunday,             !-
+    Until: 12:00, 0.05,      !-
+    Until: 13:00, 0.7,       !-
+    Until: 17:00, 1.0,       !-
+    Until: 18:00, 0.3,       !-
+    Until: 24:00, 0.05,      !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 0.05;      !-
+
+  Schedule:Compact,
+    Library Equip Schedule,  !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 8:00, 0.10,       !- standby
+    Until: 9:00, 0.5,        !-
+    Until: 21:00, 1.0,       !-
+    Until: 24:00, 0.10,      !-
+    For: Saturday,           !-
+    Until: 8:00, 0.10,       !-
+    Until: 9:00, 0.5,        !-
+    Until: 21:00, 1.0,       !-
+    Until: 24:00, 0.10,      !-
+    For: Sunday,             !-
+    Until: 12:00, 0.10,      !-
+    Until: 13:00, 0.5,       !-
+    Until: 17:00, 0.8,       !-
+    Until: 24:00, 0.10,      !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 0.10;      !-
+
+! --- DATA CENTER SCHEDULE (Wing C) --- 24/7 constant
+
+  Schedule:Compact,
+    DataCenter Always On,    !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: AllDays,            !- Field 2
+    Until: 24:00, 1.0;       !-
+
+! --- COMMON AREA SCHEDULES ---
+
+  Schedule:Compact,
+    Common Occ Schedule,     !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 6:00, 0.0,        !-
+    Until: 7:00, 0.2,        !-
+    Until: 8:00, 0.5,        !-
+    Until: 9:00, 0.3,        !- after arrival rush
+    Until: 12:00, 0.2,       !-
+    Until: 13:00, 0.4,       !- lunch traffic
+    Until: 17:00, 0.2,       !-
+    Until: 18:00, 0.5,       !- departure rush
+    Until: 22:00, 0.1,       !-
+    Until: 24:00, 0.0,       !-
+    For: Saturday,           !-
+    Until: 7:00, 0.0,        !-
+    Until: 10:00, 0.15,      !-
+    Until: 17:00, 0.1,       !-
+    Until: 22:00, 0.05,      !-
+    Until: 24:00, 0.0,       !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 0.0;       !-
+
+  Schedule:Compact,
+    Common Light Schedule,   !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 6:00, 0.10,       !- security lighting
+    Until: 7:00, 0.5,        !-
+    Until: 22:00, 1.0,       !-
+    Until: 24:00, 0.10,      !-
+    For: Saturday,           !-
+    Until: 7:00, 0.10,       !-
+    Until: 22:00, 0.8,       !-
+    Until: 24:00, 0.10,      !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 0.10;      !-
+
+  Schedule:Compact,
+    Common Equip Schedule,   !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 6:00, 0.20,       !-
+    Until: 22:00, 1.0,       !-
+    Until: 24:00, 0.20,      !-
+    For: Saturday,           !-
+    Until: 7:00, 0.20,       !-
+    Until: 22:00, 0.8,       !-
+    Until: 24:00, 0.20,      !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 0.20;      !-
+
+! --- HVAC OPERATION SCHEDULES ---
+
+  Schedule:Compact,
+    Office HVAC Avail,       !- Name
+    On/Off,                  !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 6:00, 0,          !- off
+    Until: 20:00, 1,         !- on (1hr early start, 2hr late stop)
+    Until: 24:00, 0,         !-
+    For: Saturday,           !-
+    Until: 7:00, 0,          !-
+    Until: 18:00, 1,         !-
+    Until: 24:00, 0,         !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 1,         !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 1,         !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 0;         !-
+
+  Schedule:Compact,
+    Library HVAC Avail,      !- Name
+    On/Off,                  !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 7:00, 0,          !-
+    Until: 22:00, 1,         !- 1hr early, 1hr late
+    Until: 24:00, 0,         !-
+    For: Saturday,           !-
+    Until: 7:00, 0,          !-
+    Until: 22:00, 1,         !-
+    Until: 24:00, 0,         !-
+    For: Sunday,             !-
+    Until: 11:00, 0,         !-
+    Until: 18:00, 1,         !-
+    Until: 24:00, 0,         !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 1,         !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 1,         !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 0;         !-
+
+  Schedule:Compact,
+    Always On,               !- Name
+    On/Off,                  !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: AllDays,            !- Field 2
+    Until: 24:00, 1;         !-
+
+  Schedule:Compact,
+    Always Off,              !- Name
+    On/Off,                  !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: AllDays,            !- Field 2
+    Until: 24:00, 0;         !-
+
+! --- THERMOSTAT SCHEDULES ---
+
+  Schedule:Compact,
+    Office Heating Setpoint, !- Name
+    Temperature,             !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 6:00, 15.6,       !- 60F unoccupied
+    Until: 20:00, 21.1,      !- 70F occupied
+    Until: 24:00, 15.6,      !-
+    For: Saturday,           !-
+    Until: 7:00, 15.6,       !-
+    Until: 18:00, 21.1,      !-
+    Until: 24:00, 15.6,      !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 21.1,      !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 21.1,      !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 15.6;      !-
+
+  Schedule:Compact,
+    Office Cooling Setpoint, !- Name
+    Temperature,             !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 6:00, 29.4,       !- 85F unoccupied
+    Until: 20:00, 23.3,      !- 74F occupied
+    Until: 24:00, 29.4,      !-
+    For: Saturday,           !-
+    Until: 7:00, 29.4,       !-
+    Until: 18:00, 23.3,      !-
+    Until: 24:00, 29.4,      !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 23.3,      !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 23.3,      !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 29.4;      !-
+
+  Schedule:Compact,
+    Library Heating Setpoint,!- Name
+    Temperature,             !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 7:00, 15.6,       !-
+    Until: 22:00, 21.1,      !-
+    Until: 24:00, 15.6,      !-
+    For: Saturday,           !-
+    Until: 7:00, 15.6,       !-
+    Until: 22:00, 21.1,      !-
+    Until: 24:00, 15.6,      !-
+    For: Sunday,             !-
+    Until: 11:00, 15.6,      !-
+    Until: 18:00, 21.1,      !-
+    Until: 24:00, 15.6,      !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 21.1,      !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 21.1,      !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 15.6;      !-
+
+  Schedule:Compact,
+    Library Cooling Setpoint,!- Name
+    Temperature,             !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 7:00, 29.4,       !-
+    Until: 22:00, 23.3,      !-
+    Until: 24:00, 29.4,      !-
+    For: Saturday,           !-
+    Until: 7:00, 29.4,       !-
+    Until: 22:00, 23.3,      !-
+    Until: 24:00, 29.4,      !-
+    For: Sunday,             !-
+    Until: 11:00, 29.4,      !-
+    Until: 18:00, 23.3,      !-
+    Until: 24:00, 29.4,      !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 23.3,      !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 23.3,      !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 29.4;      !-
+
+  Schedule:Compact,
+    DataCenter Heating Setpoint,  !- Name
+    Temperature,             !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: AllDays,            !- Field 2
+    Until: 24:00, 20.0;      !- 68F year-round
+
+  Schedule:Compact,
+    DataCenter Cooling Setpoint,  !- Name
+    Temperature,             !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: AllDays,            !- Field 2
+    Until: 24:00, 20.0;      !- 68F year-round
+
+  Schedule:Compact,
+    Common Heating Setpoint, !- Name
+    Temperature,             !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 6:00, 15.6,       !-
+    Until: 22:00, 21.1,      !-
+    Until: 24:00, 15.6,      !-
+    For: Saturday,           !-
+    Until: 7:00, 15.6,       !-
+    Until: 22:00, 21.1,      !-
+    Until: 24:00, 15.6,      !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 21.1,      !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 21.1,      !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 15.6;      !-
+
+  Schedule:Compact,
+    Common Cooling Setpoint, !- Name
+    Temperature,             !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 6:00, 29.4,       !-
+    Until: 22:00, 23.3,      !-
+    Until: 24:00, 29.4,      !-
+    For: Saturday,           !-
+    Until: 7:00, 29.4,       !-
+    Until: 22:00, 23.3,      !-
+    Until: 24:00, 29.4,      !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 23.3,      !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 23.3,      !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 29.4;      !-
+
+! --- THERMOSTAT SETPOINT DUAL SETPOINT OBJECTS ---
+
+  Schedule:Compact,
+    Dual Setpoint Control Type Sched,  !- Name
+    Control Type,            !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: AllDays,            !- Field 2
+    Until: 24:00, 4;         !- 4 = Dual Setpoint with Deadband
+
+! --- ACTIVITY LEVEL SCHEDULE (131W/person = typical office) ---
+
+  Schedule:Compact,
+    Activity Schedule,       !- Name
+    Any Number,              !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: AllDays,            !- Field 2
+    Until: 24:00, 120;       !- W/person (office activity)
+
+! --- DHW GAS SCHEDULE (constant draw) ---
+
+  Schedule:Compact,
+    DHW Schedule,            !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 6:00, 0.1,        !-
+    Until: 9:00, 0.8,        !-
+    Until: 12:00, 0.5,       !-
+    Until: 13:00, 0.9,       !- lunch
+    Until: 17:00, 0.5,       !-
+    Until: 20:00, 0.3,       !-
+    Until: 24:00, 0.1,       !-
+    For: Saturday,           !-
+    Until: 8:00, 0.1,        !-
+    Until: 18:00, 0.4,       !-
+    Until: 24:00, 0.1,       !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 0.1;       !-
+
+! --- INFILTRATION SCHEDULE ---
+
+  Schedule:Compact,
+    Infiltration Schedule,   !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,           !- Field 2
+    Until: 6:00, 1.0,        !- full infiltration when HVAC off (no pressurization)
+    Until: 20:00, 0.5,       !- reduced when HVAC on (building pressurized)
+    Until: 24:00, 1.0,       !-
+    For: Saturday,           !-
+    Until: 7:00, 1.0,        !-
+    Until: 18:00, 0.5,       !-
+    Until: 24:00, 1.0,       !-
+    For: SummerDesignDay,    !-
+    Until: 24:00, 0.5,       !-
+    For: WinterDesignDay,    !-
+    Until: 24:00, 1.0,       !-
+    For: AllOtherDays,       !-
+    Until: 24:00, 1.0;       !-
+
+!-   ===========  MATERIALS ===========
+
+! --- EXTERIOR WALL: Brick veneer + steel stud + R-11 batt + gypboard ---
+! Target assembly U ~ 0.37 W/m2-K (R-11 with steel stud thermal bridging)
+
+  Material,
+    Brick Veneer,            !- Name
+    MediumRough,             !- Roughness
+    0.1016,                  !- Thickness {m} (4 inches)
+    0.89,                    !- Conductivity {W/m-K}
+    1920,                    !- Density {kg/m3}
+    790,                     !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.7,                     !- Solar Absorptance
+    0.7;                     !- Visible Absorptance
+
+  Material,
+    R-11 Batt Insulation,   !- Name
+    MediumSmooth,            !- Roughness
+    0.09,                    !- Thickness {m} (3.5 inches)
+    0.049,                   !- Conductivity {W/m-K} (accounts for steel stud bridging)
+    12,                      !- Density {kg/m3}
+    840,                     !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.5,                     !- Solar Absorptance
+    0.5;                     !- Visible Absorptance
+
+  Material,
+    Gypsum Board,            !- Name
+    MediumSmooth,            !- Roughness
+    0.0159,                  !- Thickness {m} (5/8 inch)
+    0.16,                    !- Conductivity {W/m-K}
+    800,                     !- Density {kg/m3}
+    1090,                    !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.5,                     !- Solar Absorptance
+    0.5;                     !- Visible Absorptance
+
+! --- ROOF: Built-up roof + R-15 insulation + concrete deck ---
+! Target assembly R ~ 15 ft2-F-hr/Btu = R-2.64 m2-K/W
+
+  Material,
+    Roof Membrane,           !- Name
+    VeryRough,               !- Roughness
+    0.0095,                  !- Thickness {m}
+    0.16,                    !- Conductivity {W/m-K}
+    1120,                    !- Density {kg/m3}
+    1460,                    !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.7,                     !- Solar Absorptance
+    0.7;                     !- Visible Absorptance
+
+  Material,
+    Roof Insulation R15,     !- Name
+    MediumRough,             !- Roughness
+    0.110,                   !- Thickness {m} (~4.3 inches)
+    0.042,                   !- Conductivity {W/m-K}
+    32,                      !- Density {kg/m3}
+    830,                     !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.5,                     !- Solar Absorptance
+    0.5;                     !- Visible Absorptance
+
+  Material,
+    Concrete Deck,           !- Name
+    MediumRough,             !- Roughness
+    0.1016,                  !- Thickness {m} (4 inches)
+    1.31,                    !- Conductivity {W/m-K}
+    2240,                    !- Density {kg/m3}
+    836,                     !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.6,                     !- Solar Absorptance
+    0.6;                     !- Visible Absorptance
+
+! --- FLOOR: Slab on grade (simplified) ---
+
+  Material,
+    Concrete Slab,           !- Name
+    MediumRough,             !- Roughness
+    0.2032,                  !- Thickness {m} (8 inches)
+    1.31,                    !- Conductivity {W/m-K}
+    2240,                    !- Density {kg/m3}
+    836,                     !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.6,                     !- Solar Absorptance
+    0.6;                     !- Visible Absorptance
+
+! --- CEILING TILE ---
+
+  Material,
+    Ceiling Tile,            !- Name
+    MediumSmooth,            !- Roughness
+    0.019,                   !- Thickness {m}
+    0.06,                    !- Conductivity {W/m-K}
+    368,                     !- Density {kg/m3}
+    590,                     !- Specific Heat {J/kg-K}
+    0.9,                     !- Thermal Absorptance
+    0.5,                     !- Solar Absorptance
+    0.5;                     !- Visible Absorptance
+
+  Material:AirGap,
+    Wall Air Gap,            !- Name
+    0.15;                    !- Thermal Resistance {m2-K/W}
+
+  Material:AirGap,
+    Ceiling Air Gap,         !- Name
+    0.18;                    !- Thermal Resistance {m2-K/W}
+
+!-   ===========  CONSTRUCTIONS ===========
+
+  Construction,
+    Exterior Wall,           !- Name
+    Brick Veneer,            !- Outside Layer
+    Wall Air Gap,            !- Layer 2
+    R-11 Batt Insulation,   !- Layer 3
+    Gypsum Board;            !- Layer 4
+
+  Construction,
+    Baseline Roof,           !- Name
+    Roof Membrane,           !- Outside Layer
+    Roof Insulation R15,     !- Layer 2
+    Concrete Deck,           !- Layer 3
+    Ceiling Air Gap,         !- Layer 4
+    Ceiling Tile;            !- Layer 5
+
+  Construction,
+    Ground Floor,            !- Name
+    Concrete Slab;           !- Outside Layer
+
+  Construction,
+    Interior Wall,           !- Name
+    Gypsum Board,            !- Outside Layer
+    Gypsum Board;            !- Inside Layer
+
+  Construction,
+    Interior Floor Ceiling,  !- Name
+    Concrete Deck,           !- Outside Layer
+    Ceiling Tile;            !- Inside Layer
+
+! --- WINDOW: Double-pane clear, aluminum frame ---
+! U-0.55 Btu/hr-ft2-F = 3.12 W/m2-K, SHGC 0.60
+
+  WindowMaterial:SimpleGlazingSystem,
+    Baseline Window Glazing, !- Name
+    3.12,                    !- U-Factor {W/m2-K}
+    0.60,                    !- Solar Heat Gain Coefficient
+    0.70;                    !- Visible Transmittance
+
+  Construction,
+    Baseline Window,         !- Name
+    Baseline Window Glazing; !- Outside Layer
+
+!-   ===========  ZONE DEFINITIONS ===========
+! Wing A Office: 35,000 ft2 = 3,252 m2 (2 floors)
+!   Per floor: 1,626 m2 = ~40.3m x 40.3m (simplified as rectangle)
+!   Actual: Long axis E-W, so use 50.4m x 32.3m per floor, 2.74m height (9ft)
+!   Combined as single zone with double floor area and averaged height
+!
+! Wing B Library: 15,000 ft2 = 1,394 m2 (2 floors)
+!   Mixed heights: 12ft reading, 9ft meeting. Use avg ~3.2m
+!   ~26.4m x 26.4m per floor, combined
+!
+! Wing C Data Center: 2,000 ft2 = 186 m2 (single floor, interior)
+!   ~13.6m x 13.6m, 2.74m height
+!
+! Common Areas: 10,000 ft2 = 929 m2
+!   Lobby + corridors, ~30.5m x 15.2m avg, 3.5m (accounts for double-height lobby)
+
+  Zone,
+    WingA_Office,            !- Name
+    0,                       !- Direction of Relative North {deg}
+    0,                       !- X Origin {m}
+    0,                       !- Y Origin {m}
+    0,                       !- Z Origin {m}
+    1,                       !- Type
+    1,                       !- Multiplier
+    ,                        !- Ceiling Height {m} (autocalculate)
+    ,                        !- Volume {m3} (autocalculate)
+    autocalculate,           !- Floor Area {m2}
+    ,                        !- Zone Inside Convection Algorithm
+    ,                        !- Zone Outside Convection Algorithm
+    Yes;                     !- Part of Total Floor Area
+
+  Zone,
+    WingB_Library,           !- Name
+    0,                       !- Direction of Relative North {deg}
+    55,                      !- X Origin {m}
+    0,                       !- Y Origin {m}
+    0,                       !- Z Origin {m}
+    1,                       !- Type
+    1,                       !- Multiplier
+    ,                        !- Ceiling Height {m}
+    ,                        !- Volume {m3}
+    autocalculate,           !- Floor Area {m2}
+    ,                        !- Zone Inside Convection Algorithm
+    ,                        !- Zone Outside Convection Algorithm
+    Yes;                     !- Part of Total Floor Area
+
+  Zone,
+    WingC_DataCenter,        !- Name
+    0,                       !- Direction of Relative North {deg}
+    55,                      !- X Origin {m}
+    30,                      !- Y Origin {m}
+    0,                       !- Z Origin {m}
+    1,                       !- Type
+    1,                       !- Multiplier
+    ,                        !- Ceiling Height {m}
+    ,                        !- Volume {m3}
+    autocalculate,           !- Floor Area {m2}
+    ,                        !- Zone Inside Convection Algorithm
+    ,                        !- Zone Outside Convection Algorithm
+    Yes;                     !- Part of Total Floor Area
+
+  Zone,
+    CommonAreas,             !- Name
+    0,                       !- Direction of Relative North {deg}
+    0,                       !- X Origin {m}
+    35,                      !- Y Origin {m}
+    0,                       !- Z Origin {m}
+    1,                       !- Type
+    1,                       !- Multiplier
+    ,                        !- Ceiling Height {m}
+    ,                        !- Volume {m3}
+    autocalculate,           !- Floor Area {m2}
+    ,                        !- Zone Inside Convection Algorithm
+    ,                        !- Zone Outside Convection Algorithm
+    Yes;                     !- Part of Total Floor Area
+
+!-   ===========  ZONE SURFACES ===========
+
+! =============================================
+! WING A OFFICE SURFACES
+! Footprint per floor: 50.4m x 32.3m = 1,626 m2
+! 2 floors modeled as a single tall zone: height = 5.49m (2 x 2.74m)
+! Total floor area: 3,252 m2
+! =============================================
+
+! Floor 1 - Ground floor
+  BuildingSurface:Detailed,
+    WingA_Floor,             !- Name
+    Floor,                   !- Surface Type
+    Ground Floor,            !- Construction Name
+    WingA_Office,            !- Zone Name
+    ,                        !- Space Name
+    Ground,                  !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
+    0.0,                     !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 0, 0,                 !- Vertex 1 X,Y,Z {m}
+    0, 32.3, 0,              !- Vertex 2
+    50.4, 32.3, 0,           !- Vertex 3
+    50.4, 0, 0;              !- Vertex 4
+
+! Roof
+  BuildingSurface:Detailed,
+    WingA_Roof,              !- Name
+    Roof,                    !- Surface Type
+    Baseline Roof,           !- Construction Name
+    WingA_Office,            !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    0,                       !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 32.3, 5.49,           !- Vertex 1
+    0, 0, 5.49,              !- Vertex 2
+    50.4, 0, 5.49,           !- Vertex 3
+    50.4, 32.3, 5.49;        !- Vertex 4
+
+! South Wall (long axis E-W, so south wall is the long wall)
+  BuildingSurface:Detailed,
+    WingA_SouthWall,         !- Name
+    Wall,                    !- Surface Type
+    Exterior Wall,           !- Construction Name
+    WingA_Office,            !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 0, 5.49,              !- Vertex 1
+    0, 0, 0,                 !- Vertex 2
+    50.4, 0, 0,              !- Vertex 3
+    50.4, 0, 5.49;           !- Vertex 4
+
+  FenestrationSurface:Detailed,
+    WingA_SouthWindow,       !- Name
+    Window,                  !- Surface Type
+    Baseline Window,         !- Construction Name
+    WingA_SouthWall,         !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    ,                        !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1,                       !- Multiplier
+    4,                       !- Number of Vertices
+    2.0, 0, 4.0,             !- Vertex 1
+    2.0, 0, 0.9,             !- Vertex 2
+    48.4, 0, 0.9,            !- Vertex 3
+    48.4, 0, 4.0;            !- Vertex 4
+
+! North Wall
+  BuildingSurface:Detailed,
+    WingA_NorthWall,         !- Name
+    Wall,                    !- Surface Type
+    Exterior Wall,           !- Construction Name
+    WingA_Office,            !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    50.4, 32.3, 5.49,        !- Vertex 1
+    50.4, 32.3, 0,           !- Vertex 2
+    0, 32.3, 0,              !- Vertex 3
+    0, 32.3, 5.49;           !- Vertex 4
+
+  FenestrationSurface:Detailed,
+    WingA_NorthWindow,       !- Name
+    Window,                  !- Surface Type
+    Baseline Window,         !- Construction Name
+    WingA_NorthWall,         !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    ,                        !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1,                       !- Multiplier
+    4,                       !- Number of Vertices
+    48.4, 32.3, 4.0,         !- Vertex 1
+    48.4, 32.3, 0.9,         !- Vertex 2
+    2.0, 32.3, 0.9,          !- Vertex 3
+    2.0, 32.3, 4.0;          !- Vertex 4
+
+! East Wall
+  BuildingSurface:Detailed,
+    WingA_EastWall,          !- Name
+    Wall,                    !- Surface Type
+    Exterior Wall,           !- Construction Name
+    WingA_Office,            !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    50.4, 0, 5.49,           !- Vertex 1
+    50.4, 0, 0,              !- Vertex 2
+    50.4, 32.3, 0,           !- Vertex 3
+    50.4, 32.3, 5.49;        !- Vertex 4
+
+  FenestrationSurface:Detailed,
+    WingA_EastWindow,        !- Name
+    Window,                  !- Surface Type
+    Baseline Window,         !- Construction Name
+    WingA_EastWall,          !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    ,                        !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1,                       !- Multiplier
+    4,                       !- Number of Vertices
+    50.4, 2.0, 4.0,          !- Vertex 1
+    50.4, 2.0, 0.9,          !- Vertex 2
+    50.4, 30.3, 0.9,         !- Vertex 3
+    50.4, 30.3, 4.0;         !- Vertex 4
+
+! West Wall
+  BuildingSurface:Detailed,
+    WingA_WestWall,          !- Name
+    Wall,                    !- Surface Type
+    Exterior Wall,           !- Construction Name
+    WingA_Office,            !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 32.3, 5.49,           !- Vertex 1
+    0, 32.3, 0,              !- Vertex 2
+    0, 0, 0,                 !- Vertex 3
+    0, 0, 5.49;              !- Vertex 4
+
+  FenestrationSurface:Detailed,
+    WingA_WestWindow,        !- Name
+    Window,                  !- Surface Type
+    Baseline Window,         !- Construction Name
+    WingA_WestWall,          !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    ,                        !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1,                       !- Multiplier
+    4,                       !- Number of Vertices
+    0, 30.3, 4.0,            !- Vertex 1
+    0, 30.3, 0.9,            !- Vertex 2
+    0, 2.0, 0.9,             !- Vertex 3
+    0, 2.0, 4.0;             !- Vertex 4
+
+! =============================================
+! WING B LIBRARY SURFACES
+! Footprint: 26.4m x 26.4m per floor, 2 floors
+! Combined zone height: 6.4m (avg of 3.66m reading + 2.74m meeting × 2 floors)
+! Total floor area: 1,394 m2
+! More glazing on south (reading rooms)
+! =============================================
+
+  BuildingSurface:Detailed,
+    WingB_Floor,             !- Name
+    Floor,                   !- Surface Type
+    Ground Floor,            !- Construction Name
+    WingB_Library,           !- Zone Name
+    ,                        !- Space Name
+    Ground,                  !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
+    0.0,                     !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 0, 0,                 !- Vertex 1
+    0, 26.4, 0,              !- Vertex 2
+    26.4, 26.4, 0,           !- Vertex 3
+    26.4, 0, 0;              !- Vertex 4
+
+  BuildingSurface:Detailed,
+    WingB_Roof,              !- Name
+    Roof,                    !- Surface Type
+    Baseline Roof,           !- Construction Name
+    WingB_Library,           !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    0,                       !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 26.4, 6.4,            !- Vertex 1
+    0, 0, 6.4,               !- Vertex 2
+    26.4, 0, 6.4,            !- Vertex 3
+    26.4, 26.4, 6.4;         !- Vertex 4
+
+  BuildingSurface:Detailed,
+    WingB_SouthWall,         !- Name
+    Wall,                    !- Surface Type
+    Exterior Wall,           !- Construction Name
+    WingB_Library,           !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 0, 6.4,               !- Vertex 1
+    0, 0, 0,                 !- Vertex 2
+    26.4, 0, 0,              !- Vertex 3
+    26.4, 0, 6.4;            !- Vertex 4
+
+! South wall — more glazing (reading rooms face south)
+  FenestrationSurface:Detailed,
+    WingB_SouthWindow,       !- Name
+    Window,                  !- Surface Type
+    Baseline Window,         !- Construction Name
+    WingB_SouthWall,         !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    ,                        !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1,                       !- Multiplier
+    4,                       !- Number of Vertices
+    1.5, 0, 5.0,             !- Vertex 1
+    1.5, 0, 0.9,             !- Vertex 2
+    24.9, 0, 0.9,            !- Vertex 3
+    24.9, 0, 5.0;            !- Vertex 4
+
+  BuildingSurface:Detailed,
+    WingB_NorthWall,         !- Name
+    Wall,                    !- Surface Type
+    Exterior Wall,           !- Construction Name
+    WingB_Library,           !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    26.4, 26.4, 6.4,         !- Vertex 1
+    26.4, 26.4, 0,           !- Vertex 2
+    0, 26.4, 0,              !- Vertex 3
+    0, 26.4, 6.4;            !- Vertex 4
+
+  FenestrationSurface:Detailed,
+    WingB_NorthWindow,       !- Name
+    Window,                  !- Surface Type
+    Baseline Window,         !- Construction Name
+    WingB_NorthWall,         !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    ,                        !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1,                       !- Multiplier
+    4,                       !- Number of Vertices
+    24.9, 26.4, 4.0,         !- Vertex 1
+    24.9, 26.4, 0.9,         !- Vertex 2
+    1.5, 26.4, 0.9,          !- Vertex 3
+    1.5, 26.4, 4.0;          !- Vertex 4
+
+  BuildingSurface:Detailed,
+    WingB_EastWall,          !- Name
+    Wall,                    !- Surface Type
+    Exterior Wall,           !- Construction Name
+    WingB_Library,           !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    26.4, 0, 6.4,            !- Vertex 1
+    26.4, 0, 0,              !- Vertex 2
+    26.4, 26.4, 0,           !- Vertex 3
+    26.4, 26.4, 6.4;         !- Vertex 4
+
+  FenestrationSurface:Detailed,
+    WingB_EastWindow,        !- Name
+    Window,                  !- Surface Type
+    Baseline Window,         !- Construction Name
+    WingB_EastWall,          !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    ,                        !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1,                       !- Multiplier
+    4,                       !- Number of Vertices
+    26.4, 1.5, 4.0,          !- Vertex 1
+    26.4, 1.5, 0.9,          !- Vertex 2
+    26.4, 24.9, 0.9,         !- Vertex 3
+    26.4, 24.9, 4.0;         !- Vertex 4
+
+  BuildingSurface:Detailed,
+    WingB_WestWall,          !- Name
+    Wall,                    !- Surface Type
+    Exterior Wall,           !- Construction Name
+    WingB_Library,           !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 26.4, 6.4,            !- Vertex 1
+    0, 26.4, 0,              !- Vertex 2
+    0, 0, 0,                 !- Vertex 3
+    0, 0, 6.4;               !- Vertex 4
+
+  FenestrationSurface:Detailed,
+    WingB_WestWindow,        !- Name
+    Window,                  !- Surface Type
+    Baseline Window,         !- Construction Name
+    WingB_WestWall,          !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    ,                        !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1,                       !- Multiplier
+    4,                       !- Number of Vertices
+    0, 24.9, 4.0,            !- Vertex 1
+    0, 24.9, 0.9,            !- Vertex 2
+    0, 1.5, 0.9,             !- Vertex 3
+    0, 1.5, 4.0;             !- Vertex 4
+
+! =============================================
+! WING C DATA CENTER SURFACES
+! 186 m2, interior zone, minimal envelope
+! Single floor, 2.74m height
+! Modeled with adiabatic walls (interior) except roof
+! =============================================
+
+  BuildingSurface:Detailed,
+    WingC_Floor,             !- Name
+    Floor,                   !- Surface Type
+    Ground Floor,            !- Construction Name
+    WingC_DataCenter,        !- Zone Name
+    ,                        !- Space Name
+    Ground,                  !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
+    0.0,                     !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 0, 0,                 !- Vertex 1
+    0, 13.6, 0,              !- Vertex 2
+    13.6, 13.6, 0,           !- Vertex 3
+    13.6, 0, 0;              !- Vertex 4
+
+  BuildingSurface:Detailed,
+    WingC_Roof,              !- Name
+    Roof,                    !- Surface Type
+    Baseline Roof,           !- Construction Name
+    WingC_DataCenter,        !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    0,                       !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 13.6, 2.74,           !- Vertex 1
+    0, 0, 2.74,              !- Vertex 2
+    13.6, 0, 2.74,           !- Vertex 3
+    13.6, 13.6, 2.74;        !- Vertex 4
+
+! Adiabatic walls (interior zone surrounded by other conditioned spaces)
+  BuildingSurface:Detailed,
+    WingC_SouthWall,         !- Name
+    Wall,                    !- Surface Type
+    Interior Wall,           !- Construction Name
+    WingC_DataCenter,        !- Zone Name
+    ,                        !- Space Name
+    Adiabatic,               !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 0, 2.74,              !- Vertex 1
+    0, 0, 0,                 !- Vertex 2
+    13.6, 0, 0,              !- Vertex 3
+    13.6, 0, 2.74;           !- Vertex 4
+
+  BuildingSurface:Detailed,
+    WingC_NorthWall,         !- Name
+    Wall,                    !- Surface Type
+    Interior Wall,           !- Construction Name
+    WingC_DataCenter,        !- Zone Name
+    ,                        !- Space Name
+    Adiabatic,               !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    13.6, 13.6, 2.74,        !- Vertex 1
+    13.6, 13.6, 0,           !- Vertex 2
+    0, 13.6, 0,              !- Vertex 3
+    0, 13.6, 2.74;           !- Vertex 4
+
+  BuildingSurface:Detailed,
+    WingC_EastWall,          !- Name
+    Wall,                    !- Surface Type
+    Interior Wall,           !- Construction Name
+    WingC_DataCenter,        !- Zone Name
+    ,                        !- Space Name
+    Adiabatic,               !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    13.6, 0, 2.74,           !- Vertex 1
+    13.6, 0, 0,              !- Vertex 2
+    13.6, 13.6, 0,           !- Vertex 3
+    13.6, 13.6, 2.74;        !- Vertex 4
+
+  BuildingSurface:Detailed,
+    WingC_WestWall,          !- Name
+    Wall,                    !- Surface Type
+    Interior Wall,           !- Construction Name
+    WingC_DataCenter,        !- Zone Name
+    ,                        !- Space Name
+    Adiabatic,               !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 13.6, 2.74,           !- Vertex 1
+    0, 13.6, 0,              !- Vertex 2
+    0, 0, 0,                 !- Vertex 3
+    0, 0, 2.74;              !- Vertex 4
+
+! =============================================
+! COMMON AREAS SURFACES
+! 929 m2, lobby + corridors
+! 30.5m x 15.2m, 3.5m height (double-height lobby averaged)
+! Curtain wall on south (lobby)
+! =============================================
+
+  BuildingSurface:Detailed,
+    Common_Floor,            !- Name
+    Floor,                   !- Surface Type
+    Ground Floor,            !- Construction Name
+    CommonAreas,             !- Zone Name
+    ,                        !- Space Name
+    Ground,                  !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
+    0.0,                     !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 0, 0,                 !- Vertex 1
+    0, 15.2, 0,              !- Vertex 2
+    30.5, 15.2, 0,           !- Vertex 3
+    30.5, 0, 0;              !- Vertex 4
+
+  BuildingSurface:Detailed,
+    Common_Roof,             !- Name
+    Roof,                    !- Surface Type
+    Baseline Roof,           !- Construction Name
+    CommonAreas,             !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    0,                       !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 15.2, 3.5,            !- Vertex 1
+    0, 0, 3.5,               !- Vertex 2
+    30.5, 0, 3.5,            !- Vertex 3
+    30.5, 15.2, 3.5;         !- Vertex 4
+
+  BuildingSurface:Detailed,
+    Common_SouthWall,        !- Name
+    Wall,                    !- Surface Type
+    Exterior Wall,           !- Construction Name
+    CommonAreas,             !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 0, 3.5,               !- Vertex 1
+    0, 0, 0,                 !- Vertex 2
+    30.5, 0, 0,              !- Vertex 3
+    30.5, 0, 3.5;            !- Vertex 4
+
+! Lobby curtain wall — large south-facing glazing
+  FenestrationSurface:Detailed,
+    Common_SouthWindow,      !- Name
+    Window,                  !- Surface Type
+    Baseline Window,         !- Construction Name
+    Common_SouthWall,        !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    ,                        !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1,                       !- Multiplier
+    4,                       !- Number of Vertices
+    2.0, 0, 3.2,             !- Vertex 1
+    2.0, 0, 0.3,             !- Vertex 2
+    28.5, 0, 0.3,            !- Vertex 3
+    28.5, 0, 3.2;            !- Vertex 4
+
+  BuildingSurface:Detailed,
+    Common_NorthWall,        !- Name
+    Wall,                    !- Surface Type
+    Exterior Wall,           !- Construction Name
+    CommonAreas,             !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    30.5, 15.2, 3.5,         !- Vertex 1
+    30.5, 15.2, 0,           !- Vertex 2
+    0, 15.2, 0,              !- Vertex 3
+    0, 15.2, 3.5;            !- Vertex 4
+
+  BuildingSurface:Detailed,
+    Common_EastWall,         !- Name
+    Wall,                    !- Surface Type
+    Exterior Wall,           !- Construction Name
+    CommonAreas,             !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    30.5, 0, 3.5,            !- Vertex 1
+    30.5, 0, 0,              !- Vertex 2
+    30.5, 15.2, 0,           !- Vertex 3
+    30.5, 15.2, 3.5;         !- Vertex 4
+
+  BuildingSurface:Detailed,
+    Common_WestWall,         !- Name
+    Wall,                    !- Surface Type
+    Exterior Wall,           !- Construction Name
+    CommonAreas,             !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0, 15.2, 3.5,            !- Vertex 1
+    0, 15.2, 0,              !- Vertex 2
+    0, 0, 0,                 !- Vertex 3
+    0, 0, 3.5;               !- Vertex 4
+
+!-   ===========  INTERNAL LOADS ===========
+
+! =============================================
+! PEOPLE
+! =============================================
+
+! Wing A: 175 people peak
+  People,
+    WingA People,            !- Name
+    WingA_Office,            !- Zone or ZoneList or Space or SpaceList Name
+    Office Occ Schedule,     !- Number of People Schedule Name
+    People,                  !- Number of People Calculation Method
+    175,                     !- Number of People
+    ,                        !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
+    0.3,                     !- Fraction Radiant
+    autocalculate,           !- Sensible Heat Fraction
+    Activity Schedule,       !- Activity Level Schedule Name
+    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    ,                        !- Enable ASHRAE 55 Comfort Warnings
+    EnclosureAveraged;       !- Mean Radiant Temperature Calculation Type
+
+! Wing B: 140 people peak (80 library + 60 meeting when occupied)
+  People,
+    WingB People,            !- Name
+    WingB_Library,           !- Zone or ZoneList or Space or SpaceList Name
+    Library Occ Schedule,    !- Number of People Schedule Name
+    People,                  !- Number of People Calculation Method
+    140,                     !- Number of People
+    ,                        !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
+    0.3,                     !- Fraction Radiant
+    autocalculate,           !- Sensible Heat Fraction
+    Activity Schedule,       !- Activity Level Schedule Name
+    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    ,                        !- Enable ASHRAE 55 Comfort Warnings
+    EnclosureAveraged;       !- Mean Radiant Temperature Calculation Type
+
+! Wing C: 5 people 24/7
+  People,
+    WingC People,            !- Name
+    WingC_DataCenter,        !- Zone or ZoneList or Space or SpaceList Name
+    DataCenter Always On,    !- Number of People Schedule Name
+    People,                  !- Number of People Calculation Method
+    5,                       !- Number of People
+    ,                        !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
+    0.3,                     !- Fraction Radiant
+    autocalculate,           !- Sensible Heat Fraction
+    Activity Schedule,       !- Activity Level Schedule Name
+    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    ,                        !- Enable ASHRAE 55 Comfort Warnings
+    EnclosureAveraged;       !- Mean Radiant Temperature Calculation Type
+
+! Common Areas: 50 transient peak
+  People,
+    Common People,           !- Name
+    CommonAreas,             !- Zone or ZoneList or Space or SpaceList Name
+    Common Occ Schedule,     !- Number of People Schedule Name
+    People,                  !- Number of People Calculation Method
+    50,                      !- Number of People
+    ,                        !- People per Floor Area {person/m2}
+    ,                        !- Floor Area per Person {m2/person}
+    0.3,                     !- Fraction Radiant
+    autocalculate,           !- Sensible Heat Fraction
+    Activity Schedule,       !- Activity Level Schedule Name
+    ,                        !- Carbon Dioxide Generation Rate {m3/s-W}
+    ,                        !- Enable ASHRAE 55 Comfort Warnings
+    EnclosureAveraged;       !- Mean Radiant Temperature Calculation Type
+
+! =============================================
+! LIGHTS — BASELINE (pre-retrofit)
+! =============================================
+
+! Wing A: 1.3 W/ft2 = 13.99 W/m2
+  Lights,
+    WingA Lights,            !- Name
+    WingA_Office,            !- Zone or ZoneList or Space or SpaceList Name
+    Office Light Schedule,   !- Schedule Name
+    Watts/Area,              !- Design Level Calculation Method
+    ,                        !- Lighting Level {W}
+    13.99,                   !- Watts per Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0.0,                     !- Return Air Fraction
+    0.59,                    !- Fraction Radiant
+    0.20,                    !- Fraction Visible
+    1.0,                     !- Fraction Replaceable
+    General,                 !- End-Use Subcategory
+    No;                      !- Return Air Fraction Calculated from Plenum Temperature
+
+! Wing B: 1.35 W/ft2 = 14.53 W/m2 (weighted avg of 1.4 reading + 1.2 meeting)
+  Lights,
+    WingB Lights,            !- Name
+    WingB_Library,           !- Zone or ZoneList or Space or SpaceList Name
+    Library Light Schedule,  !- Schedule Name
+    Watts/Area,              !- Design Level Calculation Method
+    ,                        !- Lighting Level {W}
+    14.53,                   !- Watts per Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0.0,                     !- Return Air Fraction
+    0.59,                    !- Fraction Radiant
+    0.20,                    !- Fraction Visible
+    1.0,                     !- Fraction Replaceable
+    General,                 !- End-Use Subcategory
+    No;                      !- Return Air Fraction Calculated from Plenum Temperature
+
+! Wing C: 1.5 W/ft2 = 16.15 W/m2
+  Lights,
+    WingC Lights,            !- Name
+    WingC_DataCenter,        !- Zone or ZoneList or Space or SpaceList Name
+    DataCenter Always On,    !- Schedule Name
+    Watts/Area,              !- Design Level Calculation Method
+    ,                        !- Lighting Level {W}
+    16.15,                   !- Watts per Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0.0,                     !- Return Air Fraction
+    0.59,                    !- Fraction Radiant
+    0.20,                    !- Fraction Visible
+    1.0,                     !- Fraction Replaceable
+    General,                 !- End-Use Subcategory
+    No;                      !- Return Air Fraction Calculated from Plenum Temperature
+
+! Common: 1.0 W/ft2 = 10.76 W/m2
+  Lights,
+    Common Lights,           !- Name
+    CommonAreas,             !- Zone or ZoneList or Space or SpaceList Name
+    Common Light Schedule,   !- Schedule Name
+    Watts/Area,              !- Design Level Calculation Method
+    ,                        !- Lighting Level {W}
+    10.76,                   !- Watts per Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0.0,                     !- Return Air Fraction
+    0.59,                    !- Fraction Radiant
+    0.20,                    !- Fraction Visible
+    1.0,                     !- Fraction Replaceable
+    General,                 !- End-Use Subcategory
+    No;                      !- Return Air Fraction Calculated from Plenum Temperature
+
+! =============================================
+! ELECTRIC EQUIPMENT
+! =============================================
+
+! Wing A: 1.5 W/ft2 = 16.15 W/m2
+  ElectricEquipment,
+    WingA Equipment,         !- Name
+    WingA_Office,            !- Zone or ZoneList or Space or SpaceList Name
+    Office Equip Schedule,   !- Schedule Name
+    Watts/Area,              !- Design Level Calculation Method
+    ,                        !- Design Level {W}
+    16.15,                   !- Watts per Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0.0,                     !- Fraction Latent
+    0.5,                     !- Fraction Radiant
+    0.0;                     !- Fraction Lost
+
+! Wing B: 1.0 W/ft2 = 10.76 W/m2
+  ElectricEquipment,
+    WingB Equipment,         !- Name
+    WingB_Library,           !- Zone or ZoneList or Space or SpaceList Name
+    Library Equip Schedule,  !- Schedule Name
+    Watts/Area,              !- Design Level Calculation Method
+    ,                        !- Design Level {W}
+    10.76,                   !- Watts per Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0.0,                     !- Fraction Latent
+    0.5,                     !- Fraction Radiant
+    0.0;                     !- Fraction Lost
+
+! Wing C Data Center: 25 W/ft2 = 269.1 W/m2 (BASELINE)
+  ElectricEquipment,
+    WingC IT Equipment,      !- Name
+    WingC_DataCenter,        !- Zone or ZoneList or Space or SpaceList Name
+    DataCenter Always On,    !- Schedule Name
+    Watts/Area,              !- Design Level Calculation Method
+    ,                        !- Design Level {W}
+    269.1,                   !- Watts per Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0.0,                     !- Fraction Latent
+    0.3,                     !- Fraction Radiant
+    0.0;                     !- Fraction Lost
+
+! Common Areas: 0.5 W/ft2 = 5.38 W/m2
+  ElectricEquipment,
+    Common Equipment,        !- Name
+    CommonAreas,             !- Zone or ZoneList or Space or SpaceList Name
+    Common Equip Schedule,   !- Schedule Name
+    Watts/Area,              !- Design Level Calculation Method
+    ,                        !- Design Level {W}
+    5.38,                    !- Watts per Floor Area {W/m2}
+    ,                        !- Watts per Person {W/person}
+    0.0,                     !- Fraction Latent
+    0.5,                     !- Fraction Radiant
+    0.0;                     !- Fraction Lost
+
+! =============================================
+! DHW — modeled as gas equipment (simplified)
+! ~250 therms/month base = ~2.5 therms/day = ~73 kW peak gas
+! Using OtherEquipment with NaturalGas fuel
+! =============================================
+
+  OtherEquipment,
+    DHW Gas Load,            !- Name
+    NaturalGas,              !- Fuel Type
+    CommonAreas,             !- Zone or ZoneList or Space or SpaceList Name
+    DHW Schedule,            !- Schedule Name
+    EquipmentLevel,          !- Design Level Calculation Method
+    30000,                   !- Design Level {W} (~250 therms/mo at weighted schedule)
+    ,                        !- Power per Floor Area {W/m2}
+    ,                        !- Power per Person {W/person}
+    0.0,                     !- Fraction Latent
+    0.0,                     !- Fraction Radiant
+    0.0;                     !- Fraction Lost
+
+! =============================================
+! INFILTRATION
+! =============================================
+
+  ZoneInfiltration:DesignFlowRate,
+    WingA Infiltration,      !- Name
+    WingA_Office,            !- Zone or ZoneList or Space or SpaceList Name
+    Infiltration Schedule,   !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Exterior Surface Area {m3/s-m2}
+    0.30,                    !- Air Changes per Hour {1/hr}
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0;                       !- Velocity Squared Term Coefficient
+
+  ZoneInfiltration:DesignFlowRate,
+    WingB Infiltration,      !- Name
+    WingB_Library,           !- Zone or ZoneList or Space or SpaceList Name
+    Infiltration Schedule,   !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Exterior Surface Area {m3/s-m2}
+    0.30,                    !- Air Changes per Hour {1/hr}
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0;                       !- Velocity Squared Term Coefficient
+
+  ZoneInfiltration:DesignFlowRate,
+    WingC Infiltration,      !- Name
+    WingC_DataCenter,        !- Zone or ZoneList or Space or SpaceList Name
+    Always On,               !- Schedule Name (always pressurized)
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Exterior Surface Area {m3/s-m2}
+    0.05,                    !- Air Changes per Hour {1/hr} (very tight, interior)
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0;                       !- Velocity Squared Term Coefficient
+
+  ZoneInfiltration:DesignFlowRate,
+    Common Infiltration,     !- Name
+    CommonAreas,             !- Zone or ZoneList or Space or SpaceList Name
+    Infiltration Schedule,   !- Schedule Name
+    AirChanges/Hour,         !- Design Flow Rate Calculation Method
+    ,                        !- Design Flow Rate {m3/s}
+    ,                        !- Flow Rate per Floor Area {m3/s-m2}
+    ,                        !- Flow Rate per Exterior Surface Area {m3/s-m2}
+    0.50,                    !- Air Changes per Hour {1/hr} (lobby has more door traffic)
+    1,                       !- Constant Term Coefficient
+    0,                       !- Temperature Term Coefficient
+    0,                       !- Velocity Term Coefficient
+    0;                       !- Velocity Squared Term Coefficient
+
+!-   ===========  HVAC SYSTEM ===========
+! Using HVACTemplate objects for simplified HVAC modeling
+! Baseline: Constant volume AHUs + gas boiler + air-cooled chiller
+
+! =============================================
+! THERMOSTATS
+! =============================================
+
+  HVACTemplate:Thermostat,
+    Office Thermostat,       !- Name
+    Office Heating Setpoint, !- Heating Setpoint Schedule Name
+    ,                        !- Constant Heating Setpoint {C}
+    Office Cooling Setpoint, !- Cooling Setpoint Schedule Name
+    ;                        !- Constant Cooling Setpoint {C}
+
+  HVACTemplate:Thermostat,
+    Library Thermostat,      !- Name
+    Library Heating Setpoint,!- Heating Setpoint Schedule Name
+    ,                        !- Constant Heating Setpoint {C}
+    Library Cooling Setpoint,!- Cooling Setpoint Schedule Name
+    ;                        !- Constant Cooling Setpoint {C}
+
+  HVACTemplate:Thermostat,
+    DataCenter Thermostat,   !- Name
+    DataCenter Heating Setpoint,  !- Heating Setpoint Schedule Name
+    ,                        !- Constant Heating Setpoint {C}
+    DataCenter Cooling Setpoint,  !- Cooling Setpoint Schedule Name
+    ;                        !- Constant Cooling Setpoint {C}
+
+  HVACTemplate:Thermostat,
+    Common Thermostat,       !- Name
+    Common Heating Setpoint, !- Heating Setpoint Schedule Name
+    ,                        !- Constant Heating Setpoint {C}
+    Common Cooling Setpoint, !- Cooling Setpoint Schedule Name
+    ;                        !- Constant Cooling Setpoint {C}
+
+! =============================================
+! ZONES — HVACTemplate:Zone:Unitary
+! Field order: A1=Zone, A2=System, A3=Thermostat, N1=MaxFlow,
+!   N2=HtgSizFac, N3=ClgSizFac, A4=OAMethod, N4=OA/person,
+!   N5=OA/area, N6=OA/zone
+! =============================================
+
+! Electric baseboard heating adds temperature-dependent electric consumption
+! to create the heating leg of the 5P change-point model.
+! Common in 1990s government buildings as supplemental perimeter heating.
+
+  HVACTemplate:Zone:Unitary,
+    WingA_Office,            !- A1: Zone Name
+    AHU-1 Office,            !- A2: Template Unitary System Name
+    Office Thermostat,       !- A3: Template Thermostat Name
+    autosize,                !- N1: Supply Air Maximum Flow Rate {m3/s}
+    ,                        !- N2: Zone Heating Sizing Factor
+    ,                        !- N3: Zone Cooling Sizing Factor
+    Flow/Person,             !- A4: Outdoor Air Method
+    0.00944,                 !- N4: Outdoor Air Flow Rate per Person {m3/s}
+    ,                        !- N5: OA Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- N6: OA Flow Rate per Zone {m3/s}
+    ,                        !- A5: Supply Plenum Name
+    ,                        !- A6: Return Plenum Name
+    Electric,                !- A7: Baseboard Heating Type
+    ,                        !- A8: Baseboard Heating Availability Schedule Name
+    autosize;                !- N7: Baseboard Heating Capacity {W}
+
+  HVACTemplate:Zone:Unitary,
+    WingB_Library,           !- A1: Zone Name
+    AHU-2 Library,           !- A2: Template Unitary System Name
+    Library Thermostat,      !- A3: Template Thermostat Name
+    autosize,                !- N1: Supply Air Maximum Flow Rate {m3/s}
+    ,                        !- N2: Zone Heating Sizing Factor
+    ,                        !- N3: Zone Cooling Sizing Factor
+    Flow/Person,             !- A4: Outdoor Air Method
+    0.00944,                 !- N4: Outdoor Air Flow Rate per Person {m3/s}
+    ,                        !- N5: OA Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- N6: OA Flow Rate per Zone {m3/s}
+    ,                        !- A5: Supply Plenum Name
+    ,                        !- A6: Return Plenum Name
+    Electric,                !- A7: Baseboard Heating Type
+    ,                        !- A8: Baseboard Heating Availability Schedule Name
+    autosize;                !- N7: Baseboard Heating Capacity {W}
+
+  HVACTemplate:Zone:Unitary,
+    CommonAreas,             !- A1: Zone Name
+    AHU-3 Common,            !- A2: Template Unitary System Name
+    Common Thermostat,       !- A3: Template Thermostat Name
+    autosize,                !- N1: Supply Air Maximum Flow Rate {m3/s}
+    ,                        !- N2: Zone Heating Sizing Factor
+    ,                        !- N3: Zone Cooling Sizing Factor
+    Flow/Person,             !- A4: Outdoor Air Method
+    0.00944,                 !- N4: Outdoor Air Flow Rate per Person {m3/s}
+    ,                        !- N5: OA Flow Rate per Zone Floor Area {m3/s-m2}
+    ,                        !- N6: OA Flow Rate per Zone {m3/s}
+    ,                        !- A5: Supply Plenum Name
+    ,                        !- A6: Return Plenum Name
+    Electric,                !- A7: Baseboard Heating Type
+    ,                        !- A8: Baseboard Heating Availability Schedule Name
+    autosize;                !- N7: Baseboard Heating Capacity {W}
+
+! Data Center — separate packaged DX unit (CRAC), no baseboard needed
+  HVACTemplate:Zone:Unitary,
+    WingC_DataCenter,        !- A1: Zone Name
+    CRAC-1 DataCenter,       !- A2: Template Unitary System Name
+    DataCenter Thermostat,   !- A3: Template Thermostat Name
+    autosize,                !- N1: Supply Air Maximum Flow Rate {m3/s}
+    ,                        !- N2: Zone Heating Sizing Factor
+    ,                        !- N3: Zone Cooling Sizing Factor
+    Flow/Person,             !- A4: Outdoor Air Method
+    0.00944;                 !- N4: Outdoor Air Flow Rate per Person {m3/s}
+
+! =============================================
+! AIR HANDLING UNITS — HVACTemplate:System:Unitary
+! BASELINE: Constant volume, DX cooling + gas heating
+!
+! Field order (IDD): A1=Name, A2=AvailSch, A3=CtrlZone,
+!   N1=FanMaxFlow, A4=FanModeSch, N2=FanEff, N3=FanDP, N4=FanMotEff,
+!   N5=FanMotInAir, A5=ClgCoilType, A6=ClgCoilAvail, N6=ClgDesignSAT,
+!   N7=ClgCoilCap, N8=ClgCoilSHR, N9=ClgCoilCOP, A7=HtgCoilType,
+!   A8=HtgCoilAvail, N10=HtgDesignSAT, N11=HtgCoilCap, N12=GasHtgEff,
+!   N13=GasHtgParElec, N14=MaxOAFlow, N15=MinOAFlow, A9=MinOASch,
+!   A10=EconType, A11=EconLockout, N16=EconUpperT, N17=EconLowerT,
+!   N18=EconUpperH, N19=EconMaxDP, A12=SupplyPlenum, A13=ReturnPlenum,
+!   A14=FanPlacement, A15=NightCycleCtrl, ...
+!
+! Constant volume = fan operating mode schedule always 1 (continuous fan)
+! This ensures fan runs at full speed whenever system is available
+! =============================================
+
+! Schedule for continuous fan operation (always on = constant volume)
+  Schedule:Compact,
+    Continuous Fan Mode,     !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: AllDays,            !- Field 2
+    Until: 24:00, 1.0;       !- Always continuous (1=on, 0=cycling)
+
+! AHU-1: Wing A Office (15,000 CFM = 7.08 m3/s, 15HP = 11.19 kW)
+! Fan delta pressure set high for CV system (~750 Pa = 3 inWG)
+! HEATING: Gas coil → maintains gas vs OAT change-point for students
+  HVACTemplate:System:Unitary,
+    AHU-1 Office,            !- A1: Name
+    Office HVAC Avail,       !- A2: System Availability Schedule Name
+    WingA_Office,            !- A3: Control Zone Name
+    7.08,                    !- N1: Supply Fan Maximum Flow Rate {m3/s} (15000 CFM)
+    Continuous Fan Mode,     !- A4: Supply Fan Operating Mode Schedule Name (1=continuous=CV)
+    0.60,                    !- N2: Supply Fan Total Efficiency
+    750,                     !- N3: Supply Fan Delta Pressure {Pa} (3 inWG)
+    0.85,                    !- N4: Supply Fan Motor Efficiency
+    1.0,                     !- N5: Supply Fan Motor in Air Stream Fraction
+    SingleSpeedDX,           !- A5: Cooling Coil Type
+    ,                        !- A6: Cooling Coil Availability Schedule Name
+    12.8,                    !- N6: Cooling Design Supply Air Temperature {C} (55F)
+    autosize,                !- N7: Cooling Coil Gross Rated Total Capacity {W}
+    autosize,                !- N8: Cooling Coil Gross Rated Sensible Heat Ratio
+    3.5,                     !- N9: Cooling Coil Gross Rated COP (1995 recip chiller equiv)
+    Gas,                     !- A7: Heating Coil Type (gas → preserves gas change-point)
+    ,                        !- A8: Heating Coil Availability Schedule Name
+    40.0,                    !- N10: Heating Design Supply Air Temperature {C} (104F)
+    autosize,                !- N11: Heating Coil Capacity {W}
+    0.82,                    !- N12: Gas Heating Coil Efficiency (82% boiler)
+    0,                       !- N13: Gas Heating Coil Parasitic Electric Load {W}
+    autosize,                !- N14: Maximum Outdoor Air Flow Rate {m3/s}
+    autosize,                !- N15: Minimum Outdoor Air Flow Rate {m3/s}
+    ,                        !- A9: Minimum Outdoor Air Schedule Name
+    FixedDryBulb,            !- A10: Economizer Type
+    ,                        !- A11: Economizer Lockout
+    20.0,                    !- N16: Economizer Upper Temperature Limit {C} (68F)
+    ,                        !- N17: Economizer Lower Temperature Limit {C}
+    ,                        !- N18: Economizer Upper Enthalpy Limit {J/kg}
+    ,                        !- N19: Economizer Maximum Limit Dewpoint Temperature {C}
+    ,                        !- A12: Supply Plenum Name
+    ,                        !- A13: Return Plenum Name
+    DrawThrough,             !- A14: Supply Fan Placement
+    CycleOnAny;              !- A15: Night Cycle Control
+
+! AHU-2: Wing B Library (8,000 CFM = 3.78 m3/s, 10HP = 7.46 kW)
+  HVACTemplate:System:Unitary,
+    AHU-2 Library,           !- A1: Name
+    Library HVAC Avail,      !- A2: System Availability Schedule Name
+    WingB_Library,           !- A3: Control Zone Name
+    3.78,                    !- N1: Supply Fan Maximum Flow Rate {m3/s} (8000 CFM)
+    Continuous Fan Mode,     !- A4: Supply Fan Operating Mode Schedule Name
+    0.60,                    !- N2: Supply Fan Total Efficiency
+    750,                     !- N3: Supply Fan Delta Pressure {Pa}
+    0.85,                    !- N4: Supply Fan Motor Efficiency
+    1.0,                     !- N5: Supply Fan Motor in Air Stream Fraction
+    SingleSpeedDX,           !- A5: Cooling Coil Type
+    ,                        !- A6: Cooling Coil Availability Schedule Name
+    12.8,                    !- N6: Cooling Design Supply Air Temperature {C}
+    autosize,                !- N7: Cooling Coil Gross Rated Total Capacity {W}
+    autosize,                !- N8: Cooling Coil Gross Rated Sensible Heat Ratio
+    3.5,                     !- N9: Cooling Coil Gross Rated COP
+    Electric,                !- A7: Heating Coil Type (electric for 5P shape)
+    ,                        !- A8: Heating Coil Availability Schedule Name
+    40.0,                    !- N10: Heating Design Supply Air Temperature {C}
+    autosize,                !- N11: Heating Coil Capacity {W}
+    ,                        !- N12: Gas Heating Coil Efficiency (N/A)
+    ,                        !- N13: Gas Heating Coil Parasitic Electric Load {W}
+    autosize,                !- N14: Maximum Outdoor Air Flow Rate {m3/s}
+    autosize,                !- N15: Minimum Outdoor Air Flow Rate {m3/s}
+    ,                        !- A9: Minimum Outdoor Air Schedule Name
+    FixedDryBulb,            !- A10: Economizer Type
+    ,                        !- A11: Economizer Lockout
+    20.0,                    !- N16: Economizer Upper Temperature Limit {C}
+    ,                        !- N17: Economizer Lower Temperature Limit {C}
+    ,                        !- N18: Economizer Upper Enthalpy Limit {J/kg}
+    ,                        !- N19: Economizer Maximum Limit Dewpoint Temperature {C}
+    ,                        !- A12: Supply Plenum Name
+    ,                        !- A13: Return Plenum Name
+    DrawThrough,             !- A14: Supply Fan Placement
+    CycleOnAny;              !- A15: Night Cycle Control
+
+! AHU-3: Common Areas (5,000 CFM = 2.36 m3/s, 5HP = 3.73 kW)
+  HVACTemplate:System:Unitary,
+    AHU-3 Common,            !- A1: Name
+    Office HVAC Avail,       !- A2: System Availability Schedule Name
+    CommonAreas,             !- A3: Control Zone Name
+    2.36,                    !- N1: Supply Fan Maximum Flow Rate {m3/s} (5000 CFM)
+    Continuous Fan Mode,     !- A4: Supply Fan Operating Mode Schedule Name
+    0.55,                    !- N2: Supply Fan Total Efficiency
+    625,                     !- N3: Supply Fan Delta Pressure {Pa} (2.5 inWG, smaller system)
+    0.82,                    !- N4: Supply Fan Motor Efficiency
+    1.0,                     !- N5: Supply Fan Motor in Air Stream Fraction
+    SingleSpeedDX,           !- A5: Cooling Coil Type
+    ,                        !- A6: Cooling Coil Availability Schedule Name
+    12.8,                    !- N6: Cooling Design Supply Air Temperature {C}
+    autosize,                !- N7: Cooling Coil Gross Rated Total Capacity {W}
+    autosize,                !- N8: Cooling Coil Gross Rated Sensible Heat Ratio
+    3.5,                     !- N9: Cooling Coil Gross Rated COP
+    Gas,                     !- A7: Heating Coil Type (gas → preserves gas change-point)
+    ,                        !- A8: Heating Coil Availability Schedule Name
+    40.0,                    !- N10: Heating Design Supply Air Temperature {C}
+    autosize,                !- N11: Heating Coil Capacity {W}
+    0.82,                    !- N12: Gas Heating Coil Efficiency (82% boiler)
+    0,                       !- N13: Gas Heating Coil Parasitic Electric Load {W}
+    autosize,                !- N14: Maximum Outdoor Air Flow Rate {m3/s}
+    autosize,                !- N15: Minimum Outdoor Air Flow Rate {m3/s}
+    ,                        !- A9: Minimum Outdoor Air Schedule Name
+    NoEconomizer,            !- A10: Economizer Type (no economizer on AHU-3)
+    ,                        !- A11: Economizer Lockout
+    ,                        !- N16: Economizer Upper Temperature Limit {C}
+    ,                        !- N17: Economizer Lower Temperature Limit {C}
+    ,                        !- N18: Economizer Upper Enthalpy Limit {J/kg}
+    ,                        !- N19: Economizer Maximum Limit Dewpoint Temperature {C}
+    ,                        !- A12: Supply Plenum Name
+    ,                        !- A13: Return Plenum Name
+    DrawThrough,             !- A14: Supply Fan Placement
+    CycleOnAny;              !- A15: Night Cycle Control
+
+! CRAC-1: Data Center (5-ton = 17.6 kW DX, runs 24/7)
+! Small dedicated unit, constant volume, no economizer
+  HVACTemplate:System:Unitary,
+    CRAC-1 DataCenter,       !- A1: Name
+    Always On,               !- A2: System Availability Schedule Name
+    WingC_DataCenter,        !- A3: Control Zone Name
+    autosize,                !- N1: Supply Fan Maximum Flow Rate {m3/s}
+    Continuous Fan Mode,     !- A4: Supply Fan Operating Mode Schedule Name
+    0.50,                    !- N2: Supply Fan Total Efficiency
+    500,                     !- N3: Supply Fan Delta Pressure {Pa}
+    0.80,                    !- N4: Supply Fan Motor Efficiency
+    1.0,                     !- N5: Supply Fan Motor in Air Stream Fraction
+    SingleSpeedDX,           !- A5: Cooling Coil Type
+    ,                        !- A6: Cooling Coil Availability Schedule Name
+    12.8,                    !- N6: Cooling Design Supply Air Temperature {C}
+    autosize,                !- N7: Cooling Coil Gross Rated Total Capacity {W}
+    autosize,                !- N8: Cooling Coil Gross Rated Sensible Heat Ratio
+    3.0,                     !- N9: Cooling Coil Gross Rated COP (older CRAC unit)
+    Gas,                     !- A7: Heating Coil Type
+    ,                        !- A8: Heating Coil Availability Schedule Name
+    40.0,                    !- N10: Heating Design Supply Air Temperature {C}
+    autosize,                !- N11: Heating Coil Capacity {W}
+    0.82,                    !- N12: Gas Heating Coil Efficiency
+    0,                       !- N13: Gas Heating Coil Parasitic Electric Load {W}
+    0,                       !- N14: Maximum Outdoor Air Flow Rate {m3/s} (no OA for CRAC)
+    0,                       !- N15: Minimum Outdoor Air Flow Rate {m3/s}
+    ,                        !- A9: Minimum Outdoor Air Schedule Name
+    NoEconomizer,            !- A10: Economizer Type
+    ,                        !- A11: Economizer Lockout
+    ,                        !- N16: Economizer Upper Temperature Limit {C}
+    ,                        !- N17: Economizer Lower Temperature Limit {C}
+    ,                        !- N18: Economizer Upper Enthalpy Limit {J/kg}
+    ,                        !- N19: Economizer Maximum Limit Dewpoint Temperature {C}
+    ,                        !- A12: Supply Plenum Name
+    ,                        !- A13: Return Plenum Name
+    DrawThrough,             !- A14: Supply Fan Placement
+    CycleOnAny;              !- A15: Night Cycle Control
+
+!-   ===========  OUTPUT CONTROLS ===========
+
+  Output:VariableDictionary,Regular;
+
+  OutputControl:Table:Style,
+    HTML;                    !- Column Separator
+
+  Output:Table:SummaryReports,
+    AllSummary;              !- Report 1 Name
+
+!-   ===========  OUTPUT METERS ===========
+! Monthly meters for model validation and CSV export
+
+! --- Facility-level meters ---
+  Output:Meter,Electricity:Facility,Monthly;
+  Output:Meter,NaturalGas:Facility,Monthly;
+  Output:Meter,Electricity:Facility,Hourly;
+
+! --- End-use sub-meters ---
+  Output:Meter,InteriorLights:Electricity,Monthly;
+  Output:Meter,InteriorLights:Electricity,Hourly;
+  Output:Meter,InteriorEquipment:Electricity,Monthly;
+  Output:Meter,InteriorEquipment:Electricity,Hourly;
+  Output:Meter,Cooling:Electricity,Monthly;
+  Output:Meter,Cooling:Electricity,Hourly;
+  Output:Meter,Fans:Electricity,Monthly;
+  Output:Meter,Fans:Electricity,Hourly;
+  Output:Meter,Heating:NaturalGas,Monthly;
+  Output:Meter,Heating:NaturalGas,Hourly;
+  Output:Meter,NaturalGas:Facility,Hourly;
+  Output:Meter,Heating:Electricity,Monthly;
+  Output:Meter,Heating:Electricity,Hourly;
+
+!-   ===========  OUTPUT VARIABLES ===========
+! Outdoor temperature for scatter plots
+
+  Output:Variable,*,Site Outdoor Air Drybulb Temperature,Hourly;
+  Output:Variable,*,Site Outdoor Air Drybulb Temperature,Monthly;
+
+! Zone temperatures for diagnostics
+  Output:Variable,*,Zone Mean Air Temperature,Hourly;
+
+! Fan power for ECM-4 analysis
+  Output:Variable,*,Fan Electricity Rate,Hourly;
