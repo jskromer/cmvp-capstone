@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" width="800" height="340">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d4e6f1" />
+      <stop offset="100%" stop-color="#eaf2f8" />
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a8c8e0" />
+      <stop offset="100%" stop-color="#c5dbe8" />
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect x="0" y="0" width="800" height="340" fill="#e8f0f5" rx="8" />
+
+  <!-- Ground -->
+  <rect x="0" y="280" width="800" height="60" fill="#c8d6c5" />
+  <rect x="0" y="280" width="800" height="3" fill="#a8b8a5" />
+
+  <!-- Wing A — Office (left, 2 stories) -->
+  <rect x="40" y="120" width="280" height="160" fill="#f0e6d3" stroke="#b8a898" stroke-width="1.5" />
+  <rect x="35" y="112" width="290" height="12" fill="#8e7c6a" rx="2" />
+  <rect x="35" y="108" width="290" height="6" fill="#e67e22" opacity="0.6" rx="1" />
+  <line x1="40" y1="200" x2="320" y2="200" stroke="#b8a898" stroke-width="1" />
+
+  <!-- Wing A windows Floor 2 -->
+  <rect x="60" y="135" width="22" height="50" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="100" y="135" width="22" height="50" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="140" y="135" width="22" height="50" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="180" y="135" width="22" height="50" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="220" y="135" width="22" height="50" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="260" y="135" width="22" height="50" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+
+  <!-- Wing A windows Floor 1 -->
+  <rect x="60" y="215" width="22" height="50" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="100" y="215" width="22" height="50" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="140" y="215" width="22" height="50" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="180" y="215" width="22" height="50" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="220" y="215" width="22" height="50" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="260" y="215" width="22" height="50" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+
+  <!-- Wing A door -->
+  <rect x="155" y="235" width="34" height="45" fill="#6d5c4e" rx="2" />
+  <circle cx="183" cy="258" r="2" fill="#b8860b" />
+
+  <!-- AHU-1 on roof -->
+  <rect x="80" y="88" width="40" height="22" fill="#95a5a6" rx="3" stroke="#7f8c8d" stroke-width="1" />
+  <text x="100" y="102" text-anchor="middle" font-size="7" fill="white" font-weight="600" font-family="sans-serif">AHU-1</text>
+
+  <!-- ECM-1 LED icon Wing A -->
+  <circle cx="290" cy="140" r="10" fill="#f1c40f" opacity="0.3" />
+  <circle cx="290" cy="140" r="5" fill="#f1c40f" />
+  <text x="304" y="144" font-size="8" fill="#e67e22" font-weight="700" font-family="sans-serif">LED</text>
+
+  <!-- Wing A label -->
+  <text x="180" y="305" text-anchor="middle" font-size="13" fill="#2c3e50" font-weight="700" font-family="sans-serif">Wing A — Office</text>
+  <text x="180" y="318" text-anchor="middle" font-size="10" fill="#7f8c8d" font-family="sans-serif">35,000 sf · 2 floors</text>
+
+  <!-- Wing B — Library (right, 2 stories) -->
+  <rect x="420" y="120" width="200" height="160" fill="#e8dff0" stroke="#b8a0c8" stroke-width="1.5" />
+  <rect x="415" y="112" width="210" height="12" fill="#7d6b8a" rx="2" />
+  <rect x="415" y="108" width="210" height="6" fill="#e67e22" opacity="0.6" rx="1" />
+  <line x1="420" y1="200" x2="620" y2="200" stroke="#b8a0c8" stroke-width="1" />
+
+  <!-- Wing B windows Floor 2 -->
+  <rect x="440" y="130" width="28" height="58" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="490" y="130" width="28" height="58" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="540" y="130" width="28" height="58" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="585" y="130" width="28" height="58" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+
+  <!-- Wing B windows Floor 1 -->
+  <rect x="440" y="210" width="28" height="55" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="490" y="210" width="28" height="55" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="540" y="210" width="28" height="55" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+  <rect x="585" y="210" width="28" height="55" fill="#b8d4e8" rx="2" stroke="#8faabe" stroke-width="0.5" />
+
+  <!-- Wing B door -->
+  <rect x="505" y="238" width="30" height="42" fill="#5d4e6e" rx="2" />
+
+  <!-- AHU-2 on roof -->
+  <rect x="480" y="88" width="40" height="22" fill="#95a5a6" rx="3" stroke="#7f8c8d" stroke-width="1" />
+  <text x="500" y="102" text-anchor="middle" font-size="7" fill="white" font-weight="600" font-family="sans-serif">AHU-2</text>
+
+  <!-- ECM-1 LED icon Wing B -->
+  <circle cx="595" cy="140" r="10" fill="#f1c40f" opacity="0.3" />
+  <circle cx="595" cy="140" r="5" fill="#f1c40f" />
+  <text x="609" y="144" font-size="8" fill="#e67e22" font-weight="700" font-family="sans-serif">LED</text>
+
+  <!-- Wing B label -->
+  <text x="520" y="305" text-anchor="middle" font-size="13" fill="#2c3e50" font-weight="700" font-family="sans-serif">Wing B — Library</text>
+  <text x="520" y="318" text-anchor="middle" font-size="10" fill="#7f8c8d" font-family="sans-serif">15,000 sf · 2 floors</text>
+
+  <!-- Wing C — Data Center -->
+  <rect x="620" y="190" width="80" height="90" fill="#f0d8d8" stroke="#c8a0a0" stroke-width="1.5" />
+  <rect x="617" y="184" width="86" height="10" fill="#8a6868" rx="2" />
+  <rect x="617" y="180" width="86" height="6" fill="#e67e22" opacity="0.6" rx="1" />
+
+  <!-- CRAC unit -->
+  <rect x="640" y="200" width="30" height="20" fill="#3498db" opacity="0.5" rx="3" stroke="#2980b9" stroke-width="0.5" />
+  <text x="655" y="213" text-anchor="middle" font-size="6" fill="#1a365d" font-weight="600" font-family="sans-serif">CRAC</text>
+
+  <!-- Server racks -->
+  <rect x="638" y="228" width="12" height="40" fill="#2c3e50" rx="1" />
+  <rect x="658" y="228" width="12" height="40" fill="#2c3e50" rx="1" />
+  <rect x="678" y="228" width="12" height="40" fill="#2c3e50" rx="1" />
+
+  <!-- Blinking lights -->
+  <circle cx="644" cy="235" r="1.5" fill="#2ecc71" />
+  <circle cx="644" cy="240" r="1.5" fill="#2ecc71" />
+  <circle cx="644" cy="245" r="1.5" fill="#f1c40f" />
+  <circle cx="664" cy="235" r="1.5" fill="#2ecc71" />
+  <circle cx="664" cy="240" r="1.5" fill="#2ecc71" />
+  <circle cx="664" cy="245" r="1.5" fill="#f1c40f" />
+  <circle cx="684" cy="235" r="1.5" fill="#2ecc71" />
+  <circle cx="684" cy="240" r="1.5" fill="#2ecc71" />
+  <circle cx="684" cy="245" r="1.5" fill="#f1c40f" />
+
+  <!-- Wing C label -->
+  <text x="660" y="305" text-anchor="middle" font-size="11" fill="#2c3e50" font-weight="700" font-family="sans-serif">Wing C</text>
+  <text x="660" y="318" text-anchor="middle" font-size="9" fill="#7f8c8d" font-family="sans-serif">Data Center · 2k sf</text>
+
+  <!-- Common Areas (connector) -->
+  <rect x="320" y="170" width="100" height="110" fill="#f5ecd0" stroke="#d4c8a0" stroke-width="1.5" />
+  <rect x="317" y="164" width="106" height="10" fill="#a09060" rx="2" />
+  <rect x="317" y="160" width="106" height="6" fill="#e67e22" opacity="0.6" rx="1" />
+
+  <!-- Lobby glass doors -->
+  <rect x="345" y="220" width="50" height="60" fill="#b8d4e8" rx="3" stroke="#8faabe" stroke-width="1" />
+  <line x1="370" y1="220" x2="370" y2="280" stroke="#8faabe" stroke-width="0.5" />
+
+  <!-- AHU-3 on roof -->
+  <rect x="345" y="140" width="35" height="22" fill="#95a5a6" rx="3" stroke="#7f8c8d" stroke-width="1" />
+  <text x="362" y="154" text-anchor="middle" font-size="7" fill="white" font-weight="600" font-family="sans-serif">AHU-3</text>
+
+  <!-- Common label -->
+  <text x="370" y="305" text-anchor="middle" font-size="11" fill="#2c3e50" font-weight="700" font-family="sans-serif">Common</text>
+  <text x="370" y="318" text-anchor="middle" font-size="9" fill="#7f8c8d" font-family="sans-serif">Lobby · 10k sf</text>
+
+  <!-- ECM Legend -->
+  <rect x="40" y="20" width="720" height="60" fill="#f5f5f5" rx="6" stroke="#e0d8cc" stroke-width="1" />
+  <circle cx="70" cy="40" r="6" fill="#f1c40f" />
+  <text x="82" y="44" font-size="10" fill="#2c3e50" font-weight="600" font-family="sans-serif">ECM-1: LED Lighting</text>
+  <circle cx="240" cy="40" r="6" fill="#3498db" />
+  <text x="252" y="44" font-size="10" fill="#2c3e50" font-weight="600" font-family="sans-serif">ECM-2: Chiller/DX</text>
+  <rect x="402" y="34" width="16" height="6" fill="#e67e22" opacity="0.7" rx="1" />
+  <text x="424" y="44" font-size="10" fill="#2c3e50" font-weight="600" font-family="sans-serif">ECM-3: Roof Insulation</text>
+  <circle cx="600" cy="40" r="6" fill="#27ae60" />
+  <text x="612" y="44" font-size="10" fill="#2c3e50" font-weight="600" font-family="sans-serif">ECM-4: VFDs on AHUs</text>
+  <text x="400" y="68" text-anchor="middle" font-size="10" fill="#7f8c8d" font-style="italic" font-family="sans-serif">Greenfield Municipal Center · 62,000 sf · Mid-Atlantic CZ 4A · ESPC 15-year term</text>
+
+  <!-- VFD indicators on AHUs -->
+  <circle cx="100" cy="88" r="4" fill="#27ae60" />
+  <circle cx="500" cy="88" r="4" fill="#27ae60" />
+  <circle cx="362" cy="140" r="4" fill="#27ae60" />
+</svg>

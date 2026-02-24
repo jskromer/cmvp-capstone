@@ -191,24 +191,24 @@ The course is delivered via Zoom or in-person (sometimes without student laptops
 | M&V plan assembly | Fill in web template | Fill in printed template |
 | Savings report | Web calculator | Instructor projects; students record numbers on worksheet |
 
-### Paper Packet Structure (13 pages)
+### Paper Packet Structure (14 pages)
 
 | Item | Description | Phase |
 |------|-------------|-------|
-| Cover page | Student name, date, TOC | — |
+| Cover page | Student name, date, building elevation graphic, TOC | — |
 | Scenario Brief (2 pp) | Building, wings, ECMs, stakeholders, rates, floor plan, single line diagram | Reference |
 | Worksheet 1A | Stakeholder & Risk Matrix | Phase 1 |
 | Worksheet 1B | Measurement Boundaries | Phase 1 |
 | Worksheet 1C | Approach Selection | Phase 1 |
 | Worksheet 2A | Baseline Data Analysis | Phase 2 |
 | Worksheet 2B | Static Factors & NRA Protocol | Phase 2 |
-| Worksheet 2C | ECM-1 Lighting Stipulation | Phase 2 |
+| Worksheet 2C | ECM-1 Lighting Stipulation (9 spaces, 740 fixtures) | Phase 2 |
 | Worksheet 2D | ECM-4 VFD Metering Plan | Phase 2 |
 | Worksheet 3A | M&V Plan Assembly | Phase 3 |
 | Worksheet 3B | Savings Calculation & Reporting | Phase 3 |
 | Worksheet 3C | Plan Defense Preparation | Phase 3 |
 
-**PDF source:** `build_packet.py` generates the packet from reportlab. Diagrams are SVG (`greenfield-floor-plan.svg`, `greenfield-single-line.svg`).
+**PDF source:** `scripts/build_packet.py` generates the packet from reportlab. Diagrams are SVG (`docs/greenfield/greenfield-floor-plan.svg`, `docs/greenfield/greenfield-single-line.svg`, `docs/greenfield/greenfield-elevation.svg`).
 
 ---
 
@@ -241,40 +241,56 @@ These spreadsheets support specific capstone exercises. They can be used by the 
 
 1. **Large-screen readability** — designed for projection. Big fonts on axes, clear colors, no tiny controls
 2. **No answer giveaways** — instructions ask open-ended questions ("What patterns do you observe?") not leading ones ("This should show 5P behavior")
-3. **Warm cream theme** — consistent with CFdesigns branding (#FFF8F0 background)
+3. **Warm cream theme** — consistent with CFdesigns branding (#f5f0e8 background)
 4. **NRA is a discovery** — the Overview tab should NOT reveal the data center expansion. Students discover it in Phase 2/3 when they compare baseline model to reporting data
 5. **Terminology convention** applies to all labels (see above)
 
-### Tab Structure (aligned with phases)
+### Tab Structure (current — 7 tabs)
 
-| Tab | Phase | What It Shows | Key Interactions |
-|-----|-------|--------------|-----------------|
-| **Overview** | Phase 1 | Scenario brief, building info cards, annual summary table, EUI | Answer-key toggle for no-NRA data (instructor only) |
-| **Scatter Plots** | Phase 2 | Electric vs OAT, Gas vs OAT with month labels | Open-ended exploration. After model fitting, overlay fit line. |
-| **Model Fitting** | Phase 2 | Select model type (2P/3P/4P/5P), fit, validate against ASHRAE G14 | Grid search for change points. Display parameters, NMBE, CV(RMSE), R². Residual plots. |
-| **Time Series** | Phase 2–3 | Baseline vs reporting monthly with NRA region highlighted | Students discover the NRA visually. Toggle NRA adjustment on/off. |
-| **Savings Calculator** | Phase 3 | Monthly savings table, NRA adjustment, valuation, uncertainty | Net savings after NRA. Cost and CO₂ valuation. Fractional savings uncertainty. |
-| **Lighting Stipulation** | Phase 2 | Fixture inventory calculator matching Worksheet 2C | Interactive version of the paper worksheet. Auto-calculates totals. |
-| **VFD Metering** | Phase 2 | ECM-4 fan data visualization (672 rows of speed/power/airflow) | Pre/post comparison. Students see why continuous verification is needed. |
+| Tab | Phase | Components | Key Interactions |
+|-----|-------|-----------|------------------|
+| **Overview** | Phase 1 | `BuildingGraphic.jsx`, wing cards, ECM cards, `SummaryTable.jsx` | SVG building elevation with ECM markers, answer-key toggle, ecosystem links |
+| **Scatter Plots** | Phase 2 | `ScatterPlot.jsx` | Electric vs OAT (5P), Gas vs OAT (3P), month labels. Fit line + change-point diamonds overlay after model fitting. |
+| **Model Fitting** | Phase 2 | `ModelFitter.jsx` | Auto-fit + manual change-point sliders, side-by-side fit scatter plots, stats tables (NMBE, CV(RMSE), R²), residual diagnostics. Gas CV(RMSE) intentionally fails G14 → teaching prompt. |
+| **Lighting Stipulation** | Phase 2 | `LightingStipulation.jsx` | 9 spaces, 740 fixtures matching paper packet. Editable hours, auto-calculated kWh, T8→LED graphic, interactive effects prompt. |
+| **VFD Analysis** | Phase 2 | `FanAnalysis.jsx` | 672 hourly points, 3 AHUs. Speed vs Power (fan law cubic), Power vs OAT, pre/post comparison, VFD graphic, summary cards. |
+| **Time Series** | Phase 2–3 | `TimeSeriesPlot.jsx` | Electric/Gas selector, model prediction overlay (purple dotted), NRA discovery. Gas prompt: "Gas went up — does retrofit make things worse?" |
+| **Savings Calculator** | Phase 3 | `SavingsCalculator.jsx` | Monthly table, NRA controls (toggle/start/magnitude), per-bar coloring (green=savings, red=negative), cost/CO₂ valuation, uncertainty, "Compare another model" link. |
 
-### Priority Fixes (from review session)
+### Source Files
 
-1. **Fix 5P grid search** — change points landing at 35°F/71°F instead of ~48°F/~63°F. Search CPh 40–60°F, CPc 55–75°F with 1°F increments.
-2. **Gas 3P model** — show fitted change point, investigate CV(RMSE) failing G14 at 16.13%.
-3. **Add model fit overlay** on scatter plots after fitting.
-4. **Add residual plots** (vs fitted, vs OAT) — students need these to check for patterns.
-5. **Remove answer giveaways** — NRA spoiler from Overview, "should show 5P" from scatter instructions.
-6. **Warm cream theme** — replace default white/gray with CFdesigns branding.
-7. **Expand Overview** — full scenario package (wing descriptions, ESPC context, stakeholder list, floor plan diagram).
+```
+src/
+├── App.jsx, App.css, index.css, main.jsx
+├── components/
+│   ├── BuildingGraphic.jsx          # SVG building elevation (800×340)
+│   ├── FanAnalysis.jsx              # ECM-4 VFD pre/post analysis
+│   ├── LightingStipulation.jsx      # ECM-1 fixture inventory calculator
+│   ├── ModelFitter.jsx              # Change-point model fitting + residuals
+│   ├── SavingsCalculator.jsx        # Monthly savings, NRA, valuation
+│   ├── ScatterPlot.jsx              # Energy vs OAT scatter plots
+│   ├── SummaryTable.jsx             # Annual energy summary
+│   └── TimeSeriesPlot.jsx           # Monthly time series with model overlay
+└── utils/
+    ├── dataLoader.js                # CSV parsing
+    └── statistics.js                # Regression, GoF, change-point search
+```
 
-### After Priority Fixes
+### Teaching Moments Built Into the UI
 
-- Lighting stipulation calculator (ECM-1) — interactive version of Worksheet 2C
-- VFD data explorer (ECM-4) — visualize the 672-row fan dataset
+1. **5P change points (35/71°F):** Mathematically optimal but physically unrealistic. Manual sliders let students drag to ~48/63°F and watch R² drop. Physics vs. statistics tradeoff.
+2. **Gas CV(RMSE) fails G14:** 16.13% vs 15% limit. "Does that mean it's unusable?"
+3. **NRA discovery:** Time series August step change → savings calculator red bars → toggle NRA on → bars flip green.
+4. **Interactive effects:** Lighting stipulation total ≠ whole-facility savings. Less lighting heat → less cooling, more heating.
+5. **Fan law cubic:** 35% speed reduction → ~73% power reduction. Why continuous verification matters.
+6. **Gas went up:** Reporting year gas > baseline. Model prediction reveals the counterfactual truth.
+
+### Future Additions
+
 - M&V plan builder template — interactive version of Worksheet 3A
-- Savings report generator — interactive version of Worksheet 3B
 - Single line diagram with interactive metering point placement
 - Stakeholder/risk matrix tool
+- i18n/es.json for Spanish-language delivery
 
 ---
 
