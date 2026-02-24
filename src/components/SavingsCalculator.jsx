@@ -11,7 +11,7 @@ const GAS_RATE = 1.15;    // $/therm
 const CO2_ELEC = 0.000417; // metric tons CO₂/kWh (mid-Atlantic grid)
 const CO2_GAS = 0.005302;  // metric tons CO₂/therm
 
-export default function SavingsCalculator({ baseline, reporting, noNRA, elecParams, gasParams, elecModelType }) {
+export default function SavingsCalculator({ baseline, reporting, noNRA, elecParams, gasParams, elecModelType, onNavigate }) {
   const [applyNRA, setApplyNRA] = useState(false);
   const [nraKwhPerMonth, setNraKwhPerMonth] = useState(15000);
   const [nraStartMonth, setNraStartMonth] = useState(8);
@@ -255,6 +255,15 @@ export default function SavingsCalculator({ baseline, reporting, noNRA, elecPara
           What happens to savings uncertainty when you change the NRA amount?
         </div>
       )}
+
+      <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+        {onNavigate && (
+          <button className="btn-secondary" onClick={() => onNavigate('model')}
+            style={{ fontSize: '0.95rem', padding: '0.6rem 1.5rem' }}>
+            ← Compare another model
+          </button>
+        )}
+      </div>
     </div>
   );
 }

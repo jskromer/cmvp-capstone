@@ -279,6 +279,7 @@ function App() {
               elecParams={modelResult?.elecParams}
               gasParams={modelResult?.gasParams}
               elecModelType={modelResult?.elecModelType}
+              onNavigate={setActiveTab}
             />
           </section>
         )}
