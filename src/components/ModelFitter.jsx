@@ -261,6 +261,107 @@ export default function ModelFitter({ baseline, onModelUpdate }) {
         </div>
       )}
 
+      {/* Fit scatter plots */}
+      {hasFit && activeFit && (
+        <>
+          <h4 style={{ marginTop: '1.5rem', color: '#1a365d' }}>Model Fit — Data vs. Prediction</h4>
+          <div className="residual-row">
+            {/* Electric scatter + fit line */}
+            <Plot
+              data={(() => {
+                const { oat, kwh, elecParams: ep } = activeFit;
+                const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                const traces = [{
+                  x: oat, y: kwh,
+                  mode: 'markers+text',
+                  text: MONTHS_SHORT,
+                  textposition: 'top center',
+                  textfont: { size: 9, color: '#4a4540' },
+                  marker: { size: 12, color: '#2980b9', line: { width: 1, color: 'white' } },
+                  name: 'Monthly kWh',
+                }];
+                if (ep) {
+                  const sorted = [...oat].sort((a,b) => a - b);
+                  const fine = [];
+                  for (let t = sorted[0] - 3; t <= sorted[sorted.length-1] + 3; t += 0.5) fine.push(t);
+                  const pred = elecModelType === '5P' ? fiveParam(fine, ep) : threeParamHeating(fine, ep);
+                  traces.push({
+                    x: fine, y: pred,
+                    mode: 'lines',
+                    line: { color: '#27ae60', width: 2.5 },
+                    name: `${elecModelType} Fit`,
+                  });
+                  // Change point markers for 5P
+                  if (elecModelType === '5P') {
+                    const cpY = ep.B;
+                    traces.push({
+                      x: [ep.cpH, ep.cpC], y: [cpY, cpY],
+                      mode: 'markers',
+                      marker: { size: 10, color: '#e67e22', symbol: 'diamond' },
+                      name: 'Change Points',
+                    });
+                  }
+                }
+                return traces;
+              })()}
+              layout={{
+                ...plotLayout, height: 380,
+                title: { text: `Electric — ${elecModelType} Model`, font: { size: 14, color: '#1a365d' } },
+                xaxis: { title: 'Avg OAT (°F)', gridcolor: '#e8e0d0' },
+                yaxis: { title: 'Monthly kWh', gridcolor: '#e8e0d0' },
+                showlegend: true,
+                legend: { x: 0.01, y: 0.99, bgcolor: 'rgba(245,240,232,0.8)', font: { size: 10 } },
+              }}
+              useResizeHandler style={{ width: '100%' }}
+            />
+            {/* Gas scatter + fit line */}
+            <Plot
+              data={(() => {
+                const { oat, therms, gasParams: gp } = activeFit;
+                const MONTHS_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                const traces = [{
+                  x: oat, y: therms,
+                  mode: 'markers+text',
+                  text: MONTHS_SHORT,
+                  textposition: 'top center',
+                  textfont: { size: 9, color: '#4a4540' },
+                  marker: { size: 12, color: '#e74c3c', line: { width: 1, color: 'white' } },
+                  name: 'Monthly therms',
+                }];
+                if (gp) {
+                  const sorted = [...oat].sort((a,b) => a - b);
+                  const fine = [];
+                  for (let t = sorted[0] - 3; t <= sorted[sorted.length-1] + 3; t += 0.5) fine.push(t);
+                  const pred = threeParamHeating(fine, gp);
+                  traces.push({
+                    x: fine, y: pred,
+                    mode: 'lines',
+                    line: { color: '#27ae60', width: 2.5 },
+                    name: '3PH Fit',
+                  });
+                  traces.push({
+                    x: [gp.cp], y: [gp.B],
+                    mode: 'markers',
+                    marker: { size: 10, color: '#e67e22', symbol: 'diamond' },
+                    name: 'Change Point',
+                  });
+                }
+                return traces;
+              })()}
+              layout={{
+                ...plotLayout, height: 380,
+                title: { text: 'Gas — 3P Heating Model', font: { size: 14, color: '#1a365d' } },
+                xaxis: { title: 'Avg OAT (°F)', gridcolor: '#e8e0d0' },
+                yaxis: { title: 'Monthly therms', gridcolor: '#e8e0d0' },
+                showlegend: true,
+                legend: { x: 0.01, y: 0.99, bgcolor: 'rgba(245,240,232,0.8)', font: { size: 10 } },
+              }}
+              useResizeHandler style={{ width: '100%' }}
+            />
+          </div>
+        </>
+      )}
+
       {residualTraces && (
         <>
           <h4 style={{ marginTop: '1.5rem', color: '#1a365d' }}>Residual Diagnostics — Electric</h4>
