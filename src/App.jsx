@@ -115,6 +115,22 @@ function App() {
             <h2>Contract Context</h2>
             <p>15-year Energy Savings Performance Contract. Annual M&amp;V reporting required. Savings shortfall risk borne by ESCO; surplus shared 80/20 (owner/ESCO).</p>
 
+            <div style={{
+              background: "#f5f0e8", border: "1px solid #e0d8cc", borderRadius: 8,
+              padding: "12px 16px", margin: "16px 0", fontSize: "0.9rem"
+            }}>
+              <strong style={{ color: "#b5632e" }}>Prerequisites:</strong>{" "}
+              This capstone builds on concepts from the{" "}
+              <a href="https://cfdesigns.vercel.app/#/fundamentals" target="_blank" rel="noopener noreferrer"
+                style={{ color: "#2980b9", fontWeight: 500 }}>
+                Statistical Foundations
+              </a>{" "}and{" "}
+              <a href="https://cfdesigns.vercel.app/#/workbench" target="_blank" rel="noopener noreferrer"
+                style={{ color: "#2980b9", fontWeight: 500 }}>
+                Workbench
+              </a>{" "}modules.
+            </div>
+
             <h2>Baseline Year Summary</h2>
             <SummaryTable
               baseline={data.baseline}
@@ -199,6 +215,30 @@ function App() {
       </main>
 
       <footer>
+        <div style={{ display: "flex", justifyContent: "center", gap: 24, flexWrap: "wrap", marginBottom: 16 }}>
+          <a href="https://cfdesigns.vercel.app" target="_blank" rel="noopener noreferrer"
+            style={{ fontSize: 13, color: "#b5632e", textDecoration: "none", fontWeight: 600 }}>
+            Counterfactual Designs →
+          </a>
+          <a href="https://mv-classmap.vercel.app" target="_blank" rel="noopener noreferrer"
+            style={{ fontSize: 13, color: "#2d7d46", textDecoration: "none", fontWeight: 600 }}>
+            Learning Path →
+          </a>
+          <a href="https://mv-course.vercel.app" target="_blank" rel="noopener noreferrer"
+            style={{ fontSize: 13, color: "#a67c28", textDecoration: "none", fontWeight: 600 }}>
+            IPMVP Reference →
+          </a>
+          <a href="https://bayesian-mv.vercel.app" target="_blank" rel="noopener noreferrer"
+            style={{ fontSize: 13, color: "#7c5cbf", textDecoration: "none", fontWeight: 600 }}>
+            Bayesian Module →
+          </a>
+        </div>
+        <div style={{ fontSize: 12, color: "#998d7e", marginBottom: 8 }}>
+          <a href="https://counterfactual-designs.com" target="_blank" rel="noopener noreferrer"
+            style={{ color: "#998d7e", textDecoration: "none" }}>
+            counterfactual-designs.com
+          </a>
+        </div>
         <p>CMVP Capstone — EnergyPlus 25.1.0 Simulation · Mid-Atlantic CZ 4A</p>
       </footer>
     </div>
