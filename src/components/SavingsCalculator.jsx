@@ -140,7 +140,9 @@ export default function SavingsCalculator({ baseline, reporting, noNRA, elecPara
           {
             x: MONTHS, y: monthly.map(r => r.adjActualKwh),
             type: 'bar', name: applyNRA ? 'Actual (NRA adjusted)' : 'Actual',
-            marker: { color: applyNRA ? '#27ae60' : '#e74c3c' },
+            marker: {
+              color: monthly.map(r => r.adjActualKwh <= r.predKwh ? '#27ae60' : '#e74c3c'),
+            },
           },
         ]}
         layout={{
