@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 580" font-family="Arial, sans-serif">
+  <!-- Title -->
+  <text x="400" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#2c3e50">Greenfield Municipal Center — Single Line Diagram</text>
+  <text x="400" y="46" text-anchor="middle" font-size="11" fill="#666">Simplified Electrical Distribution • Mark metering points for your M&V plan</text>
+
+  <!-- Utility Service -->
+  <line x1="400" y1="60" x2="400" y2="90" stroke="#2c3e50" stroke-width="3"/>
+  <text x="400" y="75" text-anchor="middle" font-size="10" fill="#666">480V 3φ</text>
+  
+  <!-- Main Meter -->
+  <circle cx="400" cy="105" r="18" fill="white" stroke="#2c3e50" stroke-width="3"/>
+  <text x="400" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#2c3e50">M</text>
+  <text x="440" y="100" font-size="10" fill="#2c3e50" font-weight="bold">Utility Revenue</text>
+  <text x="440" y="112" font-size="10" fill="#2c3e50" font-weight="bold">Meter (kWh + kW)</text>
+
+  <!-- Main switchgear bus -->
+  <line x1="400" y1="123" x2="400" y2="155" stroke="#2c3e50" stroke-width="3"/>
+  <rect x="100" y="155" width="600" height="8" fill="#2c3e50" rx="2"/>
+  <text x="50" y="163" font-size="10" font-weight="bold" fill="#2c3e50">Main Switchgear</text>
+
+  <!-- Vertical drops to panels -->
+  <!-- Panel A -->
+  <line x1="180" y1="163" x2="180" y2="210" stroke="#2980b9" stroke-width="2"/>
+  <rect x="130" y="210" width="100" height="35" rx="3" fill="#e8f4f8" stroke="#2980b9" stroke-width="2"/>
+  <text x="180" y="225" text-anchor="middle" font-size="11" font-weight="bold" fill="#2980b9">Panel A</text>
+  <text x="180" y="238" text-anchor="middle" font-size="9" fill="#555">Wing A Office</text>
+
+  <!-- Panel B -->
+  <line x1="370" y1="163" x2="370" y2="210" stroke="#8e44ad" stroke-width="2"/>
+  <rect x="320" y="210" width="100" height="35" rx="3" fill="#f5eef8" stroke="#8e44ad" stroke-width="2"/>
+  <text x="370" y="225" text-anchor="middle" font-size="11" font-weight="bold" fill="#8e44ad">Panel B</text>
+  <text x="370" y="238" text-anchor="middle" font-size="9" fill="#555">Wing B Library</text>
+
+  <!-- Panel C -->
+  <line x1="530" y1="163" x2="530" y2="210" stroke="#e74c3c" stroke-width="2"/>
+  <rect x="480" y="210" width="100" height="35" rx="3" fill="#fadbd8" stroke="#e74c3c" stroke-width="2"/>
+  <text x="530" y="225" text-anchor="middle" font-size="11" font-weight="bold" fill="#e74c3c">Panel C</text>
+  <text x="530" y="238" text-anchor="middle" font-size="9" fill="#555">Data Center</text>
+
+  <!-- Panel Common -->
+  <line x1="680" y1="163" x2="680" y2="210" stroke="#d4ac0d" stroke-width="2"/>
+  <rect x="630" y="210" width="100" height="35" rx="3" fill="#fef9e7" stroke="#d4ac0d" stroke-width="2"/>
+  <text x="680" y="225" text-anchor="middle" font-size="11" font-weight="bold" fill="#d4ac0d">Panel CM</text>
+  <text x="680" y="238" text-anchor="middle" font-size="9" fill="#555">Common Areas</text>
+
+  <!-- ============ LOADS FROM PANEL A ============ -->
+  <line x1="180" y1="245" x2="180" y2="280" stroke="#2980b9" stroke-width="1.5"/>
+  <line x1="110" y1="280" x2="250" y2="280" stroke="#2980b9" stroke-width="1.5"/>
+  
+  <!-- AHU-1 -->
+  <line x1="130" y1="280" x2="130" y2="310" stroke="#2980b9" stroke-width="1.5"/>
+  <rect x="95" y="310" width="70" height="50" rx="3" fill="#d5e8d4" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="130" y="328" text-anchor="middle" font-size="9" font-weight="bold" fill="#27ae60">AHU-1</text>
+  <text x="130" y="340" text-anchor="middle" font-size="8" fill="#555">Fan: 15 HP</text>
+  <text x="130" y="352" text-anchor="middle" font-size="8" fill="#555">DX Cooling</text>
+
+  <!-- Wing A Lighting -->
+  <line x1="230" y1="280" x2="230" y2="310" stroke="#2980b9" stroke-width="1.5"/>
+  <rect x="195" y="310" width="70" height="50" rx="3" fill="#fff2cc" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="230" y="328" text-anchor="middle" font-size="9" font-weight="bold" fill="#e67e22">Lighting A</text>
+  <text x="230" y="340" text-anchor="middle" font-size="8" fill="#555">T8 → LED</text>
+  <text x="230" y="352" text-anchor="middle" font-size="8" fill="#555">(ECM-1)</text>
+
+  <!-- ============ LOADS FROM PANEL B ============ -->
+  <line x1="370" y1="245" x2="370" y2="280" stroke="#8e44ad" stroke-width="1.5"/>
+  <line x1="310" y1="280" x2="430" y2="280" stroke="#8e44ad" stroke-width="1.5"/>
+  
+  <!-- AHU-2 -->
+  <line x1="330" y1="280" x2="330" y2="310" stroke="#8e44ad" stroke-width="1.5"/>
+  <rect x="295" y="310" width="70" height="50" rx="3" fill="#d5e8d4" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="330" y="328" text-anchor="middle" font-size="9" font-weight="bold" fill="#27ae60">AHU-2</text>
+  <text x="330" y="340" text-anchor="middle" font-size="8" fill="#555">Fan: 10 HP</text>
+  <text x="330" y="352" text-anchor="middle" font-size="8" fill="#555">Heat Pump</text>
+
+  <!-- Wing B Lighting -->
+  <line x1="410" y1="280" x2="410" y2="310" stroke="#8e44ad" stroke-width="1.5"/>
+  <rect x="375" y="310" width="70" height="50" rx="3" fill="#fff2cc" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="410" y="328" text-anchor="middle" font-size="9" font-weight="bold" fill="#e67e22">Lighting B</text>
+  <text x="410" y="340" text-anchor="middle" font-size="8" fill="#555">T8 → LED</text>
+  <text x="410" y="352" text-anchor="middle" font-size="8" fill="#555">(ECM-1)</text>
+
+  <!-- ============ LOADS FROM PANEL C ============ -->
+  <line x1="530" y1="245" x2="530" y2="310" stroke="#e74c3c" stroke-width="1.5"/>
+  <rect x="495" y="310" width="70" height="50" rx="3" fill="#fadbd8" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="530" y="328" text-anchor="middle" font-size="9" font-weight="bold" fill="#e74c3c">CRAC-1</text>
+  <text x="530" y="340" text-anchor="middle" font-size="8" fill="#555">5 ton DX</text>
+  <text x="530" y="352" text-anchor="middle" font-size="8" fill="#555">IT: 50→70 kW</text>
+
+  <!-- ============ LOADS FROM PANEL COMMON ============ -->
+  <line x1="680" y1="245" x2="680" y2="280" stroke="#d4ac0d" stroke-width="1.5"/>
+  <line x1="630" y1="280" x2="730" y2="280" stroke="#d4ac0d" stroke-width="1.5"/>
+  
+  <!-- AHU-3 -->
+  <line x1="650" y1="280" x2="650" y2="310" stroke="#d4ac0d" stroke-width="1.5"/>
+  <rect x="615" y="310" width="70" height="50" rx="3" fill="#d5e8d4" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="650" y="328" text-anchor="middle" font-size="9" font-weight="bold" fill="#27ae60">AHU-3</text>
+  <text x="650" y="340" text-anchor="middle" font-size="8" fill="#555">Fan: 5 HP</text>
+  <text x="650" y="352" text-anchor="middle" font-size="8" fill="#555">Gas Heat</text>
+
+  <!-- Common Lighting -->
+  <line x1="710" y1="280" x2="710" y2="310" stroke="#d4ac0d" stroke-width="1.5"/>
+  <rect x="675" y="310" width="70" height="50" rx="3" fill="#f0f0f0" stroke="#999" stroke-width="1.5"/>
+  <text x="710" y="328" text-anchor="middle" font-size="9" font-weight="bold" fill="#666">Lighting CM</text>
+  <text x="710" y="340" text-anchor="middle" font-size="8" fill="#555">T8 (no ECM)</text>
+  <text x="710" y="352" text-anchor="middle" font-size="8" fill="#555">1.0 W/ft²</text>
+
+  <!-- ============ GAS SERVICE ============ -->
+  <line x1="50" y1="420" x2="750" y2="420" stroke="#e67e22" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="50" y="415" font-size="10" font-weight="bold" fill="#e67e22">Gas Service</text>
+  
+  <!-- Gas meter -->
+  <circle cx="100" cy="420" r="14" fill="white" stroke="#e67e22" stroke-width="2"/>
+  <text x="100" y="424" text-anchor="middle" font-size="10" font-weight="bold" fill="#e67e22">G</text>
+
+  <!-- Gas loads -->
+  <line x1="200" y1="420" x2="200" y2="450" stroke="#e67e22" stroke-width="1.5"/>
+  <rect x="160" y="450" width="80" height="30" rx="3" fill="#fdebd0" stroke="#e67e22" stroke-width="1"/>
+  <text x="200" y="465" text-anchor="middle" font-size="9" font-weight="bold" fill="#e67e22">AHU-1 Furnace</text>
+  <text x="200" y="476" text-anchor="middle" font-size="8" fill="#555">Wing A Heat</text>
+
+  <line x1="400" y1="420" x2="400" y2="450" stroke="#e67e22" stroke-width="1.5"/>
+  <rect x="360" y="450" width="80" height="30" rx="3" fill="#fdebd0" stroke="#e67e22" stroke-width="1"/>
+  <text x="400" y="465" text-anchor="middle" font-size="9" font-weight="bold" fill="#e67e22">AHU-3 Furnace</text>
+  <text x="400" y="476" text-anchor="middle" font-size="8" fill="#555">Common Heat</text>
+
+  <line x1="580" y1="420" x2="580" y2="450" stroke="#e67e22" stroke-width="1.5"/>
+  <rect x="540" y="450" width="80" height="30" rx="3" fill="#fdebd0" stroke="#e67e22" stroke-width="1"/>
+  <text x="580" y="465" text-anchor="middle" font-size="9" font-weight="bold" fill="#e67e22">DHW Heater</text>
+  <text x="580" y="476" text-anchor="middle" font-size="8" fill="#555">~230 therm/mo</text>
+
+  <!-- ============ METERING EXERCISE AREA ============ -->
+  <rect x="40" y="500" width="720" height="65" rx="5" fill="#f0f7ff" stroke="#2980b9" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="55" y="520" font-size="12" font-weight="bold" fill="#2980b9">Exercise: Mark your proposed sub-metering points on this diagram.</text>
+  <text x="55" y="536" font-size="10" fill="#555">For each ECM, draw a circle with "M" where you would install a sub-meter. Label it (e.g., M1, M2...).</text>
+  <text x="55" y="552" font-size="10" fill="#555">Consider: What does each meter measure? What is the measurement boundary? What approach does it support?</text>
+
+  <!-- Utility label -->
+  <rect x="350" y="55" width="100" height="18" rx="3" fill="#2c3e50"/>
+  <text x="400" y="68" text-anchor="middle" font-size="10" font-weight="bold" fill="white">Utility Service</text>
+</svg>
