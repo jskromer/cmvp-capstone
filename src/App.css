@@ -351,3 +351,24 @@ section > p {
   margin-bottom: 1rem;
   font-size: 0.95rem;
 }
+
+/* ECM tags */
+.ecm-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.1rem 0.5rem;
+  border-radius: 3px;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+}
+
+/* Lighting table input styling */
+.stats-table input[type="number"] {
+  font-family: inherit;
+}
+
+/* Savings table negative highlight */
+.stats-table tr td {
+  vertical-align: middle;
+}
