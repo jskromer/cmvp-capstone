@@ -32,9 +32,9 @@ A 62,000 sq ft mixed-use government facility (mid-Atlantic climate, Zone 4A) wit
 - **NRA event:** Data center expansion month 8 adds +93,984 kWh (months 8–12)
 
 ### Utility Rates
-- **Electric:** $0.085/kWh energy + $0.015/kWh fuel adj. = $0.100/kWh blended; Demand: $12.50/kW-month; Customer: $125/month
-- **Gas:** $1.05/therm + $0.12/therm transport = $1.17/therm blended; Customer: $45/month
-- **Emission factors:** Electric 0.85 lb CO₂/kWh (PJM grid); Gas 11.7 lb CO₂/therm
+- **Electric:** $0.090/kWh energy + $0.015/kWh fuel adj. = $0.105/kWh blended; Demand: $12.50/kW-month; Customer: $125/month
+- **Gas:** $1.03/therm + $0.12/therm transport = $1.15/therm blended; Customer: $45/month
+- **Emission factors:** Electric 0.92 lb CO₂/kWh (PJM grid); Gas 11.7 lb CO₂/therm
 
 ---
 

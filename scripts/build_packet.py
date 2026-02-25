@@ -313,10 +313,10 @@ def build_packet():
     # Utility rates
     story.append(Paragraph('<b>Utility Rates</b>', styles['SectionHead']))
     story.append(Paragraph(
-        '<b>Electric:</b> $0.085/kWh energy + $0.015/kWh fuel adj. = $0.100/kWh blended; '
+        '<b>Electric:</b> $0.090/kWh energy + $0.015/kWh fuel adj. = $0.105/kWh blended; '
         'Demand: $12.50/kW-month (15-min peak); Customer: $125/month<br/>'
-        '<b>Gas:</b> $1.05/therm + $0.12/therm transport = $1.17/therm blended; Customer: $45/month<br/>'
-        '<b>Emission factors:</b> Electricity 0.85 lb CO<sub>2</sub>/kWh (PJM grid); '
+        '<b>Gas:</b> $1.03/therm + $0.12/therm transport = $1.15/therm blended; Customer: $45/month<br/>'
+        '<b>Emission factors:</b> Electricity 0.92 lb CO<sub>2</sub>/kWh (PJM grid); '
         'Gas 11.7 lb CO<sub>2</sub>/therm',
         styles['BodySmall']))
     story.append(Spacer(1, 4))

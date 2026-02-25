@@ -193,15 +193,21 @@ def build():
     story.append(Paragraph('<b>Day 1: Context, Boundaries, and Approaches</b>', s['H2']))
     day1 = [
         ['Time','Activity','Module','Capstone Work','Tools'],
-        ['8:30–9:00','Welcome, scenario intro','0','Distribute paper packets\nOpen capstone site: Overview tab','Paper packet\ncmvp-capstone.vercel.app'],
-        ['9:00–10:15','Context & stakeholders','1–2','Worksheet 1A:\nStakeholder & risk matrix','Building graphic on\nOverview tab'],
-        ['10:15–10:30','Break','','',''],
-        ['10:30–12:00','Approaches, boundaries','3','Worksheet 1B: Boundaries\nWorksheet 1C: Approach selection','Single line diagram\n(paper packet)'],
+        ['8:00–8:45','Welcome, scenario intro','0','Distribute paper packets\nOpen capstone site: Overview tab','Paper packet\ncmvp-capstone.vercel.app'],
+        ['8:45–9:30','Context &amp; stakeholders','1','Worksheet 1A:\nStakeholder &amp; risk matrix','Building graphic on\nOverview tab'],
+        ['9:30–9:45','Break','','',''],
+        ['9:45–10:30','Stakeholders cont., risk','2','Complete Worksheet 1A:\nAll 4 risk domains',''],
+        ['10:30–11:15','Approaches, boundaries','3','Worksheet 1B: Boundaries\nWorksheet 1C: Approach selection','Single line diagram\n(paper packet)'],
+        ['11:15–11:30','Break','','',''],
+        ['11:30–12:00','Approach selection cont.','3','Complete Worksheet 1C:\nJustifications for each ECM',''],
         ['12:00–1:00','Lunch','','',''],
-        ['1:00–2:30','Statistics interlude','3.1','Explore Scatter Plots tab\nIdentify patterns in data','Statistics_Exercise.xlsm\nDescriptive_Stats_Step_1.xlsx'],
+        ['1:00–1:45','Statistics interlude','3.1','Explore Scatter Plots tab\nIdentify patterns in data','Statistics_Exercise.xlsm\nDescriptive_Stats.xlsx'],
+        ['1:45–2:30','Descriptive stats','3.1','Population sampling exercise\nMean, variance, CV','Descriptive_Stats.xlsx'],
         ['2:30–2:45','Break','','',''],
-        ['2:45–4:00','Model concepts intro','3.1','Scatter plot observations\nGroup discussion: what model?','Least_Squares_Matrix.xlsx\nScatter Plots tab'],
-        ['4:00–4:30','Day 1 wrap','','Collect Worksheets 1A–1C',''],
+        ['2:45–3:30','Regression concepts','3.1','Scatter plot observations\nGroup discussion: what model?','Least_Squares_Matrix.xlsx\nScatter Plots tab'],
+        ['3:30–4:15','Model concepts intro','3.1','Electric &amp; gas scatter review\n"What type of model fits?"','Scatter Plots tab'],
+        ['4:15–4:30','Break','','',''],
+        ['4:30–5:00','Day 1 wrap &amp; preview','','Review Worksheets 1A–1C\nPreview Day 2 modeling',''],
     ]
     t1 = Table(day1, colWidths=[0.8*inch, 1.3*inch, 0.6*inch, 2.0*inch, 1.8*inch])
     t1.setStyle(TableStyle([
@@ -222,14 +228,21 @@ def build():
     story.append(Paragraph('<b>Day 2: Modeling, Baselines, and Adjustments</b>', s['H2']))
     day2 = [
         ['Time','Activity','Module','Capstone Work','Tools'],
-        ['8:30–10:15','Baseline modeling','4–5','Model Fitting tab: fit 5P model\nWorksheet 2A: record observations\n⚡ Teaching Moment: change points','Model Fitting tab\ncmvp-capstone.vercel.app'],
-        ['10:15–10:30','Break','','',''],
-        ['10:30–12:00','Static factors, NRAs','4','Worksheet 2B: static factors\nTime Series tab: find the NRA\n⚡ Teaching Moment: NRA discovery','Time Series tab\n(toggle electric/gas)'],
+        ['8:00–8:45','Baseline modeling intro','4','Review baseline data\nIdentify significant parameters','Model Fitting tab'],
+        ['8:45–9:30','Model fitting','5','Auto-Fit 5P model\nWorksheet 2A: record statistics\n⚡ Teaching Moment: change points','Model Fitting tab'],
+        ['9:30–9:45','Break','','',''],
+        ['9:45–10:30','Manual model exploration','5','Manual sliders: try 48/63°F\nCompare R² values\n⚡ Teaching Moment: G14 fail','Model Fitting tab'],
+        ['10:30–11:15','Static factors &amp; NRAs','4','Worksheet 2B: static factors\nNRA protocol design','Time Series tab'],
+        ['11:15–11:30','Break','','',''],
+        ['11:30–12:00','NRA discovery','4','Time Series tab: find the step change\n⚡ Teaching Moment: NRA discovery','Time Series tab\n(toggle electric/gas)'],
         ['12:00–1:00','Lunch','','',''],
-        ['1:00–2:30','Retrofit isolation','6','Worksheet 2C: lighting stipulation\nLighting Stipulation tab\n⚡ Teaching Moment: interactive effects','Lighting Stipulation tab'],
+        ['1:00–1:45','Lighting stipulation','6','Worksheet 2C: fixture inventory\nLighting Stipulation tab','Lighting Stipulation tab'],
+        ['1:45–2:30','Interactive effects','6','Compare stipulation vs. model\n⚡ Teaching Moment: interactive effects','Savings Calculator tab'],
         ['2:30–2:45','Break','','',''],
-        ['2:45–4:00','VFD metering design','6','Worksheet 2D: VFD metering plan\nVFD Analysis tab: fan law\n⚡ Teaching Moment: cubic relationship','VFD Analysis tab\nOEH_M_V_planning_tool.xlsx'],
-        ['4:00–4:30','Day 2 wrap','','Collect Worksheets 2A–2D',''],
+        ['2:45–3:30','VFD analysis','6','VFD Analysis tab: fan law\nSelect each AHU\n⚡ Teaching Moment: cubic relationship','VFD Analysis tab'],
+        ['3:30–4:15','VFD metering plan','6','Worksheet 2D: metering plan\nWhat, where, how long, why','OEH_M_V_planning.xlsx'],
+        ['4:15–4:30','Break','','',''],
+        ['4:30–5:00','Day 2 wrap &amp; preview','','Review Worksheets 2A–2D\nPreview Day 3 plan assembly',''],
     ]
     t2 = Table(day2, colWidths=[0.8*inch, 1.3*inch, 0.6*inch, 2.0*inch, 1.8*inch])
     t2.setStyle(TableStyle([
@@ -250,14 +263,21 @@ def build():
     story.append(Paragraph('<b>Day 3: Planning, Reporting, and Defense</b>', s['H2']))
     day3 = [
         ['Time','Activity','Module','Capstone Work','Tools'],
-        ['8:30–10:15','M&V plan assembly','7–8','Worksheet 3A: plan checklist\nFinalize metering specs\nSignificant digits discussion','OEH_M_V_planning_tool.xlsx'],
-        ['10:15–10:30','Break','','',''],
-        ['10:30–12:00','Savings & uncertainty','8.1–9','Savings Calculator tab\nWorksheet 3B: savings table\n⚡ Teaching Moment: gas increase\n⚡ Teaching Moment: G14 fail','Savings Calculator tab\ncmvp-capstone.vercel.app'],
+        ['8:00–8:45','M&amp;V plan assembly','7','Worksheet 3A: plan checklist\nConfirm all sections present','OEH_M_V_planning.xlsx'],
+        ['8:45–9:30','Metering specifications','8','Finalize metering specs\nCost-benefit of M&amp;V','Paper packet'],
+        ['9:30–9:45','Break','','',''],
+        ['9:45–10:30','Significant digits, rounding','8.1','Sig figs in savings reporting\nGroup exercise',''],
+        ['10:30–11:15','Savings calculation','9','Savings Calculator tab\nWorksheet 3B: monthly table\n⚡ Teaching Moment: gas increase','Savings Calculator tab'],
+        ['11:15–11:30','Break','','',''],
+        ['11:30–12:00','NRA adjustment &amp; uncertainty','9','Toggle NRA on/off\nFractional savings uncertainty\n⚡ Teaching Moment: NRA revisited','Savings Calculator tab'],
         ['12:00–1:00','Lunch','','',''],
-        ['1:00–2:30','Report drafting','9','Worksheet 3B: valuation, CO₂\nExec summary draft\nWorksheet 3C: defense prep','Savings Calculator tab\n(valuation section)'],
+        ['1:00–1:45','Valuation &amp; CO₂','9','Apply rates, calculate CO₂\nComplete Worksheet 3B','Savings Calculator tab\n(valuation section)'],
+        ['1:45–2:30','Report drafting','9','Exec summary draft\nWorksheet 3C: defense prep','Paper packet'],
         ['2:30–2:45','Break','','',''],
-        ['2:45–4:00','Plan defense','9','5-minute presentations\nPeer review & discussion\nExam prep Q&A','Paper packet\n(all worksheets)'],
-        ['4:00–4:30','Course wrap','','Collect final packets\nCourse evaluations',''],
+        ['2:45–3:30','Plan defense presentations','9','5-minute presentations\nPeer challenge questions','Paper packet\n(all worksheets)'],
+        ['3:30–4:15','Defense cont. &amp; discussion','9','Remaining presentations\nInstructor challenge questions',''],
+        ['4:15–4:30','Break','','',''],
+        ['4:30–5:00','Course wrap &amp; exam prep','','Final Q&amp;A, domain review\nCollect packets, evaluations',''],
     ]
     t3 = Table(day3, colWidths=[0.8*inch, 1.3*inch, 0.6*inch, 2.0*inch, 1.8*inch])
     t3.setStyle(TableStyle([
@@ -313,7 +333,7 @@ def build():
 
         ('⚡ 4. Interactive Effects — Lighting ≠ Model',
          'Day 2 PM · Lighting Stipulation tab vs. Savings Calculator',
-         'The lighting stipulation calculates ~258,000 kWh saved based on fixture counts and hours. '
+         'The lighting stipulation calculates ~157,000 kWh saved based on fixture counts and hours. '
          'But the whole-facility model shows different total savings.',
          'Why? Less lighting waste heat means less cooling load in summer (good) but more heating load in '
          'winter (bad). The whole-facility model captures these interactive effects; the stipulation does not. '
@@ -456,7 +476,7 @@ def build():
          'Gas model: 3P or 5P. CV(RMSE) around 16% — above G14 but defensible.'],
         ['2B: Static Factors','At least: occupancy, operating schedule, data center load, conditioned area.\n'
          'NRA trigger for data center: server count or IT load exceeds baseline +/- threshold.'],
-        ['2C: Lighting','Total: ~258,000 kWh/yr (740 fixtures × ΔW × hours). Should match app calculation.\n'
+        ['2C: Lighting','Total: ~157,000 kWh/yr (740 fixtures × ΔW × hours). Should match app calculation.\n'
          'Key judgment: annual hours per space. Students should cite building schedule as basis.'],
         ['2D: VFD Metering','Fan motor kW, speed (Hz or %), airflow (CFM), supply air temp.\n'
          'Pre-retrofit period: at least 2 weeks covering range of operating conditions.\n'
