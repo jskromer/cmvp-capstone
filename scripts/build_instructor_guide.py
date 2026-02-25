@@ -23,7 +23,7 @@ RED_ALERT  = HexColor('#c53030')
 GREEN_OK   = HexColor('#276749')
 
 PAGE_W, PAGE_H = letter
-MARGIN = 0.75 * inch
+MARGIN = 0.65 * inch
 
 def build():
     outpath = '/mnt/user-data/outputs/CMVP_Capstone_Instructor_Guide.pdf'
@@ -44,16 +44,16 @@ def build():
     s['H1'] = ParagraphStyle('H1', fontSize=16, textColor=DARK,
         fontName='Helvetica-Bold', spaceAfter=8, spaceBefore=14,
         borderWidth=0, borderColor=ACCENT, borderPadding=0)
-    s['H2'] = ParagraphStyle('H2', fontSize=13, textColor=ACCENT,
-        fontName='Helvetica-Bold', spaceAfter=6, spaceBefore=10)
-    s['H3'] = ParagraphStyle('H3', fontSize=11, textColor=DARK,
+    s['H2'] = ParagraphStyle('H2', fontSize=12, textColor=ACCENT,
         fontName='Helvetica-Bold', spaceAfter=4, spaceBefore=6)
-    s['Body'] = ParagraphStyle('Body', fontSize=10, textColor=DARK,
-        leading=14, spaceAfter=6)
-    s['BodySmall'] = ParagraphStyle('BodySmall', fontSize=9, textColor=DARK,
+    s['H3'] = ParagraphStyle('H3', fontSize=10, textColor=DARK,
+        fontName='Helvetica-Bold', spaceAfter=3, spaceBefore=4)
+    s['Body'] = ParagraphStyle('Body', fontSize=9, textColor=DARK,
         leading=12, spaceAfter=4)
-    s['Note'] = ParagraphStyle('Note', fontSize=9, textColor=HexColor('#4a5568'),
-        leading=12, spaceAfter=4, leftIndent=12, fontName='Helvetica-Oblique')
+    s['BodySmall'] = ParagraphStyle('BodySmall', fontSize=8, textColor=DARK,
+        leading=10, spaceAfter=2)
+    s['Note'] = ParagraphStyle('Note', fontSize=8, textColor=HexColor('#4a5568'),
+        leading=10, spaceAfter=2, leftIndent=12, fontName='Helvetica-Oblique')
     s['Alert'] = ParagraphStyle('Alert', fontSize=10, textColor=RED_ALERT,
         leading=13, spaceAfter=6, fontName='Helvetica-Bold')
     s['Footer'] = ParagraphStyle('Footer', fontSize=8, textColor=MEDIUM_GRAY,
@@ -68,7 +68,7 @@ def build():
         t = Table([['']],colWidths=[avail_w])
         t.setStyle(TableStyle([('LINEBELOW',(0,0),(0,0),0.5,MEDIUM_GRAY)]))
         story.append(t)
-        story.append(Spacer(1,6))
+        story.append(Spacer(1,3))
 
     def section_header(text):
         story.append(Paragraph(text, s['H1']))
@@ -162,8 +162,8 @@ def build():
         ('FONTSIZE',(0,0),(-1,-1),10),
         ('GRID',(0,0),(-1,-1),0.5,MEDIUM_GRAY),
         ('ROWBACKGROUNDS',(0,1),(-1,-1),[white,LIGHT_GRAY]),
-        ('TOPPADDING',(0,0),(-1,-1),3),
-        ('BOTTOMPADDING',(0,0),(-1,-1),3),
+        ('TOPPADDING',(0,0),(-1,-1),2),
+        ('BOTTOMPADDING',(0,0),(-1,-1),2),
     ]))
     story.append(toc_t)
     story.append(Spacer(1, 0.4*inch))
@@ -191,96 +191,136 @@ def build():
     
     # Day 1
     story.append(Paragraph('<b>Day 1: Context, Boundaries, and Approaches</b>', s['H2']))
+    story.append(Paragraph('<font color="#c47a2a">Slide decks in bold. Capstone exercises in normal text.</font>', s['Note']))
     day1 = [
-        ['Time','Activity','Module','Capstone Work','Tools'],
-        ['8:00–8:45','Welcome, scenario intro','0','Distribute paper packets\nOpen capstone site: Overview tab','Paper packet\ncmvp-capstone.vercel.app'],
-        ['8:45–9:30','Context &amp; stakeholders','1','Worksheet 1A:\nStakeholder &amp; risk matrix','Building graphic on\nOverview tab'],
-        ['9:30–9:45','Break','','',''],
-        ['9:45–10:30','Stakeholders cont., risk','2','Complete Worksheet 1A:\nAll 4 risk domains',''],
-        ['10:30–11:15','Approaches, boundaries','3','Worksheet 1B: Boundaries\nWorksheet 1C: Approach selection','Single line diagram\n(paper packet)'],
-        ['11:15–11:30','Break','','',''],
-        ['11:30–12:00','Approach selection cont.','3','Complete Worksheet 1C:\nJustifications for each ECM',''],
-        ['12:00–1:00','Lunch','','',''],
-        ['1:00–1:45','Statistics interlude','3.1','Explore Scatter Plots tab\nIdentify patterns in data','Statistics_Exercise.xlsm\nDescriptive_Stats.xlsx'],
-        ['1:45–2:30','Descriptive stats','3.1','Population sampling exercise\nMean, variance, CV','Descriptive_Stats.xlsx'],
-        ['2:30–2:45','Break','','',''],
-        ['2:45–3:30','Regression concepts','3.1','Scatter plot observations\nGroup discussion: what model?','Least_Squares_Matrix.xlsx\nScatter Plots tab'],
-        ['3:30–4:15','Model concepts intro','3.1','Electric &amp; gas scatter review\n"What type of model fits?"','Scatter Plots tab'],
-        ['4:15–4:30','Break','','',''],
-        ['4:30–5:00','Day 1 wrap &amp; preview','','Review Worksheets 1A–1C\nPreview Day 2 modeling',''],
+        ['Time','Activity','Capstone / Hands-On','Tools'],
+        ['8:00–8:45','<b>SLIDES: Section 0</b>\nIntro, welcome, course overview\nExam blueprint &amp; Bloom\'s','Distribute paper packets\nOpen Overview tab on screen','Paper packet\ncmvp-capstone.vercel.app'],
+        ['8:45–9:30','<b>SLIDES: Section 1</b>\nFundamental Concepts\nEnergy, savings, counterfactuals','Introduce Greenfield scenario\nWalk through building graphic','Overview tab\n(building graphic)'],
+        ['9:30–9:45','Break','',''],
+        ['9:45–10:30','<b>SLIDES: Section 2</b>\nContextual Considerations\nStakeholders, risk, ESPC context','Worksheet 1A:\nStakeholder &amp; risk matrix\n(all 4 risk domains)','Paper packet'],
+        ['10:30–11:15','<b>SLIDES: Section 3</b>\nFundamental Performance\nMeasurement Approaches','Worksheet 1B: Boundaries\non single line diagram','Paper packet\n(single line diagram)'],
+        ['11:15–11:30','Break','',''],
+        ['11:30–12:00','Section 3 continued\nApproach selection, stipulation','Worksheet 1C: Approach selection\nJustifications for each ECM',''],
+        ['12:00–1:00','Lunch','',''],
+        ['1:00–1:45','<b>SLIDES: Interlude 3.1</b>\nBasic Concepts in Statistics\nDescriptive stats, distributions','Population sampling exercise\nMean, variance, CV','Statistics_Exercise.xlsm\nDescriptive_Stats.xlsx'],
+        ['1:45–2:30','Interlude 3.1 continued\nRegression, R², residuals','Explore Scatter Plots tab\nIdentify patterns in data','Scatter Plots tab\ncmvp-capstone.vercel.app'],
+        ['2:30–2:45','Break','',''],
+        ['2:45–3:30','Interlude 3.1 continued\nLeast squares, model selection','Scatter plot observations\nGroup: "What model fits?"','Least_Squares_Matrix.xlsx\nScatter Plots tab'],
+        ['3:30–4:15','Interlude 3.1 wrap-up\nGoF statistics, G14 criteria','Electric &amp; gas scatter review\nPreview model fitting vocab','Scatter Plots tab'],
+        ['4:15–4:30','Break','',''],
+        ['4:30–5:00','Day 1 wrap &amp; preview','Review Worksheets 1A–1C\nPreview Day 2 modeling',''],
     ]
-    t1 = Table(day1, colWidths=[0.8*inch, 1.3*inch, 0.6*inch, 2.0*inch, 1.8*inch])
+    col_w = [0.95*inch, 1.55*inch, 2.0*inch, 1.6*inch]
+    t1 = Table([[Paragraph(c, s['BodySmall']) if i > 0 else c for i, c in enumerate(row)] for row in day1],
+               colWidths=col_w)
     t1.setStyle(TableStyle([
         ('BACKGROUND',(0,0),(-1,0),DARK),
         ('TEXTCOLOR',(0,0),(-1,0),white),
         ('FONTNAME',(0,0),(-1,0),'Helvetica-Bold'),
-        ('FONTSIZE',(0,0),(-1,-1),8),
+        ('FONTSIZE',(0,0),(-1,0),7),
         ('GRID',(0,0),(-1,-1),0.5,MEDIUM_GRAY),
         ('ROWBACKGROUNDS',(0,1),(-1,-1),[white,LIGHT_GRAY]),
         ('VALIGN',(0,0),(-1,-1),'TOP'),
-        ('TOPPADDING',(0,0),(-1,-1),3),
-        ('BOTTOMPADDING',(0,0),(-1,-1),3),
+        ('TOPPADDING',(0,0),(-1,-1),2),
+        ('BOTTOMPADDING',(0,0),(-1,-1),2),
+        ('LEFTPADDING',(0,0),(-1,-1),4),
     ]))
     story.append(t1)
-    story.append(Spacer(1,10))
+    story.append(Spacer(1,6))
 
     # Day 2
     story.append(Paragraph('<b>Day 2: Modeling, Baselines, and Adjustments</b>', s['H2']))
     day2 = [
-        ['Time','Activity','Module','Capstone Work','Tools'],
-        ['8:00–8:45','Baseline modeling intro','4','Review baseline data\nIdentify significant parameters','Model Fitting tab'],
-        ['8:45–9:30','Model fitting','5','Auto-Fit 5P model\nWorksheet 2A: record statistics\n⚡ Teaching Moment: change points','Model Fitting tab'],
-        ['9:30–9:45','Break','','',''],
-        ['9:45–10:30','Manual model exploration','5','Manual sliders: try 48/63°F\nCompare R² values\n⚡ Teaching Moment: G14 fail','Model Fitting tab'],
-        ['10:30–11:15','Static factors &amp; NRAs','4','Worksheet 2B: static factors\nNRA protocol design','Time Series tab'],
-        ['11:15–11:30','Break','','',''],
-        ['11:30–12:00','NRA discovery','4','Time Series tab: find the step change\n⚡ Teaching Moment: NRA discovery','Time Series tab\n(toggle electric/gas)'],
-        ['12:00–1:00','Lunch','','',''],
-        ['1:00–1:45','Lighting stipulation','6','Worksheet 2C: fixture inventory\nLighting Stipulation tab','Lighting Stipulation tab'],
-        ['1:45–2:30','Interactive effects','6','Compare stipulation vs. model\n⚡ Teaching Moment: interactive effects','Savings Calculator tab'],
-        ['2:30–2:45','Break','','',''],
-        ['2:45–3:30','VFD analysis','6','VFD Analysis tab: fan law\nSelect each AHU\n⚡ Teaching Moment: cubic relationship','VFD Analysis tab'],
-        ['3:30–4:15','VFD metering plan','6','Worksheet 2D: metering plan\nWhat, where, how long, why','OEH_M_V_planning.xlsx'],
-        ['4:15–4:30','Break','','',''],
-        ['4:30–5:00','Day 2 wrap &amp; preview','','Review Worksheets 2A–2D\nPreview Day 3 plan assembly',''],
+        ['Time','Activity','Capstone / Hands-On','Tools'],
+        ['8:00–8:45','<b>SLIDES: Section 4</b>\nBaselines &amp; Adjustments\nStatic factors, routine vs. non-routine','Day 1 recap\nReview baseline data structure','Model Fitting tab'],
+        ['8:45–9:30','<b>SLIDES: Section 5</b>\nWhole Facility Approach\nStatistical models, change-point','Auto-Fit 5P model\nWorksheet 2A: record statistics\n⚡ Teaching Moment: change points','Model Fitting tab'],
+        ['9:30–9:45','Break','',''],
+        ['9:45–10:30','Section 5 continued\nModel validation, G14 criteria','Manual sliders: try 48/63°F\nCompare R² values\n⚡ Teaching Moment: G14 fail','Model Fitting tab'],
+        ['10:30–11:15','Sections 4/5 integration\nStatic factors, NRA protocol','Worksheet 2B: static factors\nDesign NRA protocol','Time Series tab'],
+        ['11:15–11:30','Break','',''],
+        ['11:30–12:00','NRA application exercise','Time Series tab: find the step change\n⚡ Teaching Moment: NRA discovery','Time Series tab\n(toggle electric/gas)'],
+        ['12:00–1:00','Lunch','',''],
+        ['1:00–1:45','<b>SLIDES: Section 6</b>\nRetrofit Isolation Approach\nSimplified vs. enhanced measurement','Worksheet 2C: fixture inventory\nLighting Stipulation tab\n(verify 740 fixtures)','Lighting Stipulation tab'],
+        ['1:45–2:30','Section 6 continued\nInteractive effects, attribution','Compare stipulation vs. model\n⚡ Teaching Moment: interactive effects','Savings Calculator tab'],
+        ['2:30–2:45','Break','',''],
+        ['2:45–3:30','Section 6 continued\nVFDs, fan laws, continuous verif.','VFD Analysis tab: fan law\nSelect each AHU\n⚡ Teaching Moment: cubic relationship','VFD Analysis tab'],
+        ['3:30–4:15','Section 6 wrap-up\nMetering for retrofit isolation','Worksheet 2D: VFD metering plan\nWhat, where, how long, why','OEH_M_V_planning.xlsx'],
+        ['4:15–4:30','Break','',''],
+        ['4:30–5:00','Day 2 wrap &amp; preview','Review Worksheets 2A–2D\nPreview Day 3 plan assembly',''],
     ]
-    t2 = Table(day2, colWidths=[0.8*inch, 1.3*inch, 0.6*inch, 2.0*inch, 1.8*inch])
+    t2 = Table([[Paragraph(c, s['BodySmall']) if i > 0 else c for i, c in enumerate(row)] for row in day2],
+               colWidths=col_w)
     t2.setStyle(TableStyle([
         ('BACKGROUND',(0,0),(-1,0),DARK),
         ('TEXTCOLOR',(0,0),(-1,0),white),
         ('FONTNAME',(0,0),(-1,0),'Helvetica-Bold'),
-        ('FONTSIZE',(0,0),(-1,-1),8),
+        ('FONTSIZE',(0,0),(-1,0),7),
         ('GRID',(0,0),(-1,-1),0.5,MEDIUM_GRAY),
         ('ROWBACKGROUNDS',(0,1),(-1,-1),[white,LIGHT_GRAY]),
         ('VALIGN',(0,0),(-1,-1),'TOP'),
-        ('TOPPADDING',(0,0),(-1,-1),3),
-        ('BOTTOMPADDING',(0,0),(-1,-1),3),
+        ('TOPPADDING',(0,0),(-1,-1),2),
+        ('BOTTOMPADDING',(0,0),(-1,-1),2),
+        ('LEFTPADDING',(0,0),(-1,-1),4),
     ]))
     story.append(t2)
-    story.append(Spacer(1,10))
+    story.append(Spacer(1,6))
 
     # Day 3
     story.append(Paragraph('<b>Day 3: Planning, Reporting, and Defense</b>', s['H2']))
     day3 = [
-        ['Time','Activity','Module','Capstone Work','Tools'],
-        ['8:00–8:45','M&amp;V plan assembly','7','Worksheet 3A: plan checklist\nConfirm all sections present','OEH_M_V_planning.xlsx'],
-        ['8:45–9:30','Metering specifications','8','Finalize metering specs\nCost-benefit of M&amp;V','Paper packet'],
-        ['9:30–9:45','Break','','',''],
-        ['9:45–10:30','Significant digits, rounding','8.1','Sig figs in savings reporting\nGroup exercise',''],
-        ['10:30–11:15','Savings calculation','9','Savings Calculator tab\nWorksheet 3B: monthly table\n⚡ Teaching Moment: gas increase','Savings Calculator tab'],
-        ['11:15–11:30','Break','','',''],
-        ['11:30–12:00','NRA adjustment &amp; uncertainty','9','Toggle NRA on/off\nFractional savings uncertainty\n⚡ Teaching Moment: NRA revisited','Savings Calculator tab'],
-        ['12:00–1:00','Lunch','','',''],
-        ['1:00–1:45','Valuation &amp; CO₂','9','Apply rates, calculate CO₂\nComplete Worksheet 3B','Savings Calculator tab\n(valuation section)'],
-        ['1:45–2:30','Report drafting','9','Exec summary draft\nWorksheet 3C: defense prep','Paper packet'],
-        ['2:30–2:45','Break','','',''],
-        ['2:45–3:30','Plan defense presentations','9','5-minute presentations\nPeer challenge questions','Paper packet\n(all worksheets)'],
-        ['3:30–4:15','Defense cont. &amp; discussion','9','Remaining presentations\nInstructor challenge questions',''],
-        ['4:15–4:30','Break','','',''],
-        ['4:30–5:00','Course wrap &amp; exam prep','','Final Q&amp;A, domain review\nCollect packets, evaluations',''],
+        ['Time','Activity','Capstone / Hands-On','Tools'],
+        ['8:00–8:45','<b>SLIDES: Section 7</b>\nM&amp;V Planning\nPlan contents, contracts, cost-benefit','Day 2 recap\nWorksheet 3A: plan checklist','OEH_M_V_planning.xlsx'],
+        ['8:45–9:30','Section 7 continued\nOperational verification, scheduling','Confirm all plan sections\nSchedule of M&amp;V activities','Paper packet'],
+        ['9:30–9:45','Break','',''],
+        ['9:45–10:30','<b>SLIDES: Section 8</b>\nMetering Considerations\nMeter types, calibration, safety','Finalize metering specs\nCost-benefit of metering plan','Paper packet'],
+        ['10:30–11:15','<b>SLIDES: Interlude 8.1</b>\nSignificant Digits &amp; Rounding\nPrecision in savings reporting','Sig figs group exercise\n"How many digits in your savings?"',''],
+        ['11:15–11:30','Break','',''],
+        ['11:30–12:00','<b>SLIDES: Section 9</b>\nReporting (first half)\nReport contents, plan-to-report link','Savings Calculator tab\nWorksheet 3B: monthly table\n⚡ Teaching Moment: gas increase','Savings Calculator tab'],
+        ['12:00–1:00','Lunch','',''],
+        ['1:00–1:45','Section 9 continued\nNRA in reporting, uncertainty','Toggle NRA on/off\nFractional savings uncertainty\n⚡ Teaching Moment: NRA revisited','Savings Calculator tab'],
+        ['1:45–2:30','Section 9 continued\nValuation, CO₂, ESG reporting','Apply rates, calculate CO₂\nComplete Worksheet 3B\nExec summary draft','Savings Calculator tab\n(valuation section)'],
+        ['2:30–2:45','Break','',''],
+        ['2:45–3:30','Section 9 wrap-up\nCarbon accounting, M&amp;V 2.0','Worksheet 3C: defense prep\nPrepare 5-min presentations','Paper packet'],
+        ['3:30–4:15','<b>CAPSTONE DEFENSE</b>\n5-minute presentations\nPeer &amp; instructor challenges','Student presentations\nOne challenge question per peer','Paper packet\n(all worksheets)'],
+        ['4:15–4:30','Break','',''],
+        ['4:30–5:00','Course wrap &amp; exam prep\nDomain review, exam tips','Final Q&amp;A\nCollect packets, evaluations',''],
     ]
-    t3 = Table(day3, colWidths=[0.8*inch, 1.3*inch, 0.6*inch, 2.0*inch, 1.8*inch])
+    t3 = Table([[Paragraph(c, s['BodySmall']) if i > 0 else c for i, c in enumerate(row)] for row in day3],
+               colWidths=col_w)
     t3.setStyle(TableStyle([
+        ('BACKGROUND',(0,0),(-1,0),DARK),
+        ('TEXTCOLOR',(0,0),(-1,0),white),
+        ('FONTNAME',(0,0),(-1,0),'Helvetica-Bold'),
+        ('FONTSIZE',(0,0),(-1,0),7),
+        ('GRID',(0,0),(-1,-1),0.5,MEDIUM_GRAY),
+        ('ROWBACKGROUNDS',(0,1),(-1,-1),[white,LIGHT_GRAY]),
+        ('VALIGN',(0,0),(-1,-1),'TOP'),
+        ('TOPPADDING',(0,0),(-1,-1),2),
+        ('BOTTOMPADDING',(0,0),(-1,-1),2),
+        ('LEFTPADDING',(0,0),(-1,-1),4),
+    ]))
+    story.append(t3)
+    story.append(Spacer(1, 4))
+
+    # Slide deck reference
+    story.append(Paragraph('<b>Slide Deck Reference</b>', s['H2']))
+    deck_data = [
+        ['Deck','Title','Day','Exam Domain(s)'],
+        ['Section 0','Introduction &amp; Course Overview','1 AM','—'],
+        ['Section 1','Fundamental Concepts','1 AM','—'],
+        ['Section 2','Contextual Considerations','1 AM','D9 (6–10%)'],
+        ['Section 3','Fundamental Performance Measurement Approaches','1 AM','D2 (9–13%)'],
+        ['Interlude 3.1','Basic Concepts in Statistics','1 PM','D8 (9–13%)'],
+        ['Section 4','Baselines &amp; Routine/Non-Routine Adjustments','2 AM','D1 (10–16%)'],
+        ['Section 5','Whole Facility Approaches','2 AM','D4 (10–16%)'],
+        ['Section 6','Retrofit Isolation','2 PM','D3 (11–17%)'],
+        ['Section 7','M&amp;V Planning','3 AM','D5 (12–18%)'],
+        ['Section 8','Metering Considerations','3 AM','D7 (6–8%)'],
+        ['Interlude 8.1','Rounding &amp; Significant Digits','3 AM','D8 (9–13%)'],
+        ['Section 9','Reporting','3 mid-AM–PM','D6 (6–10%)'],
+    ]
+    dt = Table(deck_data, colWidths=[1.1*inch, 2.2*inch, 0.8*inch, 1.4*inch])
+    dt.setStyle(TableStyle([
         ('BACKGROUND',(0,0),(-1,0),DARK),
         ('TEXTCOLOR',(0,0),(-1,0),white),
         ('FONTNAME',(0,0),(-1,0),'Helvetica-Bold'),
@@ -288,10 +328,11 @@ def build():
         ('GRID',(0,0),(-1,-1),0.5,MEDIUM_GRAY),
         ('ROWBACKGROUNDS',(0,1),(-1,-1),[white,LIGHT_GRAY]),
         ('VALIGN',(0,0),(-1,-1),'TOP'),
-        ('TOPPADDING',(0,0),(-1,-1),3),
-        ('BOTTOMPADDING',(0,0),(-1,-1),3),
+        ('TOPPADDING',(0,0),(-1,-1),2),
+        ('BOTTOMPADDING',(0,0),(-1,-1),2),
+        ('LEFTPADDING',(0,0),(-1,-1),4),
     ]))
-    story.append(t3)
+    story.append(dt)
     story.append(PageBreak())
 
     # ═════════════════════════════════════════════════════════════════
@@ -303,7 +344,7 @@ def build():
         'Each surfaces a real-world M&amp;V challenge that students must discover and resolve. '
         'The prompts in the capstone app point students toward these moments without giving away the answer.',
         s['Body']))
-    story.append(Spacer(1,6))
+    story.append(Spacer(1,3))
 
     moments = [
         ('⚡ 1. Physics vs. Statistics — Change Point Tradeoff',
@@ -362,7 +403,7 @@ def build():
         story.append(Paragraph(f'<i>{timing}</i>', s['Note']))
         story.append(Paragraph(f'<b>What happens:</b> {what}', s['BodySmall']))
         story.append(Paragraph(f'<b>Facilitation:</b> {facilitation}', s['BodySmall']))
-        story.append(Spacer(1,6))
+        story.append(Spacer(1,3))
 
     story.append(PageBreak())
 
@@ -448,7 +489,7 @@ def build():
                 story.append(Paragraph(f'&bull; <font color="#c53030"><b>{b}</b></font>', s['BodySmall']))
             else:
                 story.append(Paragraph(f'&bull; {b}', s['BodySmall']))
-        story.append(Spacer(1,6))
+        story.append(Spacer(1,3))
 
     story.append(PageBreak())
 
@@ -460,7 +501,7 @@ def build():
         'The capstone is designed with no single right answer — professional judgment is the point. '
         'Below are <b>defensible ranges</b> and key points to look for, not answer keys.',
         s['Body']))
-    story.append(Spacer(1,6))
+    story.append(Spacer(1,3))
 
     scaff = [
         ['Worksheet','Key Points to Look For'],
@@ -499,8 +540,8 @@ def build():
         ('GRID',(0,0),(-1,-1),0.5,MEDIUM_GRAY),
         ('ROWBACKGROUNDS',(0,1),(-1,-1),[white,LIGHT_GRAY]),
         ('VALIGN',(0,0),(-1,-1),'TOP'),
-        ('TOPPADDING',(0,0),(-1,-1),3),
-        ('BOTTOMPADDING',(0,0),(-1,-1),3),
+        ('TOPPADDING',(0,0),(-1,-1),2),
+        ('BOTTOMPADDING',(0,0),(-1,-1),2),
         ('LEFTPADDING',(0,0),(-1,-1),4),
     ]))
     story.append(st)
@@ -524,7 +565,7 @@ def build():
         ('Central Hub','https://counterfactual-designs.com',
          'Landing page linking all resources'),
     ])
-    story.append(Spacer(1,10))
+    story.append(Spacer(1,6))
 
     story.append(Paragraph('<b>Companion Spreadsheets</b> (distribute electronically)', s['H2']))
     link_table([
@@ -537,7 +578,7 @@ def build():
         ('OEH_M_V_planning_tool.xlsx','(reference — Day 3)',
          'Professional M&V plan template (9 tabs). Australian OEH format.'),
     ])
-    story.append(Spacer(1,10))
+    story.append(Spacer(1,6))
 
     story.append(Paragraph('<b>Reference Documents</b>', s['H2']))
     link_table([
@@ -562,7 +603,7 @@ def build():
         'The following links are organized by topic for use as supplemental references during '
         'the course or for student self-study after the training.',
         s['Body']))
-    story.append(Spacer(1,6))
+    story.append(Spacer(1,3))
 
     # ── Energy Efficiency & Building Performance ──
     story.append(Paragraph('<b>Energy Efficiency &amp; Building Performance</b>', s['H2']))
@@ -601,7 +642,7 @@ def build():
          'https://natural-resources.canada.ca/maps-tools-publications/tools-applications/retscreen',
          'Clean energy project analysis tool'),
     ])
-    story.append(Spacer(1,10))
+    story.append(Spacer(1,6))
 
     # ── Statistics & Data Analysis ──
     story.append(Paragraph('<b>Statistics, Data Analysis &amp; Modeling</b>', s['H2']))
@@ -634,7 +675,7 @@ def build():
          'https://www.sciencedirect.com/science/article/pii/S0360132325008807',
          'Calibrating simulation models for M&V (academic paper)'),
     ])
-    story.append(Spacer(1,10))
+    story.append(Spacer(1,6))
 
     # ── Standards & ESG ──
     story.append(Paragraph('<b>Environmental Standards &amp; ESG</b>', s['H2']))
@@ -649,7 +690,7 @@ def build():
          'https://www.gresb.com/nl-en/benchmark-report/',
          'Real estate sustainability benchmarking'),
     ])
-    story.append(Spacer(1,10))
+    story.append(Spacer(1,6))
 
     # ── Building Design & Engineering ──
     story.append(Paragraph('<b>Building Design &amp; Engineering Tools</b>', s['H2']))
@@ -673,7 +714,7 @@ def build():
          'https://ornl-amo.github.io/',
          'Department of Energy modeling tools'),
     ])
-    story.append(Spacer(1,10))
+    story.append(Spacer(1,6))
 
     # ── M&V Resources ──
     story.append(Paragraph('<b>Measurement &amp; Verification Resources</b>', s['H2']))
@@ -685,7 +726,7 @@ def build():
          'https://cedmc.org/events/emv-forum/',
          'California energy measurement & verification forum'),
     ])
-    story.append(Spacer(1,10))
+    story.append(Spacer(1,6))
 
     # ── Weather & Climate ──
     story.append(Paragraph('<b>Weather &amp; Climate Data</b>', s['H2']))
@@ -697,7 +738,7 @@ def build():
          'https://degreedays.net/',
          'Degree day calculations for M&V'),
     ])
-    story.append(Spacer(1,10))
+    story.append(Spacer(1,6))
 
     # ── Energy Markets ──
     story.append(Paragraph('<b>Energy Markets &amp; Grid</b>', s['H2']))
@@ -715,7 +756,7 @@ def build():
          'https://hothardware.com/news/ai-surge-causing-power-shortage-leading-coal-plants-to-stayopen',
          'AI data center energy demand impact'),
     ])
-    story.append(Spacer(1,10))
+    story.append(Spacer(1,6))
 
     # ── Educational & Professional ──
     story.append(Paragraph('<b>Educational Resources &amp; Professional Networks</b>', s['H2']))
@@ -736,7 +777,7 @@ def build():
          'https://www.linkedin.com/in/adriendevriendt/',
          'Energy M&V thought leader'),
     ])
-    story.append(Spacer(1,10))
+    story.append(Spacer(1,6))
 
     # ── Research & Video ──
     story.append(Paragraph('<b>Research Methodology &amp; Video Content</b>', s['H2']))
