@@ -303,6 +303,10 @@ function App() {
             style={{ fontSize: 13, color: '#7c5cbf', textDecoration: 'none', fontWeight: 600 }}>
             Bayesian Module →
           </a>
+          <a href="https://mnvscore.vercel.app" target="_blank" rel="noopener noreferrer"
+            style={{ fontSize: 13, color: '#2c6fad', textDecoration: 'none', fontWeight: 600 }}>
+            M&V Scorecard →
+          </a>
         </div>
         <div style={{ fontSize: 12, color: '#998d7e', marginBottom: 8 }}>
           <a href="https://counterfactual-designs.com" target="_blank" rel="noopener noreferrer"
