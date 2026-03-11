@@ -48,6 +48,13 @@ export default function FanAnalysis() {
   const preMaxKW = preOn.length > 0 ? Math.max(...preOn.map(d => getKW(d))) : 0;
   const postMaxKW = postOn.length > 0 ? Math.max(...postOn.map(d => getKW(d))) : 0;
 
+  // Fan law reference curves — rated power at 100% speed (post-VFD motor)
+  const ratedKW = { ahu1: 4.42, ahu2: 2.36, ahu3: 1.33 };
+  const rated = ratedKW[selectedAHU];
+  const refSpeeds = Array.from({ length: 61 }, (_, i) => 40 + i); // 40–100%
+  const cubicRef = refSpeeds.map(s => rated * Math.pow(s / 100, 3));
+  const linearRef = refSpeeds.map(s => rated * (s / 100));
+
   return (
     <div>
       {/* VFD illustration */}
@@ -108,6 +115,20 @@ export default function FanAnalysis() {
             mode: 'markers',
             marker: { size: 8, color: '#27ae60', opacity: 0.6 },
             name: 'Reporting (post-VFD)',
+          },
+          {
+            x: refSpeeds,
+            y: cubicRef,
+            mode: 'lines',
+            line: { color: '#2980b9', width: 2, dash: 'solid' },
+            name: 'Fan Law (cubic): P ∝ n³',
+          },
+          {
+            x: refSpeeds,
+            y: linearRef,
+            mode: 'lines',
+            line: { color: '#95a5a6', width: 1.5, dash: 'dot' },
+            name: 'Linear (for comparison)',
           },
         ]}
         layout={{
