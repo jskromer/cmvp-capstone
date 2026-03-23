@@ -250,9 +250,10 @@ baseline_df = calculate_monthly_energy(
     lpd, epd, occupant_density, operating_hours, operating_days,
 )
 
-tab1, tab2, tab3, tab4 = st.tabs([
+tab1, tab2, tab_cal, tab3, tab4 = st.tabs([
     "🔬 Baseline Model",
     "🔧 Apply ECMs",
+    "📐 Calibration",
     "📊 Statistical vs. Physical",
     "🎯 Sensitivity & Uncertainty",
 ])
@@ -471,6 +472,274 @@ with tab2:
     <strong>Savings = Baseline model(reporting weather) − Retrofit model(reporting weather)</strong>
 </div>
 """, unsafe_allow_html=True)
+
+
+# ─── TAB CAL: Calibration ─────────────────────────────────────────────────────
+
+with tab_cal:
+    st.subheader("📐 Model Calibration")
+    st.markdown("""
+    A physical model is only as good as its calibration. Before you can use a forward
+    model as a counterfactual, you must demonstrate that **it reproduces what the building
+    actually did** — that the model matches measured data within accepted tolerances.
+
+    Without calibration, a forward model is just an opinion with equations.
+    """)
+
+    st.divider()
+
+    # ── ASHRAE Guideline 14 Criteria ──
+    st.markdown("### ASHRAE Guideline 14 Calibration Criteria")
+    st.markdown("""
+    | Metric | Monthly Threshold | Hourly Threshold |
+    |--------|:-:|:-:|
+    | **NMBE** (Normalized Mean Bias Error) | ±5% | ±10% |
+    | **CV(RMSE)** (Coefficient of Variation of RMSE) | ≤15% | ≤30% |
+
+    Both criteria must be met simultaneously. NMBE catches systematic bias (model consistently
+    over- or under-predicts). CV(RMSE) catches scatter (model sometimes too high, sometimes too low).
+    """)
+
+    st.divider()
+
+    # ── Generate "measured" data = model + noise ──
+    # Simulate what real utility data looks like: the model prediction
+    # plus realistic noise (weather variation, occupancy shifts, meter error)
+    st.markdown("### Calibration Exercise")
+    st.markdown("""
+    Below is **simulated measured data** — your model's prediction with realistic noise
+    added (weather variation, occupancy shifts, meter error). In a real project, this
+    would be 12 months of utility bills.
+
+    **Your task:** Adjust the sidebar parameters until the model matches the measured data
+    within ASHRAE Guideline 14 tolerances. This is what calibration feels like.
+    """)
+
+    # Use a fixed seed so "measured" data doesn't change when students adjust params
+    rng = np.random.RandomState(42)
+
+    # The "true" building has slightly different parameters than the defaults
+    # This creates a gap that students must close
+    true_df = calculate_monthly_energy(
+        floor_area=floor_area, num_floors=num_floors, wall_area=wall_area,
+        window_ratio=window_ratio, roof_area=floor_area / num_floors,
+        wall_u=0.09, roof_u=0.045, window_u=0.60, window_shgc=0.42,
+        cooling_cop=3.2, heating_eff=78,
+        ventilation_cfm_per_sqft=0.14, fan_power_w_per_cfm=0.72,
+        lpd=1.05, epd=1.25, occupant_density=190,
+        operating_hours=12, operating_days=5,
+    )
+    true_kwh = true_df["Total Electric (kWh)"].values.astype(float)
+    # Add noise: ±3-8% random scatter + slight seasonal bias
+    noise_pct = rng.normal(0, 0.05, 12)  # ~5% scatter
+    seasonal_bias = np.array([0.02, 0.01, 0, -0.01, -0.02, 0.01,
+                              0.03, 0.02, 0, -0.01, 0.01, 0.02])
+    measured_kwh = true_kwh * (1 + noise_pct + seasonal_bias)
+
+    model_kwh = baseline_df["Total Electric (kWh)"].values.astype(float)
+
+    # ── Calculate calibration metrics ──
+    residuals_cal = model_kwh - measured_kwh
+    nmbe = np.sum(residuals_cal) / np.sum(measured_kwh) * 100
+    cv_rmse_cal = (np.sqrt(np.mean(residuals_cal**2)) / np.mean(measured_kwh)) * 100
+
+    nmbe_pass = abs(nmbe) <= 5
+    cvrmse_pass = cv_rmse_cal <= 15
+    calibrated = nmbe_pass and cvrmse_pass
+
+    # ── Scoreboard ──
+    sc1, sc2, sc3 = st.columns(3)
+    sc1.metric("NMBE", f"{nmbe:+.1f}%",
+               delta="PASS ✅" if nmbe_pass else "FAIL ❌",
+               delta_color="normal" if nmbe_pass else "inverse")
+    sc2.metric("CV(RMSE)", f"{cv_rmse_cal:.1f}%",
+               delta="PASS ✅" if cvrmse_pass else "FAIL ❌",
+               delta_color="normal" if cvrmse_pass else "inverse")
+    sc3.metric("Calibration Status",
+               "✅ CALIBRATED" if calibrated else "❌ NOT CALIBRATED",
+               delta="ASHRAE 14 monthly criteria" if calibrated else "Adjust parameters in sidebar")
+
+    if calibrated:
+        st.success("🎉 Your model meets ASHRAE Guideline 14 monthly calibration criteria! "
+                   "This model can now serve as a defensible counterfactual.")
+    else:
+        hints = []
+        if nmbe > 5:
+            hints.append("Model **over-predicts** — try reducing loads (lower LPD, EPD, or operating hours) or improving efficiency (higher COP).")
+        elif nmbe < -5:
+            hints.append("Model **under-predicts** — try increasing loads or reducing efficiency parameters.")
+        if cv_rmse_cal > 15:
+            hints.append("Model has too much **scatter** — the seasonal pattern doesn't match. Try adjusting envelope parameters (U-values, SHGC) which affect heating/cooling balance.")
+        for hint in hints:
+            st.warning(hint)
+
+    st.divider()
+
+    # ── Calibration chart ──
+    fig_cal, (ax_cal1, ax_cal2) = plt.subplots(1, 2, figsize=(12, 4.5))
+    fig_cal.patch.set_facecolor("#faf6f1")
+
+    # Left: Model vs Measured
+    ax_cal1.set_facecolor("white")
+    ax_cal1.bar(np.arange(12) - 0.18, measured_kwh, 0.35,
+                label="Measured (utility bills)", color="#C53030", alpha=0.7)
+    ax_cal1.bar(np.arange(12) + 0.18, model_kwh, 0.35,
+                label="Model prediction", color="#065A82", alpha=0.7)
+    ax_cal1.set_xticks(range(12))
+    ax_cal1.set_xticklabels(MONTHS, fontsize=9)
+    ax_cal1.set_ylabel("Monthly kWh", fontsize=10)
+    ax_cal1.set_title("Model vs. Measured", fontsize=12, color="#3d3229")
+    ax_cal1.legend(fontsize=9)
+    ax_cal1.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, p: f"{x:,.0f}"))
+    ax_cal1.grid(axis="y", alpha=0.3)
+    ax_cal1.spines["top"].set_visible(False)
+    ax_cal1.spines["right"].set_visible(False)
+
+    # Right: Residuals (% error by month)
+    ax_cal2.set_facecolor("white")
+    pct_errors = residuals_cal / measured_kwh * 100
+    colors_res = ["#C53030" if abs(e) > 10 else "#D69E2E" if abs(e) > 5 else "#2F855A" for e in pct_errors]
+    ax_cal2.bar(MONTHS, pct_errors, color=colors_res, alpha=0.8)
+    ax_cal2.axhline(5, color="#D69E2E", linewidth=1, linestyle="--", alpha=0.7, label="±5% NMBE threshold")
+    ax_cal2.axhline(-5, color="#D69E2E", linewidth=1, linestyle="--", alpha=0.7)
+    ax_cal2.axhline(0, color="#3d3229", linewidth=0.8)
+    ax_cal2.set_ylabel("Error (%)", fontsize=10)
+    ax_cal2.set_title("Monthly Residuals (Model − Measured)", fontsize=12, color="#3d3229")
+    ax_cal2.legend(fontsize=8, loc="upper right")
+    ax_cal2.grid(axis="y", alpha=0.3)
+    ax_cal2.spines["top"].set_visible(False)
+    ax_cal2.spines["right"].set_visible(False)
+
+    fig_cal.tight_layout()
+    st.pyplot(fig_cal)
+    plt.close()
+
+    # ── Monthly comparison table ──
+    cal_table = pd.DataFrame({
+        "Month": MONTHS,
+        "Measured (kWh)": [f"{v:,.0f}" for v in measured_kwh],
+        "Model (kWh)": [f"{v:,.0f}" for v in model_kwh],
+        "Difference (kWh)": [f"{v:+,.0f}" for v in residuals_cal],
+        "Error (%)": [f"{v:+.1f}%" for v in pct_errors],
+    })
+    st.dataframe(cal_table, use_container_width=True, hide_index=True)
+
+    st.divider()
+
+    # ── Calibration process guidance ──
+    st.markdown("### The Calibration Process")
+    st.markdown("""
+    Real-world calibration follows an iterative cycle:
+    """)
+
+    st.markdown("""
+    **1. Start with design documents** — Get wall assemblies, equipment schedules, and
+    nameplate data from the building's as-built drawings. Enter them in the sidebar.
+
+    **2. Compare to measured data** — Run the model and overlay the prediction on
+    12 months of utility bills. Look at the NMBE and CV(RMSE) chart above.
+
+    **3. Identify the biggest discrepancies** — Which months are off? Summer months
+    suggest cooling parameters (COP, SHGC). Winter months suggest heating parameters
+    (efficiency, U-values). Flat months suggest internal loads (LPD, EPD, schedules).
+
+    **4. Adjust parameters with physical justification** — Don't just tweak numbers
+    until the error goes away. Every adjustment should have a reason: "The nameplate
+    COP is 4.0 but the chiller is 15 years old, so I'm using 3.2." Document your reasoning.
+
+    **5. Iterate until ASHRAE 14 is met** — Both NMBE ≤ ±5% and CV(RMSE) ≤ 15%
+    must pass simultaneously. If you can't get there, it may indicate a missing load
+    (unmeasured process equipment, after-hours use, etc.).
+
+    **6. Document everything** — The calibration report is part of the M&V deliverable.
+    It must list every parameter adjustment and its justification.
+    """)
+
+    st.divider()
+
+    # ── Common calibration pitfalls ──
+    st.markdown("### Common Calibration Pitfalls")
+
+    p1, p2 = st.columns(2)
+    with p1:
+        st.markdown("""
+<div class="physics-card" style="border-left-color: #C53030;">
+    <strong>🚫 Pitfall: Overfitting</strong><br>
+    Tweaking parameters until NMBE and CV(RMSE) are perfect, but without
+    physical justification. The model "fits" the baseline data but has no
+    predictive power — it fails when conditions change.<br><br>
+    <strong>Symptom:</strong> Parameters far from nameplate values with no documented reason.<br>
+    <strong>Fix:</strong> Every adjustment needs a physical explanation. If you can't
+    explain why COP is 2.5 when nameplate says 4.0, you're overfitting.
+</div>
+""", unsafe_allow_html=True)
+
+        st.markdown("""
+<div class="physics-card" style="border-left-color: #C53030;">
+    <strong>🚫 Pitfall: Missing Loads</strong><br>
+    The model consistently under-predicts because there's a load you
+    didn't account for — a data center, kitchen, process equipment, or
+    significant after-hours usage.<br><br>
+    <strong>Symptom:</strong> Negative NMBE that won't go away no matter
+    what you adjust.<br>
+    <strong>Fix:</strong> Walk the building. Audit the plug loads. Check for
+    24/7 equipment that isn't in the model.
+</div>
+""", unsafe_allow_html=True)
+
+    with p2:
+        st.markdown("""
+<div class="physics-card" style="border-left-color: #D69E2E;">
+    <strong>⚠️ Pitfall: Wrong Weather Data</strong><br>
+    Using TMY (typical year) weather instead of AMY (actual year) weather
+    for the calibration period. The model can't match measured data if it's
+    using the wrong temperatures.<br><br>
+    <strong>Symptom:</strong> High CV(RMSE) with a seasonal pattern in the residuals.<br>
+    <strong>Fix:</strong> Always calibrate against AMY weather that matches
+    the utility billing period.
+</div>
+""", unsafe_allow_html=True)
+
+        st.markdown("""
+<div class="physics-card" style="border-left-color: #D69E2E;">
+    <strong>⚠️ Pitfall: Compensating Errors</strong><br>
+    NMBE looks great (near zero) but CV(RMSE) is high. The model over-predicts
+    some months and under-predicts others by equal amounts — the errors cancel.<br><br>
+    <strong>Symptom:</strong> Low NMBE but high CV(RMSE). Monthly residuals swing
+    positive and negative.<br>
+    <strong>Fix:</strong> Look at the residual chart. Fix the seasonal pattern
+    before celebrating the low NMBE.
+</div>
+""", unsafe_allow_html=True)
+
+    st.divider()
+
+    # ── When is calibration "good enough"? ──
+    st.markdown("### When Is Calibration Good Enough?")
+    st.markdown("""
+    This is the judgment call. ASHRAE Guideline 14 gives you thresholds, but
+    meeting them is necessary, not sufficient. Ask yourself:
+    """)
+
+    st.markdown("""
+    - **Do the residuals have a pattern?** Random scatter is OK. A systematic
+      seasonal pattern means a missing physical relationship.
+    - **Are the adjusted parameters physically defensible?** Could you explain
+      every parameter to a skeptical engineer?
+    - **Does the model respond correctly to perturbations?** If you increase
+      cooling setpoint by 2°F, does energy go down? If not, the model structure
+      may be wrong even if NMBE/CV(RMSE) pass.
+    - **Is the model good enough for the savings claim?** A $50k lighting
+      retrofit with 30% savings doesn't need the same calibration rigor as a
+      $5M ESCO guarantee with 8% savings.
+    """)
+
+    st.info(
+        "💡 **The punchline:** Calibration is where engineering judgment meets data. "
+        "The numbers (NMBE, CV(RMSE)) tell you if you're in the ballpark. "
+        "Your professional judgment tells you if the model is trustworthy. "
+        "Both are required — neither alone is sufficient."
+    )
 
 
 # ─── TAB 3: Statistical vs. Physical ─────────────────────────────────────────
