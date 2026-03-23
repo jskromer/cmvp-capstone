@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Berkeley Tax Measure Impact Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Source+Sans+3:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f4f0;
+      --surface: #ffffff;
+      --surface2: #eeecea;
+      --border: #d4d0c8;
+      --text: #1a1a18;
+      --muted: #6b6860;
+      --accent: #1a6ea8;
+      --accent2: #1a6ea8;
+      --green: #1a6ea8;
+      --amber: #b85c00;
+      --red: #b83232;
+      --r: 10px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .header { max-width: 900px; margin: 0 auto 0.75rem; }
+    .header h1 {
+      font-size: clamp(1.4rem, 3vw, 2.1rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    .header .purpose {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+    .how-measures-work {
+      background: #fdf8f2;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--amber);
+      border-radius: var(--r);
+      padding: 1rem 1.4rem;
+      font-size: 0.855rem;
+      line-height: 1.75;
+      color: #3a3830;
+      margin-bottom: 0.25rem;
+    }
+    .how-measures-work strong { color: var(--accent); font-weight: 600; }
+    .how-measures-work em { color: var(--amber); font-style: normal; font-weight: 600; }
+
+    .av-basis   { color: var(--accent)  !important; font-weight: 600; }
+    .sqft-basis { color: var(--amber)   !important; font-weight: 600; }
+
+    .card {
+      max-width: 900px;
+      margin: 0 auto 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 1.25rem 1.75rem;
+    }
+    .card-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .card-title.blue   { color: var(--accent); }
+    .card-title.purple { color: var(--muted); }
+
+    .measures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 0.6rem;
+    }
+    .measure-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      background: #f9f8f6;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      user-select: none;
+    }
+    .measure-row:hover { border-color: var(--accent); background: rgba(26,110,168,0.05); }
+    .measure-row.unchecked { opacity: 0.45; }
+    .measure-row input[type="checkbox"] {
+      width: 16px; height: 16px;
+      accent-color: var(--accent);
+      margin-top: 3px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .measure-label { flex: 1; min-width: 0; }
+    .measure-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .measure-desc {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.63rem;
+      color: var(--muted);
+      display: block;
+    }
+    .measure-amount {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+    .measure-amount.av-amount   { color: var(--accent); }
+    .measure-amount.sqft-amount { color: var(--amber); }
+    .measure-input {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      padding: 0.2rem 0.4rem;
+      width: 80px;
+      text-align: right;
+      margin-top: 4px;
+    }
+    .measure-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(56,189,248,0.15);
+    }
+
+    .measure-category-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.35rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .baseline-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem 2.5rem;
+      align-items: flex-start;
+    }
+    .field { display: flex; flex-direction: column; gap: 0.3rem; }
+    .field label {
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .field .field-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.84rem;
+      color: var(--text);
+    }
+    .field .sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+
+    /* -- Lookup section -- */
+    .lookup-card {
+      max-width: 900px;
+      margin: 0 auto 1.25rem;
+      background: var(--surface);
+      border: 2px solid var(--accent);
+      border-radius: var(--r);
+      padding: 1.5rem 1.75rem;
+    }
+    .lookup-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .lookup-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: flex-end;
+      margin-bottom: 1.5rem;
+    }
+    .lookup-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .lookup-field label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .lookup-field select {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg);
+      color: var(--text);
+      cursor: pointer;
+      min-width: 180px;
+    }
+    .lookup-field select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(26,110,168,0.15);
+    }
+
+    .lookup-field-pct {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .lookup-field-pct label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .lookup-field-pct input {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg);
+      color: var(--text);
+      width: 160px;
+      text-align: right;
+    }
+    .lookup-field-pct input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(26,110,168,0.15);
+    }
+    .lookup-field-pct .pct-hint {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+    }
+    .lookup-field-pct .pct-hint a {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* -- Result box -- */
+    .result-box {
+      background: linear-gradient(135deg, #f0f7fc 0%, #e8f4f8 100%);
+      border: 2px solid var(--accent);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+    .result-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .result-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.1;
+    }
+    .result-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    .result-pct {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--amber);
+      margin-top: 0.35rem;
+    }
+
+    /* -- Breakdown -- */
+    .breakdown {
+      margin-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+    .breakdown-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+    .breakdown-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.25rem 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+    }
+    .breakdown-grid .bd-label {
+      color: var(--text);
+    }
+    .breakdown-grid .bd-label.disabled {
+      color: var(--muted);
+      opacity: 0.45;
+      text-decoration: line-through;
+    }
+    .breakdown-grid .bd-value {
+      text-align: right;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .breakdown-grid .bd-value.disabled {
+      color: var(--muted);
+      opacity: 0.45;
+    }
+    .breakdown-grid .bd-divider {
+      grid-column: 1 / -1;
+      border-top: 1px solid var(--border);
+      margin: 0.3rem 0;
+    }
+    .breakdown-grid .bd-total .bd-label {
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .breakdown-grid .bd-total .bd-value {
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* -- Explainer -- */
+    .explainer {
+      max-width: 900px;
+      margin: 1.25rem auto 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--r);
+      padding: 1.1rem 1.5rem;
+    }
+    .explainer p {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: #3a3830;
+      margin-top: 0.65rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>Berkeley Tax Measure Impact Calculator</h1>
+  <p class="purpose">How much will Berkeley's proposed tax measures cost you — and what happens if some don't pass?</p>
+  <div class="how-measures-work">
+    Berkeley property tax measures come in two flavors. Some are charged based on your home's <span class="av-basis">assessed value (AV)</span> — the higher your AV, the more you pay. Others are charged per <span class="sqft-basis">square foot (sq ft)</span> of your home — the bigger your home, the more you pay. Measure names below are colored to match: <span class="av-basis">blue = AV-based</span>, <span class="sqft-basis">orange = sq ft-based</span>. Even if no new measures pass, your bill will still go up every year: under <em>Proposition 13</em>, California limits AV growth to 2% per year, and Berkeley's assessed values increase by that full 2% annually. That baseline increase is already built into the result below. Additionally, there are new sales taxes also being proposed.
+  </div>
+</div>
+
+<!-- Proposed Measures -->
+<div class="card">
+  <div class="card-title blue">Tax Measures — check to include, uncheck to exclude</div>
+
+  <div class="measure-category-label">Proposed New Property Tax Measures</div>
+  <div class="measures-grid" style="margin-bottom: 1.1rem;">
+    <label class="measure-row" id="row-publicBank">
+      <input type="checkbox" id="cb-publicBank" checked onchange="onMeasureChange('publicBank')" />
+      <div class="measure-label">
+        <span class="measure-name sqft-basis">Public Bank Tax</span>
+        <span class="measure-desc">per sq ft levy</span>
+      </div>
+      <span class="measure-amount sqft-amount">$0.06 / sq ft</span>
+    </label>
+
+    <label class="measure-row" id="row-artsTax">
+      <input type="checkbox" id="cb-artsTax" checked onchange="onMeasureChange('artsTax')" />
+      <div class="measure-label">
+        <span class="measure-name sqft-basis">Arts Tax</span>
+        <span class="measure-desc">per sq ft levy</span>
+      </div>
+      <span class="measure-amount sqft-amount">$0.07 / sq ft</span>
+    </label>
+
+    <label class="measure-row" id="row-infraBond">
+      <input type="checkbox" id="cb-infraBond" checked onchange="onMeasureChange('infraBond')" />
+      <div class="measure-label">
+        <span class="measure-name av-basis">Infrastructure Bond</span>
+        <span class="measure-desc">per $100k of assessed value</span>
+      </div>
+      <span class="measure-amount av-amount">$44 / $100k AV</span>
+    </label>
+  </div>
+
+  <div class="measure-category-label">Proposed New Sales Taxes</div>
+  <div class="measures-grid" style="margin-bottom: 1.1rem;">
+    <label class="measure-row" id="row-berkSales">
+      <input type="checkbox" id="cb-berkSales" checked onchange="onMeasureChange('berkSales')" />
+      <div class="measure-label">
+        <span class="measure-name">Berkeley Sales Tax Increase</span>
+        <span class="measure-desc">flat estimate — edit to match your spending</span>
+        <input class="measure-input" id="val-berkSales" type="number" value="300" oninput="calc()" onclick="event.stopPropagation()" />
+      </div>
+      <span class="measure-amount">+0.05%</span>
+    </label>
+
+    <label class="measure-row" id="row-alamSales">
+      <input type="checkbox" id="cb-alamSales" checked onchange="onMeasureChange('alamSales')" />
+      <div class="measure-label">
+        <span class="measure-name">County Sales Tax Increase for BART</span>
+        <span class="measure-desc">flat estimate — edit to match your spending</span>
+        <input class="measure-input" id="val-alamSales" type="number" value="300" oninput="calc()" onclick="event.stopPropagation()" />
+      </div>
+      <span class="measure-amount">+0.05%</span>
+    </label>
+  </div>
+
+  <div class="measure-category-label">Increases in Existing Parcel Taxes</div>
+  <div class="measures-grid">
+    <label class="measure-row" id="row-parcel">
+      <input type="checkbox" id="cb-parcel" checked onchange="onMeasureChange('parcel')" />
+      <div class="measure-label">
+        <span class="measure-name sqft-basis">Parcel Tax Rate Increase</span>
+        <span class="measure-desc">6.44% annual increase for selected existing measures,</span>
+        <span class="measure-desc">totaling $0.0534 / sq ft</span>
+      </div>
+      <span class="measure-amount sqft-amount">$0.0534 / sq ft</span>
+    </label>
+  </div>
+</div>
+
+<!-- Baseline Assumptions -->
+<div class="card">
+  <div class="card-title purple">Baseline Assumptions</div>
+  <div class="baseline-grid">
+    <div class="field">
+      <label>AV Increase (Prop 13)</label>
+      <div class="field-val">2% per year</div>
+      <div class="sub">California law caps annual AV growth at 2%</div>
+    </div>
+    <div class="field">
+      <label>Base Tax Rate</label>
+      <div class="field-val">1.2323%</div>
+      <div class="sub">Set by Alameda County · not a policy lever</div>
+    </div>
+    <div class="field">
+      <label>Baseline Increase Formula</label>
+      <div class="field-val">AV × 2% × 1.2323%</div>
+      <div class="sub">Year-over-year increase from AV growth alone</div>
+    </div>
+  </div>
+</div>
+
+<!-- Lookup: two dropdowns + result -->
+<div class="lookup-card">
+  <div class="lookup-title">Your Estimated Tax Increase</div>
+
+  <div class="lookup-controls">
+    <div class="lookup-field">
+      <label for="sel-av"><span class="av-basis">Assessed Value</span></label>
+      <select id="sel-av" onchange="calc()"></select>
+    </div>
+    <div class="lookup-field">
+      <label for="sel-sqft"><span class="sqft-basis">Square Footage</span></label>
+      <select id="sel-sqft" onchange="calc()"></select>
+    </div>
+    <div class="lookup-field-pct">
+      <label for="lastBill">Last Year's Tax Bill (optional)</label>
+      <input type="number" id="lastBill" placeholder="e.g. 15000" oninput="calc()" />
+      <span class="pct-hint"><a href="https://propertytax.alamedacountyca.gov/search" target="_blank" rel="noopener">Look it up →</a></span>
+    </div>
+  </div>
+
+  <div class="result-box">
+    <div class="result-label">Estimated Year-Over-Year Increase</div>
+    <div class="result-value" id="result-value">—</div>
+    <div class="result-pct" id="result-pct"></div>
+    <div class="result-sub" id="result-sub"></div>
+  </div>
+
+  <div class="breakdown">
+    <div class="breakdown-title">Breakdown</div>
+    <div class="breakdown-grid" id="breakdown"></div>
+  </div>
+</div>
+
+<!-- Notes -->
+<div class="explainer">
+  <p><strong>Notes:</strong></p>
+  <p>
+    The result shows the estimated <strong>year-over-year increase in your property tax bill</strong> for your home's size and assessed value. The assessed value is what the county has on record — typically lower than market value, and capped at 2% annual growth by Prop 13. Berkeley applies that full 2% cap every year, so even with all measures unchecked you'll see a non-zero increase.
+  </p>
+  <p>
+    Uncheck any measure to instantly model a world where it didn't pass. Enter last year's bill to see the increase as a percentage.
+  </p>
+</div>
+
+<script>
+  const AV_START = 500000, AV_END = 3000000, AV_STEP = 50000;
+  const SQFT_START = 800, SQFT_END = 3000, SQFT_STEP = 200;
+
+  function cb(id)  { return document.getElementById('cb-' + id).checked; }
+  function num(id) { const el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; }
+
+  // Populate dropdowns
+  (function initDropdowns() {
+    const avSel = document.getElementById('sel-av');
+    const sqftSel = document.getElementById('sel-sqft');
+
+    for (let av = AV_START; av <= AV_END; av += AV_STEP) {
+      const opt = document.createElement('option');
+      opt.value = av;
+      opt.textContent = '$' + av.toLocaleString();
+      if (av === 800000) opt.selected = true;
+      avSel.appendChild(opt);
+    }
+
+    for (let sf = SQFT_START; sf <= SQFT_END; sf += SQFT_STEP) {
+      const opt = document.createElement('option');
+      opt.value = sf;
+      opt.textContent = sf.toLocaleString() + ' sq ft';
+      if (sf === 1400) opt.selected = true;
+      sqftSel.appendChild(opt);
+    }
+  })();
+
+  function calcParts(sqft, curAV) {
+    return {
+      avBase:     curAV * 0.02 * (1.2323 / 100),
+      publicBank: cb('publicBank') ? sqft * 0.06 : 0,
+      artsTax:    cb('artsTax')    ? sqft * 0.07 : 0,
+      infraBond:  cb('infraBond')  ? curAV * 44 / 100000 : 0,
+      berkSales:  cb('berkSales')  ? num('val-berkSales') : 0,
+      alamSales:  cb('alamSales')  ? num('val-alamSales') : 0,
+      parcel:     cb('parcel')     ? sqft * 0.0534 : 0,
+    };
+  }
+
+  function calc() {
+    const av   = parseInt(document.getElementById('sel-av').value);
+    const sqft = parseInt(document.getElementById('sel-sqft').value);
+    const lastBill = num('lastBill');
+
+    const parts = calcParts(sqft, av);
+    const total = Object.values(parts).reduce((a, b) => a + b, 0);
+
+    // Main result
+    document.getElementById('result-value').textContent = '$' + Math.round(total).toLocaleString();
+    document.getElementById('result-sub').textContent =
+      'for a ' + sqft.toLocaleString() + ' sq ft home at $' + av.toLocaleString() + ' assessed value';
+
+    // Pct
+    if (lastBill > 0) {
+      const pct = (total / lastBill) * 100;
+      document.getElementById('result-pct').textContent = pct.toFixed(1) + "% of last year\u2019s bill";
+    } else {
+      document.getElementById('result-pct').textContent = '';
+    }
+
+    // Breakdown
+    const items = [
+      { label: 'Prop 13 baseline (AV × 2% × 1.2323%)', value: parts.avBase, always: true },
+      { label: 'Public Bank Tax', value: parts.publicBank, on: cb('publicBank') },
+      { label: 'Arts Tax', value: parts.artsTax, on: cb('artsTax') },
+      { label: 'Infrastructure Bond', value: parts.infraBond, on: cb('infraBond') },
+      { label: 'Berkeley Sales Tax', value: parts.berkSales, on: cb('berkSales') },
+      { label: 'County Sales Tax (BART)', value: parts.alamSales, on: cb('alamSales') },
+      { label: 'Parcel Tax Rate Increase', value: parts.parcel, on: cb('parcel') },
+    ];
+
+    let html = '';
+    items.forEach(item => {
+      const off = !item.always && !item.on;
+      const cls = off ? ' disabled' : '';
+      html += `<div class="bd-label${cls}">${item.label}</div>`;
+      html += `<div class="bd-value${cls}">${off ? '—' : '$' + Math.round(item.value).toLocaleString()}</div>`;
+    });
+    html += '<div class="bd-divider"></div>';
+    html += '<div class="bd-total"><div class="bd-label">Total increase</div></div>';
+    html += '<div class="bd-total"><div class="bd-value">$' + Math.round(total).toLocaleString() + '</div></div>';
+
+    document.getElementById('breakdown').innerHTML = html;
+  }
+
+  function onMeasureChange(id) {
+    document.getElementById('row-' + id).classList.toggle('unchecked', !document.getElementById('cb-' + id).checked);
+    calc();
+  }
+
+  // Prevent measure-input clicks from toggling the parent label checkbox
+  document.querySelectorAll('.measure-input').forEach(el => {
+    el.addEventListener('click', e => e.stopPropagation());
+  });
+
+  calc();
+</script>
+</body>
+</html>

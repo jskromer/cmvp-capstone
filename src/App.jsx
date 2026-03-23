@@ -8,10 +8,12 @@ import SummaryTable from './components/SummaryTable';
 import SavingsCalculator from './components/SavingsCalculator';
 import LightingStipulation from './components/LightingStipulation';
 import FanAnalysis from './components/FanAnalysis';
+import TeachingStories from './components/TeachingStories';
 import './App.css';
 
 const TABS = [
   { id: 'overview', label: 'Overview', phase: 1 },
+  { id: 'stories', label: 'Teaching Stories', phase: 1 },
   { id: 'scatter', label: 'Scatter Plots', phase: 2 },
   { id: 'model', label: 'Model Fitting', phase: 2 },
   { id: 'lighting', label: 'Lighting Stipulation', phase: 2 },
@@ -184,6 +186,14 @@ function App() {
                 Instructor: show answer key data
               </label>
             </div>
+          </section>
+        )}
+
+        {activeTab === 'stories' && (
+          <section>
+            <h2>Teaching Stories — Common Professional Confusions in M&V</h2>
+            <p>Four stories illustrating the conceptual errors that letter-based terminology enables. Each references a common baseline dataset.</p>
+            <TeachingStories />
           </section>
         )}
 
