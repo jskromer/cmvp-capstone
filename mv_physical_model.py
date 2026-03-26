@@ -1060,5 +1060,5 @@ st.markdown(
     "by Steve Kromer, P.E., CMVP #1.  \n"
     "See also: [Decision Tree + Uncertainty Budget](https://cmvp-capstone.streamlit.app) · "
     "[Counterfactual Builder](https://mnvexample.streamlit.app) · "
-    "[CfDesigns](https://cfdesigns.vercel.app)"
+    "[Counterfactual Design Studio](https://cfdesigns.vercel.app)"
 )

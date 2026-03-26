@@ -853,33 +853,38 @@ with tab4:
     # Stacked bar: spend by type
     st.markdown("### Budget Allocation by Uncertainty Type")
 
-    fig2, ax2 = plt.subplots(figsize=(8, 2.5))
+    fig2, ax2 = plt.subplots(figsize=(8, 3))
     fig2.patch.set_facecolor("#faf6f1")
     ax2.set_facecolor("#faf6f1")
 
-    bar_data = [
+    dot_data = [
         ("Aleatory", aleatory_cost, "#065A82"),
         ("Epistemic", epistemic_cost, "#2F855A"),
         ("Ontological", ontological_cost, "#C53030"),
     ]
 
-    left = 0
-    for label, cost, color in bar_data:
-        if cost > 0:
-            ax2.barh(0, cost, left=left, color=color, height=0.5, label=f"{label}: ${cost:,}")
-            ax2.text(left + cost / 2, 0, f"${cost:,}\n{label}", ha="center", va="center",
-                     fontsize=9, color="white", fontweight="bold")
-            left += cost
-
-    unspent = max(0, mv_budget - left)
+    total_allocated = sum(c for _, c, _ in dot_data if c > 0)
+    unspent = max(0, mv_budget - total_allocated)
     if unspent > 0:
-        ax2.barh(0, unspent, left=left, color="#E2E8F0", height=0.5, label=f"Unallocated: ${unspent:,}")
-        ax2.text(left + unspent / 2, 0, f"${unspent:,}\nUnallocated", ha="center", va="center",
-                 fontsize=9, color="#64748B")
+        dot_data.append(("Unallocated", unspent, "#A0AEC0"))
 
-    ax2.set_xlim(0, max(mv_budget, left) * 1.05)
+    labels = [d[0] for d in dot_data if d[1] > 0]
+    costs = [d[1] for d in dot_data if d[1] > 0]
+    colors = [d[2] for d in dot_data if d[1] > 0]
+    y_pos = list(range(len(labels)))
+
+    ax2.hlines(y_pos, 0, costs, color=colors, linewidth=2.5, alpha=0.7)
+    ax2.scatter(costs, y_pos, color=colors, s=120, zorder=5)
+
+    for i, cost in enumerate(costs):
+        ax2.text(cost + max(costs) * 0.02, y_pos[i], f"${cost:,}",
+                 va="center", fontsize=10, color=colors[i], fontweight="bold")
+
+    ax2.set_yticks(y_pos)
+    ax2.set_yticklabels(labels, fontsize=11, color="#3d3229")
+    ax2.set_xlim(0, max(costs) * 1.25)
     ax2.xaxis.set_major_formatter(mticker.FuncFormatter(lambda x, p: f"${x:,.0f}"))
-    ax2.set_yticks([])
+    ax2.invert_yaxis()
     ax2.spines["top"].set_visible(False)
     ax2.spines["right"].set_visible(False)
     ax2.spines["left"].set_visible(False)
@@ -934,7 +939,7 @@ st.divider()
 st.markdown(
     "Built on the [Counterfactual Designs](https://counterfactual-designs.com) framework "
     "by Steve Kromer, P.E., CMVP #1.  \n"
-    "See also: [CfDesigns interactive platform](https://cfdesigns.vercel.app) · "
+    "See also: [Counterfactual Design Studio](https://cfdesigns.vercel.app) · "
     "[Counterfactual Builder](https://mnvexample.streamlit.app) · "
     "[IPMVP-aligned course](https://mv-course.vercel.app)"
 )
