@@ -38,17 +38,43 @@ Everything else is either how we build it, how we govern it, or how we communica
 - **Utility programs vs. ESPCs** — different risk structures, different reporting requirements
 
 ### Section 3.1 — Statistics Foundation
-- **Descriptive statistics** — mean, variance, standard deviation, CV; describe what you have
-- **CV(RMSE)** — how uncertain the model's predictions are; ASHRAE G14 sets thresholds
-- **NMBE** — normalized mean bias error; whether the model systematically over- or under-predicts
-- **Sampling** — why we don't measure everything; trade-off between cost and precision
+
+**Descriptive Statistics**
+The foundational insight from *The Role of the M&V Professional* (Kromer, 2024, p. 163):
+> *"The beauty of descriptive statistics is that any two people who apply descriptive statistics to a set of data should arrive at the same answer."*
+
+This is the first confidence-building step — before inference, before judgment. Descriptive statistics are deterministic.
+
+- **Mean, median, mode** — central tendency; mean is the workhorse of M&V
+- **Range, variance, standard deviation** — how spread out the data is
+- **Coefficient of variation (CV)** — standard deviation ÷ mean, expressed as %; relative spread regardless of units
+- **Skewness, kurtosis** — shape of the distribution; matters when normality is assumed
+
+*Classroom example (from the book):* 10 motors, power outputs: 5.6, 4.9, 6.2, 5.8, 5.5, 4.7, 5.9, 6.1, 5.2, 5.4 kW.
+Mean = 5.48 kW. Std dev = 0.459 kW. CV = 8.38%. Students compute this by hand before touching regression.
+
+**Sampling**
+From *The Role of the M&V Professional* (p. 164):
+> *"Unlike descriptive statistics, sampling can lead to a range of 'answers.' Two samples can return different results, even if both were collected following standard procedures. This is because sampling is inherently probabilistic."*
+
+- **Why we sample** — population (all fixtures, all motors) is too large to measure; a representative subset gives us a credible estimate
+- **Random vs. stratified sampling** — how to make the subset representative
+- **Sample size** — larger samples reduce uncertainty; at what point does cost outweigh precision gain?
+- **Sampling uncertainty** — two valid samples from the same population can differ; the difference *is* the uncertainty
+- **Application in M&V** — lighting fixture wattage (measure a sample, stipulate to the population); equipment inventories; multi-site programs
+
+*Classroom example:* Take two random samples of 5 fixtures from the motor dataset above. Each sample returns a different mean. Both are correct. The spread between them is the uncertainty you carry into the savings estimate.
+
+**Model Statistics**
+- **CV(RMSE)** — how uncertain the model's predictions are; ASHRAE G14 thresholds (≤15% for monthly, ≤20–30% for less data)
+- **NMBE** — normalized mean bias error; systematic over- or under-prediction; should be near zero
 - **Regression** — the relationship between independent and dependent variables
-- **R² (coefficient of determination)** — how much variance is explained by the model
+- **R² (coefficient of determination)** — how much variance in energy use is explained by the model; necessary but not sufficient
 - **Confidence intervals and levels** — how wide the uncertainty band is at a given probability
-- **Fractional savings uncertainty (FSU)** — uncertainty in savings as a fraction of savings; the key risk metric
-- **Combining uncertainty** — Pythagorean: total uncertainty = √(U₁² + U₂²)
-- **Degrees of freedom** — what constrains the model; why more parameters cost you
-- **Bias vs. precision** — systematic error vs. random error; both matter, differently
+- **Fractional savings uncertainty (FSU)** — uncertainty in savings as a fraction of savings; "savings should be ≥ 2× RMSE"
+- **Combining uncertainty** — Pythagorean: total uncertainty = √(U₁² + U₂²); example: 80 units before, 60 units after, 5% meter accuracy → 25% relative uncertainty on the 20-unit impact
+- **Degrees of freedom** — each parameter estimated from the data costs one; why complex models with short baselines are risky
+- **Bias vs. precision** — systematic error vs. random error; a biased model is unfair regardless of precision
 
 ### Section 4 — Baseline and Adjustments
 - **Three distinct "baseline" concepts** — period (when), data (what was measured), model (the inference engine)
@@ -246,3 +272,61 @@ It needs to force each judgment decision above.
 - One stipulated parameter — forces the "measure vs. estimate" judgment
 
 **The building can be small.** The data does the teaching.
+
+---
+
+## Descriptive Statistics, Sampling, and Tariffs
+*From Kromer, The Role of the M&V Professional (River Publishers, 2024)*
+
+### Descriptive Statistics
+
+The key insight (p. 163): *"The beauty of descriptive statistics is that any two people who apply descriptive statistics to a set of data should arrive at the same answer."* This is the first confidence-building step — before inference, before judgment. Descriptive stats are deterministic.
+
+Parameters: mean, median, mode, range, variance, standard deviation, CV, skewness, kurtosis.
+
+**Classroom example from the book:** 10 motors, power outputs: 5.6, 4.9, 6.2, 5.8, 5.5, 4.7, 5.9, 6.1, 5.2, 5.4 kW.
+Mean = 5.48 kW. Std dev = 0.459 kW. CV = 8.38%. Students compute this before touching regression.
+
+### Sampling
+
+Key insight (p. 164): *"Unlike descriptive statistics, sampling can lead to a range of 'answers.' Two samples can return different results, even if both were collected following standard procedures. This is because sampling is inherently probabilistic."*
+
+- **Why we sample** — population too large to measure entirely; a representative subset gives a credible estimate
+- **Sample size trade-off** — larger samples reduce uncertainty; at what point does cost outweigh precision?
+- **Sampling uncertainty** — two valid samples from the same population can differ; that spread *is* the uncertainty
+- **M&V application** — lighting fixture wattage (sample → stipulate to population); equipment inventories; multi-site programs
+
+**Classroom example:** Take two random samples of 5 motors from the dataset above. Each returns a different mean. Both are valid. The spread between them is the uncertainty carried into the savings estimate.
+
+→ JUDGMENT: How many samples are enough? When is the CV low enough to justify stipulation?
+
+### Tariff and Valuation
+
+The counterfactual rate problem (p. 201): *"What would the bill have been in the absence of the interventions? This requires agreement on valuation of a hypothetical baseline — complicated when energy rates are based on the amount consumed, as the marginal price may fluctuate."*
+
+**Rate structure components:**
+- **Energy charge ($/kWh)** — volumetric; what most people think of as "the rate"
+- **Demand charge ($/kW-month)** — based on peak demand; can dominate commercial bills
+- **Customer/fixed charge ($/month)** — immune to efficiency; high fixed charges reduce value of ECMs
+- **Fuel adjustment clause** — variable adder; changes monthly
+- **Blended rate** — total bill ÷ total kWh; simple but misleading for savings valuation
+
+**Time-varying complexity:**
+- **TOU rates** — a kWh saved at 4pm is worth more than one saved at 2am
+- **Savings load shape** — *when* savings occur matters as much as *how much*; from the book: "the shape of the load profile before and after a retrofit can affect the value of the impact"
+- **Tiered rates** — marginal rate for savings depends on which consumption tier applies
+- **Duck curve / negative pricing** — in high-solar regions, midday prices can go negative; kWh metric breaks down; value shifts to peak reduction
+
+**The high-fixed-charge problem** (p. 203): If the fixed charge is large and the energy rate is low, most of the bill is immune to efficiency action. The financial case for ECMs weakens even when the physics is clear.
+
+**Judgment decisions in valuation:**
+
+| Decision | What Makes It Hard |
+|---|---|
+| Which rate to apply to avoided energy? | Marginal rate varies by tier, time, season |
+| Blended vs. time-differentiated? | Blended is wrong for TOU customers but simpler |
+| How to value demand savings? | Need to know *when* peak occurs before and after |
+| What emission factor? | Annual average vs. marginal vs. real-time — different stories |
+| Rates change mid-contract | Counterfactual was built at old rates — must the model be revised? |
+
+**The Berkeley tariff tool** — a rate structure calculator was built for PG&E schedules (berkeley-tax-calculator.html, archived in git history). Can be referenced or rebuilt as a classroom demonstration of how rate complexity propagates into valuation uncertainty.
