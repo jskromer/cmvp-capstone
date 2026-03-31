@@ -1,4 +1,4 @@
-# CMVP Concept Map — All Sections
+# Counterfactual HQ — Concept Map
 *Derived from slide extracts, Sections 1.0–9.0. Scaffold for building scenario design.*
 
 ---
