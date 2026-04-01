@@ -329,4 +329,4 @@ The counterfactual rate problem (p. 201): *"What would the bill have been in the
 | What emission factor? | Annual average vs. marginal vs. real-time — different stories |
 | Rates change mid-contract | Counterfactual was built at old rates — must the model be revised? |
 
-**The Berkeley tariff tool** — a rate structure calculator was built for PG&E schedules (berkeley-tax-calculator.html, archived in git history). Can be referenced or rebuilt as a classroom demonstration of how rate complexity propagates into valuation uncertainty.
+**The cost-avoidance calculator** (`jskromer/cost-avoidance-calculator`) — Streamlit tool demonstrating why naive savings × blended rate is wrong. Covers PG&E, SCE, Xcel TOU, and Hawaiian Electric flat rate. Use as the Step 14 valuation demonstration.
