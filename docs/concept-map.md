@@ -330,3 +330,98 @@ The counterfactual rate problem (p. 201): *"What would the bill have been in the
 | Rates change mid-contract | Counterfactual was built at old rates — must the model be revised? |
 
 **The cost-avoidance calculator** (`jskromer/cost-avoidance-calculator`) — Streamlit tool demonstrating why naive savings × blended rate is wrong. Covers PG&E, SCE, Xcel TOU, and Hawaiian Electric flat rate. Use as the Step 14 valuation demonstration.
+
+---
+
+## Big Picture — What Is Energy Management, the Denominator, and Building Lifecycle
+*From Kromer (2024), Sections 2.1.2–2.1.4; Section 1 slides*
+
+### What Is Energy Management?
+
+From *The Role of the M&V Professional* (p. xiii):
+> *"Energy management is a practical means of ensuring that the costs and externalities of energy use are understood and mitigated. Common-sense energy management involves applying the fundamental laws of physics to energy systems with a goal of optimizing the value (services) produced per unit of energy consumed."*
+
+And critically (p. xiv):
+> *"M&V is the accounting system of energy management."*
+
+Energy management is not about reducing consumption for its own sake. It is about optimizing the ratio of value produced to energy consumed. This sets up the denominator.
+
+A better name for M&V would be **M, M & V** — measuring, modeling, and verification. The model is the most important element, not the meter.
+
+### The Denominator Problem
+
+From Kromer (2024), Section 2.1.3:
+
+Every energy-consuming system exists for a reason *other* than consuming energy — to provide light, maintain comfort, manufacture goods, facilitate communications. The denominator is that reason. Energy is never the point; service is.
+
+> *"You should consider service levels and productivity, not just raw energy inputs."*
+
+**The core challenge:** What is the right denominator for this facility?
+
+| Facility Type | Denominator Examples |
+|---|---|
+| Office building | Occupancy, conditioned area, productive hours |
+| Hospital | Patient-days, air changes per hour (required by code) |
+| Manufacturing | Units produced, throughput |
+| Municipal building | Service hours, occupancy, public access |
+
+**The denominator shapes the baseline.** If the facility was not meeting code or minimum service levels during the baseline period, the baseline is not fair. The only fair and relevant baseline is one where the facility operates to code and meets its intended service level.
+
+From the book (p. 10):
+> *"The only fair and relevant baseline is one where the facility meets all codes, regulations, and service requirements."*
+
+This is a judgment call — and often a difficult one. Common situations:
+- A building's lighting was below code before the retrofit. The "savings" from bringing it to code are not attributable to energy management.
+- Equipment near end of life would have been replaced anyway. How much credit does the ECM get?
+- COVID-19 changed outdoor air requirements mid-performance period. The baseline service level changed — the model must account for it.
+
+**The denominator in the slides (Section 1, Slide 7):**
+
+```
+Energy / Denominator = KPI
+
+Denominator options:
+  Value
+  Service
+  Compliance (Code / Indoor Environment)
+  Production
+  Output
+  Benefit
+```
+
+→ **JUDGMENT:** What is the denominator for this building, and is the baseline operating at the required service level?
+
+### Building Lifecycle
+
+From Kromer (2024), Section 2.1.4:
+
+Every facility exists at a particular stage of its lifecycle. M&V decisions depend on where the building is in that lifecycle.
+
+**Lifecycle phases:**
+1. **Design** — energy model choices; new construction baselines; code compliance baseline
+2. **Construction** — commissioning; installation verification
+3. **Commissioning** — are systems functioning as designed?
+4. **Operations** — ongoing M&V; the performance period; NRA detection
+5. **Renovation / retrofit** — the moment of the ECM; baseline must be established before
+6. **End of useful life** — remaining useful life (RUL) affects baseline choice; dual baseline considerations
+
+**Why lifecycle matters for M&V:**
+
+- **Remaining Useful Life (RUL):** If a boiler has 2 years left and would have been replaced anyway, what is the proper baseline? The "market transformation" baseline — what would the replacement have been under normal market conditions?
+- **Code baselines:** If current codes require higher efficiency than the existing equipment, the baseline may be set at code-minimum, not existing conditions.
+- **Dual baselines:** When the existing system would have been replaced mid-performance period regardless of the ECM, two baselines may be needed.
+
+**From Section 1 slides — NIST Life Cycle Costing:** The financial framework for evaluating energy investments over their full life, not just the payback period. This is where M&V connects to the investment decision.
+
+→ **JUDGMENT:** At what lifecycle stage is this facility? Does the existing baseline reflect code-compliant, service-adequate operation? If not, the baseline must be adjusted before any ECM savings can be claimed.
+
+### How These Connect to the 14-Step Flow
+
+These are not Step 1 — they are the stage-setting that makes Step 1 possible:
+
+- **Before Step 1 (Context):** Understand what the building exists to do. Identify the denominator.
+- **Before Step 4 (Baseline Period):** Confirm the baseline period represents code-compliant, service-adequate operation. If it doesn't, the baseline is not fair.
+- **At Step 7 (Static Factors):** Lifecycle events (equipment replacement, renovation, occupancy change) are the most common triggers for non-routine adjustments.
+- **At Step 14 (Valuation):** Lifecycle costing connects ECM savings to the investment decision — is the M&V result good enough to justify the capital?
+
+The denominator and lifecycle are the **pre-conditions** for everything that follows. They are introduced first in the slides (Section 1) because without them, the counterfactual has no anchor.
