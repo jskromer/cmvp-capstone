@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Counterfactual HQ — CMVP Capstone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0e8;
+      --cream-light: #faf7f2;
+      --cream-dark: #ede6d8;
+      --ink: #1c1917;
+      --ink-light: #44403c;
+      --ink-faint: #78716c;
+      --green-dark: #2d4a3e;
+      --green-mid: #4a7c6a;
+      --green-light: #c8ddd7;
+      --amber: #c9a227;
+      --amber-light: #fef3c7;
+      --red: #c0392b;
+      --red-light: #fde8e8;
+      --border: #ddd5c8;
+      --shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.5;
+      font-size: 16px;
+    }
+
+    /* ── Global nav ── */
+    .global-nav {
+      background: var(--green-dark);
+      color: white;
+      padding: 0 2rem;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .global-nav .logo {
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .global-nav .logo span { opacity: 0.6; font-weight: 300; }
+    .global-nav nav { display: flex; gap: 1.5rem; margin-left: auto; }
+    .global-nav nav a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .global-nav nav a:hover { color: white; }
+
+    /* ── Pages ── */
+    .page { display: none; min-height: calc(100vh - 52px); }
+    .page.active { display: block; }
+
+    /* ── Hub page ── */
+    .hub-hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+    }
+    .hub-title {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 0.4rem;
+    }
+    .hub-subtitle {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+    .hub-desc {
+      font-size: 1rem;
+      color: var(--ink-light);
+      max-width: 560px;
+    }
+
+    /* Building card */
+    .building-card {
+      max-width: 1100px;
+      margin: 1.5rem auto;
+      padding: 0 2rem;
+    }
+    .bcard {
+      background: var(--cream-light);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      display: grid;
+      grid-template-columns: 200px 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+    }
+    .bcard:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+
+    /* Floor plan SVG area */
+    .floor-plan {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.5rem;
+    }
+
+    .bcard-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 0.25rem;
+    }
+    .bcard-name {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .bcard-meta {
+      font-size: 0.875rem;
+      color: var(--ink-light);
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
+    .ecm-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .ecm-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      background: var(--green-dark);
+      color: white;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+    .ecm-name { font-size: 0.875rem; font-weight: 500; }
+    .uncertainty-badge {
+      margin-left: auto;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+    }
+    .low { background: #d1fae5; color: #065f46; }
+    .high { background: #fee2e2; color: #991b1b; }
+
+    .bcard-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .stat { }
+    .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); }
+    .stat-value { font-family: 'IBM Plex Mono', monospace; font-size: 1rem; font-weight: 500; margin-top: 0.1rem; }
+
+    /* Day tiles */
+    .day-tiles {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem 3rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .day-tile {
+      background: var(--cream-light);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .day-tile:hover {
+      border-color: var(--green-dark);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+    .day-number {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 0.25rem;
+    }
+    .day-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .day-sections { font-size: 0.8rem; color: var(--ink-faint); margin-bottom: 1rem; }
+    .day-cuts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+    .cut-chip {
+      font-size: 0.7rem;
+      background: var(--cream-dark);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.2rem 0.5rem;
+      color: var(--ink-light);
+      white-space: nowrap;
+    }
+    .cut-chip.demo {
+      background: #fef3c7;
+      border-color: #f59e0b;
+      color: #92400e;
+    }
+    .day-btn {
+      display: inline-block;
+      background: var(--green-dark);
+      color: white;
+      padding: 0.5rem 1.25rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .day-btn:hover { background: var(--green-mid); }
+
+    /* ── Day 2 page ── */
+    .day-page { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem 3rem; }
+    .breadcrumb {
+      font-size: 0.8rem;
+      color: var(--ink-faint);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .breadcrumb a { color: var(--green-dark); cursor: pointer; text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .day-header { margin-bottom: 2rem; }
+    .day-header h1 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .day-header p { color: var(--ink-light); font-size: 0.95rem; }
+
+    /* Cut cards */
+    .cut-card {
+      background: var(--cream-light);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      display: grid;
+      grid-template-columns: 60px 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      transition: box-shadow 0.2s;
+    }
+    .cut-card:hover { box-shadow: var(--shadow); }
+    .cut-card.demo-card {
+      background: var(--amber-light);
+      border-color: #f59e0b;
+    }
+    .cut-number {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--green-dark);
+      padding-top: 0.15rem;
+    }
+    .cut-number.demo-num { color: #92400e; }
+    .cut-timing {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-faint);
+      margin-bottom: 0.2rem;
+    }
+    .cut-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .cut-dimension {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--green-dark);
+      margin-bottom: 0.5rem;
+    }
+    .cut-desc { font-size: 0.875rem; color: var(--ink-light); line-height: 1.5; }
+    .cut-action { padding-top: 0.5rem; }
+    .open-btn {
+      background: var(--green-dark);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+    .open-btn:hover { background: var(--green-mid); }
+    .open-btn.demo-btn {
+      background: #d97706;
+    }
+    .open-btn.demo-btn:hover { background: #b45309; }
+    .soon-btn {
+      background: transparent;
+      color: var(--ink-faint);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      cursor: default;
+      white-space: nowrap;
+    }
+
+    /* ── Cut page — Model Fitter ── */
+    .cut-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: calc(100vh - 52px);
+    }
+    .cut-sidebar {
+      background: var(--cream-light);
+      border-right: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      overflow-y: auto;
+    }
+    .cut-main { padding: 2rem; overflow-y: auto; }
+
+    .sidebar-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green-dark);
+      margin-bottom: 0.25rem;
+    }
+    .sidebar-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .sidebar-section-ref {
+      font-size: 0.75rem;
+      color: var(--ink-faint);
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-section { margin-bottom: 1.75rem; }
+    .sidebar-section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-faint);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.35rem;
+      margin-bottom: 0.75rem;
+    }
+    .sidebar-section p { font-size: 0.875rem; color: var(--ink-light); line-height: 1.6; }
+    .sidebar-section strong { color: var(--ink); }
+    .sidebar-callout {
+      background: var(--green-light);
+      border-left: 3px solid var(--green-dark);
+      padding: 0.75rem 0.875rem;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.8rem;
+      color: var(--ink);
+      line-height: 1.5;
+      margin-top: 0.75rem;
+    }
+
+    /* Tool area */
+    .tool-header { margin-bottom: 1.5rem; }
+    .tool-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .model-toggle {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      width: fit-content;
+      margin-bottom: 1.5rem;
+    }
+    .toggle-btn {
+      padding: 0.4rem 1.25rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: none;
+      background: white;
+      cursor: pointer;
+      color: var(--ink-light);
+      transition: all 0.15s;
+    }
+    .toggle-btn.active {
+      background: var(--green-dark);
+      color: white;
+    }
+
+    /* Canvas */
+    #scatter-canvas {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: white;
+      display: block;
+      width: 100%;
+      max-width: 620px;
+    }
+
+    /* Controls */
+    .controls-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.25rem;
+      max-width: 620px;
+    }
+    .control-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      margin-bottom: 0.35rem;
+    }
+    .control-group label span {
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 500;
+      color: var(--green-dark);
+      margin-left: 0.5rem;
+    }
+    .control-group input[type=range] {
+      width: 100%;
+      accent-color: var(--green-dark);
+    }
+
+    /* GoF stats */
+    .gof-row {
+      display: flex;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+      max-width: 620px;
+    }
+    .gof-stat {
+      flex: 1;
+      background: var(--cream-light);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+    }
+    .gof-stat.good { border-color: #6ee7b7; background: #ecfdf5; }
+    .gof-stat.warn { border-color: #fcd34d; background: #fffbeb; }
+    .gof-stat.bad  { border-color: #fca5a5; background: #fef2f2; }
+    .gof-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin-bottom: 0.2rem; }
+    .gof-value { font-family: 'IBM Plex Mono', monospace; font-size: 1.25rem; font-weight: 500; }
+    .gof-status { font-size: 0.7rem; margin-top: 0.15rem; color: var(--ink-faint); }
+
+    /* Comparison panel */
+    .compare-panel {
+      max-width: 620px;
+      margin-top: 1.5rem;
+      background: var(--cream-light);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+    }
+    .compare-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-faint);
+      margin-bottom: 0.75rem;
+    }
+    .compare-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.875rem;
+    }
+    .compare-row .label { color: var(--ink-light); min-width: 180px; }
+    .compare-row .value { font-family: 'IBM Plex Mono', monospace; font-weight: 500; }
+    .compare-row .diff { font-size: 0.8rem; color: var(--ink-faint); }
+
+    /* Cut nav */
+    .cut-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 620px;
+      margin-top: 2rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .nav-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--ink-light);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .nav-btn:hover { border-color: var(--green-dark); color: var(--green-dark); }
+    .nav-progress { font-size: 0.8rem; color: var(--ink-faint); }
+
+    /* Floor plan SVG */
+    .fp-svg { width: 100%; height: auto; }
+
+    /* ── Section timeline (Day pages) ── */
+    .section-timeline { position: relative; }
+
+    .section-block {
+      background: var(--cream-light);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem 1rem;
+      position: relative;
+    }
+    .section-block.demo-block {
+      background: var(--amber-light);
+      border-color: #f59e0b;
+    }
+
+    .section-header-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .section-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      background: var(--green-dark);
+      color: white;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      margin-top: 0.1rem;
+    }
+    .demo-badge {
+      background: #d97706;
+      font-size: 1rem;
+      padding: 0.15rem 0.5rem;
+    }
+    .section-info { flex: 1; }
+    .section-name { font-size: 1rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .section-topics { font-size: 0.8rem; color: var(--ink-faint); }
+    .section-slides {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--ink-faint);
+      white-space: nowrap;
+      margin-top: 0.2rem;
+    }
+
+    .demo-quote {
+      font-size: 0.875rem;
+      font-style: italic;
+      color: #92400e;
+      margin-top: 0.5rem;
+      padding-left: 0.5rem;
+      border-left: 3px solid #f59e0b;
+    }
+
+    /* Inline cut card — embedded within section block */
+    .inline-cut-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.875rem 1rem;
+      margin-top: 0.75rem;
+    }
+    .cut-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--green-dark);
+      white-space: nowrap;
+      padding-top: 0.1rem;
+      min-width: 52px;
+    }
+    .cut-body { flex: 1; }
+    .cut-body .cut-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.15rem; }
+    .cut-trigger {
+      font-size: 0.75rem;
+      color: var(--amber);
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+    .cut-body .cut-desc { font-size: 0.8rem; color: var(--ink-faint); line-height: 1.5; }
+
+    /* Timeline connector between sections */
+    .timeline-connector {
+      width: 2px;
+      height: 1.5rem;
+      background: var(--border);
+      margin: 0 0 0 2.25rem;
+    }
+
+    /* ── Day nav tabs ── */
+    .day-nav-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 1.75rem;
+    }
+    .day-tab {
+      display: flex;
+      flex-direction: column;
+      padding: 0.6rem 1.5rem 0.5rem;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      cursor: pointer;
+      font-family: 'IBM Plex Sans', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--ink-faint);
+      text-align: left;
+      transition: all 0.15s;
+      line-height: 1.3;
+    }
+    .day-tab span {
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: var(--ink-faint);
+    }
+    .day-tab:hover { color: var(--ink); }
+    .day-tab.active {
+      color: var(--green-dark);
+      border-bottom-color: var(--green-dark);
+    }
+    .day-tab.active span { color: var(--green-mid); }
+
+    /* ── Deeper dive accordion ── */
+    .deeper-toggle {
+      margin-top: 0.875rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--ink-faint);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.15s;
+    }
+    .deeper-toggle:hover { color: var(--green-dark); }
+    .deeper-toggle .arrow { font-size: 0.65rem; transition: transform 0.2s; display: inline-block; }
+    .deeper-toggle.open .arrow { transform: rotate(180deg); }
+
+    .deeper-panel {
+      display: none;
+      margin-top: 0.875rem;
+      padding-top: 0.875rem;
+      border-top: 1px solid var(--border);
+    }
+    .deeper-panel.open { display: block; }
+
+    /* Book reference card */
+    .book-ref {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: var(--green-light);
+      border: 1px solid #a8d0c4;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.875rem;
+    }
+    .book-icon { font-size: 1.1rem; margin-top: 0.1rem; flex-shrink: 0; }
+    .book-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green-dark);
+      margin-bottom: 0.1rem;
+    }
+    .book-chapter { font-size: 0.875rem; font-weight: 500; color: var(--ink); margin-bottom: 0.2rem; }
+    .book-quote { font-size: 0.8rem; font-style: italic; color: var(--ink-light); line-height: 1.5; }
+
+    /* References list */
+    .ref-section { margin-bottom: 0; }
+    .ref-section-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-faint);
+      margin-bottom: 0.4rem;
+    }
+    .ref-list {
+      list-style: none;
+      padding: 0;
+    }
+    .ref-list li {
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      padding: 0.2rem 0;
+      padding-left: 0.875rem;
+      position: relative;
+      line-height: 1.5;
+    }
+    .ref-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--ink-faint);
+    }
+    .ref-list li span { color: var(--ink-faint); font-size: 0.75rem; }
+
+    /* Explainer blurb */
+    .explainer-blurb {
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      line-height: 1.6;
+      padding: 0.75rem 1rem;
+      background: var(--cream);
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      margin-bottom: 0.875rem;
+    }
+    .explainer-blurb strong { color: var(--ink); }
+  </style>
+</head>
+<body>
+
+<!-- ══ GLOBAL NAV ══ -->
+<div class="global-nav">
+  <div class="logo" onclick="show('hub')">
+    Counterfactual HQ <span>· CMVP Capstone</span>
+  </div>
+  <nav>
+    <a onclick="show('building')">The Building</a>
+    <a onclick="show('day2')">Day 2</a>
+    <a onclick="show('cut5')">Model Fitter</a>
+  </nav>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE: HUB
+══════════════════════════════════════════════════════ -->
+<div id="hub" class="page active">
+
+  <div class="hub-hero">
+    <div class="hub-title">CMVP Capstone — 3-Day Training</div>
+    <div class="hub-subtitle">Counterfactual HQ</div>
+    <div class="hub-desc">One building. Twelve cuts. Every major M&V judgment made visible.</div>
+  </div>
+
+  <!-- Building card -->
+  <div class="building-card">
+    <div class="bcard" onclick="show('building')">
+
+      <!-- Floor plan -->
+      <div class="floor-plan">
+        <svg class="fp-svg" viewBox="0 0 180 130" xmlns="http://www.w3.org/2000/svg">
+          <!-- Building outline -->
+          <rect x="8" y="8" width="164" height="114" fill="#f0ebe2" stroke="#aaa" stroke-width="1.5" rx="2"/>
+          <!-- Office wing -->
+          <rect x="8" y="8" width="110" height="114" fill="#ddeee8" stroke="#7eb5a0" stroke-width="1" rx="2"/>
+          <text x="56" y="62" text-anchor="middle" font-family="IBM Plex Sans" font-size="9" fill="#2d4a3e" font-weight="500">OFFICE WING</text>
+          <text x="56" y="73" text-anchor="middle" font-family="IBM Plex Sans" font-size="7.5" fill="#4a7c6a">8,000 sf</text>
+          <!-- Common -->
+          <rect x="118" y="8" width="54" height="114" fill="#f5f0e8" stroke="#aaa" stroke-width="1" rx="2"/>
+          <text x="145" y="58" text-anchor="middle" font-family="IBM Plex Sans" font-size="8" fill="#78716c">LOBBY /</text>
+          <text x="145" y="69" text-anchor="middle" font-family="IBM Plex Sans" font-size="8" fill="#78716c">COMMON</text>
+          <text x="145" y="80" text-anchor="middle" font-family="IBM Plex Sans" font-size="7.5" fill="#78716c">4,000 sf</text>
+          <!-- Meter symbol -->
+          <circle cx="63" cy="118" r="5" fill="none" stroke="#2d4a3e" stroke-width="1.2"/>
+          <text x="63" y="121" text-anchor="middle" font-family="IBM Plex Mono" font-size="5.5" fill="#2d4a3e">M</text>
+          <!-- RTU symbol -->
+          <rect x="140" y="10" width="20" height="12" fill="#e0d8cc" stroke="#aaa" stroke-width="1" rx="1"/>
+          <text x="150" y="18" text-anchor="middle" font-family="IBM Plex Mono" font-size="5.5" fill="#78716c">RTU</text>
+          <!-- ECM-1 label -->
+          <text x="56" y="92" text-anchor="middle" font-family="IBM Plex Mono" font-size="6.5" fill="#2d4a3e">● ECM-1 LED</text>
+        </svg>
+      </div>
+
+      <!-- ECMs -->
+      <div>
+        <div class="bcard-label">Building</div>
+        <div class="bcard-name">Counterfactual Headquarters</div>
+        <div class="bcard-meta">
+          12,000 sf · Single-story municipal<br>
+          Zone 4A (Mid-Atlantic) · Gas heat + DX cooling<br>
+          24-month baseline · 12-month reporting period
+        </div>
+        <div class="ecm-row">
+          <span class="ecm-tag">ECM-1</span>
+          <span class="ecm-name">LED Lighting — Office Wing</span>
+          <span class="uncertainty-badge low">LOW uncertainty</span>
+        </div>
+        <div class="ecm-row">
+          <span class="ecm-tag">ECM-2</span>
+          <span class="ecm-name">HVAC Controls — Whole Facility</span>
+          <span class="uncertainty-badge high">HIGH uncertainty</span>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="bcard-stats">
+        <div class="stat">
+          <div class="stat-label">Baseline EUI</div>
+          <div class="stat-value">63 kBtu/sf</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Est. Electric Savings</div>
+          <div class="stat-value">~15,300 kWh</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Contract Type</div>
+          <div class="stat-value">ESPC / Guaranteed</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">NRA Event</div>
+          <div class="stat-value">Month 9 ⚠</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Baseline Fixtures</div>
+          <div class="stat-value">180 T8 lamps</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">FSU (90% CL)</div>
+          <div class="stat-value">~34%</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Day tiles -->
+  <div class="day-tiles">
+    <div class="day-tile" onclick="show('day1')">
+      <div class="day-number">Day 1</div>
+      <div class="day-title">Context &amp; Boundaries</div>
+      <div class="day-sections">Sections 1 · 2</div>
+      <div class="day-cuts">
+        <span class="cut-chip">Cut 1 — Building Intro</span>
+        <span class="cut-chip">Cut 2 — Risk &amp; Context</span>
+      </div>
+      <button class="day-btn">Open Day 1</button>
+    </div>
+
+    <div class="day-tile" onclick="show('day2')">
+      <div class="day-number">Day 2</div>
+      <div class="day-title">The Model</div>
+      <div class="day-sections">Sections 3.1 · 4 · 5 · 6</div>
+      <div class="day-cuts">
+        <span class="cut-chip">Cut 3 — Scatter Plots</span>
+        <span class="cut-chip">Cut 4 — Baseline Period</span>
+        <span class="cut-chip demo">⚡ MCP Demo</span>
+        <span class="cut-chip">Cut 5 — Model Fitter</span>
+        <span class="cut-chip">Cut 6 — Boundary + Stipulation</span>
+      </div>
+      <button class="day-btn">Open Day 2</button>
+    </div>
+
+    <div class="day-tile" onclick="show('day3')">
+      <div class="day-number">Day 3</div>
+      <div class="day-title">Plan, Report &amp; Defend</div>
+      <div class="day-sections">Sections 7 · 8 · 9</div>
+      <div class="day-cuts">
+        <span class="cut-chip">Cut 7 — M&amp;V Plan</span>
+        <span class="cut-chip">Cut 8 — Metering</span>
+        <span class="cut-chip">Cut 9 — NRA Discovery</span>
+        <span class="cut-chip">Cut 10 — Savings</span>
+        <span class="cut-chip">Cut 11 — FSU</span>
+        <span class="cut-chip">Cut 12 — Cost-Avoidance</span>
+      </div>
+      <button class="day-btn">Open Day 3</button>
+    </div>
+  </div>
+
+</div><!-- end hub -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE: BUILDING
+══════════════════════════════════════════════════════ -->
+<div id="building" class="page">
+  <div class="day-page">
+    <div class="breadcrumb">
+      <a onclick="show('hub')">← Hub</a> / The Building
+    </div>
+    <div class="day-header">
+      <h1>Counterfactual Headquarters</h1>
+      <p>Reference document — available throughout all three days.</p>
+    </div>
+    <div style="color: var(--ink-light); font-size:0.9rem; padding: 1.5rem; background: var(--cream-light); border: 1px solid var(--border); border-radius:8px;">
+      Full building reference page — stakeholder matrix, utility rates, timeline, ECM detail sheets. <em>(Coming in full build.)</em>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE: DAY 1 (placeholder)
+══════════════════════════════════════════════════════ -->
+<div id="day1" class="page">
+  <div class="day-page">
+    <div class="breadcrumb">
+      <a onclick="show('hub')">← Hub</a> / Day 1
+    </div>
+    <div class="day-nav-tabs">
+      <button class="day-tab active" onclick="show('day1')">Day 1<span>Context &amp; Boundaries</span></button>
+      <button class="day-tab" onclick="show('day2')">Day 2<span>The Model</span></button>
+      <button class="day-tab" onclick="show('day3')">Day 3<span>Plan, Report &amp; Defend</span></button>
+    </div>
+    <div class="day-header">
+      <h1>Day 1 — Context &amp; Boundaries</h1>
+      <p>Sections 1 and 2 · 2 cuts · Book: Chapters 1 &amp; 2</p>
+    </div>
+    <div style="color: var(--ink-light); font-size:0.9rem; padding:1.5rem; background:var(--cream-light); border:1px solid var(--border); border-radius:8px;">
+      Day 1 cuts — Building Intro and Risk &amp; Context — coming in full build.
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE: DAY 2
+══════════════════════════════════════════════════════ -->
+<div id="day2" class="page">
+  <div class="day-page">
+
+    <div class="breadcrumb">
+      <a onclick="show('hub')">← Hub</a> / Day 2 — The Model
+    </div>
+
+    <div class="day-nav-tabs">
+      <button class="day-tab" onclick="show('day1')">Day 1<span>Context &amp; Boundaries</span></button>
+      <button class="day-tab active" onclick="show('day2')">Day 2<span>The Model</span></button>
+      <button class="day-tab" onclick="show('day3')">Day 3<span>Plan, Report &amp; Defend</span></button>
+    </div>
+
+    <div class="day-header">
+      <h1>Day 2 — The Model</h1>
+      <p>Sections 3.1 · 4 · 5 · 6 &nbsp;·&nbsp; Cuts are embedded where the section naturally pauses</p>
+    </div>
+
+    <div class="section-timeline">
+
+      <!-- § 3.1 -->
+      <div class="section-block">
+        <div class="section-header-row">
+          <div class="section-badge">§ 3.1</div>
+          <div class="section-info">
+            <div class="section-name">Statistics Interlude</div>
+            <div class="section-topics">Mean · Variance · Standard deviation · CV · Regression · R² · CV(RMSE) · NMBE · Sampling · Uncertainty combining</div>
+          </div>
+          <div class="section-slides">31 slides</div>
+        </div>
+        <div class="inline-cut-card">
+          <div class="cut-badge">▶ CUT 3</div>
+          <div class="cut-body">
+            <div class="cut-title">Scatter Plots</div>
+            <div class="cut-trigger">↳ After sampling slides — "What do you see in this data?"</div>
+            <div class="cut-desc">Electric vs. OAT · Gas vs. OAT · Raw points only, no model · Students observe and write before any fitting</div>
+          </div>
+          <button class="soon-btn">Coming soon</button>
+        </div>
+        <button class="deeper-toggle" onclick="toggleDeeper(this)">
+          <span class="arrow">▲</span> Deeper dive · References · Book
+        </button>
+        <div class="deeper-panel">
+          <div class="book-ref">
+            <span class="book-icon">📖</span>
+            <div>
+              <div class="book-label">Kromer (2024) — Practical Considerations</div>
+              <div class="book-chapter">Descriptive statistics · Sampling uncertainty</div>
+              <div class="book-quote">"Ten motors sampled from a production floor returned a CV of 8.38% — a real result from real variation, not model error."</div>
+            </div>
+          </div>
+          <div class="explainer-blurb">
+            Scatter plots before modeling is a pedagogical choice. Students who see the shape first develop physical intuition — they understand <strong>why</strong> the 5P model has two change-points before they ever move a slider.
+          </div>
+          <div class="ref-section">
+            <div class="ref-section-label">Key References</div>
+            <ul class="ref-list">
+              <li>ASHRAE Guideline 14 — CV(RMSE) thresholds: 20% monthly, 25% hourly <span>(Table 5-1)</span></li>
+              <li>EVO Statistics &amp; Uncertainty Guide — combining measurement and sampling uncertainty</li>
+              <li>IPMVP Core Concepts (2022) — Appendix B, uncertainty propagation</li>
+              <li>BPA Uncertainty Guide — confidence levels and precision for M&V</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-connector"></div>
+
+      <!-- § 4 -->
+      <div class="section-block">
+        <div class="section-header-row">
+          <div class="section-badge">§ 4</div>
+          <div class="section-info">
+            <div class="section-name">Baseline &amp; Adjustments</div>
+            <div class="section-topics">Three baseline concepts · Baseline period · Static factors · Routine adjustments · Non-routine adjustments · Avoided vs. normalized vs. backcasting</div>
+          </div>
+          <div class="section-slides">23 slides</div>
+        </div>
+        <div class="inline-cut-card">
+          <div class="cut-badge">▶ CUT 4</div>
+          <div class="cut-body">
+            <div class="cut-title">Baseline Period</div>
+            <div class="cut-trigger">↳ After "Three Baseline Concepts" slide — before static factors discussion</div>
+            <div class="cut-desc">24-month time series · Students select 12-month window · Stage 0B service-level check · Static factor inventory for CFHQ · Pre-document NRA trigger</div>
+          </div>
+          <button class="soon-btn">Coming soon</button>
+        </div>
+        <button class="deeper-toggle" onclick="toggleDeeper(this)">
+          <span class="arrow">▲</span> Deeper dive · References · Book
+        </button>
+        <div class="deeper-panel">
+          <div class="book-ref">
+            <span class="book-icon">📖</span>
+            <div>
+              <div class="book-label">Kromer (2024) — Chapters 1 &amp; 2</div>
+              <div class="book-chapter">Energy management · Lifecycle · The denominator · Service levels</div>
+              <div class="book-quote">"The only fair and relevant baseline is one where the facility meets all codes, regulations, and service requirements."</div>
+            </div>
+          </div>
+          <div class="explainer-blurb">
+            The <strong>three baseline concepts</strong> — period, data, and model — must all be specified in the M&V plan. Most disputes trace back to ambiguity in one of the three. The denominator question (energy per what?) comes from Chapters 1–2 and underlies every baseline period judgment.
+          </div>
+          <div class="ref-section">
+            <div class="ref-section-label">Key References</div>
+            <ul class="ref-list">
+              <li>FEMP M&amp;V Guidelines 4.0 — baseline period selection criteria</li>
+              <li>ASHRAE Guideline 14 — 90% coverage factor requirement for baseline period</li>
+              <li>IPMVP Core Concepts — static factor documentation and NRA triggers</li>
+              <li>NIST Life Cycle Costing — RUL, EUL, dual baselines <span>(referenced in § 1 slides)</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-connector"></div>
+
+      <!-- MCP Demo -->
+      <div class="section-block demo-block">
+        <div class="section-header-row">
+          <div class="section-badge demo-badge">⚡</div>
+          <div class="section-info">
+            <div class="section-name">MCP Demo — Forward Model</div>
+            <div class="section-topics">At the § 4 → § 5 transition · Claude Desktop + EnergyPlus-MCP · ~25 minutes</div>
+          </div>
+          <button class="open-btn demo-btn">Demo Script →</button>
+        </div>
+        <div class="demo-quote">"This is the answer key. Now forget it. The rest of this session, you work from the meter data backward."</div>
+      </div>
+
+      <div class="timeline-connector"></div>
+
+      <!-- § 5 -->
+      <div class="section-block">
+        <div class="section-header-row">
+          <div class="section-badge">§ 5</div>
+          <div class="section-info">
+            <div class="section-name">Whole Facility Approaches</div>
+            <div class="section-topics">Statistical (inverse) vs. physical (forward) models · Significant parameters · Static factors · FSU · Interactive effects · Proxy variables</div>
+          </div>
+          <div class="section-slides">30 slides</div>
+        </div>
+        <div class="inline-cut-card">
+          <div class="cut-badge">▶ CUT 5</div>
+          <div class="cut-body">
+            <div class="cut-title">Model Fitter</div>
+            <div class="cut-trigger">↳ After Fractional Savings Uncertainty slides — "Now fit the inverse model"</div>
+            <div class="cut-desc">Scatter plot · Change-point sliders · Live R², CV(RMSE), NMBE · Class spread shows inter-analyst uncertainty · Compare to EnergyPlus savings estimate</div>
+          </div>
+          <button class="open-btn" onclick="show('cut5')">Open Tool →</button>
+        </div>
+        <button class="deeper-toggle" onclick="toggleDeeper(this)">
+          <span class="arrow">▲</span> Deeper dive · References · Book
+        </button>
+        <div class="deeper-panel">
+          <div class="book-ref">
+            <span class="book-icon">📖</span>
+            <div>
+              <div class="book-label">Kromer (2024) — Practical Considerations</div>
+              <div class="book-chapter">M, M &amp; V — measuring, modeling, and verification</div>
+              <div class="book-quote">"The model is the most important element of M&V. Without a defensible model, savings are not savings — they are assertions."</div>
+            </div>
+          </div>
+          <div class="explainer-blurb">
+            The inverse model doesn't <em>measure</em> savings — it <strong>infers</strong> them. The baseline relationship learned from historical data is projected forward into the reporting period. That projection is the counterfactual: what <em>would have happened</em>. It is a designed artifact, not a measurement. The spread of change-point choices across the class is not error — it is the honest range of defensible professional judgment.
+          </div>
+          <div class="ref-section">
+            <div class="ref-section-label">Key References</div>
+            <ul class="ref-list">
+              <li>Reddy &amp; Claridge — "Uncertainty of 'Measured' Energy Savings from Statistical Baseline Models" <span>(FSU methodology)</span></li>
+              <li>ASHRAE Guideline 14 — NMBE ±5%, CV(RMSE) ≤20% monthly thresholds</li>
+              <li>CalTrack / NMEC — whole-facility statistical approach, utility program context</li>
+              <li>Touzani et al. — "Evaluation of Methods to Assess Uncertainty in Estimated Energy Savings"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-connector"></div>
+
+      <!-- § 6 -->
+      <div class="section-block">
+        <div class="section-header-row">
+          <div class="section-badge">§ 6</div>
+          <div class="section-info">
+            <div class="section-name">Retrofit Isolation</div>
+            <div class="section-topics">Single-line diagrams · Measurement boundaries · Performance vs. performance/operation · Interactive effects · Significant vs. estimable parameters</div>
+          </div>
+          <div class="section-slides">22 slides</div>
+        </div>
+        <div class="inline-cut-card">
+          <div class="cut-badge">▶ CUT 6</div>
+          <div class="cut-body">
+            <div class="cut-title">Boundary + Stipulation</div>
+            <div class="cut-trigger">↳ After terminology slide — "Draw the measurement boundary"</div>
+            <div class="cut-desc">Annotate single-line diagram · ECM-1 office panel vs. ECM-2 main meter · Lighting stipulation: CV from sample → required N</div>
+          </div>
+          <button class="soon-btn">Coming soon</button>
+        </div>
+        <button class="deeper-toggle" onclick="toggleDeeper(this)">
+          <span class="arrow">▲</span> Deeper dive · References · Book
+        </button>
+        <div class="deeper-panel">
+          <div class="book-ref">
+            <span class="book-icon">📖</span>
+            <div>
+              <div class="book-label">Kromer (2024) — Practical Considerations</div>
+              <div class="book-chapter">Key parameter measurement · Sampling plans · Stipulation as explicit assumption</div>
+              <div class="book-quote">"Stipulation is not weakness — it is an explicit, auditable assumption. The question is not whether to stipulate, but whether the stipulation is defensible."</div>
+            </div>
+          </div>
+          <div class="explainer-blurb">
+            <strong>Performance vs. performance/operation</strong> is a cost-precision tradeoff, not a quality ranking. Option A (key parameter measurement) can be more defensible than continuous metering if the stipulated parameter is genuinely stable. The CV of the sample drives the required N — students who calculate this by hand understand why sampling plans aren't arbitrary.
+          </div>
+          <div class="ref-section">
+            <div class="ref-section-label">Key References</div>
+            <ul class="ref-list">
+              <li>ASHRAE Guideline 14 — Table 5-2, retrofit isolation approaches <span>(20+ methods)</span></li>
+              <li>FEMP 4.0 — Option A strengthened: annual key parameter measurement now default</li>
+              <li>IPMVP Core Concepts — performance vs. performance/operation terminology</li>
+              <li>Section 6 Excel example — CMVP_Retrofit_Isolation_Example.xlsx</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end section-timeline -->
+  </div>
+</div><!-- end day2 -->
+
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE: DAY 3 (placeholder)
+══════════════════════════════════════════════════════ -->
+<div id="day3" class="page">
+  <div class="day-page">
+    <div class="breadcrumb">
+      <a onclick="show('hub')">← Hub</a> / Day 3
+    </div>
+    <div class="day-nav-tabs">
+      <button class="day-tab" onclick="show('day1')">Day 1<span>Context &amp; Boundaries</span></button>
+      <button class="day-tab" onclick="show('day2')">Day 2<span>The Model</span></button>
+      <button class="day-tab active" onclick="show('day3')">Day 3<span>Plan, Report &amp; Defend</span></button>
+    </div>
+    <div class="day-header">
+      <h1>Day 3 — Plan, Report &amp; Defend</h1>
+      <p>Sections 7 · 8 · 9 · 6 cuts · Book: Practical Considerations throughout</p>
+    </div>
+    <div style="color:var(--ink-light); font-size:0.9rem; padding:1.5rem; background:var(--cream-light); border:1px solid var(--border); border-radius:8px;">
+      Day 3 cuts — M&amp;V Plan, Metering, NRA Discovery, Savings, FSU, Cost-Avoidance — coming in full build.
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     PAGE: CUT 5 — MODEL FITTER
+══════════════════════════════════════════════════════ -->
+<div id="cut5" class="page">
+  <div class="cut-layout">
+
+    <!-- Sidebar -->
+    <div class="cut-sidebar">
+      <div class="sidebar-tag">Day 2 · Cut 5 of 12</div>
+      <div class="sidebar-title">Model Fitter</div>
+      <div class="sidebar-section-ref">After Section 5 — Whole Facility Approaches</div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">The Situation</div>
+        <p>You have 12 months of baseline data for Counterfactual Headquarters. You just watched EnergyPlus run the forward model.<br><br>
+        Now work from the <strong>meter data backward</strong>. Fit a statistical baseline model — the inverse direction.</p>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">The Decision</div>
+        <p>Where are the change-points?<br><br>
+        <strong>Statistics tell you fit.</strong> R² and CV(RMSE) tell you how well the model describes the data.<br><br>
+        <strong>Physics tells you sense.</strong> Does 38°F as a heating threshold make sense for a Zone 4A building with gas heat?</p>
+        <div class="sidebar-callout">
+          The class will produce a spread of change-point choices — all defensible. That spread is inter-analyst uncertainty. It's not error. It's honest.
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Explainer</div>
+        <p>This is the <strong>inverse model</strong> — the statistical counterfactual machine. It learns the baseline relationship between weather and energy use, then projects that relationship into the reporting period.<br><br>
+        Savings = Counterfactual − Actual.<br><br>
+        The model <em>is</em> the most important element.</p>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-section-label">Navigation</div>
+        <div style="display:flex; gap:0.75rem;">
+          <button class="nav-btn" onclick="show('day2')">← Day 2</button>
+          <button class="nav-btn" onclick="show('day2')">Cut 6 →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main tool -->
+    <div class="cut-main">
+      <div class="tool-header">
+        <div class="tool-title">Baseline Model — Counterfactual Headquarters</div>
+      </div>
+
+      <!-- Electric / Gas toggle -->
+      <div class="model-toggle">
+        <button class="toggle-btn active" id="btn-electric" onclick="switchModel('electric')">Electric</button>
+        <button class="toggle-btn" id="btn-gas" onclick="switchModel('gas')">Gas</button>
+      </div>
+
+      <!-- Canvas -->
+      <canvas id="scatter-canvas" width="620" height="320"></canvas>
+
+      <!-- Controls -->
+      <div class="controls-row" id="electric-controls">
+        <div class="control-group">
+          <label>Lower change-point <span id="lcp-val">38°F</span></label>
+          <input type="range" id="lcp" min="25" max="55" value="38" oninput="updateModel()">
+        </div>
+        <div class="control-group">
+          <label>Upper change-point <span id="ucp-val">55°F</span></label>
+          <input type="range" id="ucp" min="45" max="72" value="55" oninput="updateModel()">
+        </div>
+      </div>
+
+      <!-- GoF -->
+      <div class="gof-row" id="gof-row">
+        <div class="gof-stat" id="gof-r2">
+          <div class="gof-label">R²</div>
+          <div class="gof-value" id="r2-val">—</div>
+          <div class="gof-status" id="r2-status"></div>
+        </div>
+        <div class="gof-stat" id="gof-cvrmse">
+          <div class="gof-label">CV(RMSE)</div>
+          <div class="gof-value" id="cvrmse-val">—</div>
+          <div class="gof-status" id="cvrmse-status"></div>
+        </div>
+        <div class="gof-stat" id="gof-nmbe">
+          <div class="gof-label">NMBE</div>
+          <div class="gof-value" id="nmbe-val">—</div>
+          <div class="gof-status" id="nmbe-status"></div>
+        </div>
+      </div>
+
+      <!-- EnergyPlus comparison -->
+      <div class="compare-panel">
+        <div class="compare-label">vs. EnergyPlus Forward Model</div>
+        <div class="compare-row">
+          <span class="label">EnergyPlus predicted annual savings</span>
+          <span class="value">15,300 kWh</span>
+        </div>
+        <div class="compare-row">
+          <span class="label">Your inverse model estimate</span>
+          <span class="value" id="inverse-savings">— kWh</span>
+        </div>
+        <div class="compare-row">
+          <span class="label">Difference</span>
+          <span class="value" id="model-diff">—</span>
+          <span class="diff" id="model-diff-label"></span>
+        </div>
+        <div style="margin-top:0.75rem; font-size:0.8rem; color:var(--ink-faint);">
+          The gap between forward and inverse model estimates is <strong style="color:var(--ink)">model uncertainty</strong> — not error. Both are defensible representations of a building we cannot observe directly.
+        </div>
+      </div>
+
+    </div><!-- end cut-main -->
+  </div>
+</div><!-- end cut5 -->
+
+
+<script>
+// ── Navigation ──
+function show(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ── Deeper dive toggle ──
+function toggleDeeper(btn) {
+  const panel = btn.nextElementSibling;
+  const isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+  btn.querySelector('.arrow').textContent = isOpen ? '▲' : '▼';
+}
+
+// ── Data — REAL EnergyPlus output, CFHQ baseline simulation (EnergyPlus 25.2, Dulles TMY3) ──
+// Electric: kWh/month  |  Gas: therms/month  |  OAT: monthly average °F
+const electricData = [
+  {month:'Jan', oat:33.0, kwh:8910}, {month:'Feb', oat:34.9, kwh:8087},
+  {month:'Mar', oat:45.9, kwh:9116}, {month:'Apr', oat:54.4, kwh:8398},
+  {month:'May', oat:64.7, kwh:9402}, {month:'Jun', oat:72.5, kwh:9745},
+  {month:'Jul', oat:76.1, kwh:10531},{month:'Aug', oat:73.4, kwh:10876},
+  {month:'Sep', oat:68.2, kwh:9728}, {month:'Oct', oat:53.5, kwh:9138},
+  {month:'Nov', oat:46.1, kwh:8773}, {month:'Dec', oat:33.8, kwh:8736},
+];
+
+const gasData = [
+  {month:'Jan', oat:33.0, kwh:1397}, {month:'Feb', oat:34.9, kwh:1330},
+  {month:'Mar', oat:45.9, kwh:1150}, {month:'Apr', oat:54.4, kwh:765},
+  {month:'May', oat:64.7, kwh:372},  {month:'Jun', oat:72.5, kwh:104},
+  {month:'Jul', oat:76.1, kwh:9},    {month:'Aug', oat:73.4, kwh:13},
+  {month:'Sep', oat:68.2, kwh:59},   {month:'Oct', oat:53.5, kwh:364},
+  {month:'Nov', oat:46.1, kwh:733},  {month:'Dec', oat:33.8, kwh:1295},
+];
+
+let currentModel = 'electric';
+
+// ── Plot geometry ──
+const W = 620, H = 320;
+const ML = 58, MR = 20, MT = 20, MB = 48;
+const PW = W - ML - MR, PH = H - MT - MB;
+
+const elecOatRange = [20, 90], elecKwhRange = [7500, 11500];
+const gasOatRange  = [20, 90], gasKwhRange  = [0, 1600];
+
+function xScale(oat, range) { return ML + (oat - range[0]) / (range[1] - range[0]) * PW; }
+function yScale(kwh, range) { return MT + PH - (kwh - range[0]) / (range[1] - range[0]) * PH; }
+
+// ── Regression helpers ──
+function mean(arr) { return arr.reduce((s,v)=>s+v,0)/arr.length; }
+
+function olsSlope(xs, ys) {
+  const mx = mean(xs), my = mean(ys);
+  const num = xs.reduce((s,x,i)=>s+(x-mx)*(ys[i]-my),0);
+  const den = xs.reduce((s,x)=>s+(x-mx)**2,0);
+  return den === 0 ? 0 : num/den;
+}
+
+function computeGoF(data, predictions) {
+  const actual = data.map(d => d.kwh);
+  const pred   = predictions;
+  const mx     = mean(actual);
+  const ssTot  = actual.reduce((s,y)=>s+(y-mx)**2,0);
+  const ssRes  = actual.reduce((s,y,i)=>s+(y-pred[i])**2,0);
+  const r2     = Math.max(0, 1 - ssRes/ssTot);
+  const rmse   = Math.sqrt(ssRes/actual.length);
+  const cvrmse = rmse/mx*100;
+  const nmbe   = actual.reduce((s,y,i)=>s+(pred[i]-y),0)/(actual.length*mx)*100;
+  return {r2, cvrmse, nmbe};
+}
+
+function fit5P(data, lcp, ucp) {
+  // Segments
+  const heat = data.filter(d=>d.oat < lcp);
+  const base = data.filter(d=>d.oat>=lcp && d.oat<=ucp);
+  const cool = data.filter(d=>d.oat > ucp);
+
+  const baseLoad = base.length>0 ? mean(base.map(d=>d.kwh)) : mean(data.map(d=>d.kwh));
+
+  // Heating: regress kwh on (lcp - oat) through origin
+  const hxs = heat.map(d=>lcp-d.oat), hys = heat.map(d=>d.kwh-baseLoad);
+  const hSlope = heat.length>1 ? Math.max(0, olsSlope(hxs, hys)) : 3.5;
+
+  // Cooling: regress kwh on (oat - ucp) through origin
+  const cxs = cool.map(d=>d.oat-ucp), cys = cool.map(d=>d.kwh-baseLoad);
+  const cSlope = cool.length>1 ? Math.max(0, olsSlope(cxs, cys)) : 6.2;
+
+  return {baseLoad, hSlope, cSlope};
+}
+
+function fit3P(data, ucp) {
+  // Heating only (gas): below ucp slope, above = baseload
+  const heat = data.filter(d=>d.oat < ucp);
+  const base = data.filter(d=>d.oat>=ucp);
+  const baseLoad = base.length>0 ? mean(base.map(d=>d.kwh)) : 5;
+  const hxs = heat.map(d=>ucp-d.oat), hys = heat.map(d=>d.kwh-baseLoad);
+  const hSlope = heat.length>1 ? Math.max(0, olsSlope(hxs, hys)) : 2.8;
+  return {baseLoad, hSlope, cSlope:0};
+}
+
+function predict5P(oat, lcp, ucp, m) {
+  if(oat < lcp) return m.baseLoad + m.hSlope*(lcp-oat);
+  if(oat > ucp) return m.baseLoad + m.cSlope*(oat-ucp);
+  return m.baseLoad;
+}
+
+function predict3P(oat, ucp, m) {
+  if(oat < ucp) return m.baseLoad + m.hSlope*(ucp-oat);
+  return m.baseLoad;
+}
+
+// ── Drawing ──
+function drawPlot() {
+  const canvas = document.getElementById('scatter-canvas');
+  const ctx = canvas.getContext('2d');
+  const data = currentModel==='electric' ? electricData : gasData;
+  const oatR = currentModel==='electric' ? elecOatRange : gasOatRange;
+  const kwhR = currentModel==='electric' ? elecKwhRange : gasKwhRange;
+  const yLabel= currentModel==='electric' ? 'kWh/month' : 'Therms/month';
+
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#fff';
+  ctx.fillRect(0,0,W,H);
+
+  const lcp = parseInt(document.getElementById('lcp').value);
+  const ucp = parseInt(document.getElementById('ucp').value);
+
+  // Fit model
+  let model, predictions;
+  if(currentModel==='electric') {
+    model = fit5P(data, lcp, ucp);
+    predictions = data.map(d=>predict5P(d.oat, lcp, ucp, model));
+  } else {
+    model = fit3P(data, lcp);
+    predictions = data.map(d=>predict3P(d.oat, lcp, model));
+  }
+
+  // ── Axes ──
+  ctx.strokeStyle='#aaa'; ctx.lineWidth=1;
+  ctx.beginPath();
+  ctx.moveTo(ML, MT); ctx.lineTo(ML, MT+PH); ctx.lineTo(ML+PW, MT+PH);
+  ctx.stroke();
+
+  // Y gridlines + labels
+  ctx.fillStyle='#999'; ctx.font='11px IBM Plex Mono';
+  ctx.textAlign='right'; ctx.textBaseline='middle';
+  const ySteps = 5;
+  for(let i=0;i<=ySteps;i++){
+    const v = kwhR[0] + (kwhR[1]-kwhR[0])*i/ySteps;
+    const y = yScale(v, kwhR);
+    ctx.fillText(Math.round(v), ML-6, y);
+    ctx.strokeStyle='#eee'; ctx.lineWidth=0.5;
+    ctx.beginPath(); ctx.moveTo(ML,y); ctx.lineTo(ML+PW,y); ctx.stroke();
+  }
+
+  // X gridlines + labels
+  ctx.textAlign='center'; ctx.textBaseline='top';
+  const xSteps = [20,30,40,50,60,70,80,90];
+  xSteps.forEach(v=>{
+    const x = xScale(v, oatR);
+    ctx.fillStyle='#999';
+    ctx.fillText(v+'°', x, MT+PH+6);
+    ctx.strokeStyle='#eee'; ctx.lineWidth=0.5;
+    ctx.beginPath(); ctx.moveTo(x,MT); ctx.lineTo(x,MT+PH); ctx.stroke();
+  });
+
+  // Axis labels
+  ctx.fillStyle='#78716c'; ctx.font='11px IBM Plex Sans';
+  ctx.textAlign='center'; ctx.textBaseline='bottom';
+  ctx.fillText('Outdoor Air Temperature (°F)', ML+PW/2, H-2);
+  ctx.save(); ctx.translate(14, MT+PH/2); ctx.rotate(-Math.PI/2);
+  ctx.textBaseline='middle';
+  ctx.fillText(yLabel, 0, 0);
+  ctx.restore();
+
+  // ── Change-point lines ──
+  ctx.setLineDash([4,3]);
+  ctx.strokeStyle='#c9a227'; ctx.lineWidth=1.5;
+  if(currentModel==='electric'){
+    const lx = xScale(lcp, oatR);
+    ctx.beginPath(); ctx.moveTo(lx,MT); ctx.lineTo(lx,MT+PH); ctx.stroke();
+    const ux = xScale(ucp, oatR);
+    ctx.beginPath(); ctx.moveTo(ux,MT); ctx.lineTo(ux,MT+PH); ctx.stroke();
+    ctx.fillStyle='#c9a227'; ctx.font='10px IBM Plex Mono'; ctx.textAlign='center'; ctx.textBaseline='top';
+    ctx.fillText(lcp+'°', lx, MT+2);
+    ctx.fillText(ucp+'°', ux, MT+2);
+  } else {
+    const ux = xScale(lcp, oatR);
+    ctx.beginPath(); ctx.moveTo(ux,MT); ctx.lineTo(ux,MT+PH); ctx.stroke();
+    ctx.fillStyle='#c9a227'; ctx.font='10px IBM Plex Mono'; ctx.textAlign='center'; ctx.textBaseline='top';
+    ctx.fillText(lcp+'°', ux, MT+2);
+  }
+  ctx.setLineDash([]);
+
+  // ── Model line ──
+  ctx.strokeStyle='#2d4a3e'; ctx.lineWidth=2;
+  ctx.beginPath();
+  const oatVals = Array.from({length:71},(_,i)=>oatR[0]+i);
+  oatVals.forEach((oat,i)=>{
+    let ky;
+    if(currentModel==='electric') ky = predict5P(oat,lcp,ucp,model);
+    else ky = predict3P(oat,lcp,model);
+    ky = Math.max(kwhR[0], Math.min(kwhR[1], ky));
+    const x = xScale(oat,oatR), y = yScale(ky,kwhR);
+    i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+
+  // ── Residual lines ──
+  data.forEach((d,i)=>{
+    const x = xScale(d.oat, oatR);
+    const y1 = yScale(d.kwh, kwhR);
+    const y2 = yScale(Math.max(kwhR[0],Math.min(kwhR[1],predictions[i])), kwhR);
+    ctx.strokeStyle='rgba(192,57,43,0.3)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(x,y1); ctx.lineTo(x,y2); ctx.stroke();
+  });
+
+  // ── Data points ──
+  data.forEach((d,i)=>{
+    const x = xScale(d.oat, oatR);
+    const y = yScale(d.kwh, kwhR);
+    ctx.fillStyle='#2d4a3e'; ctx.strokeStyle='white'; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.arc(x,y,5,0,2*Math.PI); ctx.fill(); ctx.stroke();
+    // Month label
+    ctx.fillStyle='#44403c'; ctx.font='9px IBM Plex Mono'; ctx.textAlign='center'; ctx.textBaseline='bottom';
+    ctx.fillText(d.month.slice(0,1), x, y-6);
+  });
+
+  // ── GoF ──
+  const gof = computeGoF(data, predictions);
+  updateGoF(gof);
+
+  // ── Inverse savings estimate ──
+  // Counterfactual annual = sum of all model predictions scaled; for demo use simple estimate
+  const baseAnnual = predictions.reduce((s,v)=>s+v,0);
+  // Post-retrofit estimate: assume ECM-1 saves ~17.5% electric
+  const postAnnual = baseAnnual * (currentModel==='electric' ? 0.879 : 1.06);
+  const savings = Math.round(baseAnnual - postAnnual);
+  document.getElementById('inverse-savings').textContent = savings.toLocaleString()+' kWh';
+  const diff = savings - 15300;
+  document.getElementById('model-diff').textContent = (diff>=0?'+':'')+diff.toLocaleString()+' kWh';
+  document.getElementById('model-diff-label').textContent = Math.abs(diff)<1000 ? '✓ within expected range' : '⚠ outside expected range';
+}
+
+function updateGoF(gof) {
+  // R²
+  const r2 = gof.r2.toFixed(3);
+  document.getElementById('r2-val').textContent = r2;
+  const r2el = document.getElementById('gof-r2');
+  r2el.className = 'gof-stat ' + (gof.r2>0.75?'good':gof.r2>0.5?'warn':'bad');
+  document.getElementById('r2-status').textContent = gof.r2>0.75?'Good fit':gof.r2>0.5?'Marginal':'Poor fit';
+
+  // CV(RMSE)
+  const cv = gof.cvrmse.toFixed(1)+'%';
+  document.getElementById('cvrmse-val').textContent = cv;
+  const cvel = document.getElementById('gof-cvrmse');
+  const threshold = currentModel==='electric' ? 20 : 25;
+  cvel.className = 'gof-stat ' + (gof.cvrmse<threshold?'good':gof.cvrmse<threshold*1.3?'warn':'bad');
+  document.getElementById('cvrmse-status').textContent = gof.cvrmse<threshold?'ASHRAE G14 ✓':'Above threshold ⚠';
+
+  // NMBE
+  const nmbe = (gof.nmbe>=0?'+':'')+gof.nmbe.toFixed(1)+'%';
+  document.getElementById('nmbe-val').textContent = nmbe;
+  const nbel = document.getElementById('gof-nmbe');
+  nbel.className = 'gof-stat ' + (Math.abs(gof.nmbe)<5?'good':Math.abs(gof.nmbe)<10?'warn':'bad');
+  document.getElementById('nmbe-status').textContent = Math.abs(gof.nmbe)<5?'No significant bias':'Bias present ⚠';
+}
+
+function updateModel() {
+  const lcp = parseInt(document.getElementById('lcp').value);
+  const ucp = parseInt(document.getElementById('ucp').value);
+  // Enforce lcp < ucp - 5
+  if(lcp >= ucp - 5) {
+    document.getElementById('ucp').value = lcp + 6;
+  }
+  document.getElementById('lcp-val').textContent = document.getElementById('lcp').value+'°F';
+  document.getElementById('ucp-val').textContent = document.getElementById('ucp').value+'°F';
+  drawPlot();
+}
+
+function switchModel(m) {
+  currentModel = m;
+  document.getElementById('btn-electric').className = 'toggle-btn'+(m==='electric'?' active':'');
+  document.getElementById('btn-gas').className     = 'toggle-btn'+(m==='gas'?' active':'');
+  const ctrl = document.getElementById('electric-controls');
+  if(m==='gas'){
+    // gas only needs one CP (heating threshold)
+    ctrl.querySelector('[for=lcp], label:first-child').textContent='';
+    ctrl.children[0].children[0].textContent = 'Heating threshold ';
+    const sp = document.createElement('span'); sp.id='lcp-val2';
+    // simplify: just relabel
+    document.getElementById('lcp').value=58;
+    document.getElementById('ucp').parentElement.style.visibility='hidden';
+  } else {
+    document.getElementById('lcp').value=38;
+    document.getElementById('ucp').parentElement.style.visibility='visible';
+  }
+  updateModel();
+}
+
+// Initial draw
+window.addEventListener('load', ()=>{
+  updateModel();
+});
+</script>
+</body>
+</html>
