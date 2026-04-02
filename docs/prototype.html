@@ -756,6 +756,7 @@
   </div>
   <nav>
     <a onclick="show('building')">The Building</a>
+    <a onclick="show('day1')">Day 1</a>
     <a onclick="show('day2')">Day 2</a>
     <a onclick="show('cut5')">Model Fitter</a>
   </nav>
@@ -823,31 +824,31 @@
         </div>
       </div>
 
-      <!-- Stats -->
+      <!-- Stats — EnergyPlus 25.2 / Dulles TMY3 -->
       <div class="bcard-stats">
         <div class="stat">
           <div class="stat-label">Baseline EUI</div>
-          <div class="stat-value">63 kBtu/sf</div>
+          <div class="stat-value">94.9 kBtu/sf</div>
         </div>
         <div class="stat">
-          <div class="stat-label">Est. Electric Savings</div>
-          <div class="stat-value">~15,300 kWh</div>
+          <div class="stat-label">ECM-1 Elec Savings</div>
+          <div class="stat-value">20,718 kWh/yr</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">ECM-2 Gas Savings</div>
+          <div class="stat-value">2,839 therms/yr</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Interactive Effect</div>
+          <div class="stat-value">−271 therms/yr ⚠</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">NRA Event</div>
+          <div class="stat-value">Month 9 · +420 kWh/mo</div>
         </div>
         <div class="stat">
           <div class="stat-label">Contract Type</div>
           <div class="stat-value">ESPC / Guaranteed</div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">NRA Event</div>
-          <div class="stat-value">Month 9 ⚠</div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">Baseline Fixtures</div>
-          <div class="stat-value">180 T8 lamps</div>
-        </div>
-        <div class="stat">
-          <div class="stat-label">FSU (90% CL)</div>
-          <div class="stat-value">~34%</div>
         </div>
       </div>
 
@@ -861,8 +862,8 @@
       <div class="day-title">Context &amp; Boundaries</div>
       <div class="day-sections">Sections 1 · 2</div>
       <div class="day-cuts">
-        <span class="cut-chip">Cut 1 — Building Intro</span>
-        <span class="cut-chip">Cut 2 — Risk &amp; Context</span>
+        <span class="cut-chip">Cut 3 — Boundary Setting</span>
+        <span class="cut-chip">Cut 4 — Model Form Selection</span>
       </div>
       <button class="day-btn">Open Day 1</button>
     </div>
@@ -872,11 +873,11 @@
       <div class="day-title">The Model</div>
       <div class="day-sections">Sections 3.1 · 4 · 5 · 6</div>
       <div class="day-cuts">
-        <span class="cut-chip">Cut 3 — Scatter Plots</span>
-        <span class="cut-chip">Cut 4 — Baseline Period</span>
+        <span class="cut-chip">Cut 5 — Scatter Plots</span>
+        <span class="cut-chip">Cut 6 — Baseline Period</span>
         <span class="cut-chip demo">⚡ MCP Demo</span>
-        <span class="cut-chip">Cut 5 — Model Fitter</span>
-        <span class="cut-chip">Cut 6 — Boundary + Stipulation</span>
+        <span class="cut-chip">Cut 7 — Model Fitter</span>
+        <span class="cut-chip">Cut 8 — Boundary + Stipulation</span>
       </div>
       <button class="day-btn">Open Day 2</button>
     </div>
@@ -886,12 +887,12 @@
       <div class="day-title">Plan, Report &amp; Defend</div>
       <div class="day-sections">Sections 7 · 8 · 9</div>
       <div class="day-cuts">
-        <span class="cut-chip">Cut 7 — M&amp;V Plan</span>
-        <span class="cut-chip">Cut 8 — Metering</span>
-        <span class="cut-chip">Cut 9 — NRA Discovery</span>
-        <span class="cut-chip">Cut 10 — Savings</span>
-        <span class="cut-chip">Cut 11 — FSU</span>
-        <span class="cut-chip">Cut 12 — Cost-Avoidance</span>
+        <span class="cut-chip">Cut 9 — M&amp;V Plan</span>
+        <span class="cut-chip">Cut 10 — Metering</span>
+        <span class="cut-chip">Cut 11 — NRA Discovery</span>
+        <span class="cut-chip">Cut 12 — Savings</span>
+        <span class="cut-chip">Cut 13 — FSU</span>
+        <span class="cut-chip">Cut 14 — Cost-Avoidance</span>
       </div>
       <button class="day-btn">Open Day 3</button>
     </div>
@@ -920,25 +921,123 @@
 
 
 <!-- ══════════════════════════════════════════════════════
-     PAGE: DAY 1 (placeholder)
+     PAGE: DAY 1
 ══════════════════════════════════════════════════════ -->
 <div id="day1" class="page">
   <div class="day-page">
+
     <div class="breadcrumb">
-      <a onclick="show('hub')">← Hub</a> / Day 1
+      <a onclick="show('hub')">← Hub</a> / Day 1 — Context &amp; Boundaries
     </div>
+
     <div class="day-nav-tabs">
       <button class="day-tab active" onclick="show('day1')">Day 1<span>Context &amp; Boundaries</span></button>
       <button class="day-tab" onclick="show('day2')">Day 2<span>The Model</span></button>
       <button class="day-tab" onclick="show('day3')">Day 3<span>Plan, Report &amp; Defend</span></button>
     </div>
+
     <div class="day-header">
       <h1>Day 1 — Context &amp; Boundaries</h1>
-      <p>Sections 1 and 2 · 2 cuts · Book: Chapters 1 &amp; 2</p>
+      <p>Sections 1 · 2 &nbsp;·&nbsp; Cuts are embedded where the section naturally pauses</p>
     </div>
-    <div style="color: var(--ink-light); font-size:0.9rem; padding:1.5rem; background:var(--cream-light); border:1px solid var(--border); border-radius:8px;">
-      Day 1 cuts — Building Intro and Risk &amp; Context — coming in full build.
-    </div>
+
+    <div class="section-timeline">
+
+      <!-- § 1 -->
+      <div class="section-block">
+        <div class="section-header-row">
+          <div class="section-badge">§ 1</div>
+          <div class="section-info">
+            <div class="section-name">Fundamental Concepts</div>
+            <div class="section-topics">The counterfactual method · Baseline vs. counterfactual · Types of models (statistical, physical, hybrid) · Professional judgment · Uncertainty · The role of the CMVP</div>
+          </div>
+          <div class="section-slides">75 slides</div>
+        </div>
+        <div class="inline-cut-card">
+          <div class="cut-badge">▶ CUT 3</div>
+          <div class="cut-body">
+            <div class="cut-title">Boundary Setting</div>
+            <div class="cut-trigger">↳ After "Three Types of Models" — "Where does the measurement stop?"</div>
+            <div class="cut-desc">Single-line diagram of CFHQ · Mark meter locations · Draw ECM-1 (subpanel) and ECM-2 (whole facility) boundaries · Judgment: lobby LEDs inside or outside ECM-1?</div>
+          </div>
+          <button class="soon-btn">Coming soon</button>
+        </div>
+        <button class="deeper-toggle" onclick="toggleDeeper(this)">
+          <span class="arrow">▲</span> Deeper dive · References · Book
+        </button>
+        <div class="deeper-panel">
+          <div class="book-ref">
+            <span class="book-icon">📖</span>
+            <div>
+              <div class="book-label">Kromer (2024) — Chapters 1 &amp; 2</div>
+              <div class="book-chapter">The counterfactual method · Energy management · The denominator</div>
+              <div class="book-quote">"Energy management involves applying the fundamental laws of physics to energy systems with a goal of optimizing the value produced per unit of energy consumed."</div>
+            </div>
+          </div>
+          <div class="explainer-blurb">
+            <strong>The boundary decision is made once</strong> and governs everything downstream. ECM-1 (lighting) can be isolated at the office wing subpanel — the physics allows it. ECM-2 (controls) cannot be isolated from the whole-facility meter — the savings are invisible at the equipment level. This distinction forces two different approaches for one building.
+          </div>
+          <div class="ref-section">
+            <div class="ref-section-label">Key References</div>
+            <ul class="ref-list">
+              <li>IPMVP Core Concepts (2022) — measurement boundary definition <span>(§3.3)</span></li>
+              <li>FEMP M&amp;V Guidelines 4.0 — single-line diagrams and meter placement</li>
+              <li>Judea Pearl — <em>The Book of Why</em> <span>(counterfactual reasoning foundations)</span></li>
+              <li>Stewart Brand — <em>How Buildings Learn</em> <span>(buildings evolve; baselines must account for this)</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-connector"></div>
+
+      <!-- § 2 -->
+      <div class="section-block">
+        <div class="section-header-row">
+          <div class="section-badge">§ 2</div>
+          <div class="section-info">
+            <div class="section-name">Contextual Considerations</div>
+            <div class="section-topics">Four risk domains (technical, regulatory, commercial, legal) · ESPC and utility programs · Stakeholders · Guiding principles · Cost and risk · Guidelines and protocols</div>
+          </div>
+          <div class="section-slides">44 slides</div>
+        </div>
+        <div class="inline-cut-card">
+          <div class="cut-badge">▶ CUT 4</div>
+          <div class="cut-body">
+            <div class="cut-title">Model Form Selection</div>
+            <div class="cut-trigger">↳ After "Guiding Principles" — "Which model for which ECM?"</div>
+            <div class="cut-desc">Decision tree: ECM-1 → retrofit isolation, key parameter measurement (stipulate wattage, stipulate hours). ECM-2 → whole facility, statistical inverse model (5P electric, 3P gas). Judgment: why can't we use one approach for both?</div>
+          </div>
+          <button class="soon-btn">Coming soon</button>
+        </div>
+        <button class="deeper-toggle" onclick="toggleDeeper(this)">
+          <span class="arrow">▲</span> Deeper dive · References · Book
+        </button>
+        <div class="deeper-panel">
+          <div class="book-ref">
+            <span class="book-icon">📖</span>
+            <div>
+              <div class="book-label">Kromer (2024) — Chapters 3 &amp; 4</div>
+              <div class="book-chapter">Approach selection · Retrofit isolation vs. whole facility</div>
+              <div class="book-quote">"Option letters (A/B/C/D) are not the answer. The physics of the ECM is the answer."</div>
+            </div>
+          </div>
+          <div class="explainer-blurb">
+            <strong>Model form selection is a physics decision, not a statistics decision.</strong> LED wattage doesn't drift — stipulation is defensible. RTU controls savings are distributed across the whole building — only a whole-facility inverse model can capture them. The student who understands <em>why</em> each ECM demands a different approach has learned more than the one who memorizes the Options table.
+          </div>
+          <div class="ref-section">
+            <div class="ref-section-label">Key References</div>
+            <ul class="ref-list">
+              <li>IPMVP Core Concepts — Options A/B (retrofit isolation) vs. C/D (whole facility)</li>
+              <li>FEMP 4.0 — recommended M&amp;V approaches by ECM type <span>(Table 3-1)</span></li>
+              <li>ASHRAE Guideline 14 — performance verification vs. counterfactual method</li>
+              <li>ISO 50015:2014 — M&amp;V of energy performance of organizations</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end section-timeline -->
   </div>
 </div>
 
@@ -977,7 +1076,7 @@
           <div class="section-slides">31 slides</div>
         </div>
         <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 3</div>
+          <div class="cut-badge">▶ CUT 5</div>
           <div class="cut-body">
             <div class="cut-title">Scatter Plots</div>
             <div class="cut-trigger">↳ After sampling slides — "What do you see in this data?"</div>
@@ -1025,7 +1124,7 @@
           <div class="section-slides">23 slides</div>
         </div>
         <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 4</div>
+          <div class="cut-badge">▶ CUT 6</div>
           <div class="cut-body">
             <div class="cut-title">Baseline Period</div>
             <div class="cut-trigger">↳ After "Three Baseline Concepts" slide — before static factors discussion</div>
@@ -1088,7 +1187,7 @@
           <div class="section-slides">30 slides</div>
         </div>
         <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 5</div>
+          <div class="cut-badge">▶ CUT 7</div>
           <div class="cut-body">
             <div class="cut-title">Model Fitter</div>
             <div class="cut-trigger">↳ After Fractional Savings Uncertainty slides — "Now fit the inverse model"</div>
@@ -1136,7 +1235,7 @@
           <div class="section-slides">22 slides</div>
         </div>
         <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 6</div>
+          <div class="cut-badge">▶ CUT 8</div>
           <div class="cut-body">
             <div class="cut-title">Boundary + Stipulation</div>
             <div class="cut-trigger">↳ After terminology slide — "Draw the measurement boundary"</div>
@@ -1201,14 +1300,14 @@
 
 
 <!-- ══════════════════════════════════════════════════════
-     PAGE: CUT 5 — MODEL FITTER
+     PAGE: CUT 7 — MODEL FITTER
 ══════════════════════════════════════════════════════ -->
 <div id="cut5" class="page">
   <div class="cut-layout">
 
     <!-- Sidebar -->
     <div class="cut-sidebar">
-      <div class="sidebar-tag">Day 2 · Cut 5 of 12</div>
+      <div class="sidebar-tag">Day 2 · Cut 7 of 16</div>
       <div class="sidebar-title">Model Fitter</div>
       <div class="sidebar-section-ref">After Section 5 — Whole Facility Approaches</div>
 
@@ -1239,7 +1338,7 @@
         <div class="sidebar-section-label">Navigation</div>
         <div style="display:flex; gap:0.75rem;">
           <button class="nav-btn" onclick="show('day2')">← Day 2</button>
-          <button class="nav-btn" onclick="show('day2')">Cut 6 →</button>
+          <button class="nav-btn" onclick="show('day2')">Cut 8 →</button>
         </div>
       </div>
     </div>
@@ -1295,7 +1394,7 @@
         <div class="compare-label">vs. EnergyPlus Forward Model</div>
         <div class="compare-row">
           <span class="label">EnergyPlus predicted annual savings</span>
-          <span class="value">15,300 kWh</span>
+          <span class="value">20,718 kWh</span>
         </div>
         <div class="compare-row">
           <span class="label">Your inverse model estimate</span>
@@ -1351,6 +1450,25 @@ const gasData = [
   {month:'Jul', oat:76.1, kwh:9},    {month:'Aug', oat:73.4, kwh:13},
   {month:'Sep', oat:68.2, kwh:59},   {month:'Oct', oat:53.5, kwh:364},
   {month:'Nov', oat:46.1, kwh:733},  {month:'Dec', oat:33.8, kwh:1295},
+];
+
+// ── ECM-1 post-retrofit data (EnergyPlus 25.2, LED lighting retrofit) ──
+const ecm1ElectricData = [
+  {month:'Jan', oat:33.0, kwh:7240.8}, {month:'Feb', oat:34.9, kwh:6564.8},
+  {month:'Mar', oat:45.9, kwh:7383.8}, {month:'Apr', oat:54.4, kwh:6840.7},
+  {month:'May', oat:64.7, kwh:7539.3}, {month:'Jun', oat:72.5, kwh:7879.0},
+  {month:'Jul', oat:76.1, kwh:8758.7}, {month:'Aug', oat:73.4, kwh:8987.5},
+  {month:'Sep', oat:68.2, kwh:7932.5}, {month:'Oct', oat:53.5, kwh:7367.3},
+  {month:'Nov', oat:46.1, kwh:7110.8}, {month:'Dec', oat:33.8, kwh:7113.9},
+];
+
+const ecm1GasData = [
+  {month:'Jan', oat:33.0, kwh:1438.4}, {month:'Feb', oat:34.9, kwh:1367.5},
+  {month:'Mar', oat:45.9, kwh:1194.9}, {month:'Apr', oat:54.4, kwh:796.5},
+  {month:'May', oat:64.7, kwh:386.2},  {month:'Jun', oat:72.5, kwh:107.6},
+  {month:'Jul', oat:76.1, kwh:9.3},    {month:'Aug', oat:73.4, kwh:14.1},
+  {month:'Sep', oat:68.2, kwh:61.3},   {month:'Oct', oat:53.5, kwh:375.9},
+  {month:'Nov', oat:46.1, kwh:770.8},  {month:'Dec', oat:33.8, kwh:1337.8},
 ];
 
 let currentModel = 'electric';
@@ -1550,16 +1668,22 @@ function drawPlot() {
   const gof = computeGoF(data, predictions);
   updateGoF(gof);
 
-  // ── Inverse savings estimate ──
-  // Counterfactual annual = sum of all model predictions scaled; for demo use simple estimate
-  const baseAnnual = predictions.reduce((s,v)=>s+v,0);
-  // Post-retrofit estimate: assume ECM-1 saves ~17.5% electric
-  const postAnnual = baseAnnual * (currentModel==='electric' ? 0.879 : 1.06);
-  const savings = Math.round(baseAnnual - postAnnual);
-  document.getElementById('inverse-savings').textContent = savings.toLocaleString()+' kWh';
-  const diff = savings - 15300;
-  document.getElementById('model-diff').textContent = (diff>=0?'+':'')+diff.toLocaleString()+' kWh';
-  document.getElementById('model-diff-label').textContent = Math.abs(diff)<1000 ? '✓ within expected range' : '⚠ outside expected range';
+  // ── Inverse savings estimate (using real ECM-1 EnergyPlus output) ──
+  const ecm1Data = currentModel==='electric' ? ecm1ElectricData : ecm1GasData;
+  const ecm1Annual = ecm1Data.reduce((s,d)=>s+d.kwh, 0);
+  // Counterfactual = baseline model predictions at same OATs
+  const counterfactualAnnual = predictions.reduce((s,v)=>s+v, 0);
+  const savings = Math.round(counterfactualAnnual - ecm1Annual);
+  const unit = currentModel==='electric' ? 'kWh' : 'therms';
+  document.getElementById('inverse-savings').textContent = savings.toLocaleString()+' '+unit;
+  // EnergyPlus forward model savings = baseline actual - ECM-1 actual
+  const baseActualAnnual = data.reduce((s,d)=>s+d.kwh, 0);
+  const epSavings = Math.round(baseActualAnnual - ecm1Annual);
+  document.getElementById('ep-savings').textContent = epSavings.toLocaleString()+' '+unit;
+  const diff = savings - epSavings;
+  document.getElementById('model-diff').textContent = (diff>=0?'+':'')+diff.toLocaleString()+' '+unit;
+  const pctDiff = Math.abs(epSavings)>0 ? Math.abs(diff/epSavings*100) : 0;
+  document.getElementById('model-diff-label').textContent = pctDiff<15 ? '✓ within expected range' : '⚠ outside expected range';
 }
 
 function updateGoF(gof) {
