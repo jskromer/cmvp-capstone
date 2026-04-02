@@ -412,6 +412,25 @@
       color: white;
     }
 
+    /* Model form selector buttons (3PC / 5P) */
+    .form-btn {
+      padding: 0.25rem 0.65rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--cream-light);
+      color: var(--ink-light);
+      font-size: 0.78rem;
+      font-family: 'IBM Plex Mono', monospace;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .form-btn.active {
+      background: var(--green-dark);
+      color: white;
+      border-color: var(--green-dark);
+    }
+    .form-btn:hover:not(.active) { border-color: var(--green-mid); color: var(--ink); }
+
     /* Canvas */
     #scatter-canvas {
       border: 1px solid var(--border);
@@ -517,6 +536,42 @@
     }
     .nav-btn:hover { border-color: var(--green-dark); color: var(--green-dark); }
     .nav-progress { font-size: 0.8rem; color: var(--ink-faint); }
+
+    /* ECM scenario selector */
+    .ecm-selector {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      max-width: 620px;
+    }
+    .ecm-btn {
+      flex: 1;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      font-family: 'IBM Plex Sans', sans-serif;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: white;
+      color: var(--ink-light);
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+      line-height: 1.3;
+    }
+    .ecm-btn:hover { border-color: var(--green-dark); color: var(--ink); }
+    .ecm-btn.active {
+      background: var(--green-dark);
+      color: white;
+      border-color: var(--green-dark);
+    }
+    .ecm-btn .ecm-btn-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.1rem;
+    }
 
     /* Floor plan SVG */
     .fp-svg { width: 100%; height: auto; }
@@ -758,7 +813,8 @@
     <a onclick="show('building')">The Building</a>
     <a onclick="show('day1')">Day 1</a>
     <a onclick="show('day2')">Day 2</a>
-    <a onclick="show('cut5')">Model Fitter</a>
+    <a onclick="show('day3')">Day 3</a>
+    <a onclick="show('cut3')">Model Fitter</a>
   </nav>
 </div>
 
@@ -862,8 +918,8 @@
       <div class="day-title">Context &amp; Boundaries</div>
       <div class="day-sections">Sections 1 · 2</div>
       <div class="day-cuts">
-        <span class="cut-chip">Cut 3 — Boundary Setting</span>
-        <span class="cut-chip">Cut 4 — Model Form Selection</span>
+        <span class="cut-chip">Cut 1 — Boundary Setting</span>
+        <span class="cut-chip">Cut 2 — Model Form Selection</span>
       </div>
       <button class="day-btn">Open Day 1</button>
     </div>
@@ -873,11 +929,11 @@
       <div class="day-title">The Model</div>
       <div class="day-sections">Sections 3.1 · 4 · 5 · 6</div>
       <div class="day-cuts">
-        <span class="cut-chip">Cut 5 — Scatter Plots</span>
-        <span class="cut-chip">Cut 6 — Baseline Period</span>
+        <span class="cut-chip">Cut 3 — Scatter Plots</span>
+        <span class="cut-chip">Cut 4 — Baseline Period</span>
         <span class="cut-chip demo">⚡ MCP Demo</span>
-        <span class="cut-chip">Cut 7 — Model Fitter</span>
-        <span class="cut-chip">Cut 8 — Boundary + Stipulation</span>
+        <span class="cut-chip">Cut 5 — Model Fitter</span>
+        <span class="cut-chip">Cut 6 — Boundary + Stipulation</span>
       </div>
       <button class="day-btn">Open Day 2</button>
     </div>
@@ -887,12 +943,9 @@
       <div class="day-title">Plan, Report &amp; Defend</div>
       <div class="day-sections">Sections 7 · 8 · 9</div>
       <div class="day-cuts">
-        <span class="cut-chip">Cut 9 — M&amp;V Plan</span>
-        <span class="cut-chip">Cut 10 — Metering</span>
-        <span class="cut-chip">Cut 11 — NRA Discovery</span>
-        <span class="cut-chip">Cut 12 — Savings</span>
-        <span class="cut-chip">Cut 13 — FSU</span>
-        <span class="cut-chip">Cut 14 — Cost-Avoidance</span>
+        <span class="cut-chip">Cut 7 — ECM-1 Savings</span>
+        <span class="cut-chip">Cut 8 — NRA Pre-Doc</span>
+        <span class="cut-chip">Cut 9 — Residual Plot</span>
       </div>
       <button class="day-btn">Open Day 3</button>
     </div>
@@ -954,7 +1007,7 @@
           <div class="section-slides">75 slides</div>
         </div>
         <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 3</div>
+          <div class="cut-badge">▶ CUT 1</div>
           <div class="cut-body">
             <div class="cut-title">Boundary Setting</div>
             <div class="cut-trigger">↳ After "Three Types of Models" — "Where does the measurement stop?"</div>
@@ -1002,7 +1055,7 @@
           <div class="section-slides">44 slides</div>
         </div>
         <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 4</div>
+          <div class="cut-badge">▶ CUT 2</div>
           <div class="cut-body">
             <div class="cut-title">Model Form Selection</div>
             <div class="cut-trigger">↳ After "Guiding Principles" — "Which model for which ECM?"</div>
@@ -1076,7 +1129,7 @@
           <div class="section-slides">31 slides</div>
         </div>
         <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 5</div>
+          <div class="cut-badge">▶ CUT 3</div>
           <div class="cut-body">
             <div class="cut-title">Scatter Plots</div>
             <div class="cut-trigger">↳ After sampling slides — "What do you see in this data?"</div>
@@ -1124,7 +1177,7 @@
           <div class="section-slides">23 slides</div>
         </div>
         <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 6</div>
+          <div class="cut-badge">▶ CUT 4</div>
           <div class="cut-body">
             <div class="cut-title">Baseline Period</div>
             <div class="cut-trigger">↳ After "Three Baseline Concepts" slide — before static factors discussion</div>
@@ -1187,13 +1240,13 @@
           <div class="section-slides">30 slides</div>
         </div>
         <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 7</div>
+          <div class="cut-badge">▶ CUT 5</div>
           <div class="cut-body">
             <div class="cut-title">Model Fitter</div>
             <div class="cut-trigger">↳ After Fractional Savings Uncertainty slides — "Now fit the inverse model"</div>
             <div class="cut-desc">Scatter plot · Change-point sliders · Live R², CV(RMSE), NMBE · Class spread shows inter-analyst uncertainty · Compare to EnergyPlus savings estimate</div>
           </div>
-          <button class="open-btn" onclick="show('cut5')">Open Tool →</button>
+          <button class="open-btn" onclick="show('cut3')">Open Tool →</button>
         </div>
         <button class="deeper-toggle" onclick="toggleDeeper(this)">
           <span class="arrow">▲</span> Deeper dive · References · Book
@@ -1235,7 +1288,7 @@
           <div class="section-slides">22 slides</div>
         </div>
         <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 8</div>
+          <div class="cut-badge">▶ CUT 6</div>
           <div class="cut-body">
             <div class="cut-title">Boundary + Stipulation</div>
             <div class="cut-trigger">↳ After terminology slide — "Draw the measurement boundary"</div>
@@ -1276,38 +1329,211 @@
 
 
 <!-- ══════════════════════════════════════════════════════
-     PAGE: DAY 3 (placeholder)
+     PAGE: DAY 3
 ══════════════════════════════════════════════════════ -->
 <div id="day3" class="page">
   <div class="day-page">
+
     <div class="breadcrumb">
-      <a onclick="show('hub')">← Hub</a> / Day 3
+      <a onclick="show('hub')">← Hub</a> / Day 3 — Plan, Report &amp; Defend
     </div>
+
     <div class="day-nav-tabs">
       <button class="day-tab" onclick="show('day1')">Day 1<span>Context &amp; Boundaries</span></button>
       <button class="day-tab" onclick="show('day2')">Day 2<span>The Model</span></button>
       <button class="day-tab active" onclick="show('day3')">Day 3<span>Plan, Report &amp; Defend</span></button>
     </div>
+
     <div class="day-header">
       <h1>Day 3 — Plan, Report &amp; Defend</h1>
-      <p>Sections 7 · 8 · 9 · 6 cuts · Book: Practical Considerations throughout</p>
+      <p>Sections 7 · 8 · 9 &nbsp;·&nbsp; Cuts are embedded where the section naturally pauses</p>
     </div>
-    <div style="color:var(--ink-light); font-size:0.9rem; padding:1.5rem; background:var(--cream-light); border:1px solid var(--border); border-radius:8px;">
-      Day 3 cuts — M&amp;V Plan, Metering, NRA Discovery, Savings, FSU, Cost-Avoidance — coming in full build.
-    </div>
+
+    <div class="section-timeline">
+
+      <!-- § 7 -->
+      <div class="section-block">
+        <div class="section-header-row">
+          <div class="section-badge">§ 7</div>
+          <div class="section-info">
+            <div class="section-name">Reporting Period Analysis</div>
+            <div class="section-topics">Applying the counterfactual · Monthly savings · Interactive effects · Gas increase explanation · Savings bar chart</div>
+          </div>
+          <div class="section-slides">18 slides</div>
+        </div>
+        <div class="inline-cut-card">
+          <div class="cut-badge">▶ CUT 7</div>
+          <div class="cut-body">
+            <div class="cut-title">ECM-1 Savings Calculator</div>
+            <div class="cut-trigger">↳ After "Adjusted Baseline Model" review — "Now apply your model to the reporting period"</div>
+            <div class="cut-desc">Monthly savings bar chart: counterfactual minus actual for ECM-1 · Electric savings visible across all months · Gas goes UP in winter — the interactive effect · "Explain this to the building manager in one sentence"</div>
+          </div>
+          <button class="soon-btn">Coming soon</button>
+        </div>
+
+        <!-- Savings preview chart -->
+        <div style="margin-top: 0.875rem;">
+          <div style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin-bottom: 0.5rem;">ECM-1 Savings Preview — Electric (kWh/month)</div>
+          <canvas id="savings-chart" width="620" height="200" style="border: 1px solid var(--border); border-radius: 6px; background: white; display: block; width: 100%; max-width: 620px;"></canvas>
+          <div style="display: flex; gap: 1.5rem; margin-top: 0.5rem; font-size: 0.75rem; color: var(--ink-faint);">
+            <span>■ <span style="color: var(--green-dark);">Electric savings</span></span>
+            <span>■ <span style="color: var(--red);">Gas increase (interactive effect)</span></span>
+          </div>
+          <div class="model-toggle" style="margin-top: 0.75rem;">
+            <button class="toggle-btn active" id="btn-sav-electric" onclick="switchSavingsChart('electric')">Electric</button>
+            <button class="toggle-btn" id="btn-sav-gas" onclick="switchSavingsChart('gas')">Gas</button>
+          </div>
+        </div>
+
+        <button class="deeper-toggle" onclick="toggleDeeper(this)">
+          <span class="arrow">▲</span> Deeper dive · References · Book
+        </button>
+        <div class="deeper-panel">
+          <div class="book-ref">
+            <span class="book-icon">📖</span>
+            <div>
+              <div class="book-label">Kromer (2024) — Practical Considerations</div>
+              <div class="book-chapter">Savings calculation · Interactive effects · Reporting obligations</div>
+              <div class="book-quote">"The counterfactual makes the gas increase legible. Without the model, the building manager sees a higher gas bill and concludes the project failed."</div>
+            </div>
+          </div>
+          <div class="explainer-blurb">
+            <strong>Interactive effects are not errors — they are physics.</strong> The LED retrofit removed internal heat gain from the lighting fixtures. In winter, the HVAC must now compensate for the lost heat. Gas consumption rises. The model predicted this. The M&amp;V plan documented it. The student who can explain this to a non-technical stakeholder has mastered the reporting period.
+          </div>
+          <div class="ref-section">
+            <div class="ref-section-label">Key References</div>
+            <ul class="ref-list">
+              <li>IPMVP Core Concepts (2022) — interactive effects definition and treatment <span>(§4.8)</span></li>
+              <li>FEMP 4.0 — reporting period analysis procedures</li>
+              <li>ASHRAE Guideline 14 — savings calculation methodology <span>(§6)</span></li>
+              <li>Reddy &amp; Claridge — fractional savings uncertainty propagation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-connector"></div>
+
+      <!-- § 8 -->
+      <div class="section-block">
+        <div class="section-header-row">
+          <div class="section-badge">§ 8</div>
+          <div class="section-info">
+            <div class="section-name">Non-Routine Adjustment Documentation</div>
+            <div class="section-topics">Static factor inventory · NRA triggers · Pre-documentation protocol · Event classification · Impact estimation before discovery</div>
+          </div>
+          <div class="section-slides">24 slides</div>
+        </div>
+        <div class="inline-cut-card">
+          <div class="cut-badge">▶ CUT 8</div>
+          <div class="cut-body">
+            <div class="cut-title">NRA Pre-Documentation Tool</div>
+            <div class="cut-trigger">↳ After "Static Factors" review — "Document what you expect BEFORE you look at the data"</div>
+            <div class="cut-desc">Form: event name, date, zone affected, estimated impact · Students fill this out blind — before seeing residuals · Saves to browser for comparison in Cut 9 · Forces the discipline of pre-documentation</div>
+          </div>
+          <button class="soon-btn">Coming soon</button>
+        </div>
+        <button class="deeper-toggle" onclick="toggleDeeper(this)">
+          <span class="arrow">▲</span> Deeper dive · References · Book
+        </button>
+        <div class="deeper-panel">
+          <div class="book-ref">
+            <span class="book-icon">📖</span>
+            <div>
+              <div class="book-label">Kromer (2024) — Chapters 5 &amp; 6</div>
+              <div class="book-chapter">Non-routine adjustments · Static factors · The M&amp;V plan as contract</div>
+              <div class="book-quote">"Non-routine adjustments are not surprises — they are anticipated in a well-written M&amp;V plan."</div>
+            </div>
+          </div>
+          <div class="explainer-blurb">
+            <strong>Pre-documentation is the discipline that separates planning from post-hoc rationalization.</strong> The community room expansion at CFHQ was known before the performance period began. A well-written M&amp;V plan includes it as a planned NRA with a pre-agreed adjustment methodology. Failing to document it in advance is a planning failure, not a reporting surprise.
+          </div>
+          <div class="ref-section">
+            <div class="ref-section-label">Key References</div>
+            <ul class="ref-list">
+              <li>IPMVP Core Concepts — non-routine adjustment procedures <span>(§4.9)</span></li>
+              <li>FEMP 4.0 — NRA documentation requirements and triggers</li>
+              <li>ASHRAE Guideline 14 — non-routine event identification <span>(§5.3)</span></li>
+              <li>Capstone flow — Stage 7: Static Factors and NRA Protocol</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-connector"></div>
+
+      <!-- § 9 -->
+      <div class="section-block">
+        <div class="section-header-row">
+          <div class="section-badge">§ 9</div>
+          <div class="section-info">
+            <div class="section-name">NRA Discovery</div>
+            <div class="section-topics">Residual analysis · Step change detection · Month 9 community room addition · Pre-doc vs. discovery comparison · The payoff moment</div>
+          </div>
+          <div class="section-slides">16 slides</div>
+        </div>
+        <div class="inline-cut-card">
+          <div class="cut-badge">▶ CUT 9</div>
+          <div class="cut-body">
+            <div class="cut-title">Residual Plot Tool</div>
+            <div class="cut-trigger">↳ After "Detecting Non-Routine Events" — "Now look at the residuals"</div>
+            <div class="cut-desc">Reporting-period residuals plotted monthly · Month 9 step change clearly visible · Compare pre-documented NRA (Cut 8) against what the data reveals · Toggle NRA adjustment on/off — watch savings flip from red to green</div>
+          </div>
+          <button class="soon-btn">Coming soon</button>
+        </div>
+
+        <!-- NRA residual preview chart -->
+        <div style="margin-top: 0.875rem;">
+          <div style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin-bottom: 0.5rem;">Reporting-Period Residuals — Electric (kWh/month)</div>
+          <canvas id="residual-chart" width="620" height="220" style="border: 1px solid var(--border); border-radius: 6px; background: white; display: block; width: 100%; max-width: 620px;"></canvas>
+          <div style="display: flex; gap: 1.5rem; margin-top: 0.5rem; font-size: 0.75rem; color: var(--ink-faint);">
+            <span>■ <span style="color: var(--green-dark);">Normal residual</span></span>
+            <span>■ <span style="color: var(--red);">NRA-affected (month 9+)</span></span>
+            <span style="border-left: 2px dashed var(--amber); padding-left: 0.5rem;">NRA trigger threshold</span>
+          </div>
+        </div>
+
+        <button class="deeper-toggle" onclick="toggleDeeper(this)">
+          <span class="arrow">▲</span> Deeper dive · References · Book
+        </button>
+        <div class="deeper-panel">
+          <div class="book-ref">
+            <span class="book-icon">📖</span>
+            <div>
+              <div class="book-label">Kromer (2024) — Practical Considerations</div>
+              <div class="book-chapter">NRA discovery · Residual analysis · The counterfactual payoff</div>
+              <div class="book-quote">"Without the NRA, the controls upgrade appears to have failed. With it, savings are real and positive. The model didn't fail — the building changed."</div>
+            </div>
+          </div>
+          <div class="explainer-blurb">
+            <strong>This is the payoff moment.</strong> The student who pre-documented the community room expansion in Cut 8 now sees it appear in the residuals — exactly where they predicted it. The student who didn't pre-document it sees a mysterious step change and must explain it after the fact. The difference is the difference between M&amp;V planning and M&amp;V forensics. The former is professional; the latter is expensive.
+          </div>
+          <div class="ref-section">
+            <div class="ref-section-label">Key References</div>
+            <ul class="ref-list">
+              <li>IPMVP Core Concepts — non-routine event detection methods</li>
+              <li>ASHRAE Guideline 14 — residual analysis for model validation <span>(§5.4)</span></li>
+              <li>Capstone flow — Stage 11: NRA Discovery (month 9 step change)</li>
+              <li>FEMP 4.0 — NRA quantification: engineering estimate methodology</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end section-timeline -->
   </div>
 </div>
 
 
 <!-- ══════════════════════════════════════════════════════
-     PAGE: CUT 7 — MODEL FITTER
+     PAGE: CUT 5 — MODEL FITTER
 ══════════════════════════════════════════════════════ -->
-<div id="cut5" class="page">
+<div id="cut3" class="page">
   <div class="cut-layout">
 
     <!-- Sidebar -->
     <div class="cut-sidebar">
-      <div class="sidebar-tag">Day 2 · Cut 7 of 16</div>
+      <div class="sidebar-tag">Day 2 · Cut 5 of 16</div>
       <div class="sidebar-title">Model Fitter</div>
       <div class="sidebar-section-ref">After Section 5 — Whole Facility Approaches</div>
 
@@ -1338,7 +1564,7 @@
         <div class="sidebar-section-label">Navigation</div>
         <div style="display:flex; gap:0.75rem;">
           <button class="nav-btn" onclick="show('day2')">← Day 2</button>
-          <button class="nav-btn" onclick="show('day2')">Cut 8 →</button>
+          <button class="nav-btn" onclick="show('day2')">Cut 6 →</button>
         </div>
       </div>
     </div>
@@ -1355,20 +1581,60 @@
         <button class="toggle-btn" id="btn-gas" onclick="switchModel('gas')">Gas</button>
       </div>
 
+      <!-- ECM scenario selector -->
+      <div class="ecm-selector">
+        <button class="ecm-btn active" id="btn-ecm1" onclick="switchEcm('ecm1')">
+          <span class="ecm-btn-tag">ECM-1</span>LED Lighting
+        </button>
+        <button class="ecm-btn" id="btn-ecm2" onclick="switchEcm('ecm2')">
+          <span class="ecm-btn-tag">ECM-2</span>Night Setback
+        </button>
+        <button class="ecm-btn" id="btn-combined" onclick="switchEcm('combined')">
+          <span class="ecm-btn-tag">ECM-1 + 2</span>Combined
+        </button>
+      </div>
+
       <!-- Canvas -->
       <canvas id="scatter-canvas" width="620" height="320"></canvas>
 
-      <!-- Controls -->
-      <div class="controls-row" id="electric-controls">
+      <!-- Model form selector — visible for electric only -->
+      <div id="model-form-row" style="display:flex; align-items:center; gap:0.75rem; margin-top:1.25rem; max-width:620px; flex-wrap:wrap;">
+        <span style="font-size:0.78rem; color:var(--ink-faint); font-weight:500; white-space:nowrap;">Model form:</span>
+        <button id="btn-3pc" class="form-btn active" onclick="switchModelForm('3pc')">3PC — cooling only</button>
+        <button id="btn-5p"  class="form-btn"        onclick="switchModelForm('5p')">5P — heating + cooling</button>
+        <span id="model-form-note" style="font-size:0.74rem; color:var(--amber); font-style:italic;">← this data has no clear heating ramp; 3PC fits better</span>
+      </div>
+
+      <!-- 3PC electric: single cooling change-point (default) -->
+      <div class="controls-row" id="ctrl-3pc" style="grid-template-columns:1fr;">
         <div class="control-group">
-          <label>Lower change-point <span id="lcp-val">38°F</span></label>
+          <label>Cooling change-point <span id="ccp-val">55°F</span></label>
+          <input type="range" id="ccp" min="45" max="75" value="55" oninput="updateModel()">
+        </div>
+      </div>
+
+      <!-- 5P electric: lower + upper change-points (opt-in) -->
+      <div class="controls-row" id="ctrl-5p" style="display:none;">
+        <div class="control-group">
+          <label>Lower CP (heating) <span id="lcp-val">38°F</span></label>
           <input type="range" id="lcp" min="25" max="55" value="38" oninput="updateModel()">
         </div>
         <div class="control-group">
-          <label>Upper change-point <span id="ucp-val">55°F</span></label>
+          <label>Upper CP (cooling) <span id="ucp-val">55°F</span></label>
           <input type="range" id="ucp" min="45" max="72" value="55" oninput="updateModel()">
         </div>
       </div>
+
+      <!-- Gas 3PH: single heating change-point -->
+      <div class="controls-row" id="ctrl-gas" style="display:none; grid-template-columns:1fr;">
+        <div class="control-group">
+          <label>Heating change-point <span id="hcp-val">58°F</span></label>
+          <input type="range" id="hcp" min="45" max="72" value="58" oninput="updateModel()">
+        </div>
+      </div>
+
+      <!-- Model equation display -->
+      <div id="model-equation" style="font-family:'IBM Plex Mono',monospace; font-size:0.8rem; color:var(--ink-faint); background:var(--cream-light); border:1px solid var(--border); border-radius:6px; padding:0.45rem 0.875rem; margin-top:0.75rem; max-width:620px;"></div>
 
       <!-- GoF -->
       <div class="gof-row" id="gof-row">
@@ -1391,10 +1657,10 @@
 
       <!-- EnergyPlus comparison -->
       <div class="compare-panel">
-        <div class="compare-label">vs. EnergyPlus Forward Model</div>
+        <div class="compare-label">vs. EnergyPlus Forward Model — <span id="compare-ecm-label">ECM-1 · LED Lighting</span></div>
         <div class="compare-row">
           <span class="label">EnergyPlus predicted annual savings</span>
-          <span class="value">20,718 kWh</span>
+          <span class="value" id="ep-savings">— kWh</span>
         </div>
         <div class="compare-row">
           <span class="label">Your inverse model estimate</span>
@@ -1405,14 +1671,14 @@
           <span class="value" id="model-diff">—</span>
           <span class="diff" id="model-diff-label"></span>
         </div>
-        <div style="margin-top:0.75rem; font-size:0.8rem; color:var(--ink-faint);">
+        <div id="compare-note" style="margin-top:0.75rem; font-size:0.8rem; color:var(--ink-faint);">
           The gap between forward and inverse model estimates is <strong style="color:var(--ink)">model uncertainty</strong> — not error. Both are defensible representations of a building we cannot observe directly.
         </div>
       </div>
 
     </div><!-- end cut-main -->
   </div>
-</div><!-- end cut5 -->
+</div><!-- end cut3 -->
 
 
 <script>
@@ -1421,6 +1687,9 @@ function show(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
+  // Canvases in hidden pages don't render on load — redraw on navigation
+  if (id === 'day3') { drawSavingsChart(); drawResidualChart(); }
+  if (id === 'cut5') { updateModel(); }
 }
 
 // ── Deeper dive toggle ──
@@ -1471,7 +1740,54 @@ const ecm1GasData = [
   {month:'Nov', oat:46.1, kwh:770.8},  {month:'Dec', oat:33.8, kwh:1337.8},
 ];
 
+// ── ECM-2 post-retrofit data (EnergyPlus 25.2, night setback controls) ──
+const ecm2ElectricData = [
+  {month:'Jan', oat:33.0, kwh:8910.4}, {month:'Feb', oat:34.9, kwh:8087.2},
+  {month:'Mar', oat:45.9, kwh:9116.2}, {month:'Apr', oat:54.4, kwh:8398.0},
+  {month:'May', oat:64.7, kwh:9398.2}, {month:'Jun', oat:72.5, kwh:9686.2},
+  {month:'Jul', oat:76.1, kwh:10195.3},{month:'Aug', oat:73.4, kwh:10648.8},
+  {month:'Sep', oat:68.2, kwh:9610.0}, {month:'Oct', oat:53.5, kwh:9135.7},
+  {month:'Nov', oat:46.1, kwh:8773.2}, {month:'Dec', oat:33.8, kwh:8737.0},
+];
+
+const ecm2GasData = [
+  {month:'Jan', oat:33.0, kwh:1035.8}, {month:'Feb', oat:34.9, kwh:1013.5},
+  {month:'Mar', oat:45.9, kwh:768.2},  {month:'Apr', oat:54.4, kwh:383.9},
+  {month:'May', oat:64.7, kwh:109.7},  {month:'Jun', oat:72.5, kwh:16.1},
+  {month:'Jul', oat:76.1, kwh:1.7},    {month:'Aug', oat:73.4, kwh:2.2},
+  {month:'Sep', oat:68.2, kwh:7.1},    {month:'Oct', oat:53.5, kwh:107.5},
+  {month:'Nov', oat:46.1, kwh:399.5},  {month:'Dec', oat:33.8, kwh:905.2},
+];
+
+// ── Combined ECM-1 + ECM-2 post-retrofit data (EnergyPlus 25.2) ──
+const combinedElectricData = [
+  {month:'Jan', oat:33.0, kwh:7241.6}, {month:'Feb', oat:34.9, kwh:6565.5},
+  {month:'Mar', oat:45.9, kwh:7384.6}, {month:'Apr', oat:54.4, kwh:6841.5},
+  {month:'May', oat:64.7, kwh:7537.2}, {month:'Jun', oat:72.5, kwh:7828.3},
+  {month:'Jul', oat:76.1, kwh:8446.4}, {month:'Aug', oat:73.4, kwh:8777.8},
+  {month:'Sep', oat:68.2, kwh:7823.1}, {month:'Oct', oat:53.5, kwh:7366.5},
+  {month:'Nov', oat:46.1, kwh:7111.6}, {month:'Dec', oat:33.8, kwh:7114.7},
+];
+
+const combinedGasData = [
+  {month:'Jan', oat:33.0, kwh:1079.0}, {month:'Feb', oat:34.9, kwh:1052.7},
+  {month:'Mar', oat:45.9, kwh:814.5},  {month:'Apr', oat:54.4, kwh:414.6},
+  {month:'May', oat:64.7, kwh:120.9},  {month:'Jun', oat:72.5, kwh:17.7},
+  {month:'Jul', oat:76.1, kwh:1.8},    {month:'Aug', oat:73.4, kwh:2.4},
+  {month:'Sep', oat:68.2, kwh:7.5},    {month:'Oct', oat:53.5, kwh:116.8},
+  {month:'Nov', oat:46.1, kwh:435.8},  {month:'Dec', oat:33.8, kwh:948.9},
+];
+
+// ECM scenario lookup
+const ecmScenarios = {
+  ecm1:     {label:'ECM-1 · LED Lighting', electric: ecm1ElectricData, gas: ecm1GasData},
+  ecm2:     {label:'ECM-2 · Night Setback', electric: ecm2ElectricData, gas: ecm2GasData},
+  combined: {label:'ECM-1 + ECM-2 Combined', electric: combinedElectricData, gas: combinedGasData},
+};
+
 let currentModel = 'electric';
+let currentModelForm = '3pc';   // '3pc' (default) or '5p'
+let currentEcm = 'ecm1';
 
 // ── Plot geometry ──
 const W = 620, H = 320;
@@ -1526,25 +1842,45 @@ function fit5P(data, lcp, ucp) {
   return {baseLoad, hSlope, cSlope};
 }
 
-function fit3P(data, ucp) {
-  // Heating only (gas): below ucp slope, above = baseload
-  const heat = data.filter(d=>d.oat < ucp);
-  const base = data.filter(d=>d.oat>=ucp);
-  const baseLoad = base.length>0 ? mean(base.map(d=>d.kwh)) : 5;
-  const hxs = heat.map(d=>ucp-d.oat), hys = heat.map(d=>d.kwh-baseLoad);
-  const hSlope = heat.length>1 ? Math.max(0, olsSlope(hxs, hys)) : 2.8;
-  return {baseLoad, hSlope, cSlope:0};
+function fit3P(data, hcp) {
+  // Gas 3PH: heating below hcp, baseload above
+  const heat = data.filter(d => d.oat < hcp);
+  const base = data.filter(d => d.oat >= hcp);
+  const baseLoad = base.length > 0 ? mean(base.map(d => d.kwh)) : 5;
+  const hxs = heat.map(d => hcp - d.oat), hys = heat.map(d => d.kwh - baseLoad);
+  const hSlope = heat.length > 1 ? Math.max(0, olsSlope(hxs, hys)) : 2.8;
+  return {baseLoad, hSlope, cSlope: 0};
+}
+
+function fit3PC(data, ccp) {
+  // Electric 3PC: baseload below ccp, cooling ramp above
+  const cool = data.filter(d => d.oat > ccp);
+  const base = data.filter(d => d.oat <= ccp);
+  const baseLoad = base.length > 0 ? mean(base.map(d => d.kwh)) : mean(data.map(d => d.kwh));
+  const cxs = cool.map(d => d.oat - ccp), cys = cool.map(d => d.kwh - baseLoad);
+  const cSlope = cool.length > 1 ? Math.max(0, olsSlope(cxs, cys)) : 90;
+  return {baseLoad, hSlope: 0, cSlope};
 }
 
 function predict5P(oat, lcp, ucp, m) {
-  if(oat < lcp) return m.baseLoad + m.hSlope*(lcp-oat);
-  if(oat > ucp) return m.baseLoad + m.cSlope*(oat-ucp);
+  if (oat < lcp) return m.baseLoad + m.hSlope * (lcp - oat);
+  if (oat > ucp) return m.baseLoad + m.cSlope * (oat - ucp);
   return m.baseLoad;
 }
 
-function predict3P(oat, ucp, m) {
-  if(oat < ucp) return m.baseLoad + m.hSlope*(ucp-oat);
+function predict3P(oat, hcp, m) {
+  if (oat < hcp) return m.baseLoad + m.hSlope * (hcp - oat);
   return m.baseLoad;
+}
+
+function predict3PC(oat, ccp, m) {
+  if (oat > ccp) return m.baseLoad + m.cSlope * (oat - ccp);
+  return m.baseLoad;
+}
+
+function updateEquation(text) {
+  const el = document.getElementById('model-equation');
+  if (el) el.textContent = text;
 }
 
 // ── Drawing ──
@@ -1560,17 +1896,33 @@ function drawPlot() {
   ctx.fillStyle='#fff';
   ctx.fillRect(0,0,W,H);
 
-  const lcp = parseInt(document.getElementById('lcp').value);
-  const ucp = parseInt(document.getElementById('ucp').value);
-
-  // Fit model
-  let model, predictions;
-  if(currentModel==='electric') {
-    model = fit5P(data, lcp, ucp);
-    predictions = data.map(d=>predict5P(d.oat, lcp, ucp, model));
+  // Fit model — read the correct slider(s) for the active model form
+  let model, predictions, cp;
+  if (currentModel === 'electric') {
+    if (currentModelForm === '3pc') {
+      const ccp = parseInt(document.getElementById('ccp').value);
+      model = fit3PC(data, ccp);
+      predictions = data.map(d => predict3PC(d.oat, ccp, model));
+      cp = {type: '3pc', ccp};
+      updateEquation('E = ' + Math.round(model.baseLoad).toLocaleString() +
+        ' + ' + model.cSlope.toFixed(1) + ' × (OAT − ' + ccp + '°F)⁺');
+    } else {
+      const lcp = parseInt(document.getElementById('lcp').value);
+      const ucp = parseInt(document.getElementById('ucp').value);
+      model = fit5P(data, lcp, ucp);
+      predictions = data.map(d => predict5P(d.oat, lcp, ucp, model));
+      cp = {type: '5p', lcp, ucp};
+      updateEquation('E = ' + Math.round(model.baseLoad).toLocaleString() +
+        ' + ' + model.hSlope.toFixed(1) + ' × (' + lcp + '°F − OAT)⁺' +
+        ' + ' + model.cSlope.toFixed(1) + ' × (OAT − ' + ucp + '°F)⁺');
+    }
   } else {
-    model = fit3P(data, lcp);
-    predictions = data.map(d=>predict3P(d.oat, lcp, model));
+    const hcp = parseInt(document.getElementById('hcp').value);
+    model = fit3P(data, hcp);
+    predictions = data.map(d => predict3P(d.oat, hcp, model));
+    cp = {type: '3ph', hcp};
+    updateEquation('G = ' + model.baseLoad.toFixed(1) +
+      ' + ' + model.hSlope.toFixed(1) + ' × (' + hcp + '°F − OAT)⁺');
   }
 
   // ── Axes ──
@@ -1614,19 +1966,21 @@ function drawPlot() {
   // ── Change-point lines ──
   ctx.setLineDash([4,3]);
   ctx.strokeStyle='#c9a227'; ctx.lineWidth=1.5;
-  if(currentModel==='electric'){
-    const lx = xScale(lcp, oatR);
-    ctx.beginPath(); ctx.moveTo(lx,MT); ctx.lineTo(lx,MT+PH); ctx.stroke();
-    const ux = xScale(ucp, oatR);
-    ctx.beginPath(); ctx.moveTo(ux,MT); ctx.lineTo(ux,MT+PH); ctx.stroke();
-    ctx.fillStyle='#c9a227'; ctx.font='10px IBM Plex Mono'; ctx.textAlign='center'; ctx.textBaseline='top';
-    ctx.fillText(lcp+'°', lx, MT+2);
-    ctx.fillText(ucp+'°', ux, MT+2);
-  } else {
-    const ux = xScale(lcp, oatR);
-    ctx.beginPath(); ctx.moveTo(ux,MT); ctx.lineTo(ux,MT+PH); ctx.stroke();
-    ctx.fillStyle='#c9a227'; ctx.font='10px IBM Plex Mono'; ctx.textAlign='center'; ctx.textBaseline='top';
-    ctx.fillText(lcp+'°', ux, MT+2);
+  ctx.fillStyle='#c9a227'; ctx.font='10px IBM Plex Mono'; ctx.textAlign='center'; ctx.textBaseline='top';
+  if (cp.type === '3pc') {
+    const cx = xScale(cp.ccp, oatR);
+    ctx.beginPath(); ctx.moveTo(cx, MT); ctx.lineTo(cx, MT+PH); ctx.stroke();
+    ctx.fillText(cp.ccp+'°', cx, MT+2);
+  } else if (cp.type === '5p') {
+    [cp.lcp, cp.ucp].forEach(v => {
+      const x = xScale(v, oatR);
+      ctx.beginPath(); ctx.moveTo(x, MT); ctx.lineTo(x, MT+PH); ctx.stroke();
+      ctx.fillText(v+'°', x, MT+2);
+    });
+  } else { // 3ph gas
+    const hx = xScale(cp.hcp, oatR);
+    ctx.beginPath(); ctx.moveTo(hx, MT); ctx.lineTo(hx, MT+PH); ctx.stroke();
+    ctx.fillText(cp.hcp+'°', hx, MT+2);
   }
   ctx.setLineDash([]);
 
@@ -1636,8 +1990,9 @@ function drawPlot() {
   const oatVals = Array.from({length:71},(_,i)=>oatR[0]+i);
   oatVals.forEach((oat,i)=>{
     let ky;
-    if(currentModel==='electric') ky = predict5P(oat,lcp,ucp,model);
-    else ky = predict3P(oat,lcp,model);
+    if      (cp.type==='3pc') ky = predict3PC(oat, cp.ccp, model);
+    else if (cp.type==='5p')  ky = predict5P(oat, cp.lcp, cp.ucp, model);
+    else                      ky = predict3P(oat, cp.hcp, model);
     ky = Math.max(kwhR[0], Math.min(kwhR[1], ky));
     const x = xScale(oat,oatR), y = yScale(ky,kwhR);
     i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
@@ -1668,22 +2023,30 @@ function drawPlot() {
   const gof = computeGoF(data, predictions);
   updateGoF(gof);
 
-  // ── Inverse savings estimate (using real ECM-1 EnergyPlus output) ──
-  const ecm1Data = currentModel==='electric' ? ecm1ElectricData : ecm1GasData;
-  const ecm1Annual = ecm1Data.reduce((s,d)=>s+d.kwh, 0);
+  // ── Inverse savings estimate (using real EnergyPlus post-retrofit output) ──
+  const scenario = ecmScenarios[currentEcm];
+  const postData = currentModel==='electric' ? scenario.electric : scenario.gas;
+  const postAnnual = postData.reduce((s,d)=>s+d.kwh, 0);
   // Counterfactual = baseline model predictions at same OATs
   const counterfactualAnnual = predictions.reduce((s,v)=>s+v, 0);
-  const savings = Math.round(counterfactualAnnual - ecm1Annual);
+  const savings = Math.round(counterfactualAnnual - postAnnual);
   const unit = currentModel==='electric' ? 'kWh' : 'therms';
   document.getElementById('inverse-savings').textContent = savings.toLocaleString()+' '+unit;
-  // EnergyPlus forward model savings = baseline actual - ECM-1 actual
+  // EnergyPlus forward model savings = baseline actual - post-retrofit actual
   const baseActualAnnual = data.reduce((s,d)=>s+d.kwh, 0);
-  const epSavings = Math.round(baseActualAnnual - ecm1Annual);
+  const epSavings = Math.round(baseActualAnnual - postAnnual);
   document.getElementById('ep-savings').textContent = epSavings.toLocaleString()+' '+unit;
+  document.getElementById('compare-ecm-label').textContent = scenario.label;
   const diff = savings - epSavings;
   document.getElementById('model-diff').textContent = (diff>=0?'+':'')+diff.toLocaleString()+' '+unit;
   const pctDiff = Math.abs(epSavings)>0 ? Math.abs(diff/epSavings*100) : 0;
   document.getElementById('model-diff-label').textContent = pctDiff<15 ? '✓ within expected range' : '⚠ outside expected range';
+  // Contextual note for gas increase scenarios
+  if(savings < 0 && currentModel==='gas' && currentEcm==='ecm1') {
+    document.getElementById('compare-note').innerHTML = '<strong style="color:var(--ink)">Gas went up.</strong> The LED retrofit removed internal heat gain from the lighting fixtures, increasing the heating load. This is the <strong style="color:var(--ink)">interactive effect</strong> — expected and quantifiable.';
+  } else {
+    document.getElementById('compare-note').innerHTML = 'The gap between forward and inverse model estimates is <strong style="color:var(--ink)">model uncertainty</strong> — not error. Both are defensible representations of a building we cannot observe directly.';
+  }
 }
 
 function updateGoF(gof) {
@@ -1711,40 +2074,248 @@ function updateGoF(gof) {
 }
 
 function updateModel() {
-  const lcp = parseInt(document.getElementById('lcp').value);
-  const ucp = parseInt(document.getElementById('ucp').value);
-  // Enforce lcp < ucp - 5
-  if(lcp >= ucp - 5) {
-    document.getElementById('ucp').value = lcp + 6;
+  if (currentModel === 'electric') {
+    if (currentModelForm === '3pc') {
+      const ccp = parseInt(document.getElementById('ccp').value);
+      document.getElementById('ccp-val').textContent = ccp + '°F';
+    } else {
+      const lcp = parseInt(document.getElementById('lcp').value);
+      let   ucp = parseInt(document.getElementById('ucp').value);
+      if (lcp >= ucp - 5) { ucp = lcp + 6; document.getElementById('ucp').value = ucp; }
+      document.getElementById('lcp-val').textContent = lcp + '°F';
+      document.getElementById('ucp-val').textContent = ucp + '°F';
+    }
+  } else {
+    const hcp = parseInt(document.getElementById('hcp').value);
+    document.getElementById('hcp-val').textContent = hcp + '°F';
   }
-  document.getElementById('lcp-val').textContent = document.getElementById('lcp').value+'°F';
-  document.getElementById('ucp-val').textContent = document.getElementById('ucp').value+'°F';
   drawPlot();
 }
 
 function switchModel(m) {
   currentModel = m;
-  document.getElementById('btn-electric').className = 'toggle-btn'+(m==='electric'?' active':'');
-  document.getElementById('btn-gas').className     = 'toggle-btn'+(m==='gas'?' active':'');
-  const ctrl = document.getElementById('electric-controls');
-  if(m==='gas'){
-    // gas only needs one CP (heating threshold)
-    ctrl.querySelector('[for=lcp], label:first-child').textContent='';
-    ctrl.children[0].children[0].textContent = 'Heating threshold ';
-    const sp = document.createElement('span'); sp.id='lcp-val2';
-    // simplify: just relabel
-    document.getElementById('lcp').value=58;
-    document.getElementById('ucp').parentElement.style.visibility='hidden';
-  } else {
-    document.getElementById('lcp').value=38;
-    document.getElementById('ucp').parentElement.style.visibility='visible';
-  }
+  document.getElementById('btn-electric').className = 'toggle-btn' + (m === 'electric' ? ' active' : '');
+  document.getElementById('btn-gas').className       = 'toggle-btn' + (m === 'gas'      ? ' active' : '');
+  // 3PC/5P selector only shown for electric
+  document.getElementById('model-form-row').style.display = m === 'electric' ? 'flex' : 'none';
+  // Show the right control block
+  document.getElementById('ctrl-3pc').style.display = (m === 'electric' && currentModelForm === '3pc') ? 'grid' : 'none';
+  document.getElementById('ctrl-5p').style.display  = (m === 'electric' && currentModelForm === '5p')  ? 'grid' : 'none';
+  document.getElementById('ctrl-gas').style.display = m === 'gas' ? 'grid' : 'none';
   updateModel();
 }
 
-// Initial draw
-window.addEventListener('load', ()=>{
+function switchModelForm(form) {
+  currentModelForm = form;
+  document.getElementById('btn-3pc').className = 'form-btn' + (form === '3pc' ? ' active' : '');
+  document.getElementById('btn-5p').className  = 'form-btn' + (form === '5p'  ? ' active' : '');
+  document.getElementById('ctrl-3pc').style.display = form === '3pc' ? 'grid' : 'none';
+  document.getElementById('ctrl-5p').style.display  = form === '5p'  ? 'grid' : 'none';
+  const note = document.getElementById('model-form-note');
+  if (note) note.style.display = form === '3pc' ? 'inline' : 'none';
   updateModel();
+}
+
+function switchEcm(ecm) {
+  currentEcm = ecm;
+  ['ecm1','ecm2','combined'].forEach(k => {
+    document.getElementById('btn-'+k).className = 'ecm-btn'+(k===ecm?' active':'');
+  });
+  drawPlot();
+}
+
+// ══ Day 3 charts ══
+
+// NRA reporting-period data (from cfhq_nra_scenario.csv)
+const nraReportingElec = [7240.8, 6564.8, 7383.8, 6840.7, 7539.3, 7879.0, 8758.7, 8987.5, 8352.5, 7787.3, 7530.8, 7533.9];
+const nraReportingGas  = [1438.4, 1367.5, 1194.9, 796.5, 386.2, 107.6, 9.3, 14.1, 89.3, 403.9, 798.8, 1365.8];
+const nraActive = [0,0,0,0,0,0,0,0,1,1,1,1]; // months 9-12
+const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+let savingsChartFuel = 'electric';
+
+function switchSavingsChart(fuel) {
+  savingsChartFuel = fuel;
+  document.getElementById('btn-sav-electric').className = 'toggle-btn'+(fuel==='electric'?' active':'');
+  document.getElementById('btn-sav-gas').className = 'toggle-btn'+(fuel==='gas'?' active':'');
+  drawSavingsChart();
+}
+
+function drawSavingsChart() {
+  const canvas = document.getElementById('savings-chart');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = 620, h = 200;
+  const ml = 58, mr = 20, mt = 16, mb = 32;
+  const pw = w-ml-mr, ph = h-mt-mb;
+
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0,0,w,h);
+
+  // Compute monthly savings: baseline - ECM-1 post-retrofit
+  const baseData = savingsChartFuel==='electric' ? electricData : gasData;
+  const postData = savingsChartFuel==='electric' ? ecm1ElectricData : ecm1GasData;
+  const savings = baseData.map((d,i) => Math.round(d.kwh - postData[i].kwh));
+  const unit = savingsChartFuel==='electric' ? 'kWh' : 'therms';
+
+  const maxAbs = Math.max(...savings.map(Math.abs), 1);
+  const yRange = maxAbs * 1.2;
+
+  // Zero line
+  const zeroY = mt + ph * (yRange / (2*yRange));
+  ctx.strokeStyle = '#aaa'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(ml, zeroY); ctx.lineTo(ml+pw, zeroY); ctx.stroke();
+
+  // Y axis
+  ctx.beginPath(); ctx.moveTo(ml, mt); ctx.lineTo(ml, mt+ph); ctx.stroke();
+
+  // Y labels
+  ctx.fillStyle = '#999'; ctx.font = '10px IBM Plex Mono';
+  ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+  const yTicks = [-yRange, -yRange/2, 0, yRange/2, yRange];
+  yTicks.forEach(v => {
+    const y = mt + ph * (1 - (v + yRange)/(2*yRange));
+    ctx.fillText(Math.round(v), ml-6, y);
+    if(v !== 0) {
+      ctx.strokeStyle = '#eee'; ctx.lineWidth = 0.5;
+      ctx.beginPath(); ctx.moveTo(ml,y); ctx.lineTo(ml+pw,y); ctx.stroke();
+    }
+  });
+
+  // Bars
+  const barW = pw / 14;
+  const gap = (pw - barW*12) / 13;
+  savings.forEach((s,i) => {
+    const x = ml + gap + i*(barW+gap);
+    const barH = Math.abs(s) / (2*yRange) * ph;
+    const y = s >= 0 ? zeroY - barH : zeroY;
+    ctx.fillStyle = s >= 0 ? '#2d4a3e' : '#c0392b';
+    ctx.fillRect(x, y, barW, barH);
+    // Month label
+    ctx.fillStyle = '#78716c'; ctx.font = '9px IBM Plex Mono';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillText(months[i].slice(0,3), x+barW/2, mt+ph+4);
+    // Value label
+    ctx.fillStyle = s >= 0 ? '#2d4a3e' : '#c0392b';
+    ctx.font = '8px IBM Plex Mono';
+    ctx.textBaseline = s >= 0 ? 'bottom' : 'top';
+    ctx.fillText(s.toLocaleString(), x+barW/2, s >= 0 ? y-2 : y+barH+2);
+  });
+
+  // Y axis label
+  ctx.fillStyle = '#78716c'; ctx.font = '10px IBM Plex Sans';
+  ctx.save(); ctx.translate(12, mt+ph/2); ctx.rotate(-Math.PI/2);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(unit+'/month', 0, 0);
+  ctx.restore();
+}
+
+function drawResidualChart() {
+  const canvas = document.getElementById('residual-chart');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const w = 620, h = 220;
+  const ml = 58, mr = 20, mt = 16, mb = 32;
+  const pw = w-ml-mr, ph = h-mt-mb;
+
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0,0,w,h);
+
+  // Fit baseline 5P model at default change-points for residual calc
+  const lcp = 38, ucp = 55;
+  const model = fit5P(electricData, lcp, ucp);
+
+  // Compute residuals: actual reporting - model prediction at reporting OAT
+  const reportingOats = electricData.map(d => d.oat); // same weather year
+  const residuals = nraReportingElec.map((actual, i) => {
+    const predicted = predict5P(reportingOats[i], lcp, ucp, model);
+    return Math.round(actual - predicted);
+  });
+
+  const maxAbs = Math.max(...residuals.map(Math.abs), 1);
+  const yRange = maxAbs * 1.3;
+  const zeroY = mt + ph/2;
+
+  // Zero line
+  ctx.strokeStyle = '#aaa'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(ml, zeroY); ctx.lineTo(ml+pw, zeroY); ctx.stroke();
+
+  // Y axis
+  ctx.beginPath(); ctx.moveTo(ml, mt); ctx.lineTo(ml, mt+ph); ctx.stroke();
+
+  // Y labels
+  ctx.fillStyle = '#999'; ctx.font = '10px IBM Plex Mono';
+  ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+  [-yRange, -yRange/2, 0, yRange/2, yRange].forEach(v => {
+    const y = mt + ph * (1 - (v + yRange)/(2*yRange));
+    ctx.fillText(Math.round(v), ml-6, y);
+    if(v !== 0) {
+      ctx.strokeStyle = '#eee'; ctx.lineWidth = 0.5;
+      ctx.beginPath(); ctx.moveTo(ml,y); ctx.lineTo(ml+pw,y); ctx.stroke();
+    }
+  });
+
+  // NRA threshold line (dashed amber)
+  const thresholdPct = 0.10; // 10% of mean baseline
+  const meanBaseline = mean(electricData.map(d=>d.kwh));
+  const threshold = meanBaseline * thresholdPct;
+  const threshY = mt + ph * (1 - (threshold + yRange)/(2*yRange));
+  const threshYNeg = mt + ph * (1 - (-threshold + yRange)/(2*yRange));
+  ctx.setLineDash([5,3]); ctx.strokeStyle = '#c9a227'; ctx.lineWidth = 1.5;
+  ctx.beginPath(); ctx.moveTo(ml, threshY); ctx.lineTo(ml+pw, threshY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(ml, threshYNeg); ctx.lineTo(ml+pw, threshYNeg); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Points and connecting line
+  const pts = residuals.map((r,i) => {
+    const x = ml + (i+0.5)/12 * pw;
+    const y = mt + ph * (1 - (r + yRange)/(2*yRange));
+    return {x, y, r, nra: nraActive[i]};
+  });
+
+  // Connecting line
+  ctx.strokeStyle = '#78716c'; ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  pts.forEach((p,i) => i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y));
+  ctx.stroke();
+
+  // Points
+  pts.forEach((p,i) => {
+    ctx.fillStyle = p.nra ? '#c0392b' : '#2d4a3e';
+    ctx.strokeStyle = 'white'; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(p.x, p.y, 6, 0, 2*Math.PI); ctx.fill(); ctx.stroke();
+    // Month label
+    ctx.fillStyle = '#78716c'; ctx.font = '9px IBM Plex Mono';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillText(months[i], p.x, mt+ph+4);
+    // Value
+    ctx.fillStyle = p.nra ? '#c0392b' : '#44403c';
+    ctx.font = '8px IBM Plex Mono';
+    ctx.textBaseline = p.r >= 0 ? 'bottom' : 'top';
+    ctx.fillText(p.r.toLocaleString(), p.x, p.r >= 0 ? p.y - 9 : p.y + 9);
+  });
+
+  // NRA annotation arrow
+  const sep = pts[7]; // Aug (last normal)
+  const nraStart = pts[8]; // Sep (first NRA)
+  ctx.fillStyle = '#c0392b'; ctx.font = '10px IBM Plex Sans';
+  ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+  ctx.fillText('← NRA: community room addition', nraStart.x + 10, nraStart.y - 4);
+
+  // Y axis label
+  ctx.fillStyle = '#78716c'; ctx.font = '10px IBM Plex Sans';
+  ctx.save(); ctx.translate(12, mt+ph/2); ctx.rotate(-Math.PI/2);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('Residual (kWh)', 0, 0);
+  ctx.restore();
+}
+
+// Initial draw — switchModel sets correct control visibility then calls updateModel → drawPlot
+window.addEventListener('load', () => {
+  switchModel('electric');   // sets ctrl-3pc visible, others hidden, draws scatter plot
+  // Day 3 charts are drawn on-demand when day3 page is shown (see show())
 });
 </script>
 </body>
