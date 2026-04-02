@@ -1,0 +1,22 @@
+ExpandObjects: The value SupplyAirTemperature is not a valid choice for object: HVACTemplate:Zone:Unitary with the name: OFFICE and field: Outdoor Air Method
+ExpandObjects: The value OFFICE OA Spec is not a valid choice for object: HVACTemplate:Zone:Unitary with the name: OFFICE and field: Baseboard Heating Type
+ExpandObjects: The value SupplyAirTemperature is not a valid choice for object: HVACTemplate:Zone:Unitary with the name: LOBBY and field: Outdoor Air Method
+ExpandObjects: The value LOBBY OA Spec is not a valid choice for object: HVACTemplate:Zone:Unitary with the name: LOBBY and field: Baseboard Heating Type
+ExpandObjects: The value 3.50 is not a valid choice for object: HVACTemplate:System:Unitary with the name: OFFICE RTU and field: Cooling Coil Type
+ExpandObjects: The value 0 is less than the minimum value expected of 0.500000000 for object: HVACTemplate:System:Unitary with the name: OFFICE RTU and field: Cooling Coil Gross Rated Sensible Heat Ratio
+ExpandObjects: The value BlowThrough is not a valid choice for object: HVACTemplate:System:Unitary with the name: OFFICE RTU and field: Heating Coil Type
+ExpandObjects: The value None is not a valid choice for object: HVACTemplate:System:Unitary with the name: OFFICE RTU and field: Economizer Type
+ExpandObjects: The value 3.50 is not a valid choice for object: HVACTemplate:System:Unitary with the name: LOBBY RTU and field: Cooling Coil Type
+ExpandObjects: The value 0 is less than the minimum value expected of 0.500000000 for object: HVACTemplate:System:Unitary with the name: LOBBY RTU and field: Cooling Coil Gross Rated Sensible Heat Ratio
+ExpandObjects: The value BlowThrough is not a valid choice for object: HVACTemplate:System:Unitary with the name: LOBBY RTU and field: Heating Coil Type
+ExpandObjects: The value None is not a valid choice for object: HVACTemplate:System:Unitary with the name: LOBBY RTU and field: Economizer Type
+ExpandObjects: Invalid choice in HVACTemplate:Zone:Unitary "OFFICE" in the Baseboard Heating Type field: OFFICE OA Spec
+ExpandObjects: Invalid choice in HVACTemplate:Zone:Unitary "LOBBY" in the Baseboard Heating Type field: LOBBY OA Spec
+ExpandObjects: In HVACTemplate:System:Unitary "OFFICE RTU" for the field Control Zone Name could not find a matching HVACTemplate:Zone:Unitary named: HVAC_Avail_Sch
+ExpandObjects: Invalid choice in HVACTemplate:System:Unitary "OFFICE RTU" in the Heating Coil Type field: BlowThrough
+ExpandObjects: Invalid choice in HVACTemplate:System:Unitary "OFFICE RTU"in the Cooling Coil Type field: 3.50
+ExpandObjects: Invalid choice in HVACTemplate:System:Unitary in the Economizer Type field
+ExpandObjects: In HVACTemplate:System:Unitary "LOBBY RTU" for the field Control Zone Name could not find a matching HVACTemplate:Zone:Unitary named: HVAC_Avail_Sch
+ExpandObjects: Invalid choice in HVACTemplate:System:Unitary "LOBBY RTU" in the Heating Coil Type field: BlowThrough
+ExpandObjects: Invalid choice in HVACTemplate:System:Unitary "LOBBY RTU"in the Cooling Coil Type field: 3.50
+ExpandObjects: Invalid choice in HVACTemplate:System:Unitary in the Economizer Type field

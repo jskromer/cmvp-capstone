@@ -1,0 +1,127 @@
+Shadowing Combinations
+..Solar Distribution=FullInteriorAndExterior
+..In the following, only the first 10 reference surfaces will be shown.
+..But all surfaces are used in the calculations.
+==================================
+Surface=OFFICE:WALL:SOUTH is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=7
+...Surface=OFFICE:WALL:NORTH
+...Surface=OFFICE:WALL:WEST
+...Surface=OFFICE:WALL:EAST
+...Surface=OFFICE:FLOOR
+...Surface=OFFICE:ROOF
+...Surface=OFFICE:WIN:NORTH
+...Surface=OFFICE:WIN:WEST
+Number of receiving sub surfaces=1
+....Surface=OFFICE:WIN:SOUTH
+==================================
+Surface=OFFICE:WIN:SOUTH is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=OFFICE:WALL:NORTH is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=7
+...Surface=OFFICE:WALL:SOUTH
+...Surface=OFFICE:WALL:WEST
+...Surface=OFFICE:WALL:EAST
+...Surface=OFFICE:FLOOR
+...Surface=OFFICE:ROOF
+...Surface=OFFICE:WIN:SOUTH
+...Surface=OFFICE:WIN:WEST
+Number of receiving sub surfaces=1
+....Surface=OFFICE:WIN:NORTH
+==================================
+Surface=OFFICE:WIN:NORTH is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=OFFICE:WALL:WEST is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=7
+...Surface=OFFICE:WALL:SOUTH
+...Surface=OFFICE:WALL:NORTH
+...Surface=OFFICE:WALL:EAST
+...Surface=OFFICE:FLOOR
+...Surface=OFFICE:ROOF
+...Surface=OFFICE:WIN:SOUTH
+...Surface=OFFICE:WIN:NORTH
+Number of receiving sub surfaces=1
+....Surface=OFFICE:WIN:WEST
+==================================
+Surface=OFFICE:WIN:WEST is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=OFFICE:WALL:EAST is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=OFFICE:FLOOR is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=OFFICE:ROOF is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=LOBBY:WALL:SOUTH is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=6
+...Surface=LOBBY:WALL:NORTH
+...Surface=LOBBY:WALL:EAST
+...Surface=LOBBY:WALL:WEST
+...Surface=LOBBY:FLOOR
+...Surface=LOBBY:ROOF
+...Surface=LOBBY:WIN:EAST
+Number of receiving sub surfaces=1
+....Surface=LOBBY:WIN:SOUTH
+==================================
+Surface=LOBBY:WIN:SOUTH is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=LOBBY:WALL:NORTH is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=LOBBY:WALL:EAST is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=6
+...Surface=LOBBY:WALL:SOUTH
+...Surface=LOBBY:WALL:NORTH
+...Surface=LOBBY:WALL:WEST
+...Surface=LOBBY:FLOOR
+...Surface=LOBBY:ROOF
+...Surface=LOBBY:WIN:SOUTH
+Number of receiving sub surfaces=1
+....Surface=LOBBY:WIN:EAST
+==================================
+Surface=LOBBY:WIN:EAST is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=LOBBY:WALL:WEST is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=LOBBY:FLOOR is not used as Receiving Surface in calculations.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0
+==================================
+Surface=LOBBY:ROOF is used as Receiving Surface in calculations and is convex.
+Number of general casting surfaces=0
+Number of back surfaces=0
+Number of receiving sub surfaces=0

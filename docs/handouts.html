@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMVP Capstone — Student Handouts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0e8;
+      --cream-light: #faf7f2;
+      --ink: #1c1917;
+      --ink-light: #44403c;
+      --ink-faint: #78716c;
+      --green-dark: #2d4a3e;
+      --green-mid: #4a7c6a;
+      --green-light: #c8ddd7;
+      --border: #ddd5c8;
+      --border-dark: #a8a094;
+      --red: #c0392b;
+      --amber: #c9a227;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      color: var(--ink);
+      line-height: 1.45;
+      font-size: 11pt;
+      background: var(--cream);
+    }
+
+    /* ── Screen-only: toolbar ── */
+    .screen-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--green-dark);
+      color: white;
+      padding: 0.75rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .screen-toolbar .logo {
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+    }
+    .screen-toolbar .logo span { opacity: 0.6; font-weight: 300; }
+    .screen-toolbar .tools { display: flex; gap: 1rem; align-items: center; }
+    .print-btn {
+      background: white;
+      color: var(--green-dark);
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .print-btn:hover { background: var(--green-light); }
+    .toc-link {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+    .toc-link:hover { color: white; }
+
+    /* ── Screen-only: TOC ── */
+    .screen-toc {
+      max-width: 780px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    .screen-toc h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--green-dark);
+    }
+    .screen-toc ol {
+      list-style: none;
+      counter-reset: toc;
+    }
+    .screen-toc li {
+      counter-increment: toc;
+      margin-bottom: 0.5rem;
+    }
+    .screen-toc li a {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding: 0.6rem 1rem;
+      background: var(--cream-light);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.95rem;
+      transition: all 0.15s;
+    }
+    .screen-toc li a:hover {
+      border-color: var(--green-dark);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .screen-toc li a .cut-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 600;
+      color: var(--green-dark);
+      min-width: 56px;
+    }
+
+    /* ── Handout pages ── */
+    .handout-page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 2rem;
+    }
+
+    /* ── Page header / footer ── */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 2.5px solid var(--green-dark);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .page-header h1 {
+      font-size: 14pt;
+      font-weight: 700;
+      color: var(--green-dark);
+      letter-spacing: -0.01em;
+    }
+    .page-header .cut-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9pt;
+      font-weight: 600;
+      color: var(--ink-faint);
+      letter-spacing: 0.05em;
+    }
+    .page-subtitle {
+      font-size: 9.5pt;
+      color: var(--ink-light);
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+    .page-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 0.4rem;
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 7.5pt;
+      color: var(--ink-faint);
+    }
+
+    /* ── Form elements ── */
+    .field-label {
+      font-size: 8.5pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-faint);
+      margin-bottom: 0.15rem;
+    }
+    .write-line {
+      border-bottom: 1px solid var(--border-dark);
+      min-height: 1.4em;
+      margin-bottom: 0.6rem;
+    }
+    .write-box {
+      border: 1px solid var(--border-dark);
+      border-radius: 3px;
+      min-height: 2.5rem;
+      margin-bottom: 0.6rem;
+      padding: 0.3rem;
+    }
+    .write-box.tall { min-height: 4rem; }
+    .write-box.xtall { min-height: 6rem; }
+
+    .info-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .info-row.three { grid-template-columns: 1fr 1fr 1fr; }
+
+    .section-label {
+      font-size: 10pt;
+      font-weight: 700;
+      color: var(--green-dark);
+      border-bottom: 1.5px solid var(--green-light);
+      padding-bottom: 0.2rem;
+      margin-top: 1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    /* ── Checklist ── */
+    .checklist {
+      list-style: none;
+      margin-bottom: 0.6rem;
+    }
+    .checklist li {
+      font-size: 10pt;
+      padding: 0.2rem 0;
+      padding-left: 1.4rem;
+      position: relative;
+    }
+    .checklist li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.35rem;
+      width: 0.85rem;
+      height: 0.85rem;
+      border: 1.5px solid var(--border-dark);
+      border-radius: 2px;
+    }
+
+    /* ── Tables ── */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9.5pt;
+      margin-bottom: 0.75rem;
+    }
+    .data-table th, .data-table td {
+      border: 1px solid var(--border-dark);
+      padding: 0.3rem 0.5rem;
+      text-align: center;
+    }
+    .data-table th {
+      background: var(--green-dark);
+      color: white;
+      font-weight: 600;
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .data-table td {
+      min-height: 1.5rem;
+    }
+    .data-table .row-label {
+      text-align: left;
+      font-weight: 500;
+      background: #f8f5ef;
+      min-width: 100px;
+    }
+
+    /* ── Diagram elements ── */
+    .diagram-box {
+      border: 2px dashed var(--border-dark);
+      border-radius: 4px;
+      min-height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9pt;
+      color: var(--ink-faint);
+      font-style: italic;
+    }
+
+    /* ── Decision tree ── */
+    .tree-node {
+      background: var(--cream-light);
+      border: 1.5px solid var(--border-dark);
+      border-radius: 5px;
+      padding: 0.5rem 0.75rem;
+      margin-bottom: 0.4rem;
+      font-size: 9.5pt;
+    }
+    .tree-node.question {
+      background: var(--green-light);
+      border-color: var(--green-dark);
+      font-weight: 600;
+      text-align: center;
+    }
+    .tree-branch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-left: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .tree-answer {
+      border: 1.5px solid var(--border-dark);
+      border-radius: 4px;
+      padding: 0.4rem 0.6rem;
+      font-size: 9pt;
+    }
+    .tree-answer .label {
+      font-weight: 700;
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.15rem;
+    }
+    .tree-answer.yes { border-color: var(--green-dark); }
+    .tree-answer.no { border-color: var(--red); }
+    .tree-connector {
+      text-align: center;
+      color: var(--ink-faint);
+      font-size: 14pt;
+      line-height: 1;
+      margin: 0.15rem 0;
+    }
+
+    /* ── Grid plot ── */
+    .grid-plot {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      border-left: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+      margin: 0.75rem 0 0.5rem 2rem;
+    }
+    .grid-plot .y-label {
+      position: absolute;
+      left: -2.5rem;
+      font-size: 7.5pt;
+      color: var(--ink-faint);
+      transform: rotate(-90deg);
+      transform-origin: center;
+      top: 45%;
+      white-space: nowrap;
+    }
+    .grid-plot .x-label {
+      position: absolute;
+      bottom: -1.2rem;
+      font-size: 7.5pt;
+      color: var(--ink-faint);
+      width: 100%;
+      text-align: center;
+    }
+    .grid-lines {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .grid-line {
+      border-bottom: 1px dotted var(--border);
+      position: relative;
+      height: 0;
+    }
+    .grid-line .tick {
+      position: absolute;
+      left: -1.8rem;
+      top: -0.45rem;
+      font-size: 7pt;
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--ink-faint);
+    }
+    .month-ticks {
+      position: absolute;
+      bottom: -0.1rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-around;
+    }
+    .month-ticks span {
+      font-size: 7pt;
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--ink-faint);
+      transform: translateY(0.8rem);
+    }
+    .zero-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      border-top: 1.5px solid var(--ink);
+    }
+
+    /* ── Signature block ── */
+    .sig-block {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1.5px solid var(--ink);
+    }
+    .sig-line {
+      border-bottom: 1px solid var(--ink);
+      min-height: 2rem;
+      margin-bottom: 0.2rem;
+    }
+    .sig-label {
+      font-size: 7.5pt;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── GoF summary box ── */
+    .gof-box {
+      border: 2px solid var(--green-dark);
+      border-radius: 5px;
+      padding: 0.5rem 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .gof-box .gof-title {
+      font-size: 9pt;
+      font-weight: 700;
+      color: var(--green-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.3rem;
+    }
+    .gof-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+    }
+    .gof-item .gof-item-label {
+      font-size: 7.5pt;
+      color: var(--ink-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .gof-item .gof-item-value {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11pt;
+      font-weight: 600;
+      min-height: 1.4rem;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    /* ── Official stamp box ── */
+    .official-box {
+      border: 3px double var(--ink);
+      padding: 0.75rem 1rem;
+      margin: 0.75rem 0;
+      background: #fffdf5;
+    }
+    .official-box .official-title {
+      font-size: 11pt;
+      font-weight: 700;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.3rem;
+    }
+    .official-box .official-subtitle {
+      font-size: 8pt;
+      text-align: center;
+      color: var(--ink-light);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── Report template ── */
+    .report-header-block {
+      background: var(--green-dark);
+      color: white;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .report-header-block h2 {
+      font-size: 13pt;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .report-header-block .report-sub {
+      font-size: 8.5pt;
+      opacity: 0.8;
+      margin-top: 0.2rem;
+    }
+    .savings-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .savings-box {
+      border: 1.5px solid var(--border-dark);
+      border-radius: 4px;
+      padding: 0.4rem 0.5rem;
+      text-align: center;
+    }
+    .savings-box .savings-label {
+      font-size: 7.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-faint);
+    }
+    .savings-box .savings-value {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 14pt;
+      font-weight: 600;
+      min-height: 1.6rem;
+      border-bottom: 1px solid var(--border-dark);
+    }
+    .savings-box .savings-unit {
+      font-size: 7.5pt;
+      color: var(--ink-faint);
+    }
+
+    /* ══════════════════════════════════════════
+       PRINT STYLES
+    ══════════════════════════════════════════ */
+    @media print {
+      body { background: white; font-size: 10.5pt; }
+
+      .screen-toolbar,
+      .screen-toc,
+      .print-btn { display: none !important; }
+
+      .handout-page {
+        border: none;
+        border-radius: 0;
+        margin: 0;
+        padding: 0.6in 0.65in 0.5in;
+        max-width: none;
+        box-shadow: none;
+        page-break-after: always;
+        page-break-inside: avoid;
+      }
+      .handout-page:last-child { page-break-after: auto; }
+
+      .page-header { border-bottom-width: 2pt; }
+      .page-footer { position: fixed; bottom: 0.4in; left: 0.65in; right: 0.65in; }
+
+      .data-table th { background: var(--green-dark) !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .report-header-block { background: var(--green-dark) !important; color: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .tree-node.question { background: var(--green-light) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+      @page { size: letter; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     SCREEN TOOLBAR
+══════════════════════════════════════════ -->
+<div class="screen-toolbar">
+  <div class="logo">Counterfactual HQ <span>/ Student Handouts</span></div>
+  <div class="tools">
+    <a href="prototype.html" class="toc-link">Back to Capstone</a>
+    <button class="print-btn" onclick="window.print()">Print All Handouts</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TABLE OF CONTENTS (screen only)
+══════════════════════════════════════════ -->
+<div class="screen-toc">
+  <h2>Handout Package</h2>
+  <p style="font-size:0.9rem; color:var(--ink-light); margin-bottom:1.25rem;">
+    Seven printable worksheets for the CMVP Capstone. Each fits on one page (letter/A4).
+    Click to jump, or use "Print All" to generate the complete set.
+  </p>
+  <ol>
+    <li><a href="#cut1"><span class="cut-num">Cut 1</span> Boundary Setting Worksheet</a></li>
+    <li><a href="#cut2"><span class="cut-num">Cut 2</span> Model Form Selection Decision Tree</a></li>
+    <li><a href="#cut3"><span class="cut-num">Cut 3</span> Model Fitting Data Sheet</a></li>
+    <li><a href="#cut4"><span class="cut-num">Cut 4</span> Baseline Period Justification</a></li>
+    <li><a href="#cut8"><span class="cut-num">Cut 8</span> NRA Pre-Documentation Form</a></li>
+    <li><a href="#cut9"><span class="cut-num">Cut 9</span> Residual Plot Interpretation</a></li>
+    <li><a href="#report"><span class="cut-num">Final</span> M&V Summary Report</a></li>
+  </ol>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     CUT 1 — BOUNDARY SETTING WORKSHEET
+══════════════════════════════════════════════════════════════ -->
+<div class="handout-page" id="cut1">
+  <div class="page-header">
+    <h1>Boundary Setting Worksheet</h1>
+    <div class="cut-label">CMVP Capstone &mdash; Cut 1</div>
+  </div>
+  <div class="page-subtitle">Counterfactual Headquarters &mdash; 12,000 sf, single-story municipal building, Zone 4A</div>
+
+  <div class="info-row">
+    <div><div class="field-label">Student Name</div><div class="write-line"></div></div>
+    <div><div class="field-label">Date</div><div class="write-line"></div></div>
+  </div>
+
+  <div class="section-label">Single-Line Diagram</div>
+  <p style="font-size:9pt; color:var(--ink-light); margin-bottom:0.5rem;">Mark meter locations (M1, M2) and draw ECM-1 and ECM-2 measurement boundaries on the diagram below.</p>
+
+  <!-- Simplified SLD -->
+  <svg viewBox="0 0 700 180" style="width:100%; height:auto; margin-bottom:0.5rem; border:1px solid var(--border-dark); border-radius:4px; background:white;">
+    <!-- Utility -->
+    <text x="20" y="30" font-size="9" font-weight="700" fill="#2d4a3e" font-family="IBM Plex Mono">UTILITY</text>
+    <line x1="50" y1="38" x2="50" y2="60" stroke="#1c1917" stroke-width="2"/>
+    <!-- Main meter -->
+    <circle cx="50" cy="70" r="10" fill="none" stroke="#1c1917" stroke-width="2"/>
+    <text x="50" y="73" text-anchor="middle" font-size="7" font-weight="700" fill="#1c1917" font-family="IBM Plex Mono">M</text>
+    <text x="68" y="73" font-size="7.5" fill="#78716c" font-family="IBM Plex Sans">Main Meter</text>
+    <line x1="50" y1="80" x2="50" y2="100" stroke="#1c1917" stroke-width="2"/>
+    <!-- Main bus -->
+    <line x1="50" y1="100" x2="620" y2="100" stroke="#1c1917" stroke-width="3"/>
+    <text x="335" y="95" text-anchor="middle" font-size="7" fill="#78716c" font-family="IBM Plex Sans">MAIN DISTRIBUTION BUS</text>
+    <!-- Branch: Office Lighting Panel -->
+    <line x1="120" y1="100" x2="120" y2="130" stroke="#1c1917" stroke-width="1.5"/>
+    <rect x="80" y="130" width="80" height="30" rx="3" fill="none" stroke="#1c1917" stroke-width="1.5"/>
+    <text x="120" y="143" text-anchor="middle" font-size="7.5" font-weight="600" fill="#1c1917" font-family="IBM Plex Sans">Office Lighting</text>
+    <text x="120" y="154" text-anchor="middle" font-size="7" fill="#78716c" font-family="IBM Plex Sans">Panel A &mdash; 180 fixtures</text>
+    <!-- Branch: Lobby LEDs -->
+    <line x1="250" y1="100" x2="250" y2="130" stroke="#1c1917" stroke-width="1.5"/>
+    <rect x="210" y="130" width="80" height="30" rx="3" fill="none" stroke="#1c1917" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <text x="250" y="143" text-anchor="middle" font-size="7.5" font-weight="600" fill="#78716c" font-family="IBM Plex Sans">Lobby LEDs</text>
+    <text x="250" y="154" text-anchor="middle" font-size="7" fill="#78716c" font-family="IBM Plex Sans">(already installed)</text>
+    <!-- Branch: RTU / HVAC -->
+    <line x1="400" y1="100" x2="400" y2="130" stroke="#1c1917" stroke-width="1.5"/>
+    <rect x="355" y="130" width="90" height="30" rx="3" fill="none" stroke="#1c1917" stroke-width="1.5"/>
+    <text x="400" y="143" text-anchor="middle" font-size="7.5" font-weight="600" fill="#1c1917" font-family="IBM Plex Sans">RTU / HVAC</text>
+    <text x="400" y="154" text-anchor="middle" font-size="7" fill="#78716c" font-family="IBM Plex Sans">DDC Controls (ECM-2)</text>
+    <!-- Branch: Plugs / Misc -->
+    <line x1="540" y1="100" x2="540" y2="130" stroke="#1c1917" stroke-width="1.5"/>
+    <rect x="500" y="130" width="80" height="30" rx="3" fill="none" stroke="#1c1917" stroke-width="1.5"/>
+    <text x="540" y="143" text-anchor="middle" font-size="7.5" font-weight="600" fill="#1c1917" font-family="IBM Plex Sans">Plugs / Misc</text>
+    <text x="540" y="154" text-anchor="middle" font-size="7" fill="#78716c" font-family="IBM Plex Sans">Panel C</text>
+    <!-- Blank boundary boxes (dashed) for student to fill -->
+    <rect x="65" y="115" width="115" height="58" rx="5" fill="none" stroke="#2d4a3e" stroke-width="2" stroke-dasharray="6,3"/>
+    <text x="70" y="176" font-size="7" fill="#2d4a3e" font-family="IBM Plex Sans" font-weight="600">ECM-1 Boundary?</text>
+  </svg>
+
+  <div class="section-label">Scope Checklist</div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem 1.5rem;">
+    <div>
+      <p style="font-size:9pt; font-weight:700; margin-bottom:0.2rem;">ECM-1: LED Lighting Retrofit</p>
+      <ul class="checklist">
+        <li>Office wing T8 fixtures (180)</li>
+        <li>Lobby LEDs (already installed)</li>
+        <li>Exterior lighting (same panel?)</li>
+        <li>Emergency lighting circuits</li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:9pt; font-weight:700; margin-bottom:0.2rem;">ECM-2: HVAC Controls Upgrade</p>
+      <ul class="checklist">
+        <li>RTU compressor and fan</li>
+        <li>DDC controls / scheduling</li>
+        <li>Gas heating (via RTU)</li>
+        <li>Community room HVAC zone</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">Boundary Rationale</div>
+  <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.3rem;">Are the lobby LEDs inside or outside the ECM-1 boundary? Justify your decision.</p>
+  <div class="write-box tall"></div>
+  <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.3rem;">What loads cross the ECM-2 boundary that the model must account for?</p>
+  <div class="write-box tall"></div>
+
+  <div class="page-footer">
+    <span>Counterfactual Designs | counterfactual-designs.com</span>
+    <span>CMVP Capstone &mdash; Cut 1</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     CUT 2 — MODEL FORM SELECTION DECISION TREE
+══════════════════════════════════════════════════════════════ -->
+<div class="handout-page" id="cut2">
+  <div class="page-header">
+    <h1>Model Form Selection Decision Tree</h1>
+    <div class="cut-label">CMVP Capstone &mdash; Cut 2</div>
+  </div>
+  <div class="page-subtitle">For each ECM: follow the tree, record your approach, and document the uncertainty consequence.</div>
+
+  <div class="info-row">
+    <div><div class="field-label">Student Name</div><div class="write-line"></div></div>
+    <div><div class="field-label">Date</div><div class="write-line"></div></div>
+  </div>
+
+  <div class="section-label">Decision Tree</div>
+
+  <div class="tree-node question">Can the savings be isolated at the equipment / circuit level?</div>
+  <div class="tree-connector">&#9660;</div>
+  <div class="tree-branch">
+    <div class="tree-answer yes">
+      <div class="label" style="color:var(--green-dark);">Yes &rarr; Retrofit Isolation</div>
+      <div style="font-size:8.5pt; margin-top:0.2rem;">
+        <strong>Next:</strong> Do the key parameters drift over time?
+      </div>
+      <div style="margin-top:0.3rem;">
+        <div class="tree-node question" style="font-size:8.5pt; padding:0.3rem 0.5rem;">Parameters stable?</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.4rem; margin-top:0.3rem;">
+          <div style="border:1px solid var(--green-dark); border-radius:3px; padding:0.3rem; font-size:8pt;">
+            <strong>Yes:</strong> Key Parameter Measurement<br/>(Option A &mdash; stipulate)
+          </div>
+          <div style="border:1px solid var(--red); border-radius:3px; padding:0.3rem; font-size:8pt;">
+            <strong>No:</strong> All Parameter Measurement<br/>(Option B &mdash; continuous)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tree-answer no">
+      <div class="label" style="color:var(--red);">No &rarr; Whole Facility</div>
+      <div style="font-size:8.5pt; margin-top:0.2rem;">
+        <strong>Next:</strong> Is measured baseline data available?
+      </div>
+      <div style="margin-top:0.3rem;">
+        <div class="tree-node question" style="font-size:8.5pt; padding:0.3rem 0.5rem;">Baseline data exists?</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.4rem; margin-top:0.3rem;">
+          <div style="border:1px solid var(--green-dark); border-radius:3px; padding:0.3rem; font-size:8pt;">
+            <strong>Yes:</strong> Statistical Inverse Model<br/>(Option C)
+          </div>
+          <div style="border:1px solid var(--red); border-radius:3px; padding:0.3rem; font-size:8pt;">
+            <strong>No:</strong> Calibrated Simulation<br/>(Option D)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label" style="margin-top:1.25rem;">Your Selection</div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+    <div>
+      <p style="font-size:9pt; font-weight:700; margin-bottom:0.3rem;">ECM-1: LED Lighting Retrofit</p>
+      <div class="field-label">Chosen Approach</div>
+      <div class="write-line"></div>
+      <div class="field-label">IPMVP Option</div>
+      <div class="write-line"></div>
+      <div class="field-label">Model Type (if applicable)</div>
+      <div class="write-line"></div>
+    </div>
+    <div>
+      <p style="font-size:9pt; font-weight:700; margin-bottom:0.3rem;">ECM-2: HVAC Controls Upgrade</p>
+      <div class="field-label">Chosen Approach</div>
+      <div class="write-line"></div>
+      <div class="field-label">IPMVP Option</div>
+      <div class="write-line"></div>
+      <div class="field-label">Model Type (e.g., 5P, 3P)</div>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="section-label">Reasoning &amp; Uncertainty Consequence</div>
+  <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.3rem;">Why can't one approach work for both ECMs? What uncertainty does each choice introduce?</p>
+  <div class="write-box xtall"></div>
+
+  <div class="page-footer">
+    <span>Counterfactual Designs | counterfactual-designs.com</span>
+    <span>CMVP Capstone &mdash; Cut 2</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     CUT 3 — MODEL FITTING DATA SHEET
+══════════════════════════════════════════════════════════════ -->
+<div class="handout-page" id="cut3">
+  <div class="page-header">
+    <h1>Model Fitting Data Sheet</h1>
+    <div class="cut-label">CMVP Capstone &mdash; Cut 3</div>
+  </div>
+  <div class="page-subtitle">Record baseline data, model fit statistics, and inter-analyst comparison for Counterfactual HQ.</div>
+
+  <div class="info-row three">
+    <div><div class="field-label">Student Name</div><div class="write-line"></div></div>
+    <div><div class="field-label">Date</div><div class="write-line"></div></div>
+    <div><div class="field-label">Baseline Period</div><div class="write-line"></div></div>
+  </div>
+
+  <div class="section-label">Baseline Data Table</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Month</th>
+        <th>Avg OAT (&deg;F)</th>
+        <th>Electric (kWh)</th>
+        <th>Gas (therms)</th>
+        <th>Notes / Flags</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="row-label">Jan</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="row-label">Feb</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="row-label">Mar</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="row-label">Apr</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="row-label">May</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="row-label">Jun</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="row-label">Jul</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="row-label">Aug</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="row-label">Sep</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="row-label">Oct</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="row-label">Nov</td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="row-label">Dec</td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">Goodness-of-Fit Statistics</div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+    <div class="gof-box">
+      <div class="gof-title">Electric Model (5P)</div>
+      <div class="gof-grid">
+        <div class="gof-item"><div class="gof-item-label">R&sup2;</div><div class="gof-item-value"></div></div>
+        <div class="gof-item"><div class="gof-item-label">CV(RMSE)</div><div class="gof-item-value"></div></div>
+        <div class="gof-item"><div class="gof-item-label">NMBE</div><div class="gof-item-value"></div></div>
+        <div class="gof-item"><div class="gof-item-label">t-stat</div><div class="gof-item-value"></div></div>
+      </div>
+    </div>
+    <div class="gof-box">
+      <div class="gof-title">Gas Model (3P)</div>
+      <div class="gof-grid">
+        <div class="gof-item"><div class="gof-item-label">R&sup2;</div><div class="gof-item-value"></div></div>
+        <div class="gof-item"><div class="gof-item-label">CV(RMSE)</div><div class="gof-item-value"></div></div>
+        <div class="gof-item"><div class="gof-item-label">NMBE</div><div class="gof-item-value"></div></div>
+        <div class="gof-item"><div class="gof-item-label">t-stat</div><div class="gof-item-value"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Inter-Analyst Comparison</div>
+  <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.3rem;">Compare your change-points and GoF stats with another student. Document differences.</p>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Your Value</th>
+        <th>Partner's Value</th>
+        <th>Difference / Discussion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="row-label">Heating CP (&deg;F)</td><td></td><td></td><td></td></tr>
+      <tr><td class="row-label">Cooling CP (&deg;F)</td><td></td><td></td><td></td></tr>
+      <tr><td class="row-label">Electric R&sup2;</td><td></td><td></td><td></td></tr>
+      <tr><td class="row-label">Gas CV(RMSE)</td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.3rem;">Key insight from comparison:</p>
+  <div class="write-box"></div>
+
+  <div class="page-footer">
+    <span>Counterfactual Designs | counterfactual-designs.com</span>
+    <span>CMVP Capstone &mdash; Cut 3</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     CUT 4 — BASELINE PERIOD JUSTIFICATION
+══════════════════════════════════════════════════════════════ -->
+<div class="handout-page" id="cut4">
+  <div class="page-header">
+    <h1>Baseline Period Justification</h1>
+    <div class="cut-label">CMVP Capstone &mdash; Cut 4</div>
+  </div>
+  <div class="page-subtitle">Document your baseline period selection and defend why it represents expected future operations.</div>
+
+  <div class="info-row">
+    <div><div class="field-label">Student Name</div><div class="write-line"></div></div>
+    <div><div class="field-label">Date</div><div class="write-line"></div></div>
+  </div>
+
+  <div class="section-label">Duration Selection</div>
+  <div class="info-row">
+    <div>
+      <div class="field-label">Baseline Start Date</div>
+      <div class="write-line"></div>
+    </div>
+    <div>
+      <div class="field-label">Baseline End Date</div>
+      <div class="write-line"></div>
+    </div>
+  </div>
+  <div class="info-row three">
+    <div>
+      <div class="field-label">Duration (months)</div>
+      <div class="write-line"></div>
+    </div>
+    <div>
+      <div class="field-label">Coverage Factor (%)</div>
+      <div class="write-line"></div>
+    </div>
+    <div>
+      <div class="field-label">Data Available (months)</div>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="section-label">Why This Period?</div>
+  <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.3rem;">24 months of pre-retrofit data are available. Explain your choice of start/end dates.</p>
+  <div class="write-box tall"></div>
+
+  <div class="section-label">Conditions Captured</div>
+  <ul class="checklist">
+    <li>Full heating season represented</li>
+    <li>Full cooling season represented</li>
+    <li>Shoulder months (mild weather) included</li>
+    <li>No anomalous occupancy events in selected period</li>
+    <li>Equipment operating at code-compliant service levels</li>
+    <li>Consistent operating schedule throughout period</li>
+  </ul>
+
+  <div class="section-label">Anomaly Assessment</div>
+  <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.3rem;">Year 2 shows a spike in month 8 (summer community events). How did you handle this?</p>
+  <div class="write-box tall"></div>
+
+  <div class="section-label">Service Level Confirmation</div>
+  <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.3rem;">Per Step 0B: T8 lighting was at minimum acceptable lux. Does the baseline need adjustment before savings can be claimed?</p>
+  <div class="write-box tall"></div>
+
+  <div class="section-label">Uncertainty Carried Forward</div>
+  <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.3rem;">What uncertainty does your baseline period choice introduce into the savings estimate?</p>
+  <div class="write-box tall"></div>
+
+  <div class="page-footer">
+    <span>Counterfactual Designs | counterfactual-designs.com</span>
+    <span>CMVP Capstone &mdash; Cut 4</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     CUT 8 — NRA PRE-DOCUMENTATION FORM
+══════════════════════════════════════════════════════════════ -->
+<div class="handout-page" id="cut8">
+  <div class="page-header">
+    <h1>NRA Pre-Documentation Form</h1>
+    <div class="cut-label">CMVP Capstone &mdash; Cut 8</div>
+  </div>
+
+  <div class="official-box">
+    <div class="official-title">Non-Routine Adjustment &mdash; Pre-Documentation Record</div>
+    <div class="official-subtitle">This form must be completed BEFORE viewing reporting-period data. It establishes the discipline of anticipating, rather than explaining, non-routine events.</div>
+  </div>
+
+  <div class="info-row three">
+    <div><div class="field-label">Prepared By</div><div class="write-line"></div></div>
+    <div><div class="field-label">Date Prepared</div><div class="write-line"></div></div>
+    <div><div class="field-label">Project</div><div class="write-line" style="border-bottom-style:solid;">Counterfactual HQ</div></div>
+  </div>
+
+  <div class="section-label">Event Identification</div>
+  <div class="info-row">
+    <div><div class="field-label">Event Name / Description</div><div class="write-box"></div></div>
+    <div><div class="field-label">Event Date (actual or expected)</div><div class="write-line"></div></div>
+  </div>
+  <div class="info-row">
+    <div><div class="field-label">Zone(s) / Area(s) Affected</div><div class="write-line"></div></div>
+    <div><div class="field-label">Static Factor(s) Changed</div><div class="write-line"></div></div>
+  </div>
+
+  <div class="section-label">Estimated Impact</div>
+  <div class="info-row three">
+    <div>
+      <div class="field-label">Electric Impact (kWh/mo)</div>
+      <div class="write-line"></div>
+    </div>
+    <div>
+      <div class="field-label">Gas Impact (therms/mo)</div>
+      <div class="write-line"></div>
+    </div>
+    <div>
+      <div class="field-label">Duration (months affected)</div>
+      <div class="write-line"></div>
+    </div>
+  </div>
+
+  <div class="section-label">Adjustment Methodology</div>
+  <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.3rem;">How will the non-routine adjustment be quantified? (Engineering estimate, sub-metering, simulation, etc.)</p>
+  <div class="write-box tall"></div>
+
+  <div class="section-label">Basis of Estimate</div>
+  <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.3rem;">What data, calculations, or references support the estimated impact values above?</p>
+  <div class="write-box tall"></div>
+
+  <div class="section-label">NRA Trigger Threshold</div>
+  <div class="info-row">
+    <div><div class="field-label">Trigger Condition (from M&V Plan, Step 7)</div><div class="write-box"></div></div>
+    <div><div class="field-label">Does This Event Meet the Trigger?</div><div class="write-box"></div></div>
+  </div>
+
+  <div class="official-box" style="margin-top:0.75rem;">
+    <div style="font-size:9pt; font-weight:700; text-align:center; margin-bottom:0.5rem;">CERTIFICATION</div>
+    <p style="font-size:8.5pt; text-align:center; margin-bottom:0.75rem;">I certify that this NRA pre-documentation was completed before reviewing reporting-period energy data. The estimates above represent my best professional judgment based on available information.</p>
+    <div class="sig-block" style="border-top:none; padding-top:0;">
+      <div>
+        <div class="sig-line"></div>
+        <div class="sig-label">Signature / Printed Name</div>
+      </div>
+      <div>
+        <div class="sig-line"></div>
+        <div class="sig-label">Date</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Counterfactual Designs | counterfactual-designs.com</span>
+    <span>CMVP Capstone &mdash; Cut 8 (NRA Pre-Doc)</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     CUT 9 — RESIDUAL PLOT INTERPRETATION
+══════════════════════════════════════════════════════════════ -->
+<div class="handout-page" id="cut9">
+  <div class="page-header">
+    <h1>Residual Plot Interpretation</h1>
+    <div class="cut-label">CMVP Capstone &mdash; Cut 9</div>
+  </div>
+  <div class="page-subtitle">Hand-plot reporting-period residuals. Identify the NRA. Connect what you see to what you predicted.</div>
+
+  <div class="info-row">
+    <div><div class="field-label">Student Name</div><div class="write-line"></div></div>
+    <div><div class="field-label">Date</div><div class="write-line"></div></div>
+  </div>
+
+  <div class="section-label">Residual Plot &mdash; Electric Model</div>
+  <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.3rem;">Plot monthly residuals: (Actual &minus; Predicted) / Predicted &times; 100%. Negative = savings; Positive = over-consumption.</p>
+
+  <div style="position:relative; width:100%; margin-bottom:0.75rem;">
+    <!-- Y-axis label -->
+    <div style="position:absolute; left:0; top:0; bottom:2rem; width:2.5rem; display:flex; align-items:center; justify-content:center;">
+      <span style="transform:rotate(-90deg); white-space:nowrap; font-size:7.5pt; color:var(--ink-faint); letter-spacing:0.03em;">Residual (%)</span>
+    </div>
+    <!-- Grid area -->
+    <div style="margin-left:2.5rem; border-left:2px solid var(--ink); border-bottom:2px solid var(--ink); height:200px; position:relative; background:white;">
+      <!-- Horizontal grid lines -->
+      <div style="position:absolute; top:0; left:0; right:0; border-bottom:1px dotted var(--border); height:0;"><span style="position:absolute; left:-2rem; top:-0.4rem; font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint);">+20%</span></div>
+      <div style="position:absolute; top:25%; left:0; right:0; border-bottom:1px dotted var(--border); height:0;"><span style="position:absolute; left:-2rem; top:-0.4rem; font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint);">+10%</span></div>
+      <div style="position:absolute; top:50%; left:0; right:0; border-bottom:1.5px solid var(--ink); height:0;"><span style="position:absolute; left:-1.5rem; top:-0.4rem; font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink); font-weight:600;">0%</span></div>
+      <div style="position:absolute; top:75%; left:0; right:0; border-bottom:1px dotted var(--border); height:0;"><span style="position:absolute; left:-2rem; top:-0.4rem; font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint);">-10%</span></div>
+      <div style="position:absolute; top:100%; left:0; right:0; height:0;"><span style="position:absolute; left:-2rem; top:-0.4rem; font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint);">-20%</span></div>
+      <!-- Month ticks -->
+      <div style="position:absolute; bottom:-1.25rem; left:0; right:0; display:flex; justify-content:space-around;">
+        <span style="font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint);">Jan</span>
+        <span style="font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint);">Feb</span>
+        <span style="font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint);">Mar</span>
+        <span style="font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint);">Apr</span>
+        <span style="font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint);">May</span>
+        <span style="font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint);">Jun</span>
+        <span style="font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint);">Jul</span>
+        <span style="font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint);">Aug</span>
+        <span style="font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint); font-weight:700; color:var(--red);">Sep</span>
+        <span style="font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint);">Oct</span>
+        <span style="font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint);">Nov</span>
+        <span style="font-size:7pt; font-family:'IBM Plex Mono'; color:var(--ink-faint);">Dec</span>
+      </div>
+      <!-- Vertical gridlines for each month -->
+      <div style="position:absolute; inset:0; display:flex; justify-content:space-around; pointer-events:none;">
+        <div style="border-left:1px dotted var(--border); height:100%;"></div>
+        <div style="border-left:1px dotted var(--border); height:100%;"></div>
+        <div style="border-left:1px dotted var(--border); height:100%;"></div>
+        <div style="border-left:1px dotted var(--border); height:100%;"></div>
+        <div style="border-left:1px dotted var(--border); height:100%;"></div>
+        <div style="border-left:1px dotted var(--border); height:100%;"></div>
+        <div style="border-left:1px dotted var(--border); height:100%;"></div>
+        <div style="border-left:1px dotted var(--border); height:100%;"></div>
+        <div style="border-left:1px dotted var(--border); height:100%;"></div>
+        <div style="border-left:1px dotted var(--border); height:100%;"></div>
+        <div style="border-left:1px dotted var(--border); height:100%;"></div>
+        <div style="border-left:1px dotted var(--border); height:100%;"></div>
+      </div>
+    </div>
+    <!-- X-axis label -->
+    <div style="text-align:center; margin-top:1.5rem; font-size:7.5pt; color:var(--ink-faint); margin-left:2.5rem;">Reporting Period Month</div>
+  </div>
+
+  <div class="section-label" style="margin-top:1.5rem;">Annotation</div>
+  <div class="info-row">
+    <div>
+      <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.2rem;">Where does the step change appear?</p>
+      <div class="write-box"></div>
+    </div>
+    <div>
+      <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.2rem;">Magnitude of the step change (approx. %)</p>
+      <div class="write-box"></div>
+    </div>
+  </div>
+  <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.3rem;">Does this match the NRA you pre-documented in Cut 8? Explain.</p>
+  <div class="write-box tall"></div>
+  <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.3rem;">What happens to the savings estimate if the NRA is NOT applied?</p>
+  <div class="write-box"></div>
+
+  <div class="page-footer">
+    <span>Counterfactual Designs | counterfactual-designs.com</span>
+    <span>CMVP Capstone &mdash; Cut 9</span>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     CUT 10 — FINAL M&V SUMMARY REPORT
+══════════════════════════════════════════════════════════════ -->
+<div class="handout-page" id="report">
+  <div class="page-header">
+    <h1>Final M&V Summary Report</h1>
+    <div class="cut-label">CMVP Capstone &mdash; Final Report</div>
+  </div>
+
+  <div class="report-header-block">
+    <h2>Annual M&V Report &mdash; Year 1</h2>
+    <div class="report-sub">Energy Savings Performance Contract &mdash; Counterfactual Headquarters</div>
+  </div>
+
+  <div class="info-row three">
+    <div><div class="field-label">Building Name</div><div class="write-line" style="border-bottom-style:solid;">Counterfactual HQ</div></div>
+    <div><div class="field-label">Location / Climate Zone</div><div class="write-line" style="border-bottom-style:solid;">Mid-Atlantic, Zone 4A</div></div>
+    <div><div class="field-label">Report Prepared By</div><div class="write-line"></div></div>
+  </div>
+  <div class="info-row three">
+    <div><div class="field-label">Baseline Period</div><div class="write-line"></div></div>
+    <div><div class="field-label">Reporting Period</div><div class="write-line"></div></div>
+    <div><div class="field-label">Report Date</div><div class="write-line"></div></div>
+  </div>
+
+  <div class="section-label">Energy Conservation Measures</div>
+  <table class="data-table">
+    <thead>
+      <tr><th>ECM</th><th>Description</th><th>M&V Approach</th><th>IPMVP Option</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="row-label">ECM-1</td><td style="text-align:left;">LED lighting retrofit, office wing (180 fixtures)</td><td></td><td></td></tr>
+      <tr><td class="row-label">ECM-2</td><td style="text-align:left;">HVAC DDC controls upgrade (RTU)</td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">Savings Summary</div>
+  <div class="savings-summary">
+    <div class="savings-box">
+      <div class="savings-label">Electric Savings</div>
+      <div class="savings-value"></div>
+      <div class="savings-unit">kWh/yr</div>
+    </div>
+    <div class="savings-box">
+      <div class="savings-label">Gas Savings</div>
+      <div class="savings-value"></div>
+      <div class="savings-unit">therms/yr</div>
+    </div>
+    <div class="savings-box">
+      <div class="savings-label">Total Avoided Cost</div>
+      <div class="savings-value"></div>
+      <div class="savings-unit">$/yr</div>
+    </div>
+  </div>
+
+  <div class="section-label">Interactive Effect Note</div>
+  <p style="font-size:8.5pt; color:var(--ink-light); margin-bottom:0.3rem;">The lighting retrofit reduced internal heat gain, increasing heating load and decreasing cooling load. Document the net interactive effect.</p>
+  <div class="write-box"></div>
+
+  <div class="section-label">Non-Routine Adjustment</div>
+  <div class="info-row three">
+    <div><div class="field-label">NRA Event</div><div class="write-line"></div></div>
+    <div><div class="field-label">Months Affected</div><div class="write-line"></div></div>
+    <div><div class="field-label">Adjustment (kWh + therms)</div><div class="write-line"></div></div>
+  </div>
+
+  <div class="section-label">Uncertainty</div>
+  <div class="info-row three">
+    <div><div class="field-label">FSU (90% CL)</div><div class="write-line"></div></div>
+    <div><div class="field-label">Savings Range</div><div class="write-line"></div></div>
+    <div><div class="field-label">Dominant Source</div><div class="write-line"></div></div>
+  </div>
+
+  <div style="margin-top:0.75rem; border:1.5px solid var(--ink); padding:0.5rem 0.75rem; border-radius:4px;">
+    <p style="font-size:8.5pt; margin-bottom:0.5rem;">I certify that this M&V report was prepared in accordance with the approved M&V plan and reflects my professional judgment as to the avoided energy use for the reporting period.</p>
+    <div class="sig-block" style="border-top:none; padding-top:0;">
+      <div>
+        <div class="sig-line"></div>
+        <div class="sig-label">Name, Credentials (PE / CMVP / CEM)</div>
+      </div>
+      <div>
+        <div class="sig-line"></div>
+        <div class="sig-label">Date</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Counterfactual Designs | counterfactual-designs.com</span>
+    <span>CMVP Capstone &mdash; Final Report</span>
+  </div>
+</div>
+
+
+</body>
+</html>

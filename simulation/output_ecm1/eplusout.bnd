@@ -1,0 +1,290 @@
+Program Version,EnergyPlus, Version 25.2.0-cf7368216c, YMD=2026.04.02 09:41
+! This file shows details about the branches, nodes, and other
+! elements of the flow connections.
+! This file is intended for use in "debugging" potential problems
+! that may also be detected by the program, but may be more easily
+! identified by "eye".
+! This file is also intended to support software which draws a
+! schematic diagram of the HVAC system.
+! ===============================================================
+! #Nodes,<Number of Unique Nodes>
+ #Nodes,28
+! <Node>,<NodeNumber>,<Node Name>,<Node Fluid Type>,<# Times Node Referenced After Definition>
+ Node,1,OFFICE RTU AIR LOOP INLET,Air,3
+ Node,2,OFFICE RTU MIXED AIR OUTLET,Air,7
+ Node,3,OFFICE RTU AIR LOOP OUTLET,Air,5
+ Node,4,LOBBY RTU AIR LOOP INLET,Air,3
+ Node,5,LOBBY RTU MIXED AIR OUTLET,Air,7
+ Node,6,LOBBY RTU AIR LOOP OUTLET,Air,5
+ Node,7,OFFICE ZONE AIR NODE,Air,1
+ Node,8,OFFICE SUPPLY INLET,Air,3
+ Node,9,OFFICE RETURN OUTLET,Air,1
+ Node,10,LOBBY ZONE AIR NODE,Air,1
+ Node,11,LOBBY SUPPLY INLET,Air,3
+ Node,12,LOBBY RETURN OUTLET,Air,1
+ Node,13,OFFICE RTU SUPPLY PATH INLET,Air,2
+ Node,14,LOBBY RTU SUPPLY PATH INLET,Air,2
+ Node,15,OFFICE RTU RETURN AIR OUTLET,Air,2
+ Node,16,LOBBY RTU RETURN AIR OUTLET,Air,2
+ Node,17,OFFICE RTU OUTSIDE AIR INLET,Air,2
+ Node,18,LOBBY RTU OUTSIDE AIR INLET,Air,2
+ Node,19,OFFICE RTU COOLING COIL CONDENSER INLET,Air,1
+ Node,20,LOBBY RTU COOLING COIL CONDENSER INLET,Air,1
+ Node,21,OFFICE RTU SUPPLY FAN OUTLET,Air,2
+ Node,22,LOBBY RTU SUPPLY FAN OUTLET,Air,2
+ Node,23,OFFICE ZONE EQUIP INLET,Air,1
+ Node,24,LOBBY ZONE EQUIP INLET,Air,1
+ Node,25,OFFICE RTU RELIEF AIR OUTLET,Air,1
+ Node,26,LOBBY RTU RELIEF AIR OUTLET,Air,1
+ Node,27,OFFICE RTU HEATING COIL OUTLET,Air,1
+ Node,28,LOBBY RTU HEATING COIL OUTLET,Air,1
+! ===============================================================
+! <#Branch Lists>,<Number of Branch Lists>
+ #Branch Lists,2
+! <Branch List>,<Branch List Count>,<Branch List Name>,<Loop Name>,<Loop Type>,<Number of Branches>
+! <Branch>,<Branch Count>,<Branch Name>,<Loop Name>,<Loop Type>,<Branch Inlet Node Name>,<Branch Outlet Node Name>
+ Branch List,1,OFFICE RTU BRANCHES,OFFICE RTU,Air,1
+   Branch,1,OFFICE RTU MAIN BRANCH,OFFICE RTU,Air,OFFICE RTU AIR LOOP INLET,OFFICE RTU AIR LOOP OUTLET
+ Branch List,2,LOBBY RTU BRANCHES,LOBBY RTU,Air,1
+   Branch,1,LOBBY RTU MAIN BRANCH,LOBBY RTU,Air,LOBBY RTU AIR LOOP INLET,LOBBY RTU AIR LOOP OUTLET
+! ===============================================================
+! <#Supply Air Paths>,<Number of Supply Air Paths>
+ #Supply Air Paths,2
+! <Supply Air Path>,<Supply Air Path Count>,<Supply Air Path Name>,<AirLoopHVAC Name>
+! <#Components on Supply Air Path>,<Number of Components>
+! <Supply Air Path Component>,<Component Count>,<Component Type>,<Component Name>,<AirLoopHVAC Name>
+! <#Outlet Nodes on Supply Air Path Component>,<Number of Nodes>
+! <Supply Air Path Component Nodes>,<Node Count>,<Component Type>,<Component Name>,<Inlet Node Name>,<Outlet Node Name>,<AirLoopHVAC Name>
+ Supply Air Path,1,OFFICE RTU SUPPLY PATH,OFFICE RTU
+   #Components on Supply Air Path,1
+   Supply Air Path Component,1,AIRLOOPHVAC:ZONESPLITTER,OFFICE RTU ZONE SPLITTER,OFFICE RTU
+     #Outlet Nodes on Supply Air Path Component,1
+     Supply Air Path Component Nodes,1,AIRLOOPHVAC:ZONESPLITTER,OFFICE RTU ZONE SPLITTER,OFFICE RTU SUPPLY PATH INLET,OFFICE ZONE EQUIP INLET,OFFICE RTU
+! <#Nodes on Supply Air Path>,<Number of Nodes>
+! <Supply Air Path Node>,<Node Type>,<Node Count>,<Node Name>,<AirLoopHVAC Name>
+#Nodes on Supply Air Path,2
+   Supply Air Path Node,Inlet Node,1,OFFICE RTU SUPPLY PATH INLET,OFFICE RTU
+   Supply Air Path Node,Outlet Node,2,OFFICE ZONE EQUIP INLET,OFFICE RTU
+ Supply Air Path,2,LOBBY RTU SUPPLY PATH,LOBBY RTU
+   #Components on Supply Air Path,1
+   Supply Air Path Component,1,AIRLOOPHVAC:ZONESPLITTER,LOBBY RTU ZONE SPLITTER,LOBBY RTU
+     #Outlet Nodes on Supply Air Path Component,1
+     Supply Air Path Component Nodes,1,AIRLOOPHVAC:ZONESPLITTER,LOBBY RTU ZONE SPLITTER,LOBBY RTU SUPPLY PATH INLET,LOBBY ZONE EQUIP INLET,LOBBY RTU
+! <#Nodes on Supply Air Path>,<Number of Nodes>
+! <Supply Air Path Node>,<Node Type>,<Node Count>,<Node Name>,<AirLoopHVAC Name>
+#Nodes on Supply Air Path,2
+   Supply Air Path Node,Inlet Node,1,LOBBY RTU SUPPLY PATH INLET,LOBBY RTU
+   Supply Air Path Node,Outlet Node,2,LOBBY ZONE EQUIP INLET,LOBBY RTU
+! ===============================================================
+! <#Return Air Paths>,<Number of Return Air Paths>
+ #Return Air Paths,2
+! <Return Air Path>,<Return Air Path Count>,<Return Air Path Name>,<AirLoopHVAC Name>
+! <#Components on Return Air Path>,<Number of Components>
+! <Return Air Path Component>,<Component Count>,<Component Type>,<Component Name>,<AirLoopHVAC Name>
+! <#Inlet Nodes on Return Air Path Component>,<Number of Nodes>
+! <Return Air Path Component Nodes>,<Node Count>,<Component Type>,<Component Name>,<Inlet Node Name>,<Outlet Node Name>,<AirLoopHVAC Name>
+ Return Air Path,1,OFFICE RTU RETURN PATH,OFFICE RTU
+   #Components on Return Air Path,1
+   Return Air Path Component,1,AIRLOOPHVAC:ZONEMIXER,OFFICE RTU ZONE MIXER,OFFICE RTU
+     #Inlet Nodes on Return Air Path Component,1
+     Return Air Path Component Nodes,1,AIRLOOPHVAC:ZONEMIXER,OFFICE RTU ZONE MIXER,OFFICE RETURN OUTLET,OFFICE RTU RETURN AIR OUTLET,OFFICE RTU
+! <#Nodes on Return Air Path>,<Number of Nodes>
+! <Return Air Path Node>,<Node Type>,<Node Count>,<Node Name>,<AirLoopHVAC Name>
+   #Nodes on Return Air Path,2
+   Return Air Path Node,Outlet Node,1,OFFICE RTU RETURN AIR OUTLET,OFFICE RTU
+   Return Air Path Node,Inlet Node,2,OFFICE RETURN OUTLET,OFFICE RTU
+ Return Air Path,2,LOBBY RTU RETURN PATH,LOBBY RTU
+   #Components on Return Air Path,1
+   Return Air Path Component,1,AIRLOOPHVAC:ZONEMIXER,LOBBY RTU ZONE MIXER,LOBBY RTU
+     #Inlet Nodes on Return Air Path Component,1
+     Return Air Path Component Nodes,1,AIRLOOPHVAC:ZONEMIXER,LOBBY RTU ZONE MIXER,LOBBY RETURN OUTLET,LOBBY RTU RETURN AIR OUTLET,LOBBY RTU
+! <#Nodes on Return Air Path>,<Number of Nodes>
+! <Return Air Path Node>,<Node Type>,<Node Count>,<Node Name>,<AirLoopHVAC Name>
+   #Nodes on Return Air Path,2
+   Return Air Path Node,Outlet Node,1,LOBBY RTU RETURN AIR OUTLET,LOBBY RTU
+   Return Air Path Node,Inlet Node,2,LOBBY RETURN OUTLET,LOBBY RTU
+! ===============================================================
+! #Outdoor Air Nodes,<Number of Outdoor Air Nodes>
+ #Outdoor Air Nodes,4
+! <Outdoor Air Node>,<NodeNumber>,<Node Name>
+ Outdoor Air Node,17,OFFICE RTU OUTSIDE AIR INLET
+ Outdoor Air Node,18,LOBBY RTU OUTSIDE AIR INLET
+ Outdoor Air Node,19,OFFICE RTU COOLING COIL CONDENSER INLET
+ Outdoor Air Node,20,LOBBY RTU COOLING COIL CONDENSER INLET
+! ===============================================================
+! <#Component Sets>,<Number of Component Sets>
+ #Component Sets,14
+! <Component Set>,<Component Set Count>,<Parent Object Type>,<Parent Object Name>,<Component Type>,<Component Name>,<Inlet Node ID>,<Outlet Node ID>,<Description>
+ Component Set,1,BRANCH,OFFICE RTU MAIN BRANCH,AIRLOOPHVAC:OUTDOORAIRSYSTEM,OFFICE RTU OA SYSTEM,OFFICE RTU AIR LOOP INLET,OFFICE RTU MIXED AIR OUTLET,Air Nodes
+ Component Set,2,BRANCH,OFFICE RTU MAIN BRANCH,AIRLOOPHVAC:UNITARY:FURNACE:HEATCOOL,OFFICE RTU FURNACE WITH DX COOLING,OFFICE RTU MIXED AIR OUTLET,OFFICE RTU AIR LOOP OUTLET,Air Nodes
+ Component Set,3,BRANCH,LOBBY RTU MAIN BRANCH,AIRLOOPHVAC:OUTDOORAIRSYSTEM,LOBBY RTU OA SYSTEM,LOBBY RTU AIR LOOP INLET,LOBBY RTU MIXED AIR OUTLET,Air Nodes
+ Component Set,4,BRANCH,LOBBY RTU MAIN BRANCH,AIRLOOPHVAC:UNITARY:FURNACE:HEATCOOL,LOBBY RTU FURNACE WITH DX COOLING,LOBBY RTU MIXED AIR OUTLET,LOBBY RTU AIR LOOP OUTLET,Air Nodes
+ Component Set,5,ZONEHVAC:AIRDISTRIBUTIONUNIT,OFFICE ATU,AIRTERMINAL:SINGLEDUCT:CONSTANTVOLUME:NOREHEAT,OFFICE CV,OFFICE ZONE EQUIP INLET,OFFICE SUPPLY INLET,Air Nodes
+ Component Set,6,ZONEHVAC:AIRDISTRIBUTIONUNIT,LOBBY ATU,AIRTERMINAL:SINGLEDUCT:CONSTANTVOLUME:NOREHEAT,LOBBY CV,LOBBY ZONE EQUIP INLET,LOBBY SUPPLY INLET,Air Nodes
+ Component Set,7,AIRLOOPHVAC:OUTDOORAIRSYSTEM,OFFICE RTU OA SYSTEM,OUTDOORAIR:MIXER,OFFICE RTU OA MIXING BOX,OFFICE RTU OUTSIDE AIR INLET,OFFICE RTU MIXED AIR OUTLET,Air Nodes
+ Component Set,8,AIRLOOPHVAC:OUTDOORAIRSYSTEM,LOBBY RTU OA SYSTEM,OUTDOORAIR:MIXER,LOBBY RTU OA MIXING BOX,LOBBY RTU OUTSIDE AIR INLET,LOBBY RTU MIXED AIR OUTLET,Air Nodes
+ Component Set,9,AIRLOOPHVAC:UNITARY:FURNACE:HEATCOOL,OFFICE RTU FURNACE WITH DX COOLING,FAN:ONOFF,OFFICE RTU SUPPLY FAN,OFFICE RTU MIXED AIR OUTLET,OFFICE RTU SUPPLY FAN OUTLET,Air Nodes
+ Component Set,10,AIRLOOPHVAC:UNITARY:FURNACE:HEATCOOL,LOBBY RTU FURNACE WITH DX COOLING,FAN:ONOFF,LOBBY RTU SUPPLY FAN,LOBBY RTU MIXED AIR OUTLET,LOBBY RTU SUPPLY FAN OUTLET,Air Nodes
+ Component Set,11,AIRLOOPHVAC:UNITARY:FURNACE:HEATCOOL,OFFICE RTU FURNACE WITH DX COOLING,COIL:HEATING:FUEL,OFFICE RTU HEATING COIL,OFFICE RTU SUPPLY FAN OUTLET,OFFICE RTU HEATING COIL OUTLET,Air Nodes
+ Component Set,12,AIRLOOPHVAC:UNITARY:FURNACE:HEATCOOL,LOBBY RTU FURNACE WITH DX COOLING,COIL:HEATING:FUEL,LOBBY RTU HEATING COIL,LOBBY RTU SUPPLY FAN OUTLET,LOBBY RTU HEATING COIL OUTLET,Air Nodes
+ Component Set,13,AIRLOOPHVAC:UNITARY:FURNACE:HEATCOOL,OFFICE RTU FURNACE WITH DX COOLING,COIL:COOLING:DX:SINGLESPEED,OFFICE RTU COOLING COIL,OFFICE RTU HEATING COIL OUTLET,OFFICE RTU AIR LOOP OUTLET,Air Nodes
+ Component Set,14,AIRLOOPHVAC:UNITARY:FURNACE:HEATCOOL,LOBBY RTU FURNACE WITH DX COOLING,COIL:COOLING:DX:SINGLESPEED,LOBBY RTU COOLING COIL,LOBBY RTU HEATING COIL OUTLET,LOBBY RTU AIR LOOP OUTLET,Air Nodes
+! ===============================================================
+! <# Plant Loops>,<Number of Plant Loops>
+ #Plant Loops,0
+! <Plant Loop>,<Plant Loop Name>,<Loop Type>,<Inlet Node Name>,<Outlet Node Name>,<Branch List>,<Connector List>
+! <Plant Loop Connector>,<Connector Type>,<Connector Name>,<Loop Name>,<Loop Type>,<Number of Inlets/Outlets>
+! <Plant Loop Connector Branches>,<Connector Node Count>,<Connector Type>,<Connector Name>,<Inlet Branch>,<Outlet Branch>,<Loop Name>,<Loop Type>
+! <Plant Loop Connector Nodes>,<Connector Node Count>,<Connector Type>,<Connector Name>,<Inlet Node>,<Outlet Node>,<Loop Name>,<Loop Type>
+! <Plant Loop Supply Connection>,<Plant Loop Name>,<Supply Side Outlet Node Name>,<Demand Side Inlet Node Name>
+! <Plant Loop Return Connection>,<Plant Loop Name>,<Demand Side Outlet Node Name>,<Supply Side Inlet Node Name>
+! ===============================================================
+! <# Condenser Loops>,<Number of Condenser Loops>
+ #Condenser Loops,0
+! <Condenser Loop>,<Condenser Loop Name>,<Loop Type>,<Inlet Node Name>,<Outlet Node Name>,<Branch List>,<Connector List>
+! <Condenser Loop Connector>,<Connector Type>,<Connector Name>,<Loop Name>,<Loop Type>,<Number of Inlets/Outlets>
+! <Condenser Loop Connector Branches>,<Connector Node Count>,<Connector Type>,<Connector Name>,<Inlet Branch>,<Outlet Branch>,<Loop Name>,<Loop Type>
+! <Condenser Loop Connector Nodes>,<Connector Node Count>,<Connector Type>,<Connector Name>,<Inlet Node>,<Outlet Node>,<Loop Name>,<Loop Type>
+! <Condenser Loop Supply Connection>,<Condenser Loop Name>,<Supply Side Outlet Node Name>,<Demand Side Inlet Node Name>
+! <Condenser Loop Return Connection>,<Condenser Loop Name>,<Demand Side Outlet Node Name>,<Supply Side Inlet Node Name>
+! ===============================================================
+! <# Controlled Zones>,<Number of Controlled Zones>
+ #Controlled Zones,2
+! <Controlled Zone>,<Controlled Zone Name>,<Equip List Name>,<Control List Name>,<Zone Node Name>,<# Inlet Nodes>,<# Exhaust Nodes>,<# Return Nodes>
+! <Controlled Zone Inlet>,<Inlet Node Count>,<Controlled Zone Name>,<Supply Air Inlet Node Name>,<SD Sys:Cooling/Heating [DD:Cooling] Inlet Node Name>,<DD Sys:Heating Inlet Node Name>
+! <Controlled Zone Exhaust>,<Exhaust Node Count>,<Controlled Zone Name>,<Exhaust Air Node Name>
+ Controlled Zone,OFFICE,OFFICE EQUIPMENT,,OFFICE ZONE AIR NODE,1,0,1
+   Controlled Zone Inlet,1,OFFICE,OFFICE SUPPLY INLET,OFFICE ZONE EQUIP INLET,N/A
+   Controlled Zone Return,1,OFFICE,OFFICE RETURN OUTLET
+ Controlled Zone,LOBBY,LOBBY EQUIPMENT,,LOBBY ZONE AIR NODE,1,0,1
+   Controlled Zone Inlet,1,LOBBY,LOBBY SUPPLY INLET,LOBBY ZONE EQUIP INLET,N/A
+   Controlled Zone Return,1,LOBBY,LOBBY RETURN OUTLET
+! ===============================================================
+! <#Zone Equipment Lists>,<Number of Zone Equipment Lists>
+ #Zone Equipment Lists,2
+! <Zone Equipment List>,<Zone Equipment List Count>,<Zone Equipment List Name>,<Zone Name>,<Number of Components>
+! <Zone Equipment Component>,<Component Count>,<Component Type>,<Component Name>,<Zone Name>,<Heating Priority>,<Cooling Priority>
+ Zone Equipment List,1,OFFICE EQUIPMENT,OFFICE,1
+   Zone Equipment Component,1,ZONEHVAC:AIRDISTRIBUTIONUNIT,OFFICE ATU,OFFICE,1,1
+ Zone Equipment List,2,LOBBY EQUIPMENT,LOBBY,1
+   Zone Equipment Component,1,ZONEHVAC:AIRDISTRIBUTIONUNIT,LOBBY ATU,LOBBY,1,1
+! ===============================================================
+! <#AirLoopHVACs>,<Number of AirLoopHVACs>
+ #AirLoopHVACs,2
+! <AirLoopHVAC>,<Air Loop Name>,<# Return Nodes>,<# Supply Nodes>,<# Zones Cooled>,<# Zones Heated>,<Outdoor Air Used>
+! <AirLoop Return Connections>,<Connection Count>,<AirLoopHVAC Name>,<Zn Eqp Return Node #>,<Zn Eqp Return Node Name>,<AirLoop Return Node #>,<Air Loop Return Node Name>
+! <AirLoop Supply Connections>,<Connection Count>,<AirLoopHVAC Name>,<Zn Eqp Supply Node #>,<Zn Eqp Supply Node Name>,<AirLoop Supply Node #>,<Air Loop Supply Node Name>
+! <Cooled Zone Info>,<Cooled Zone Count>,<Cooled Zone Name>,<Cooled Zone Inlet Node #>,<Cooled Zone Inlet Node Name>,<AirLoopHVAC Name>
+! <Heated Zone Info>,<Heated Zone Count>,<Heated Zone Name>,<Heated Zone Inlet Node #>,<Heated Zone Inlet Node Name>,<AirLoopHVAC Name>
+! <Outdoor Air Connections>,<OA Inlet Node #>,<OA Return Air Inlet Node Name>,<OA Outlet Node #>,<OA Mixed Air Outlet Node Name>,<AirLoopHVAC Name>
+! <AirLoopHVAC Connector>,<Connector Type>,<Connector Name>,<Loop Name>,<Loop Type>,<Number of Inlets/Outlets>
+! <AirLoopHVAC Connector Branches>,<Connector Node Count>,<Connector Type>,<Connector Name>,<Inlet Branch>,<Outlet Branch>,<Loop Name>,<Loop Type>
+! <AirLoopHVAC Connector Nodes>,<Connector Node Count>,<Connector Type>,<Connector Name>,<Inlet Node>,<Outlet Node>,<Loop Name>,<Loop Type>
+ AirLoopHVAC,OFFICE RTU,1,1,1,0,Yes
+   AirLoop Return Connections,1,OFFICE RTU,15,OFFICE RTU RETURN AIR OUTLET,1,OFFICE RTU AIR LOOP INLET
+   AirLoop Supply Connections,1,OFFICE RTU,13,OFFICE RTU SUPPLY PATH INLET,3,OFFICE RTU AIR LOOP OUTLET
+   Cooled Zone Info,1,OFFICE,8,OFFICE SUPPLY INLET,OFFICE RTU
+   Outdoor Air Connections,1,OFFICE RTU AIR LOOP INLET,2,OFFICE RTU MIXED AIR OUTLET,OFFICE RTU
+ AirLoopHVAC,LOBBY RTU,1,1,1,0,Yes
+   AirLoop Return Connections,1,LOBBY RTU,16,LOBBY RTU RETURN AIR OUTLET,4,LOBBY RTU AIR LOOP INLET
+   AirLoop Supply Connections,1,LOBBY RTU,14,LOBBY RTU SUPPLY PATH INLET,6,LOBBY RTU AIR LOOP OUTLET
+   Cooled Zone Info,1,LOBBY,11,LOBBY SUPPLY INLET,LOBBY RTU
+   Outdoor Air Connections,4,LOBBY RTU AIR LOOP INLET,5,LOBBY RTU MIXED AIR OUTLET,LOBBY RTU
+! ===============================================================
+! <#Parent Node Connections>,<Number of Parent Node Connections>
+ #Parent Node Connections,24
+! <Parent Node Connection>,<Node Name>,<Node ObjectType>,<Node ObjectName>,<Node ConnectionType>,<Node FluidStream>
+ Parent Node Connection,OFFICE RTU AIR LOOP INLET,BRANCH,OFFICE RTU MAIN BRANCH,Inlet,1
+ Parent Node Connection,OFFICE RTU MIXED AIR OUTLET,BRANCH,OFFICE RTU MAIN BRANCH,Internal,1
+ Parent Node Connection,OFFICE RTU AIR LOOP OUTLET,BRANCH,OFFICE RTU MAIN BRANCH,Outlet,1
+ Parent Node Connection,LOBBY RTU AIR LOOP INLET,BRANCH,LOBBY RTU MAIN BRANCH,Inlet,1
+ Parent Node Connection,LOBBY RTU MIXED AIR OUTLET,BRANCH,LOBBY RTU MAIN BRANCH,Internal,1
+ Parent Node Connection,LOBBY RTU AIR LOOP OUTLET,BRANCH,LOBBY RTU MAIN BRANCH,Outlet,1
+ Parent Node Connection,OFFICE RTU SUPPLY PATH INLET,AIRLOOPHVAC:SUPPLYPATH,OFFICE RTU SUPPLY PATH,Inlet,1
+ Parent Node Connection,LOBBY RTU SUPPLY PATH INLET,AIRLOOPHVAC:SUPPLYPATH,LOBBY RTU SUPPLY PATH,Inlet,1
+ Parent Node Connection,OFFICE RTU RETURN AIR OUTLET,AIRLOOPHVAC:RETURNPATH,OFFICE RTU RETURN PATH,Outlet,1
+ Parent Node Connection,LOBBY RTU RETURN AIR OUTLET,AIRLOOPHVAC:RETURNPATH,LOBBY RTU RETURN PATH,Outlet,1
+ Parent Node Connection,OFFICE SUPPLY INLET,ZONEHVAC:AIRDISTRIBUTIONUNIT,OFFICE ATU,Outlet,1
+ Parent Node Connection,LOBBY SUPPLY INLET,ZONEHVAC:AIRDISTRIBUTIONUNIT,LOBBY ATU,Outlet,1
+ Parent Node Connection,OFFICE RTU AIR LOOP INLET,AIRLOOPHVAC,OFFICE RTU,Inlet,1
+ Parent Node Connection,OFFICE RTU RETURN AIR OUTLET,AIRLOOPHVAC,OFFICE RTU,Outlet,1
+ Parent Node Connection,OFFICE RTU SUPPLY PATH INLET,AIRLOOPHVAC,OFFICE RTU,Inlet,1
+ Parent Node Connection,OFFICE RTU AIR LOOP OUTLET,AIRLOOPHVAC,OFFICE RTU,Outlet,1
+ Parent Node Connection,LOBBY RTU AIR LOOP INLET,AIRLOOPHVAC,LOBBY RTU,Inlet,1
+ Parent Node Connection,LOBBY RTU RETURN AIR OUTLET,AIRLOOPHVAC,LOBBY RTU,Outlet,1
+ Parent Node Connection,LOBBY RTU SUPPLY PATH INLET,AIRLOOPHVAC,LOBBY RTU,Inlet,1
+ Parent Node Connection,LOBBY RTU AIR LOOP OUTLET,AIRLOOPHVAC,LOBBY RTU,Outlet,1
+ Parent Node Connection,OFFICE RTU MIXED AIR OUTLET,AIRLOOPHVAC:UNITARY:FURNACE:HEATCOOL,OFFICE RTU FURNACE WITH DX COOLING,Inlet,1
+ Parent Node Connection,OFFICE RTU AIR LOOP OUTLET,AIRLOOPHVAC:UNITARY:FURNACE:HEATCOOL,OFFICE RTU FURNACE WITH DX COOLING,Outlet,1
+ Parent Node Connection,LOBBY RTU MIXED AIR OUTLET,AIRLOOPHVAC:UNITARY:FURNACE:HEATCOOL,LOBBY RTU FURNACE WITH DX COOLING,Inlet,1
+ Parent Node Connection,LOBBY RTU AIR LOOP OUTLET,AIRLOOPHVAC:UNITARY:FURNACE:HEATCOOL,LOBBY RTU FURNACE WITH DX COOLING,Outlet,1
+! ===============================================================
+! <#Non-Parent Node Connections>,<Number of Non-Parent Node Connections>
+ #Non-Parent Node Connections,66
+! <Non-Parent Node Connection>,<Node Name>,<Node ObjectType>,<Node ObjectName>,<Node ConnectionType>,<Node FluidStream>
+ Non-Parent Node Connection,OFFICE ZONE AIR NODE,ZONEHVAC:EQUIPMENTCONNECTIONS,OFFICE,ZoneNode,1
+ Non-Parent Node Connection,OFFICE SUPPLY INLET,ZONEHVAC:EQUIPMENTCONNECTIONS,OFFICE,ZoneInlet,1
+ Non-Parent Node Connection,OFFICE RETURN OUTLET,ZONEHVAC:EQUIPMENTCONNECTIONS,OFFICE,ZoneReturn,1
+ Non-Parent Node Connection,LOBBY ZONE AIR NODE,ZONEHVAC:EQUIPMENTCONNECTIONS,LOBBY,ZoneNode,1
+ Non-Parent Node Connection,LOBBY SUPPLY INLET,ZONEHVAC:EQUIPMENTCONNECTIONS,LOBBY,ZoneInlet,1
+ Non-Parent Node Connection,LOBBY RETURN OUTLET,ZONEHVAC:EQUIPMENTCONNECTIONS,LOBBY,ZoneReturn,1
+ Non-Parent Node Connection,OFFICE RTU OUTSIDE AIR INLET,OUTDOORAIR:NODELIST,OutdoorAir:NodeList,OutdoorAir,1
+ Non-Parent Node Connection,LOBBY RTU OUTSIDE AIR INLET,OUTDOORAIR:NODELIST,OutdoorAir:NodeList,OutdoorAir,2
+ Non-Parent Node Connection,OFFICE RTU COOLING COIL CONDENSER INLET,OUTDOORAIR:NODE,OutdoorAir:Node,OutdoorAir,3
+ Non-Parent Node Connection,LOBBY RTU COOLING COIL CONDENSER INLET,OUTDOORAIR:NODE,OutdoorAir:Node,OutdoorAir,4
+ Non-Parent Node Connection,OFFICE ZONE AIR NODE,SETPOINTMANAGER:SINGLEZONE:COOLING,OFFICE RTU ECONOMIZER SUPPLY AIR TEMP MANAGER,Sensor,1
+ Non-Parent Node Connection,OFFICE SUPPLY INLET,SETPOINTMANAGER:SINGLEZONE:COOLING,OFFICE RTU ECONOMIZER SUPPLY AIR TEMP MANAGER,Sensor,1
+ Non-Parent Node Connection,OFFICE RTU AIR LOOP OUTLET,SETPOINTMANAGER:SINGLEZONE:COOLING,OFFICE RTU ECONOMIZER SUPPLY AIR TEMP MANAGER,Setpoint,1
+ Non-Parent Node Connection,LOBBY ZONE AIR NODE,SETPOINTMANAGER:SINGLEZONE:COOLING,LOBBY RTU ECONOMIZER SUPPLY AIR TEMP MANAGER,Sensor,1
+ Non-Parent Node Connection,LOBBY SUPPLY INLET,SETPOINTMANAGER:SINGLEZONE:COOLING,LOBBY RTU ECONOMIZER SUPPLY AIR TEMP MANAGER,Sensor,1
+ Non-Parent Node Connection,LOBBY RTU AIR LOOP OUTLET,SETPOINTMANAGER:SINGLEZONE:COOLING,LOBBY RTU ECONOMIZER SUPPLY AIR TEMP MANAGER,Setpoint,1
+ Non-Parent Node Connection,OFFICE RTU AIR LOOP OUTLET,SETPOINTMANAGER:MIXEDAIR,OFFICE RTU COOLING COIL AIR TEMP MANAGER,Sensor,1
+ Non-Parent Node Connection,OFFICE RTU MIXED AIR OUTLET,SETPOINTMANAGER:MIXEDAIR,OFFICE RTU COOLING COIL AIR TEMP MANAGER,Sensor,1
+ Non-Parent Node Connection,OFFICE RTU SUPPLY FAN OUTLET,SETPOINTMANAGER:MIXEDAIR,OFFICE RTU COOLING COIL AIR TEMP MANAGER,Sensor,1
+ Non-Parent Node Connection,OFFICE RTU MIXED AIR OUTLET,SETPOINTMANAGER:MIXEDAIR,OFFICE RTU COOLING COIL AIR TEMP MANAGER,Setpoint,1
+ Non-Parent Node Connection,LOBBY RTU AIR LOOP OUTLET,SETPOINTMANAGER:MIXEDAIR,LOBBY RTU COOLING COIL AIR TEMP MANAGER,Sensor,1
+ Non-Parent Node Connection,LOBBY RTU MIXED AIR OUTLET,SETPOINTMANAGER:MIXEDAIR,LOBBY RTU COOLING COIL AIR TEMP MANAGER,Sensor,1
+ Non-Parent Node Connection,LOBBY RTU SUPPLY FAN OUTLET,SETPOINTMANAGER:MIXEDAIR,LOBBY RTU COOLING COIL AIR TEMP MANAGER,Sensor,1
+ Non-Parent Node Connection,LOBBY RTU MIXED AIR OUTLET,SETPOINTMANAGER:MIXEDAIR,LOBBY RTU COOLING COIL AIR TEMP MANAGER,Setpoint,1
+ Non-Parent Node Connection,OFFICE RTU SUPPLY PATH INLET,AIRLOOPHVAC:ZONESPLITTER,OFFICE RTU ZONE SPLITTER,Inlet,1
+ Non-Parent Node Connection,OFFICE ZONE EQUIP INLET,AIRLOOPHVAC:ZONESPLITTER,OFFICE RTU ZONE SPLITTER,Outlet,1
+ Non-Parent Node Connection,LOBBY RTU SUPPLY PATH INLET,AIRLOOPHVAC:ZONESPLITTER,LOBBY RTU ZONE SPLITTER,Inlet,1
+ Non-Parent Node Connection,LOBBY ZONE EQUIP INLET,AIRLOOPHVAC:ZONESPLITTER,LOBBY RTU ZONE SPLITTER,Outlet,1
+ Non-Parent Node Connection,OFFICE ZONE EQUIP INLET,AIRTERMINAL:SINGLEDUCT:CONSTANTVOLUME:NOREHEAT,OFFICE CV,Inlet,1
+ Non-Parent Node Connection,OFFICE SUPPLY INLET,AIRTERMINAL:SINGLEDUCT:CONSTANTVOLUME:NOREHEAT,OFFICE CV,Outlet,1
+ Non-Parent Node Connection,LOBBY ZONE EQUIP INLET,AIRTERMINAL:SINGLEDUCT:CONSTANTVOLUME:NOREHEAT,LOBBY CV,Inlet,1
+ Non-Parent Node Connection,LOBBY SUPPLY INLET,AIRTERMINAL:SINGLEDUCT:CONSTANTVOLUME:NOREHEAT,LOBBY CV,Outlet,1
+ Non-Parent Node Connection,OFFICE RTU RETURN AIR OUTLET,AIRLOOPHVAC:ZONEMIXER,OFFICE RTU ZONE MIXER,Outlet,1
+ Non-Parent Node Connection,OFFICE RETURN OUTLET,AIRLOOPHVAC:ZONEMIXER,OFFICE RTU ZONE MIXER,Inlet,1
+ Non-Parent Node Connection,LOBBY RTU RETURN AIR OUTLET,AIRLOOPHVAC:ZONEMIXER,LOBBY RTU ZONE MIXER,Outlet,1
+ Non-Parent Node Connection,LOBBY RETURN OUTLET,AIRLOOPHVAC:ZONEMIXER,LOBBY RTU ZONE MIXER,Inlet,1
+ Non-Parent Node Connection,OFFICE RTU MIXED AIR OUTLET,OUTDOORAIR:MIXER,OFFICE RTU OA MIXING BOX,Outlet,1
+ Non-Parent Node Connection,OFFICE RTU OUTSIDE AIR INLET,OUTDOORAIR:MIXER,OFFICE RTU OA MIXING BOX,Inlet,1
+ Non-Parent Node Connection,OFFICE RTU RELIEF AIR OUTLET,OUTDOORAIR:MIXER,OFFICE RTU OA MIXING BOX,ReliefAir,1
+ Non-Parent Node Connection,OFFICE RTU AIR LOOP INLET,OUTDOORAIR:MIXER,OFFICE RTU OA MIXING BOX,Inlet,1
+ Non-Parent Node Connection,LOBBY RTU MIXED AIR OUTLET,OUTDOORAIR:MIXER,LOBBY RTU OA MIXING BOX,Outlet,1
+ Non-Parent Node Connection,LOBBY RTU OUTSIDE AIR INLET,OUTDOORAIR:MIXER,LOBBY RTU OA MIXING BOX,Inlet,1
+ Non-Parent Node Connection,LOBBY RTU RELIEF AIR OUTLET,OUTDOORAIR:MIXER,LOBBY RTU OA MIXING BOX,ReliefAir,1
+ Non-Parent Node Connection,LOBBY RTU AIR LOOP INLET,OUTDOORAIR:MIXER,LOBBY RTU OA MIXING BOX,Inlet,1
+ Non-Parent Node Connection,OFFICE RTU MIXED AIR OUTLET,CONTROLLER:OUTDOORAIR,OFFICE RTU OA CONTROLLER,Sensor,1
+ Non-Parent Node Connection,OFFICE RTU OUTSIDE AIR INLET,CONTROLLER:OUTDOORAIR,OFFICE RTU OA CONTROLLER,Actuator,1
+ Non-Parent Node Connection,OFFICE RTU RELIEF AIR OUTLET,CONTROLLER:OUTDOORAIR,OFFICE RTU OA CONTROLLER,Actuator,1
+ Non-Parent Node Connection,OFFICE RTU AIR LOOP INLET,CONTROLLER:OUTDOORAIR,OFFICE RTU OA CONTROLLER,Sensor,1
+ Non-Parent Node Connection,LOBBY RTU MIXED AIR OUTLET,CONTROLLER:OUTDOORAIR,LOBBY RTU OA CONTROLLER,Sensor,1
+ Non-Parent Node Connection,LOBBY RTU OUTSIDE AIR INLET,CONTROLLER:OUTDOORAIR,LOBBY RTU OA CONTROLLER,Actuator,1
+ Non-Parent Node Connection,LOBBY RTU RELIEF AIR OUTLET,CONTROLLER:OUTDOORAIR,LOBBY RTU OA CONTROLLER,Actuator,1
+ Non-Parent Node Connection,LOBBY RTU AIR LOOP INLET,CONTROLLER:OUTDOORAIR,LOBBY RTU OA CONTROLLER,Sensor,1
+ Non-Parent Node Connection,OFFICE RTU MIXED AIR OUTLET,FAN:ONOFF,OFFICE RTU SUPPLY FAN,Inlet,1
+ Non-Parent Node Connection,OFFICE RTU SUPPLY FAN OUTLET,FAN:ONOFF,OFFICE RTU SUPPLY FAN,Outlet,1
+ Non-Parent Node Connection,LOBBY RTU MIXED AIR OUTLET,FAN:ONOFF,LOBBY RTU SUPPLY FAN,Inlet,1
+ Non-Parent Node Connection,LOBBY RTU SUPPLY FAN OUTLET,FAN:ONOFF,LOBBY RTU SUPPLY FAN,Outlet,1
+ Non-Parent Node Connection,OFFICE RTU SUPPLY FAN OUTLET,COIL:HEATING:FUEL,OFFICE RTU HEATING COIL,Inlet,1
+ Non-Parent Node Connection,OFFICE RTU HEATING COIL OUTLET,COIL:HEATING:FUEL,OFFICE RTU HEATING COIL,Outlet,1
+ Non-Parent Node Connection,LOBBY RTU SUPPLY FAN OUTLET,COIL:HEATING:FUEL,LOBBY RTU HEATING COIL,Inlet,1
+ Non-Parent Node Connection,LOBBY RTU HEATING COIL OUTLET,COIL:HEATING:FUEL,LOBBY RTU HEATING COIL,Outlet,1
+ Non-Parent Node Connection,OFFICE RTU HEATING COIL OUTLET,COIL:COOLING:DX:SINGLESPEED,OFFICE RTU COOLING COIL,Inlet,1
+ Non-Parent Node Connection,OFFICE RTU AIR LOOP OUTLET,COIL:COOLING:DX:SINGLESPEED,OFFICE RTU COOLING COIL,Outlet,1
+ Non-Parent Node Connection,OFFICE RTU COOLING COIL CONDENSER INLET,COIL:COOLING:DX:SINGLESPEED,OFFICE RTU COOLING COIL,OutsideAirReference,1
+ Non-Parent Node Connection,LOBBY RTU HEATING COIL OUTLET,COIL:COOLING:DX:SINGLESPEED,LOBBY RTU COOLING COIL,Inlet,1
+ Non-Parent Node Connection,LOBBY RTU AIR LOOP OUTLET,COIL:COOLING:DX:SINGLESPEED,LOBBY RTU COOLING COIL,Outlet,1
+ Non-Parent Node Connection,LOBBY RTU COOLING COIL CONDENSER INLET,COIL:COOLING:DX:SINGLESPEED,LOBBY RTU COOLING COIL,OutsideAirReference,1

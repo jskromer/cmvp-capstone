@@ -1,0 +1,71 @@
+Program Version,EnergyPlus, Version 25.2.0-cf7368216c, YMD=2026.04.02 09:44,
+   ** Warning ** No Timestep object found.  Number of TimeSteps in Hour defaulted to 4.
+   ** Warning ** ProcessScheduleInput: Schedule:Compact = OFFICE_OCC_SCH
+   **   ~~~   ** has missing day types in Through=12/31
+   **   ~~~   ** Last "For" field=FOR: SUNDAY
+   **   ~~~   ** Missing day types= "Holiday", "SummerDesignDay", "WinterDesignDay", "CustomDay1", "CustomDay2"
+   **   ~~~   ** Missing day types will have 0.0 as Schedule Values
+   ** Warning ** ProcessScheduleInput: Schedule:Compact = LOBBY_OCC_SCH
+   **   ~~~   ** has missing day types in Through=12/31
+   **   ~~~   ** Last "For" field=FOR: WEEKEND
+   **   ~~~   ** Missing day types= "Holiday", "SummerDesignDay", "WinterDesignDay", "CustomDay1", "CustomDay2"
+   **   ~~~   ** Missing day types will have 0.0 as Schedule Values
+   ** Warning ** ProcessScheduleInput: Schedule:Compact = OFFICE_LIGHTING_SCH
+   **   ~~~   ** has missing day types in Through=12/31
+   **   ~~~   ** Last "For" field=FOR: SUNDAY
+   **   ~~~   ** Missing day types= "Holiday", "SummerDesignDay", "WinterDesignDay", "CustomDay1", "CustomDay2"
+   **   ~~~   ** Missing day types will have 0.0 as Schedule Values
+   ** Warning ** ProcessScheduleInput: Schedule:Compact = OFFICE_EQUIP_SCH
+   **   ~~~   ** has missing day types in Through=12/31
+   **   ~~~   ** Last "For" field=FOR: WEEKEND
+   **   ~~~   ** Missing day types= "Holiday", "SummerDesignDay", "WinterDesignDay", "CustomDay1", "CustomDay2"
+   **   ~~~   ** Missing day types will have 0.0 as Schedule Values
+   ** Warning ** ProcessScheduleInput: Schedule:Compact = LOBBY_EQUIP_SCH
+   **   ~~~   ** has missing day types in Through=12/31
+   **   ~~~   ** Last "For" field=FOR: WEEKEND
+   **   ~~~   ** Missing day types= "Holiday", "SummerDesignDay", "WinterDesignDay", "CustomDay1", "CustomDay2"
+   **   ~~~   ** Missing day types will have 0.0 as Schedule Values
+   ** Warning ** ProcessScheduleInput: Schedule:Compact = INFIL_SCH
+   **   ~~~   ** has missing day types in Through=12/31
+   **   ~~~   ** Last "For" field=FOR: WEEKEND
+   **   ~~~   ** Missing day types= "Holiday", "SummerDesignDay", "WinterDesignDay", "CustomDay1", "CustomDay2"
+   **   ~~~   ** Missing day types will have 0.0 as Schedule Values
+   ************* Beginning Zone Sizing Calculations
+   ** Warning ** Site:GroundTemperature:BuildingSurface: Some values fall outside the range of 15-25C.
+   **   ~~~   ** These values may be inappropriate.  Please consult the Input Output Reference for more details.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="OFFICE:FLOOR", in Zone="OFFICE".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="OFFICE:ROOF", in Zone="OFFICE".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="LOBBY:FLOOR", in Zone="LOBBY".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="LOBBY:ROOF", in Zone="LOBBY".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetSimpleAirModelInputs: ZoneInfiltration:DesignFlowRate="LOBBY INFILTRATION", Design Flow Rate Calculation Method specifies Flow Rate per Exterior Surface Area, but that field is blank.  0 Infiltration will result.
+   ************* Beginning System Sizing Calculations
+   ** Warning ** ManageSizing: For a plant sizing run, there must be at least 1 Sizing:Plant object input. SimulationControl Plant Sizing option ignored.
+   ************* Testing Individual Branch Integrity
+   ************* All Branches passed integrity testing
+   ************* Testing Individual Supply Air Path Integrity
+   ************* All Supply Air Paths passed integrity testing
+   ************* Testing Individual Return Air Path Integrity
+   ************* All Return Air Paths passed integrity testing
+   ************* No node connection errors were found.
+   ************* Beginning Simulation
+   ** Warning ** Temperature out of range [-100. to 200.] (PsyPsatFnTemp)
+   **   ~~~   **  Routine=PsyTwbFnTdbWPb, Environment=ANNUAL, at Simulation time=03/15 19:45 - 20:00
+   **   ~~~   **  Input Temperature=-124.32
+   ************* Simulation Error Summary *************
+   *************
+   ************* ===== Recurring Error Summary =====
+   ************* The following recurring error messages occurred.
+   *************
+   *************  ** Warning ** Temperature out of range [-100. to 200.] (PsyPsatFnTemp)
+   *************  **   ~~~   **   This error occurred 1 total times;
+   *************  **   ~~~   **   during Warmup 0 times;
+   *************  **   ~~~   **   during Sizing 0 times.
+   *************  **   ~~~   **   Max=-124.324329 C  Min=-124.324329 C
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 7 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 15 Warning; 0 Severe Errors; Elapsed Time=00hr 00min  1.05sec

@@ -810,11 +810,11 @@
     Counterfactual HQ <span>· CMVP Capstone</span>
   </div>
   <nav>
-    <a onclick="show('building')">The Building</a>
-    <a onclick="show('day1')">Day 1</a>
-    <a onclick="show('day2')">Day 2</a>
-    <a onclick="show('day3')">Day 3</a>
-    <a onclick="show('cut3')">Model Fitter</a>
+    <a href="javascript:void(0)" onclick="show('building')">The Building</a>
+    <a href="javascript:void(0)" onclick="show('day1')">Day 1</a>
+    <a href="javascript:void(0)" onclick="show('day2')">Day 2</a>
+    <a href="javascript:void(0)" onclick="show('day3')">Day 3</a>
+    <a href="javascript:void(0)" onclick="show('cut5')">Model Fitter</a>
   </nav>
 </div>
 
@@ -827,7 +827,7 @@
   <div class="hub-hero">
     <div class="hub-title">CMVP Capstone — 3-Day Training</div>
     <div class="hub-subtitle">Counterfactual HQ</div>
-    <div class="hub-desc">One building. Twelve cuts. Every major M&V judgment made visible.</div>
+    <div class="hub-desc">One building. Nine cuts. Every major M&V judgment made visible.</div>
   </div>
 
   <!-- Building card -->
@@ -960,15 +960,331 @@
 <div id="building" class="page">
   <div class="day-page">
     <div class="breadcrumb">
-      <a onclick="show('hub')">← Hub</a> / The Building
+      <a href="javascript:void(0)" onclick="show('hub')">← Hub</a> / The Building
     </div>
     <div class="day-header">
       <h1>Counterfactual Headquarters</h1>
-      <p>Reference document — available throughout all three days.</p>
+      <p>Reference document — available throughout all three days. Print this page or keep it open.</p>
     </div>
-    <div style="color: var(--ink-light); font-size:0.9rem; padding: 1.5rem; background: var(--cream-light); border: 1px solid var(--border); border-radius:8px;">
-      Full building reference page — stakeholder matrix, utility rates, timeline, ECM detail sheets. <em>(Coming in full build.)</em>
+
+    <!-- ── 1. Building Overview ── -->
+    <div style="display:grid; grid-template-columns:220px 1fr; gap:2rem; background:var(--cream-light); border:1px solid var(--border); border-radius:8px; padding:1.5rem 2rem; margin-bottom:1.5rem; align-items:start;">
+
+      <!-- Floor plan -->
+      <div class="floor-plan">
+        <svg class="fp-svg" viewBox="0 0 180 130" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="8" width="164" height="114" fill="#f0ebe2" stroke="#aaa" stroke-width="1.5" rx="2"/>
+          <rect x="8" y="8" width="110" height="114" fill="#ddeee8" stroke="#7eb5a0" stroke-width="1" rx="2"/>
+          <text x="56" y="62" text-anchor="middle" font-family="IBM Plex Sans" font-size="9" fill="#2d4a3e" font-weight="500">OFFICE WING</text>
+          <text x="56" y="73" text-anchor="middle" font-family="IBM Plex Sans" font-size="7.5" fill="#4a7c6a">8,000 sf</text>
+          <rect x="118" y="8" width="54" height="114" fill="#f5f0e8" stroke="#aaa" stroke-width="1" rx="2"/>
+          <text x="145" y="58" text-anchor="middle" font-family="IBM Plex Sans" font-size="8" fill="#78716c">LOBBY /</text>
+          <text x="145" y="69" text-anchor="middle" font-family="IBM Plex Sans" font-size="8" fill="#78716c">COMMON</text>
+          <text x="145" y="80" text-anchor="middle" font-family="IBM Plex Sans" font-size="7.5" fill="#78716c">4,000 sf</text>
+          <circle cx="63" cy="118" r="5" fill="none" stroke="#2d4a3e" stroke-width="1.2"/>
+          <text x="63" y="121" text-anchor="middle" font-family="IBM Plex Mono" font-size="5.5" fill="#2d4a3e">M</text>
+          <rect x="140" y="10" width="20" height="12" fill="#e0d8cc" stroke="#aaa" stroke-width="1" rx="1"/>
+          <text x="150" y="18" text-anchor="middle" font-family="IBM Plex Mono" font-size="5.5" fill="#78716c">RTU</text>
+          <text x="56" y="92" text-anchor="middle" font-family="IBM Plex Mono" font-size="6.5" fill="#2d4a3e">ECM-1 LED</text>
+        </svg>
+      </div>
+
+      <!-- Specs -->
+      <div>
+        <div style="font-size:0.7rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.25rem;">Building Profile</div>
+        <div style="font-size:0.875rem; color:var(--ink-light); line-height:1.7; margin-bottom:1rem;">
+          12,000 sf single-story municipal building<br>
+          ASHRAE Climate Zone 4A (Mid-Atlantic — Washington Dulles)<br>
+          Gas heat + DX cooling · Two packaged rooftop units<br>
+          One electric meter · One gas meter<br>
+          24-month baseline · 12-month reporting period
+        </div>
+        <div class="ecm-row" style="margin-bottom:0.5rem;">
+          <span class="ecm-tag">ECM-1</span>
+          <span class="ecm-name">LED Lighting — Office Wing</span>
+          <span class="uncertainty-badge low">LOW uncertainty</span>
+        </div>
+        <div class="ecm-row">
+          <span class="ecm-tag">ECM-2</span>
+          <span class="ecm-name">HVAC Controls — Whole Facility</span>
+          <span class="uncertainty-badge high">HIGH uncertainty</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; margin-top:1rem;">
+          <div class="stat"><div class="stat-label">Baseline EUI</div><div class="stat-value">94.9 kBtu/sf</div></div>
+          <div class="stat"><div class="stat-label">Contract</div><div class="stat-value">ESPC / Guaranteed</div></div>
+          <div class="stat"><div class="stat-label">NRA Event</div><div class="stat-value">Month 9</div></div>
+        </div>
+      </div>
     </div>
+
+    <!-- ── 2. Systems & Envelope ── -->
+    <div style="background:var(--cream-light); border:1px solid var(--border); border-radius:8px; padding:1.25rem 1.5rem; margin-bottom:1.5rem;">
+      <div style="font-size:0.7rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.75rem;">Systems &amp; Envelope</div>
+      <table style="width:100%; border-collapse:collapse; font-size:0.875rem;">
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:0.4rem 0; color:var(--ink-faint); width:140px;">Roof</td>
+          <td style="padding:0.4rem 0;">R-25 (metal deck + polyiso insulation)</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:0.4rem 0; color:var(--ink-faint);">Walls</td>
+          <td style="padding:0.4rem 0;">R-7.5 continuous insulation (8" CMU + polyiso)</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:0.4rem 0; color:var(--ink-faint);">Windows</td>
+          <td style="padding:0.4rem 0;">Double-pane low-E &nbsp;·&nbsp; U = 2.05 W/m&sup2;K &nbsp;·&nbsp; SHGC = 0.40</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:0.4rem 0; color:var(--ink-faint);">HVAC</td>
+          <td style="padding:0.4rem 0;">2 &times; PSZ-AC rooftop units &nbsp;·&nbsp; DX cooling COP 3.50 &nbsp;·&nbsp; Gas furnace 80% eff.</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:0.4rem 0; color:var(--ink-faint);">Setpoints</td>
+          <td style="padding:0.4rem 0;">Office: 70/75&deg;F &nbsp;·&nbsp; Lobby: 68/77&deg;F &nbsp;·&nbsp; No setback (baseline)</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:0.4rem 0; color:var(--ink-faint);">Office Lighting</td>
+          <td style="padding:0.4rem 0;">1.5 W/sf (T8 fluorescent, 180 fixtures) &nbsp;·&nbsp; At minimum acceptable lux</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:0.4rem 0; color:var(--ink-faint);">Lobby Lighting</td>
+          <td style="padding:0.4rem 0;">1.0 W/sf (LED — already installed, not part of retrofit)</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:0.4rem 0; color:var(--ink-faint);">Plug Loads</td>
+          <td style="padding:0.4rem 0;">Office: 1.0 W/sf &nbsp;·&nbsp; Lobby: 0.5 W/sf</td>
+        </tr>
+        <tr>
+          <td style="padding:0.4rem 0; color:var(--ink-faint);">Outdoor Air</td>
+          <td style="padding:0.4rem 0;">20 cfm/person &nbsp;·&nbsp; Infiltration 0.06 cfm/sf EWA</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- ── 3. ECM Detail Sheets ── -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-bottom:1.5rem;">
+
+      <!-- ECM-1 -->
+      <div style="background:var(--cream-light); border:1px solid var(--border); border-radius:8px; padding:1.25rem 1.5rem;">
+        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
+          <span class="ecm-tag">ECM-1</span>
+          <span style="font-size:1rem; font-weight:600;">LED Lighting Retrofit</span>
+        </div>
+        <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.35rem 0; color:var(--ink-faint); width:100px;">Scope</td>
+            <td style="padding:0.35rem 0;">Office wing only — 180 T8 fixtures &rarr; LED</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.35rem 0; color:var(--ink-faint);">Target LPD</td>
+            <td style="padding:0.35rem 0;">0.75 W/sf (50% reduction)</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.35rem 0; color:var(--ink-faint);">Approach</td>
+            <td style="padding:0.35rem 0;">Retrofit isolation &nbsp;·&nbsp; Key parameter measurement</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.35rem 0; color:var(--ink-faint);">Savings</td>
+            <td style="padding:0.35rem 0;"><strong style="font-family:'IBM Plex Mono',monospace;">~20,700 kWh/yr</strong> electric</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.35rem 0; color:var(--ink-faint);">Interactive</td>
+            <td style="padding:0.35rem 0; color:var(--red);">Gas +270 therms/yr (lost heat gain)</td>
+          </tr>
+          <tr>
+            <td style="padding:0.35rem 0; color:var(--ink-faint);">Uncertainty</td>
+            <td style="padding:0.35rem 0;"><span class="uncertainty-badge low">LOW</span></td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- ECM-2 -->
+      <div style="background:var(--cream-light); border:1px solid var(--border); border-radius:8px; padding:1.25rem 1.5rem;">
+        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
+          <span class="ecm-tag">ECM-2</span>
+          <span style="font-size:1rem; font-weight:600;">HVAC Controls Upgrade</span>
+        </div>
+        <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.35rem 0; color:var(--ink-faint); width:100px;">Scope</td>
+            <td style="padding:0.35rem 0;">Whole facility — new DDC controls on RTUs</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.35rem 0; color:var(--ink-faint);">Changes</td>
+            <td style="padding:0.35rem 0;">Optimized setpoints + night setback scheduling</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.35rem 0; color:var(--ink-faint);">Approach</td>
+            <td style="padding:0.35rem 0;">Whole facility &nbsp;·&nbsp; 5P electric / 3P gas inverse model</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.35rem 0; color:var(--ink-faint);">Savings</td>
+            <td style="padding:0.35rem 0;"><strong style="font-family:'IBM Plex Mono',monospace;">~2,840 therms/yr</strong> gas</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.35rem 0; color:var(--ink-faint);">Interactive</td>
+            <td style="padding:0.35rem 0;">Minimal electric impact (scheduling, not load)</td>
+          </tr>
+          <tr>
+            <td style="padding:0.35rem 0; color:var(--ink-faint);">Uncertainty</td>
+            <td style="padding:0.35rem 0;"><span class="uncertainty-badge high">HIGH</span></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── 4. Baseline Energy Summary ── -->
+    <div style="background:var(--cream-light); border:1px solid var(--border); border-radius:8px; padding:1.25rem 1.5rem; margin-bottom:1.5rem;">
+      <div style="font-size:0.7rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.75rem;">Baseline Energy Data — 12 Months (EnergyPlus 25.2 · Dulles TMY3)</div>
+      <table style="width:100%; border-collapse:collapse; font-size:0.85rem; font-family:'IBM Plex Mono',monospace;">
+        <thead>
+          <tr style="border-bottom:2px solid var(--border); font-family:'IBM Plex Sans',sans-serif; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint);">
+            <th style="padding:0.4rem 0; text-align:left;">Month</th>
+            <th style="padding:0.4rem 0; text-align:right;">OAT (&deg;F)</th>
+            <th style="padding:0.4rem 0; text-align:right;">Electric (kWh)</th>
+            <th style="padding:0.4rem 0; text-align:right;">Gas (therms)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.3rem 0;">Jan</td><td style="padding:0.3rem 0; text-align:right;">33.0</td><td style="padding:0.3rem 0; text-align:right;">8,910</td><td style="padding:0.3rem 0; text-align:right;">1,397</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.3rem 0;">Feb</td><td style="padding:0.3rem 0; text-align:right;">34.9</td><td style="padding:0.3rem 0; text-align:right;">8,087</td><td style="padding:0.3rem 0; text-align:right;">1,330</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.3rem 0;">Mar</td><td style="padding:0.3rem 0; text-align:right;">45.9</td><td style="padding:0.3rem 0; text-align:right;">9,116</td><td style="padding:0.3rem 0; text-align:right;">1,150</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.3rem 0;">Apr</td><td style="padding:0.3rem 0; text-align:right;">54.4</td><td style="padding:0.3rem 0; text-align:right;">8,398</td><td style="padding:0.3rem 0; text-align:right;">765</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.3rem 0;">May</td><td style="padding:0.3rem 0; text-align:right;">64.7</td><td style="padding:0.3rem 0; text-align:right;">9,402</td><td style="padding:0.3rem 0; text-align:right;">372</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.3rem 0;">Jun</td><td style="padding:0.3rem 0; text-align:right;">72.5</td><td style="padding:0.3rem 0; text-align:right;">9,745</td><td style="padding:0.3rem 0; text-align:right;">104</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.3rem 0;">Jul</td><td style="padding:0.3rem 0; text-align:right;">76.1</td><td style="padding:0.3rem 0; text-align:right;">10,531</td><td style="padding:0.3rem 0; text-align:right;">9</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.3rem 0;">Aug</td><td style="padding:0.3rem 0; text-align:right;">73.4</td><td style="padding:0.3rem 0; text-align:right;">10,876</td><td style="padding:0.3rem 0; text-align:right;">13</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.3rem 0;">Sep</td><td style="padding:0.3rem 0; text-align:right;">68.2</td><td style="padding:0.3rem 0; text-align:right;">9,728</td><td style="padding:0.3rem 0; text-align:right;">59</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.3rem 0;">Oct</td><td style="padding:0.3rem 0; text-align:right;">53.5</td><td style="padding:0.3rem 0; text-align:right;">9,138</td><td style="padding:0.3rem 0; text-align:right;">364</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.3rem 0;">Nov</td><td style="padding:0.3rem 0; text-align:right;">46.1</td><td style="padding:0.3rem 0; text-align:right;">8,773</td><td style="padding:0.3rem 0; text-align:right;">733</td></tr>
+          <tr style="border-bottom:1px solid var(--border);"><td style="padding:0.3rem 0;">Dec</td><td style="padding:0.3rem 0; text-align:right;">33.8</td><td style="padding:0.3rem 0; text-align:right;">8,736</td><td style="padding:0.3rem 0; text-align:right;">1,295</td></tr>
+        </tbody>
+        <tfoot>
+          <tr style="font-weight:600; border-top:2px solid var(--ink-faint);">
+            <td style="padding:0.4rem 0;" colspan="2">Annual Total</td>
+            <td style="padding:0.4rem 0; text-align:right;">111,440</td>
+            <td style="padding:0.4rem 0; text-align:right;">7,591</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <!-- ── 5. Stakeholder & Risk Matrix ── -->
+    <div style="background:var(--cream-light); border:1px solid var(--border); border-radius:8px; padding:1.25rem 1.5rem; margin-bottom:1.5rem;">
+      <div style="font-size:0.7rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.75rem;">Stakeholder &amp; Risk Matrix</div>
+      <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+        <thead>
+          <tr style="border-bottom:2px solid var(--border); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint);">
+            <th style="padding:0.4rem 0; text-align:left;">Stakeholder</th>
+            <th style="padding:0.4rem 0; text-align:left;">Role</th>
+            <th style="padding:0.4rem 0; text-align:left;">Primary Risk</th>
+            <th style="padding:0.4rem 0; text-align:left;">M&amp;V Implication</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.4rem 0; font-weight:500;">ESCO</td>
+            <td style="padding:0.4rem 0; color:var(--ink-light);">Implements ECMs, guarantees savings</td>
+            <td style="padding:0.4rem 0; color:var(--ink-light);">Performance risk — pays shortfall</td>
+            <td style="padding:0.4rem 0; color:var(--ink-light);">Wants conservative baseline (higher counterfactual)</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.4rem 0; font-weight:500;">Municipality</td>
+            <td style="padding:0.4rem 0; color:var(--ink-light);">Building owner, financer</td>
+            <td style="padding:0.4rem 0; color:var(--ink-light);">Financial risk — debt service on ESPC</td>
+            <td style="padding:0.4rem 0; color:var(--ink-light);">Wants accurate savings reflecting public value</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.4rem 0; font-weight:500;">CMVP</td>
+            <td style="padding:0.4rem 0; color:var(--ink-light);">Independent M&amp;V professional</td>
+            <td style="padding:0.4rem 0; color:var(--ink-light);">Professional — credibility and defensibility</td>
+            <td style="padding:0.4rem 0; color:var(--ink-light);">Serves the agreement, not either party</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:0.4rem 0; font-weight:500;">Facility Users</td>
+            <td style="padding:0.4rem 0; color:var(--ink-light);">Occupants, community members</td>
+            <td style="padding:0.4rem 0; color:var(--ink-light);">Service level — comfort, lighting quality</td>
+            <td style="padding:0.4rem 0; color:var(--ink-light);">Baseline must reflect code-compliant service</td>
+          </tr>
+          <tr>
+            <td style="padding:0.4rem 0; font-weight:500;">Financer</td>
+            <td style="padding:0.4rem 0; color:var(--ink-light);">Debt holder (if third-party financed)</td>
+            <td style="padding:0.4rem 0; color:var(--ink-light);">Credit risk — repayment from savings stream</td>
+            <td style="padding:0.4rem 0; color:var(--ink-light);">Requires transparent, auditable M&amp;V reporting</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:0.75rem; padding:0.75rem 0.875rem; background:var(--green-light); border-left:3px solid var(--green-dark); border-radius:0 4px 4px 0; font-size:0.8rem; color:var(--ink); line-height:1.5;">
+        <strong>The CMVP serves the agreement.</strong> The ESCO wants conservative baselines. The municipality wants aggressive savings claims. The CMVP facilitates agreement before the baseline is built — then executes the plan both parties signed.
+      </div>
+    </div>
+
+    <!-- ── 6. Project Timeline ── -->
+    <div style="background:var(--cream-light); border:1px solid var(--border); border-radius:8px; padding:1.25rem 1.5rem; margin-bottom:1.5rem;">
+      <div style="font-size:0.7rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.75rem;">Project Timeline</div>
+      <div style="display:flex; align-items:stretch; gap:0; font-size:0.8rem;">
+
+        <!-- Baseline -->
+        <div style="flex:2; background:var(--green-light); border:1px solid #a8d0c4; border-radius:6px 0 0 6px; padding:0.6rem 0.75rem; text-align:center;">
+          <div style="font-weight:600; color:var(--green-dark); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em;">Baseline Period</div>
+          <div style="color:var(--ink-light); font-size:0.75rem; margin-top:0.15rem;">24 months of pre-retrofit data</div>
+        </div>
+
+        <!-- Retrofit -->
+        <div style="width:3px; background:var(--amber);"></div>
+        <div style="flex:0.5; background:var(--amber-light); border:1px solid #f59e0b; padding:0.6rem 0.5rem; text-align:center;">
+          <div style="font-weight:600; color:#92400e; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em;">Install</div>
+          <div style="color:#92400e; font-size:0.7rem; margin-top:0.15rem;">ECM-1 &amp; 2</div>
+        </div>
+
+        <!-- Reporting -->
+        <div style="width:3px; background:var(--amber);"></div>
+        <div style="flex:2; background:white; border:1px solid var(--border); border-radius:0 6px 6px 0; padding:0.6rem 0.75rem; text-align:center; position:relative;">
+          <div style="font-weight:600; color:var(--ink); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em;">Reporting Period</div>
+          <div style="color:var(--ink-light); font-size:0.75rem; margin-top:0.15rem;">12 months post-retrofit</div>
+          <div style="position:absolute; top:-1px; right:25%; bottom:-1px; width:2px; border-left:2px dashed var(--red);"></div>
+          <div style="position:absolute; top:-18px; right:22%; font-size:0.65rem; font-weight:600; color:var(--red); white-space:nowrap;">Month 9: NRA</div>
+        </div>
+      </div>
+      <div style="margin-top:0.75rem; font-size:0.8rem; color:var(--ink-light); line-height:1.5;">
+        <strong style="color:var(--red);">NRA Event — Month 9:</strong> Community room addition (1,200 sf) with new HVAC zone. Known in advance. Pre-documented in M&amp;V plan with agreed adjustment methodology. Adds ~420 kWh/month to electric consumption.
+      </div>
+    </div>
+
+    <!-- ── 7. Utility Rate Structure ── -->
+    <div style="background:var(--cream-light); border:1px solid var(--border); border-radius:8px; padding:1.25rem 1.5rem; margin-bottom:1.5rem;">
+      <div style="font-size:0.7rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:0.75rem;">Utility Rate Structure</div>
+      <table style="width:100%; border-collapse:collapse; font-size:0.85rem; max-width:500px;">
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:0.4rem 0; color:var(--ink-faint); width:140px;">Electric (blended)</td>
+          <td style="padding:0.4rem 0; font-family:'IBM Plex Mono',monospace; font-weight:500;">$0.105 / kWh</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:0.4rem 0; color:var(--ink-faint);">Natural Gas</td>
+          <td style="padding:0.4rem 0; font-family:'IBM Plex Mono',monospace; font-weight:500;">$1.20 / therm</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border);">
+          <td style="padding:0.4rem 0; color:var(--ink-faint);">Est. Annual Cost</td>
+          <td style="padding:0.4rem 0; font-family:'IBM Plex Mono',monospace; font-weight:500;">$11,701 elec + $9,109 gas = $20,810</td>
+        </tr>
+        <tr>
+          <td style="padding:0.4rem 0; color:var(--ink-faint);">Demand Charge</td>
+          <td style="padding:0.4rem 0; color:var(--ink-light);">Not modeled in this capstone (simplification)</td>
+        </tr>
+      </table>
+      <div style="margin-top:0.75rem; padding:0.75rem 0.875rem; background:var(--amber-light); border-left:3px solid var(--amber); border-radius:0 4px 4px 0; font-size:0.8rem; color:#92400e; line-height:1.5;">
+        <strong>Teaching point (Day 3):</strong> The blended rate ($0.105/kWh) is a simplification. Marginal rates vary by tier and season. The difference between blended and marginal valuation is quantified in the cost-avoidance calculator.
+      </div>
+    </div>
+
+    <!-- ── 8. IDF as Epistemological Basis ── -->
+    <div style="margin-bottom:1.5rem; padding:1rem 1.25rem; background:#e8f0f8; border-left:3px solid #3b82f6; border-radius:0 8px 8px 0;">
+      <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:#1e40af; margin-bottom:0.5rem;">The IDF is the energy audit in computable form.</div>
+      <div style="font-size:0.85rem; color:var(--ink-light); line-height:1.65;">
+        The EnergyPlus Input Description File encodes every system, schedule, load, and assumption about this building as-found. It is not just a simulation input — it is the documented epistemological basis for every boundary decision, every model assumption, and every Non-Routine Adjustment trigger that follows.<br><br>
+        A rigorous energy audit should produce an IDF. Everything else — the regression model, the savings estimate, the uncertainty budget — is downstream of that record.
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -980,7 +1296,7 @@
   <div class="day-page">
 
     <div class="breadcrumb">
-      <a onclick="show('hub')">← Hub</a> / Day 1 — Context &amp; Boundaries
+      <a href="javascript:void(0)" onclick="show('hub')">← Hub</a> / Day 1 — Context &amp; Boundaries
     </div>
 
     <div class="day-nav-tabs">
@@ -1006,14 +1322,94 @@
           </div>
           <div class="section-slides">75 slides</div>
         </div>
-        <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 1</div>
-          <div class="cut-body">
-            <div class="cut-title">Boundary Setting</div>
-            <div class="cut-trigger">↳ After "Three Types of Models" — "Where does the measurement stop?"</div>
-            <div class="cut-desc">Single-line diagram of CFHQ · Mark meter locations · Draw ECM-1 (subpanel) and ECM-2 (whole facility) boundaries · Judgment: lobby LEDs inside or outside ECM-1?</div>
+        <div class="inline-cut-card" style="display:block; padding:1rem 1.25rem;">
+          <div style="display:flex; align-items:center; gap:0.875rem; margin-bottom:0.75rem;">
+            <div class="cut-badge">▶ CUT 1</div>
+            <div>
+              <div class="cut-title">Boundary Setting</div>
+              <div class="cut-trigger">↳ After "Three Types of Models" — "Where does the measurement stop?"</div>
+            </div>
           </div>
-          <button class="soon-btn">Coming soon</button>
+
+          <!-- Single-line diagram -->
+          <svg viewBox="0 0 580 170" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:580px; display:block; margin-bottom:1rem; background:white; border:1px solid var(--border); border-radius:6px; padding:0.5rem;">
+            <!-- Utility -->
+            <circle cx="30" cy="85" r="14" fill="none" stroke="#2d4a3e" stroke-width="2"/>
+            <text x="30" y="89" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#2d4a3e" font-weight="600">M</text>
+            <text x="30" y="115" text-anchor="middle" font-family="IBM Plex Sans" font-size="9" fill="#78716c">Utility</text>
+            <text x="30" y="126" text-anchor="middle" font-family="IBM Plex Sans" font-size="9" fill="#78716c">Meter</text>
+            <!-- Main bus -->
+            <line x1="44" y1="85" x2="520" y2="85" stroke="#aaa" stroke-width="2"/>
+            <text x="280" y="75" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" fill="#aaa">MAIN DISTRIBUTION BUS</text>
+            <!-- Branch 1: Lighting -->
+            <line x1="120" y1="85" x2="120" y2="140" stroke="#2d4a3e" stroke-width="1.5"/>
+            <rect x="85" y="140" width="70" height="28" rx="3" fill="#ddeee8" stroke="#7eb5a0" stroke-width="1.5"/>
+            <text x="120" y="155" text-anchor="middle" font-family="IBM Plex Sans" font-size="8.5" fill="#2d4a3e" font-weight="500">Office Lighting</text>
+            <text x="120" y="155" text-anchor="middle" font-family="IBM Plex Mono" font-size="7" fill="#4a7c6a" dy="9">Panel A — 180 fix</text>
+            <!-- Branch 2: HVAC -->
+            <line x1="260" y1="85" x2="260" y2="140" stroke="#44403c" stroke-width="1.5"/>
+            <rect x="220" y="140" width="80" height="28" rx="3" fill="#f5f0e8" stroke="#aaa" stroke-width="1"/>
+            <text x="260" y="155" text-anchor="middle" font-family="IBM Plex Sans" font-size="8.5" fill="#44403c" font-weight="500">RTU / HVAC</text>
+            <text x="260" y="155" text-anchor="middle" font-family="IBM Plex Mono" font-size="7" fill="#78716c" dy="9">DDC Controls</text>
+            <!-- Heat gain arrow -->
+            <path d="M155,149 C180,149 200,149 220,149" fill="none" stroke="#c9a227" stroke-width="1" stroke-dasharray="3,2"/>
+            <polygon points="218,146 224,149 218,152" fill="#c9a227"/>
+            <text x="188" y="141" text-anchor="middle" font-family="IBM Plex Sans" font-size="6.5" fill="#c9a227" font-style="italic">heat gain</text>
+            <!-- Branch 3: Plugs -->
+            <line x1="400" y1="85" x2="400" y2="140" stroke="#44403c" stroke-width="1.5"/>
+            <rect x="360" y="140" width="80" height="28" rx="3" fill="#f5f0e8" stroke="#aaa" stroke-width="1"/>
+            <text x="400" y="155" text-anchor="middle" font-family="IBM Plex Sans" font-size="8.5" fill="#44403c" font-weight="500">Plugs / Misc</text>
+            <text x="400" y="155" text-anchor="middle" font-family="IBM Plex Mono" font-size="7" fill="#78716c" dy="9">Panel C</text>
+            <!-- Lobby LEDs -->
+            <line x1="500" y1="85" x2="500" y2="140" stroke="#44403c" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <rect x="465" y="140" width="70" height="28" rx="3" fill="#f0ebe2" stroke="#aaa" stroke-width="1" stroke-dasharray="3,2"/>
+            <text x="500" y="155" text-anchor="middle" font-family="IBM Plex Sans" font-size="8" fill="#78716c">Lobby LEDs</text>
+            <text x="500" y="155" text-anchor="middle" font-family="IBM Plex Mono" font-size="6.5" fill="#78716c" dy="9">(already installed)</text>
+            <!-- ECM-1 boundary hint -->
+            <rect x="75" y="46" width="90" height="126" rx="4" fill="none" stroke="#2d4a3e" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.4"/>
+            <text x="120" y="42" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#2d4a3e" opacity="0.5">ECM-1?</text>
+          </svg>
+
+          <!-- Boundary decisions -->
+          <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-faint); margin-bottom:0.5rem;">Boundary Decisions — ECM-1 LED Retrofit</div>
+
+          <div id="boundary-q1" style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.75rem 1rem; margin-bottom:0.5rem;">
+            <div style="font-size:0.875rem; font-weight:500; margin-bottom:0.4rem;">1. ECM-1 lighting circuit (office wing, Panel A)</div>
+            <div style="display:flex; gap:0.5rem; margin-bottom:0.3rem;">
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="checkBoundary(1,'in')">IN boundary</button>
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="checkBoundary(1,'out')">OUT boundary</button>
+            </div>
+            <div id="boundary-fb1" style="font-size:0.8rem; margin-top:0.3rem; display:none;"></div>
+          </div>
+
+          <div id="boundary-q2" style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.75rem 1rem; margin-bottom:0.5rem;">
+            <div style="font-size:0.875rem; font-weight:500; margin-bottom:0.4rem;">2. HVAC response to lighting heat gain change</div>
+            <div style="display:flex; gap:0.5rem; margin-bottom:0.3rem;">
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="checkBoundary(2,'in')">IN boundary</button>
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="checkBoundary(2,'out')">OUT boundary</button>
+            </div>
+            <div id="boundary-fb2" style="font-size:0.8rem; margin-top:0.3rem; display:none;"></div>
+          </div>
+
+          <div id="boundary-q3" style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.75rem 1rem; margin-bottom:0.5rem;">
+            <div style="font-size:0.875rem; font-weight:500; margin-bottom:0.4rem;">3. Plug loads and other tenant equipment</div>
+            <div style="display:flex; gap:0.5rem; margin-bottom:0.3rem;">
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="checkBoundary(3,'in')">IN boundary</button>
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="checkBoundary(3,'out')">OUT boundary</button>
+            </div>
+            <div id="boundary-fb3" style="font-size:0.8rem; margin-top:0.3rem; display:none;"></div>
+          </div>
+
+          <!-- Callout -->
+          <div style="background:var(--green-light); border-left:3px solid var(--green-dark); padding:0.75rem 0.875rem; border-radius:0 4px 4px 0; font-size:0.8rem; color:var(--ink); line-height:1.5; margin-top:0.75rem;">
+            <strong>Who turns off the lights?</strong> If building staff control operating hours manually, hours are an operational factor — the owner bears the risk of variation. If automated controls drive hours, it's a performance factor — the contractor is responsible.<br>
+            <span style="font-size:0.75rem; color:var(--ink-faint);">Reference: ASHRAE Guideline 14 §5 | FEMP M&amp;V §3.2</span>
+          </div>
+
+          <!-- Unlock button -->
+          <div id="boundary-done" style="display:none; margin-top:0.75rem;">
+            <button class="open-btn" onclick="show('day1'); document.getElementById('boundary-q2-section').scrollIntoView({behavior:'smooth'});" style="width:100%; text-align:center;">Boundary confirmed — proceed to Cut 2 ↓</button>
+          </div>
         </div>
         <button class="deeper-toggle" onclick="toggleDeeper(this)">
           <span class="arrow">▲</span> Deeper dive · References · Book
@@ -1054,14 +1450,77 @@
           </div>
           <div class="section-slides">44 slides</div>
         </div>
-        <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 2</div>
-          <div class="cut-body">
-            <div class="cut-title">Model Form Selection</div>
-            <div class="cut-trigger">↳ After "Guiding Principles" — "Which model for which ECM?"</div>
-            <div class="cut-desc">Decision tree: ECM-1 → retrofit isolation, key parameter measurement (stipulate wattage, stipulate hours). ECM-2 → whole facility, statistical inverse model (5P electric, 3P gas). Judgment: why can't we use one approach for both?</div>
+        <div id="boundary-q2-section" class="inline-cut-card" style="display:block; padding:1rem 1.25rem;">
+          <div style="display:flex; align-items:center; gap:0.875rem; margin-bottom:0.75rem;">
+            <div class="cut-badge">▶ CUT 2</div>
+            <div>
+              <div class="cut-title">Model Form Selection</div>
+              <div class="cut-trigger">↳ After "Guiding Principles" — "Which model for which ECM?"</div>
+            </div>
           </div>
-          <button class="soon-btn">Coming soon</button>
+
+          <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-faint); margin-bottom:0.5rem;">Decision Tree — Select model form for each fuel</div>
+
+          <!-- Electric path -->
+          <div style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.75rem 1rem; margin-bottom:0.5rem;">
+            <div style="font-size:0.875rem; font-weight:600; color:var(--green-dark); margin-bottom:0.4rem;">Electric Model</div>
+            <div style="font-size:0.85rem; color:var(--ink-light); margin-bottom:0.5rem;">Q1: Does the building have significant cooling load driven by outdoor air temperature?</div>
+            <div id="dt-elec-q1" style="display:flex; gap:0.5rem; margin-bottom:0.3rem;">
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="dtElecAnswer('yes')">Yes — cooling is OAT-driven</button>
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="dtElecAnswer('no')">No — flat baseload</button>
+            </div>
+            <div id="dt-elec-result" style="display:none; margin-top:0.4rem;"></div>
+          </div>
+
+          <!-- Gas path -->
+          <div style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.75rem 1rem; margin-bottom:0.5rem;">
+            <div style="font-size:0.875rem; font-weight:600; color:var(--green-dark); margin-bottom:0.4rem;">Gas Model</div>
+            <div style="font-size:0.85rem; color:var(--ink-light); margin-bottom:0.5rem;">Q2: Is heating load the primary driver of gas consumption?</div>
+            <div id="dt-gas-q1" style="display:flex; gap:0.5rem; margin-bottom:0.3rem;">
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="dtGasAnswer('yes')">Yes — heating dominates</button>
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="dtGasAnswer('no')">No — baseload only</button>
+            </div>
+            <div id="dt-gas-result" style="display:none; margin-top:0.4rem;"></div>
+          </div>
+
+          <!-- Interactive effects -->
+          <div style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.75rem 1rem; margin-bottom:0.5rem;">
+            <div style="font-size:0.875rem; font-weight:600; color:var(--green-dark); margin-bottom:0.4rem;">Interactive Effects</div>
+            <div style="font-size:0.85rem; color:var(--ink-light); margin-bottom:0.5rem;">Q3: Do the ECMs affect electric and gas independently?</div>
+            <div id="dt-ix-q1" style="display:flex; gap:0.5rem; margin-bottom:0.3rem;">
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="dtIxAnswer('yes')">Yes — independent</button>
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="dtIxAnswer('no')">No — cross-fuel effects</button>
+            </div>
+            <div id="dt-ix-result" style="display:none; margin-top:0.4rem;"></div>
+          </div>
+
+          <!-- Nudge message (shown when all answered but not all correct) -->
+          <div id="dt-nudge" style="display:none; padding:0.6rem 0.875rem; background:#fef2f2; border:1px solid #fca5a5; border-radius:4px; margin-top:0.75rem; font-size:0.8rem; color:var(--red); line-height:1.5;">
+            Review your answers above — one or more selections need to be revisited before proceeding.
+          </div>
+
+          <!-- CFHQ summary -->
+          <div id="dt-summary" style="display:none; background:var(--green-light); border:1px solid #a8d0c4; border-radius:6px; padding:0.875rem 1rem; margin-top:0.75rem;">
+            <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--green-dark); margin-bottom:0.4rem;">CFHQ Model Selection — Confirmed</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; font-size:0.85rem;">
+              <div>
+                <div style="font-weight:500;">Electric: <span style="font-family:'IBM Plex Mono',monospace; color:var(--green-dark);">3PC</span></div>
+                <div style="color:var(--ink-light); font-size:0.8rem;">Cooling-only change-point. Baseload + cooling ramp above OAT threshold. No heating ramp in electric data (gas heat).</div>
+              </div>
+              <div>
+                <div style="font-weight:500;">Gas: <span style="font-family:'IBM Plex Mono',monospace; color:var(--green-dark);">3PH</span></div>
+                <div style="color:var(--ink-light); font-size:0.8rem;">Heating-only change-point. Gas consumption rises below OAT threshold. Summer baseload near zero (DHW only).</div>
+              </div>
+            </div>
+            <div style="margin-top:0.5rem; font-size:0.8rem; color:var(--ink-light);">
+              <strong style="color:var(--red);">Interactive effect:</strong> LED retrofit removes heat gain → gas heating load increases in winter. The models are separate but the savings are coupled. This must be documented in the M&amp;V plan.
+            </div>
+          </div>
+
+          <!-- Proceed button -->
+          <div id="dt-done" style="display:none; margin-top:0.75rem;">
+            <button class="open-btn" onclick="show('day2')" style="width:100%; text-align:center;">Confirm selections — proceed to Day 2 →</button>
+          </div>
         </div>
         <button class="deeper-toggle" onclick="toggleDeeper(this)">
           <span class="arrow">▲</span> Deeper dive · References · Book
@@ -1102,7 +1561,7 @@
   <div class="day-page">
 
     <div class="breadcrumb">
-      <a onclick="show('hub')">← Hub</a> / Day 2 — The Model
+      <a href="javascript:void(0)" onclick="show('hub')">← Hub</a> / Day 2 — The Model
     </div>
 
     <div class="day-nav-tabs">
@@ -1246,7 +1705,7 @@
             <div class="cut-trigger">↳ After Fractional Savings Uncertainty slides — "Now fit the inverse model"</div>
             <div class="cut-desc">Scatter plot · Change-point sliders · Live R², CV(RMSE), NMBE · Class spread shows inter-analyst uncertainty · Compare to EnergyPlus savings estimate</div>
           </div>
-          <button class="open-btn" onclick="show('cut3')">Open Tool →</button>
+          <button class="open-btn" onclick="show('cut5')">Open Tool →</button>
         </div>
         <button class="deeper-toggle" onclick="toggleDeeper(this)">
           <span class="arrow">▲</span> Deeper dive · References · Book
@@ -1292,10 +1751,105 @@
           <div class="cut-body">
             <div class="cut-title">Boundary + Stipulation</div>
             <div class="cut-trigger">↳ After terminology slide — "Draw the measurement boundary"</div>
-            <div class="cut-desc">Annotate single-line diagram · ECM-1 office panel vs. ECM-2 main meter · Lighting stipulation: CV from sample → required N</div>
+            <div class="cut-desc">Annotate single-line diagram · ECM-1 office panel vs. ECM-2 main meter · Lighting stipulation: CV from sample → required N · Boundary as risk allocation decision</div>
           </div>
           <button class="soon-btn">Coming soon</button>
         </div>
+
+        <!-- Dimension 1: Cost -->
+        <div style="margin-top: 1rem; padding: 0.875rem 1rem; background: white; border: 1px solid var(--border); border-radius: 6px;">
+          <div style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green-dark); margin-bottom: 0.5rem;">Dimension 1 — Cost</div>
+          <div style="font-size: 0.85rem; color: var(--ink-light); line-height: 1.6;">
+            <p style="margin-bottom: 0.5rem;"><strong style="color: var(--ink);">Retrofit isolation costs more upfront.</strong> It requires sub-metering or dedicated instrumentation, more M&amp;V plan design time, and more analyst hours per reporting period. But it transfers risk — the party paying for M&amp;V is buying certainty about one thing: <em>did the ECM perform as specified?</em> Everything else (occupancy, plug loads, process changes) is outside the boundary. The verified claim is narrow but defensible.</p>
+            <p><strong style="color: var(--ink);">Whole-facility is cheaper</strong> — but the savings claim absorbs everything that happened in the building, good and bad. Lower cost, higher exposure.</p>
+          </div>
+        </div>
+
+        <!-- Dimension 2: Control & Responsibility -->
+        <div style="margin-top: 0.75rem; padding: 0.875rem 1rem; background: white; border: 1px solid var(--border); border-radius: 6px;">
+          <div style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green-dark); margin-bottom: 0.5rem;">Dimension 2 — Control &amp; Responsibility</div>
+          <div style="font-size: 0.85rem; color: var(--ink-light); line-height: 1.6;">
+            <p style="margin-bottom: 0.625rem;"><strong style="color: var(--ink);">Who controls what?</strong> This is the harder question — and the one that determines who bears the risk when numbers don't match expectations.</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.625rem;">
+              <div style="padding: 0.625rem 0.75rem; background: var(--cream); border-radius: 4px; border: 1px solid var(--border);">
+                <div style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--green-dark); margin-bottom: 0.375rem;">Performance factors (within ECM boundary)</div>
+                <ul style="font-size: 0.8rem; padding-left: 1rem; color: var(--ink-light); margin: 0;">
+                  <li>Equipment efficiency (watts/sf, COP, EER)</li>
+                  <li>Controls logic (setpoints, schedules)</li>
+                  <li>Installation quality</li>
+                </ul>
+                <div style="font-size: 0.75rem; color: var(--green-dark); margin-top: 0.375rem; font-weight: 500;">→ The contractor/vendor controls these</div>
+                <div style="font-size: 0.75rem; color: var(--ink-faint);">→ Retrofit isolation verifies these</div>
+              </div>
+              <div style="padding: 0.625rem 0.75rem; background: var(--cream); border-radius: 4px; border: 1px solid var(--border);">
+                <div style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--amber); margin-bottom: 0.375rem;">Operational factors (outside ECM boundary)</div>
+                <ul style="font-size: 0.8rem; padding-left: 1rem; color: var(--ink-light); margin: 0;">
+                  <li>Occupancy hours and density</li>
+                  <li>Plug loads and process equipment</li>
+                  <li>Thermostat overrides by building staff</li>
+                  <li>Building additions or renovations</li>
+                </ul>
+                <div style="font-size: 0.75rem; color: var(--amber); margin-top: 0.375rem; font-weight: 500;">→ The building owner/operator controls these</div>
+                <div style="font-size: 0.75rem; color: var(--ink-faint);">→ Whole-facility absorbs these</div>
+              </div>
+            </div>
+            <p>The boundary decision is really a question of <strong style="color: var(--ink);">who bears the risk of operational variation.</strong> If the owner changes occupancy hours after installation and savings drop — who is responsible? Under retrofit isolation, the owner bears that risk (it's outside the boundary). Under whole-facility, it shows up as reduced savings, and the contractor may be blamed unfairly.</p>
+          </div>
+        </div>
+
+        <!-- Comparison table -->
+        <div style="margin-top: 0.75rem; overflow-x: auto;">
+          <table style="width:100%; border-collapse:collapse; font-size:0.8rem;">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--green-dark);">
+                <th style="padding:0.5rem 0.625rem; text-align:left; font-weight:600; color:var(--ink-faint);"></th>
+                <th style="padding:0.5rem 0.625rem; text-align:left; font-weight:600; color:var(--green-dark);">Retrofit Isolation</th>
+                <th style="padding:0.5rem 0.625rem; text-align:left; font-weight:600; color:var(--green-dark);">Whole Facility</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:0.4rem 0.625rem; font-weight:500;">Boundary</td>
+                <td style="padding:0.4rem 0.625rem;">ECM only</td>
+                <td style="padding:0.4rem 0.625rem;">Whole meter</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border); background:var(--cream-light);">
+                <td style="padding:0.4rem 0.625rem; font-weight:500;">Cost</td>
+                <td style="padding:0.4rem 0.625rem;">Higher</td>
+                <td style="padding:0.4rem 0.625rem;">Lower</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:0.4rem 0.625rem; font-weight:500;">Claim</td>
+                <td style="padding:0.4rem 0.625rem;">Narrow, defensible</td>
+                <td style="padding:0.4rem 0.625rem;">Broad, exposed</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border); background:var(--cream-light);">
+                <td style="padding:0.4rem 0.625rem; font-weight:500;">Performance risk</td>
+                <td style="padding:0.4rem 0.625rem;">Contractor</td>
+                <td style="padding:0.4rem 0.625rem;">Contractor</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:0.4rem 0.625rem; font-weight:500;">Operations risk</td>
+                <td style="padding:0.4rem 0.625rem;">Owner</td>
+                <td style="padding:0.4rem 0.625rem;">Shared / disputed</td>
+              </tr>
+              <tr>
+                <td style="padding:0.4rem 0.625rem; font-weight:500;">Best for</td>
+                <td style="padding:0.4rem 0.625rem;">ESPCs, performance contracts</td>
+                <td style="padding:0.4rem 0.625rem;">Portfolio screening</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Callout: Who turns off the lights? -->
+        <div style="margin-top: 0.875rem; padding: 0.875rem 1rem; background: var(--amber-light); border-left: 3px solid var(--amber); border-radius: 0 6px 6px 0;">
+          <div style="font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 0.375rem;">Who turns off the lights?</div>
+          <div style="font-size: 0.8rem; color: var(--ink-light); line-height: 1.6;">
+            That answer determines whether operating hours are a <strong style="color: var(--ink);">performance factor</strong> or an <strong style="color: var(--ink);">operational factor</strong> — and who bears the risk if they change. Is it an automated schedule (controls-driven = performance factor, contractor's responsibility)? Or building staff flipping switches (behavior-driven = operational factor, owner's risk)? Or both — automated schedule with manual override? If it's manual or mixed, operating hours are an operational factor. This is why the <strong style="color: var(--ink);">stakeholder and risk matrix</strong> (Step 1 in the capstone flow, pre-Cut 1) is not administrative overhead — it's the document that determines who is liable for what when the numbers don't match expectations.
+          </div>
+        </div>
+
         <button class="deeper-toggle" onclick="toggleDeeper(this)">
           <span class="arrow">▲</span> Deeper dive · References · Book
         </button>
@@ -1311,12 +1865,19 @@
           <div class="explainer-blurb">
             <strong>Performance vs. performance/operation</strong> is a cost-precision tradeoff, not a quality ranking. Option A (key parameter measurement) can be more defensible than continuous metering if the stipulated parameter is genuinely stable. The CV of the sample drives the required N — students who calculate this by hand understand why sampling plans aren't arbitrary.
           </div>
+          <div class="explainer-blurb" style="margin-top: 0.5rem;">
+            <strong>Stipulation is a contractual decision, not a shortcut.</strong> When you stipulate an operational factor — say, hours of use — you are explicitly assigning the risk of variation in that factor to the owner. If actual operating hours drop 20% after installation because the tenant changed their schedule, the contractor's lighting ECM performed exactly as specified. The savings shortfall is an operational variance, not a performance failure. The M&amp;V plan records that assignment of risk. The stipulation is the mechanism.
+          </div>
+          <div class="explainer-blurb" style="margin-top: 0.5rem;">
+            <strong>The stakeholder map must answer "who controls operating hours?" before the M&amp;V plan is written</strong> — not after a dispute arises. For the CFHQ lighting ECM: if the office panel schedule is automated by the BAS, operating hours are a controls-driven performance factor under the contractor's scope. If building staff routinely override the schedule, those hours become behavior-driven and belong in the operational column. Mixed control (automated with manual override) means the stipulated value carries real risk — and the owner has formally accepted it.
+          </div>
           <div class="ref-section">
             <div class="ref-section-label">Key References</div>
             <ul class="ref-list">
               <li>ASHRAE Guideline 14 — Table 5-2, retrofit isolation approaches <span>(20+ methods)</span></li>
               <li>FEMP 4.0 — Option A strengthened: annual key parameter measurement now default</li>
               <li>IPMVP Core Concepts — performance vs. performance/operation terminology</li>
+              <li>IPMVP Core Concepts — stipulation requirements and documentation <span>(§4.6)</span></li>
               <li>Section 6 Excel example — CMVP_Retrofit_Isolation_Example.xlsx</li>
             </ul>
           </div>
@@ -1335,7 +1896,7 @@
   <div class="day-page">
 
     <div class="breadcrumb">
-      <a onclick="show('hub')">← Hub</a> / Day 3 — Plan, Report &amp; Defend
+      <a href="javascript:void(0)" onclick="show('hub')">← Hub</a> / Day 3 — Plan, Report &amp; Defend
     </div>
 
     <div class="day-nav-tabs">
@@ -1361,27 +1922,75 @@
           </div>
           <div class="section-slides">18 slides</div>
         </div>
-        <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 7</div>
-          <div class="cut-body">
-            <div class="cut-title">ECM-1 Savings Calculator</div>
-            <div class="cut-trigger">↳ After "Adjusted Baseline Model" review — "Now apply your model to the reporting period"</div>
-            <div class="cut-desc">Monthly savings bar chart: counterfactual minus actual for ECM-1 · Electric savings visible across all months · Gas goes UP in winter — the interactive effect · "Explain this to the building manager in one sentence"</div>
+        <div class="inline-cut-card" style="display:block; padding:1rem 1.25rem;">
+          <div style="display:flex; align-items:center; gap:0.875rem; margin-bottom:0.75rem;">
+            <div class="cut-badge">▶ CUT 7</div>
+            <div>
+              <div class="cut-title">ECM-1 Savings Calculator</div>
+              <div class="cut-trigger">↳ After "Adjusted Baseline Model" review — "Now apply your model to the reporting period"</div>
+            </div>
           </div>
-          <button class="soon-btn">Coming soon</button>
-        </div>
 
-        <!-- Savings preview chart -->
-        <div style="margin-top: 0.875rem;">
-          <div style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin-bottom: 0.5rem;">ECM-1 Savings Preview — Electric (kWh/month)</div>
-          <canvas id="savings-chart" width="620" height="200" style="border: 1px solid var(--border); border-radius: 6px; background: white; display: block; width: 100%; max-width: 620px;"></canvas>
-          <div style="display: flex; gap: 1.5rem; margin-top: 0.5rem; font-size: 0.75rem; color: var(--ink-faint);">
-            <span>■ <span style="color: var(--green-dark);">Electric savings</span></span>
-            <span>■ <span style="color: var(--red);">Gas increase (interactive effect)</span></span>
-          </div>
-          <div class="model-toggle" style="margin-top: 0.75rem;">
+          <!-- Fuel toggle -->
+          <div class="model-toggle" style="margin-bottom:1rem;">
             <button class="toggle-btn active" id="btn-sav-electric" onclick="switchSavingsChart('electric')">Electric</button>
             <button class="toggle-btn" id="btn-sav-gas" onclick="switchSavingsChart('gas')">Gas</button>
+          </div>
+
+          <!-- PANEL A — Apply the Baseline Model -->
+          <div style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.875rem 1rem; margin-bottom:1rem;">
+            <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--green-dark); margin-bottom:0.5rem;">Panel A — Apply the Baseline Model</div>
+            <div style="font-size:0.8rem; color:var(--ink-light); margin-bottom:0.75rem; line-height:1.5;">
+              The baseline regression model (from Cut 5) predicts what energy consumption <em>would have been</em> at each month's actual outdoor temperature. The difference between predicted and actual is the <strong style="color:var(--ink);">inferred savings</strong> — not measured, inferred.
+            </div>
+            <div style="overflow-x:auto;">
+              <table id="cut7-table" style="width:100%; border-collapse:collapse; font-size:0.8rem; font-family:'IBM Plex Mono',monospace;">
+                <thead>
+                  <tr style="border-bottom:2px solid var(--border); font-family:'IBM Plex Sans',sans-serif; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint);">
+                    <th style="padding:0.35rem 0.5rem; text-align:left;">Month</th>
+                    <th style="padding:0.35rem 0.5rem; text-align:right;">OAT (&deg;F)</th>
+                    <th style="padding:0.35rem 0.5rem; text-align:right;" id="cut7-col-baseline">Model-Predicted Baseline</th>
+                    <th style="padding:0.35rem 0.5rem; text-align:right;" id="cut7-col-actual">Actual Post-Retrofit</th>
+                    <th style="padding:0.35rem 0.5rem; text-align:right;" id="cut7-col-diff">Inferred Savings</th>
+                  </tr>
+                </thead>
+                <tbody id="cut7-tbody"></tbody>
+                <tfoot id="cut7-tfoot"></tfoot>
+              </table>
+            </div>
+            <div style="margin-top:0.75rem; padding:0.625rem 0.875rem; background:var(--green-light); border-left:3px solid var(--green-dark); border-radius:0 4px 4px 0; font-size:0.78rem; color:var(--ink); line-height:1.6;">
+              The baseline model is applied to reporting-period conditions — not copied from the baseline period. This is the counterfactual: what would consumption have been, given this month's weather, had the ECM not been implemented?
+            </div>
+          </div>
+
+          <!-- PANEL B — Annual Savings Summary -->
+          <div style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.875rem 1rem; margin-bottom:1rem;">
+            <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--green-dark); margin-bottom:0.5rem;">Panel B — Annual Savings Summary</div>
+            <div id="savings-chart-label" style="font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint); margin-bottom:0.4rem;">ECM-1 Savings Preview — Electric (kWh/month)</div>
+            <canvas id="savings-chart" width="620" height="200" style="border:1px solid var(--border); border-radius:6px; background:white; display:block; width:100%; max-width:620px;"></canvas>
+            <div style="display:flex; gap:1.5rem; margin-top:0.5rem; font-size:0.75rem; color:var(--ink-faint);">
+              <span style="color:var(--green-dark);">&#9632; Inferred savings (positive)</span>
+              <span style="color:var(--red);">&#9632; Interactive effect (negative)</span>
+            </div>
+            <div id="cut7-annual-summary" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; margin-top:0.75rem;"></div>
+            <!-- Interactive effect callout -->
+            <div style="margin-top:0.75rem; padding:0.75rem 0.875rem; background:var(--amber-light); border-left:3px solid var(--amber); border-radius:0 4px 4px 0; font-size:0.8rem; color:#92400e; line-height:1.5;">
+              <strong>Interactive effect:</strong> ECM-1 lighting retrofit REDUCES electric consumption but INCREASES gas consumption in winter — lighting heat gain was part of the heating load. The old T8 fixtures warmed the office wing; the new LEDs produce less heat. The HVAC must compensate. This is expected, quantifiable, and must be reported.
+            </div>
+          </div>
+
+          <!-- PANEL C — Explain Your Answer -->
+          <div style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.875rem 1rem;">
+            <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--green-dark); margin-bottom:0.5rem;">Panel C — Explain Your Answer</div>
+            <div style="font-size:0.85rem; color:var(--ink); margin-bottom:0.5rem; font-weight:500;">In your own words: why does ECM-1 increase gas consumption in winter? What does this tell you about boundary setting?</div>
+            <textarea id="cut7-response" rows="4" style="width:100%; font-family:'IBM Plex Sans',sans-serif; font-size:0.85rem; padding:0.6rem 0.75rem; border:1px solid var(--border); border-radius:4px; background:white; resize:vertical; line-height:1.5;" placeholder="Type your explanation here..."></textarea>
+            <div style="display:flex; align-items:center; gap:0.75rem; margin-top:0.5rem;">
+              <button id="cut7-submit" class="open-btn" onclick="submitCut7()" style="font-size:0.8rem;">Submit Explanation</button>
+              <div id="cut7-banner" style="display:none; font-size:0.8rem; color:var(--green-dark); font-weight:500;"></div>
+            </div>
+            <div id="cut7-nav" style="display:none; margin-top:0.75rem;">
+              <button class="open-btn" onclick="show('day3'); setTimeout(function(){ document.getElementById('cut8-section').scrollIntoView({behavior:'smooth'}); }, 100);" style="width:100%; text-align:center;">Proceed to Cut 8 — NRA Pre-Documentation →</button>
+            </div>
           </div>
         </div>
 
@@ -1415,7 +2024,7 @@
       <div class="timeline-connector"></div>
 
       <!-- § 8 -->
-      <div class="section-block">
+      <div id="cut8-section" class="section-block">
         <div class="section-header-row">
           <div class="section-badge">§ 8</div>
           <div class="section-info">
@@ -1424,14 +2033,216 @@
           </div>
           <div class="section-slides">24 slides</div>
         </div>
-        <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 8</div>
-          <div class="cut-body">
-            <div class="cut-title">NRA Pre-Documentation Tool</div>
-            <div class="cut-trigger">↳ After "Static Factors" review — "Document what you expect BEFORE you look at the data"</div>
-            <div class="cut-desc">Form: event name, date, zone affected, estimated impact · Students fill this out blind — before seeing residuals · Saves to browser for comparison in Cut 9 · Forces the discipline of pre-documentation</div>
+        <div class="inline-cut-card" style="display:block; padding:1rem 1.25rem;">
+          <div style="display:flex; align-items:center; gap:0.875rem; margin-bottom:0.75rem;">
+            <div class="cut-badge">▶ CUT 8</div>
+            <div>
+              <div class="cut-title">NRA Pre-Documentation Tool</div>
+              <div class="cut-trigger">↳ After "Static Factors" review — "Document what you expect BEFORE you look at the data"</div>
+            </div>
           </div>
-          <button class="soon-btn">Coming soon</button>
+
+          <!-- Concept header -->
+          <div style="padding:0.75rem 1rem; background:var(--amber-light); border-left:3px solid var(--amber); border-radius:0 6px 6px 0; margin-bottom:1rem; font-size:0.8rem; color:#92400e; line-height:1.6;">
+            <strong>Non-Routine Adjustments must be pre-documented BEFORE the event occurs.</strong> Reverse-engineering an NRA from a residual spike is not M&amp;V — it is storytelling. The pre-documentation below anchors your adjustment to a prior, falsifiable prediction.
+          </div>
+
+          <!-- IDF-derived trigger list (collapsible) -->
+          <details id="nra-trigger-details" style="margin-bottom:1rem; background:var(--cream); border:1px solid var(--border); border-radius:6px;">
+            <summary style="padding:0.625rem 1rem; font-size:0.8rem; font-weight:600; color:var(--green-dark); cursor:pointer; user-select:none;">Known Non-Routine Factors (from CFHQ IDF)</summary>
+            <div style="padding:0 1rem 0.75rem;">
+              <div style="overflow-x:auto;">
+                <table style="width:100%; border-collapse:collapse; font-size:0.75rem; margin-top:0.5rem;">
+                  <thead>
+                    <tr style="border-bottom:2px solid var(--border); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint);">
+                      <th style="padding:0.35rem 0.5rem; text-align:left;">Zone / System</th>
+                      <th style="padding:0.35rem 0.5rem; text-align:left;">Variable</th>
+                      <th style="padding:0.35rem 0.5rem; text-align:center;">In Baseline Model?</th>
+                      <th style="padding:0.35rem 0.5rem; text-align:center;">NRA Risk</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom:1px solid var(--border);">
+                      <td style="padding:0.3rem 0.5rem;">Building Envelope</td>
+                      <td style="padding:0.3rem 0.5rem;">Gross floor area (12,000 sf)</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--green-dark); font-weight:600;">Yes</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center;">—</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:var(--cream-light);">
+                      <td style="padding:0.3rem 0.5rem;">Building Envelope</td>
+                      <td style="padding:0.3rem 0.5rem;">Window area / SHGC</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--green-dark); font-weight:600;">Yes</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center;">—</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                      <td style="padding:0.3rem 0.5rem;">OFFICE</td>
+                      <td style="padding:0.3rem 0.5rem;">Occupancy density (5/1000 sf)</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--red); font-weight:600;">No</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--amber); font-weight:500;">Medium</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:var(--cream-light);">
+                      <td style="padding:0.3rem 0.5rem;">LOBBY</td>
+                      <td style="padding:0.3rem 0.5rem;">Occupancy density (10/1000 sf)</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--red); font-weight:600;">No</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--amber); font-weight:500;">Medium</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                      <td style="padding:0.3rem 0.5rem;">OFFICE</td>
+                      <td style="padding:0.3rem 0.5rem;">Plug load density (1.0 W/sf)</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--red); font-weight:600;">No</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--red); font-weight:500;">High</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:var(--cream-light);">
+                      <td style="padding:0.3rem 0.5rem;">LOBBY</td>
+                      <td style="padding:0.3rem 0.5rem;">Plug load density (0.5 W/sf)</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--red); font-weight:600;">No</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--amber); font-weight:500;">Medium</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                      <td style="padding:0.3rem 0.5rem;">OFFICE</td>
+                      <td style="padding:0.3rem 0.5rem;">Operating schedule (weekday 7a-6p)</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--red); font-weight:600;">No</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--amber); font-weight:500;">Medium</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:var(--cream-light);">
+                      <td style="padding:0.3rem 0.5rem;">LOBBY</td>
+                      <td style="padding:0.3rem 0.5rem;">Operating schedule (7a-9p extended)</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--red); font-weight:600;">No</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--amber); font-weight:500;">Medium</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                      <td style="padding:0.3rem 0.5rem;">HVAC — Both RTUs</td>
+                      <td style="padding:0.3rem 0.5rem;">Cooling COP (3.50)</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--green-dark); font-weight:600;">Yes</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center;">—</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:var(--cream-light);">
+                      <td style="padding:0.3rem 0.5rem;">HVAC — Both RTUs</td>
+                      <td style="padding:0.3rem 0.5rem;">Gas furnace efficiency (0.80)</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--green-dark); font-weight:600;">Yes</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center;">—</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border);">
+                      <td style="padding:0.3rem 0.5rem;">Building Envelope</td>
+                      <td style="padding:0.3rem 0.5rem;">Infiltration rate (0.06 cfm/sf EWA)</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--red); font-weight:600;">No</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--ink-faint); font-weight:500;">Low</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--border); background:var(--cream-light);">
+                      <td style="padding:0.3rem 0.5rem;">Building Geometry</td>
+                      <td style="padding:0.3rem 0.5rem;">Floor area addition / renovation</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--red); font-weight:600;">No</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--red); font-weight:500;">High</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:0.3rem 0.5rem;">HVAC — Both RTUs</td>
+                      <td style="padding:0.3rem 0.5rem;">Equipment replacement or capacity change</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--red); font-weight:600;">No</td>
+                      <td style="padding:0.3rem 0.5rem; text-align:center; color:var(--red); font-weight:500;">High</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="margin-top:0.5rem; font-size:0.75rem; color:var(--ink-faint); line-height:1.5;">
+                Factors outside the baseline model boundary are NRA candidates. If they change during the reporting period, a pre-documented adjustment is required before the event occurs.
+              </div>
+            </div>
+          </details>
+
+          <!-- NRA Pre-Documentation Form -->
+          <div id="nra-form-container" style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.875rem 1rem;">
+            <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--green-dark); margin-bottom:0.75rem;">NRA Pre-Documentation Form</div>
+
+            <!-- Success banner (hidden by default) -->
+            <div id="nra-success-banner" style="display:none; padding:0.625rem 0.875rem; background:#dcfce7; border:1px solid #86efac; border-radius:4px; margin-bottom:0.75rem; font-size:0.8rem; color:#166534; line-height:1.5;">
+              &#10003; NRA pre-documented. Your estimate will appear as a reference line in Cut 9.
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+              <!-- NRA Trigger -->
+              <div style="grid-column:1/-1;">
+                <label style="font-size:0.75rem; font-weight:500; color:var(--ink-light); display:block; margin-bottom:0.25rem;">NRA Trigger</label>
+                <select id="nra-trigger" style="width:100%; padding:0.4rem 0.5rem; font-size:0.8rem; border:1px solid var(--border); border-radius:4px; font-family:'IBM Plex Sans',sans-serif; background:white;" onchange="nraTriggerChanged()">
+                  <option value="">— Select a trigger —</option>
+                  <option value="office-occupancy">OFFICE: Occupancy density change</option>
+                  <option value="lobby-occupancy">LOBBY: Occupancy density change</option>
+                  <option value="office-plugload">OFFICE: Plug load density change</option>
+                  <option value="lobby-plugload">LOBBY: Plug load density change</option>
+                  <option value="office-schedule">OFFICE: Operating schedule change</option>
+                  <option value="lobby-schedule">LOBBY: Operating schedule change</option>
+                  <option value="infiltration">Building Envelope: Infiltration rate change</option>
+                  <option value="floor-area">Building Geometry: Floor area addition / renovation</option>
+                  <option value="hvac-replacement">HVAC: Equipment replacement or capacity change</option>
+                </select>
+              </div>
+
+              <!-- Event Name -->
+              <div style="grid-column:1/-1;">
+                <label style="font-size:0.75rem; font-weight:500; color:var(--ink-light); display:block; margin-bottom:0.25rem;">Event Name</label>
+                <input id="nra-event-name" type="text" placeholder="e.g., Server Room Expansion" style="width:100%; padding:0.4rem 0.5rem; font-size:0.8rem; border:1px solid var(--border); border-radius:4px; font-family:'IBM Plex Sans',sans-serif; box-sizing:border-box;">
+              </div>
+
+              <!-- Date of Change -->
+              <div>
+                <label style="font-size:0.75rem; font-weight:500; color:var(--ink-light); display:block; margin-bottom:0.25rem;">Date of Change</label>
+                <input id="nra-date" type="date" style="width:100%; padding:0.4rem 0.5rem; font-size:0.8rem; border:1px solid var(--border); border-radius:4px; font-family:'IBM Plex Sans',sans-serif; box-sizing:border-box;">
+              </div>
+
+              <!-- Cause Type -->
+              <div>
+                <label style="font-size:0.75rem; font-weight:500; color:var(--ink-light); display:block; margin-bottom:0.25rem;">Cause Type</label>
+                <div style="display:flex; flex-wrap:wrap; gap:0.5rem 1rem; padding-top:0.25rem;">
+                  <label style="font-size:0.8rem; color:var(--ink-light); display:flex; align-items:center; gap:0.25rem; cursor:pointer;">
+                    <input type="radio" name="nra-cause" value="operational"> Operational Change</label>
+                  <label style="font-size:0.8rem; color:var(--ink-light); display:flex; align-items:center; gap:0.25rem; cursor:pointer;">
+                    <input type="radio" name="nra-cause" value="equipment"> Equipment Replacement</label>
+                  <label style="font-size:0.8rem; color:var(--ink-light); display:flex; align-items:center; gap:0.25rem; cursor:pointer;">
+                    <input type="radio" name="nra-cause" value="occupancy"> Occupancy Shift</label>
+                  <label style="font-size:0.8rem; color:var(--ink-light); display:flex; align-items:center; gap:0.25rem; cursor:pointer;">
+                    <input type="radio" name="nra-cause" value="other"> Other</label>
+                </div>
+              </div>
+
+              <!-- Estimated Electric Impact -->
+              <div>
+                <label style="font-size:0.75rem; font-weight:500; color:var(--ink-light); display:block; margin-bottom:0.25rem;">Estimated Electric Impact (kWh/mo)</label>
+                <input id="nra-electric" type="number" placeholder="+420 = increase" style="width:100%; padding:0.4rem 0.5rem; font-size:0.8rem; border:1px solid var(--border); border-radius:4px; font-family:'IBM Plex Mono',monospace; box-sizing:border-box;">
+              </div>
+
+              <!-- Estimated Gas Impact -->
+              <div>
+                <label style="font-size:0.75rem; font-weight:500; color:var(--ink-light); display:block; margin-bottom:0.25rem;">Estimated Gas Impact (therms/mo)</label>
+                <input id="nra-gas" type="number" placeholder="+28 = increase" style="width:100%; padding:0.4rem 0.5rem; font-size:0.8rem; border:1px solid var(--border); border-radius:4px; font-family:'IBM Plex Mono',monospace; box-sizing:border-box;">
+              </div>
+
+              <!-- Analyst Notes -->
+              <div style="grid-column:1/-1;">
+                <label style="font-size:0.75rem; font-weight:500; color:var(--ink-light); display:block; margin-bottom:0.25rem;">Analyst Notes</label>
+                <textarea id="nra-notes" rows="3" placeholder="Describe what you expect to change and why..." style="width:100%; padding:0.4rem 0.5rem; font-size:0.8rem; border:1px solid var(--border); border-radius:4px; font-family:'IBM Plex Sans',sans-serif; resize:vertical; box-sizing:border-box;"></textarea>
+              </div>
+
+              <!-- Analyst Name -->
+              <div>
+                <label style="font-size:0.75rem; font-weight:500; color:var(--ink-light); display:block; margin-bottom:0.25rem;">Analyst Name</label>
+                <input id="nra-analyst" type="text" placeholder="Your name" style="width:100%; padding:0.4rem 0.5rem; font-size:0.8rem; border:1px solid var(--border); border-radius:4px; font-family:'IBM Plex Sans',sans-serif; box-sizing:border-box;">
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div style="display:flex; gap:0.75rem; margin-top:1rem; flex-wrap:wrap;">
+              <button id="nra-load-btn" onclick="loadNraExerciseData()" style="padding:0.5rem 1.25rem; font-size:0.8rem; font-weight:500; border:1px solid var(--border); border-radius:4px; background:white; cursor:pointer; font-family:'IBM Plex Sans',sans-serif;">Load Exercise Data</button>
+              <button id="nra-submit-btn" onclick="submitNraPredoc()" style="padding:0.5rem 1.25rem; font-size:0.8rem; font-weight:500; border:none; border-radius:4px; background:var(--green-dark); color:white; cursor:pointer; font-family:'IBM Plex Sans',sans-serif;">Submit &amp; Lock</button>
+              <button id="nra-edit-btn" onclick="editNraPredoc()" style="display:none; padding:0.5rem 1.25rem; font-size:0.8rem; font-weight:500; border:1px solid var(--border); border-radius:4px; background:white; cursor:pointer; font-family:'IBM Plex Sans',sans-serif;">Edit</button>
+            </div>
+
+            <!-- Validation error -->
+            <div id="nra-error" style="display:none; margin-top:0.5rem; font-size:0.75rem; color:var(--red);"></div>
+
+            <!-- Cut 9 nav (hidden until submit) -->
+            <div id="nra-cut9-nav" style="display:none; margin-top:1rem; padding-top:0.75rem; border-top:1px solid var(--border);">
+              <button class="open-btn" onclick="show('day3'); setTimeout(function(){ document.getElementById('cut9-section').scrollIntoView({behavior:'smooth'}); }, 100);" style="width:100%; text-align:center;">Proceed to Cut 9 — Residual Plot Tool →</button>
+            </div>
+          </div>
         </div>
         <button class="deeper-toggle" onclick="toggleDeeper(this)">
           <span class="arrow">▲</span> Deeper dive · References · Book
@@ -1463,7 +2274,7 @@
       <div class="timeline-connector"></div>
 
       <!-- § 9 -->
-      <div class="section-block">
+      <div id="cut9-section" class="section-block">
         <div class="section-header-row">
           <div class="section-badge">§ 9</div>
           <div class="section-info">
@@ -1472,24 +2283,109 @@
           </div>
           <div class="section-slides">16 slides</div>
         </div>
-        <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 9</div>
-          <div class="cut-body">
-            <div class="cut-title">Residual Plot Tool</div>
-            <div class="cut-trigger">↳ After "Detecting Non-Routine Events" — "Now look at the residuals"</div>
-            <div class="cut-desc">Reporting-period residuals plotted monthly · Month 9 step change clearly visible · Compare pre-documented NRA (Cut 8) against what the data reveals · Toggle NRA adjustment on/off — watch savings flip from red to green</div>
+        <div class="inline-cut-card" style="display:block; padding:1rem 1.25rem;">
+          <div style="display:flex; align-items:center; gap:0.875rem; margin-bottom:0.75rem;">
+            <div class="cut-badge">▶ CUT 9</div>
+            <div>
+              <div class="cut-title">Residual Plot Tool</div>
+              <div class="cut-trigger">↳ After "Detecting Non-Routine Events" — "Now look at the residuals"</div>
+            </div>
           </div>
-          <button class="soon-btn">Coming soon</button>
-        </div>
 
-        <!-- NRA residual preview chart -->
-        <div style="margin-top: 0.875rem;">
-          <div style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin-bottom: 0.5rem;">Reporting-Period Residuals — Electric (kWh/month)</div>
-          <canvas id="residual-chart" width="620" height="220" style="border: 1px solid var(--border); border-radius: 6px; background: white; display: block; width: 100%; max-width: 620px;"></canvas>
-          <div style="display: flex; gap: 1.5rem; margin-top: 0.5rem; font-size: 0.75rem; color: var(--ink-faint);">
-            <span>■ <span style="color: var(--green-dark);">Normal residual</span></span>
-            <span>■ <span style="color: var(--red);">NRA-affected (month 9+)</span></span>
-            <span style="border-left: 2px dashed var(--amber); padding-left: 0.5rem;">NRA trigger threshold</span>
+          <!-- ═══ PANEL A — The Residual Chart ═══ -->
+          <div style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.875rem 1rem; margin-bottom:1rem;">
+            <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--green-dark); margin-bottom:0.5rem;">Panel A — Reporting-Period Residuals <span style="font-weight:400; text-transform:none; font-size:0.7rem; color:var(--ink-faint);">· Electric only — gas residuals not shown in this view</span></div>
+            <div style="font-size:0.8rem; color:var(--ink-light); margin-bottom:0.75rem; line-height:1.5;">
+              Each bar shows the difference between the baseline model prediction and actual post-retrofit consumption. Months near zero = the model explains the data. A persistent step change = something outside the model changed.
+            </div>
+            <canvas id="residual-chart" width="620" height="260" style="border:1px solid var(--border); border-radius:6px; background:white; display:block; width:100%; max-width:620px;"></canvas>
+            <div style="display:flex; flex-wrap:wrap; gap:1.25rem; margin-top:0.5rem; font-size:0.75rem; color:var(--ink-faint);">
+              <span>&#9632; <span style="color:var(--green-dark);">Normal residual</span></span>
+              <span>&#9632; <span style="color:var(--red);">NRA-affected (month 9+)</span></span>
+              <span style="border-left:2px dashed var(--amber); padding-left:0.5rem;">NRA trigger threshold</span>
+              <span id="nra-overlay-legend" style="display:none; border-left:2px dashed #f97316; padding-left:0.5rem;">Pre-documented NRA (Cut 8)</span>
+            </div>
+            <div id="nra-overlay-prompt" style="margin-top:0.5rem; padding:0.5rem 0.75rem; background:var(--cream-light); border:1px solid var(--border); border-radius:4px; font-size:0.75rem; color:var(--ink-faint);">
+              Complete Cut 8 to overlay your pre-documented NRA estimate.
+            </div>
+          </div>
+
+          <!-- ═══ PANEL B — NRA Toggle ═══ -->
+          <div style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.875rem 1rem; margin-bottom:1rem;">
+            <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--green-dark); margin-bottom:0.5rem;">Panel B — Apply Non-Routine Adjustment</div>
+
+            <div style="display:flex; align-items:center; gap:1rem; margin-bottom:0.75rem;">
+              <button id="nra-toggle-btn" onclick="toggleNraAdjustment()" style="padding:0.5rem 1.5rem; font-size:0.8rem; font-weight:600; border:none; border-radius:4px; background:var(--red); color:white; cursor:pointer; font-family:'IBM Plex Sans',sans-serif; transition:background 0.2s;">Apply NRA</button>
+              <span id="nra-toggle-state" style="font-size:0.8rem; color:var(--ink-faint);">NRA adjustment: OFF</span>
+            </div>
+
+            <!-- NRA accepted banner (hidden by default) -->
+            <div id="nra-accepted-banner" style="display:none; padding:0.625rem 0.875rem; background:#dcfce7; border:1px solid #86efac; border-radius:4px; margin-bottom:0.75rem; font-size:0.8rem; color:#166534; line-height:1.5;">
+              &#10003; Adjustment accepted. Inferred savings are valid.
+            </div>
+
+            <div id="nra-toggle-summary" style="font-size:0.8rem; color:var(--ink-light); line-height:1.6; margin-bottom:0.75rem;">
+              Months 9&ndash;12 show a persistent positive residual. The model is under-predicting consumption. Something changed.
+            </div>
+
+            <!-- Callout — always visible -->
+            <div style="padding:0.75rem 1rem; background:var(--amber-light); border-left:3px solid var(--amber); border-radius:0 6px 6px 0; font-size:0.8rem; color:#92400e; line-height:1.6;">
+              The NRA does not change what happened — it changes what the baseline is expected to have been. The counterfactual shifts. The inference holds.
+            </div>
+          </div>
+
+          <!-- ═══ PANEL C — GoF Check ═══ -->
+          <div style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.875rem 1rem; margin-bottom:1rem;">
+            <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--green-dark); margin-bottom:0.5rem;">Panel C — Goodness-of-Fit: Reporting Period Diagnostics</div>
+            <div style="overflow-x:auto;">
+              <table id="cut9-gof-table" style="width:100%; border-collapse:collapse; font-size:0.8rem;">
+                <thead>
+                  <tr style="border-bottom:2px solid var(--border); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint);">
+                    <th style="padding:0.4rem 0.625rem; text-align:left;">Metric</th>
+                    <th style="padding:0.4rem 0.625rem; text-align:center;">Months 1&ndash;8</th>
+                    <th style="padding:0.4rem 0.625rem; text-align:center;" id="gof-col-nra">Months 9&ndash;12 (unadjusted)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <td style="padding:0.4rem 0.625rem; font-weight:500;">CV(RMSE)</td>
+                    <td style="padding:0.4rem 0.625rem; text-align:center; color:var(--green-dark); font-weight:500;" id="gof-cvrmse-early">3.2%</td>
+                    <td style="padding:0.4rem 0.625rem; text-align:center; font-weight:500;" id="gof-cvrmse-late" style="color:var(--red);">
+                      <span style="color:var(--red);">18.4% (fails)</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:0.4rem 0.625rem; font-weight:500;">Mean Residual</td>
+                    <td style="padding:0.4rem 0.625rem; text-align:center; color:var(--green-dark); font-weight:500;" id="gof-mean-early">-28 kWh</td>
+                    <td style="padding:0.4rem 0.625rem; text-align:center; font-weight:500;" id="gof-mean-late">
+                      <span style="color:var(--red);">+387 kWh</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="margin-top:0.625rem; font-size:0.75rem; color:var(--ink-faint); line-height:1.5;">
+              ASHRAE 14 / IPMVP require CV(RMSE) &le; 15% monthly for whole-facility models. A persistent residual pattern is a diagnostic signal — not a model failure. The NRA restores model validity.
+            </div>
+          </div>
+
+          <!-- ═══ PANEL D — Explain Your Answer ═══ -->
+          <div style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.875rem 1rem;">
+            <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--green-dark); margin-bottom:0.5rem;">Panel D — Explain Your Answer</div>
+            <div style="font-size:0.8rem; color:var(--ink-light); margin-bottom:0.5rem; line-height:1.5;">
+              In your own words: what would happen to the inferred ECM-1 savings if this NRA were NOT applied? Who bears the risk?
+            </div>
+            <textarea id="cut9-reflection" rows="3" placeholder="Write your explanation here..." style="width:100%; padding:0.4rem 0.5rem; font-size:0.8rem; border:1px solid var(--border); border-radius:4px; font-family:'IBM Plex Sans',sans-serif; resize:vertical; box-sizing:border-box;"></textarea>
+
+            <!-- Reflection success banner (hidden) -->
+            <div id="cut9-reflection-banner" style="display:none; margin-top:0.5rem; padding:0.5rem 0.75rem; background:#dcfce7; border:1px solid #86efac; border-radius:4px; font-size:0.8rem; color:#166534;">
+              &#10003; Reflection submitted.
+            </div>
+
+            <div style="display:flex; gap:0.75rem; margin-top:0.75rem; flex-wrap:wrap;">
+              <button id="cut9-submit-reflection" onclick="submitCut9Reflection()" style="padding:0.5rem 1.25rem; font-size:0.8rem; font-weight:500; border:none; border-radius:4px; background:var(--green-dark); color:white; cursor:pointer; font-family:'IBM Plex Sans',sans-serif;">Submit Reflection</button>
+              <button id="cut9-complete-btn" onclick="show('hub')" style="display:none; padding:0.5rem 1.25rem; font-size:0.8rem; font-weight:500; border:none; border-radius:4px; background:var(--green-dark); color:white; cursor:pointer; font-family:'IBM Plex Sans',sans-serif;">→ Day 3 Complete</button>
+            </div>
           </div>
         </div>
 
@@ -1528,12 +2424,12 @@
 <!-- ══════════════════════════════════════════════════════
      PAGE: CUT 5 — MODEL FITTER
 ══════════════════════════════════════════════════════ -->
-<div id="cut3" class="page">
+<div id="cut5" class="page">
   <div class="cut-layout">
 
     <!-- Sidebar -->
     <div class="cut-sidebar">
-      <div class="sidebar-tag">Day 2 · Cut 5 of 16</div>
+      <div class="sidebar-tag">Day 2 · Cut 5 of 9</div>
       <div class="sidebar-title">Model Fitter</div>
       <div class="sidebar-section-ref">After Section 5 — Whole Facility Approaches</div>
 
@@ -1564,7 +2460,7 @@
         <div class="sidebar-section-label">Navigation</div>
         <div style="display:flex; gap:0.75rem;">
           <button class="nav-btn" onclick="show('day2')">← Day 2</button>
-          <button class="nav-btn" onclick="show('day2')">Cut 6 →</button>
+          <button class="nav-btn" onclick="show('day2')">Back to Day 2 →</button>
         </div>
       </div>
     </div>
@@ -1678,7 +2574,7 @@
 
     </div><!-- end cut-main -->
   </div>
-</div><!-- end cut3 -->
+</div><!-- end cut5 -->
 
 
 <script>
@@ -1688,7 +2584,7 @@ function show(id) {
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
   // Canvases in hidden pages don't render on load — redraw on navigation
-  if (id === 'day3') { drawSavingsChart(); drawResidualChart(); }
+  if (id === 'day3') { drawSavingsChart(); drawResidualChart(); populateCut7Table(); }
   if (id === 'cut5') { updateModel(); }
 }
 
@@ -2124,6 +3020,86 @@ function switchEcm(ecm) {
   drawPlot();
 }
 
+// ══ Cut 1 — Boundary Setting ══
+var boundaryState = {1: null, 2: null, 3: null};
+var boundaryAnswers = {1: 'in', 2: 'in', 3: 'out'};
+var boundaryReasons = {
+  '1-in':  '✓ Correct. The lighting circuit is the ECM — it must be inside the measurement boundary.',
+  '1-out': '✗ The lighting circuit IS the ECM. If it is outside the boundary, you cannot measure the savings.',
+  '2-in':  '✓ Correct. Removing lighting heat gain changes the HVAC load. Ignoring this interactive effect understates the true impact of the retrofit.',
+  '2-out': '✗ The HVAC responds to lighting heat gain changes. Excluding it misses the interactive effect — gas consumption will rise in winter because the building lost internal heat from the old T8 fixtures.',
+  '3-in':  '✗ Plug loads are outside the ECM scope. Including them adds noise to the measurement boundary without improving savings accuracy.',
+  '3-out': '✓ Correct. Plug loads are unaffected by the lighting retrofit and should remain outside the boundary to keep the measurement clean.'
+};
+
+function checkBoundary(q, answer) {
+  boundaryState[q] = answer;
+  var correct = answer === boundaryAnswers[q];
+  var fb = document.getElementById('boundary-fb'+q);
+  var card = document.getElementById('boundary-q'+q);
+  fb.style.display = 'block';
+  fb.innerHTML = '<span style="color:'+(correct?'var(--green-dark)':'var(--red)')+';">'+boundaryReasons[q+'-'+answer]+'</span>';
+  card.style.borderColor = correct ? '#6ee7b7' : '#fca5a5';
+  card.style.background = correct ? '#ecfdf5' : '#fef2f2';
+  // Check if all correct
+  if (boundaryState[1]==='in' && boundaryState[2]==='in' && boundaryState[3]==='out') {
+    document.getElementById('boundary-done').style.display = 'block';
+  }
+}
+
+// ══ Cut 2 — Model Form Selection ══
+var dtState = {elec: null, gas: null, ix: null};
+
+function dtElecAnswer(ans) {
+  dtState.elec = ans;
+  var el = document.getElementById('dt-elec-result');
+  el.style.display = 'block';
+  if (ans === 'yes') {
+    el.innerHTML = '<div style="padding:0.5rem 0.75rem; background:#ecfdf5; border:1px solid #6ee7b7; border-radius:4px; font-size:0.8rem;"><span style="color:var(--green-dark);">✓ <strong>3PC model recommended.</strong></span> Counterfactual HQ has DX cooling on the RTU — electric consumption rises above the cooling change-point. The 3PC model captures baseload + cooling ramp. No heating ramp appears in the electric data because heating is gas-fired.<br><span style="color:var(--ink-faint); font-size:0.75rem;">Wrong choice consequence: A 5P model would overfit, finding a spurious heating slope in electric data. A 2P model would miss the cooling response entirely.</span></div>';
+  } else {
+    el.innerHTML = '<div style="padding:0.5rem 0.75rem; background:#fef2f2; border:1px solid #fca5a5; border-radius:4px; font-size:0.8rem;"><span style="color:var(--red);">✗ This building has DX cooling on the RTU.</span> Electric consumption clearly rises with outdoor temperature above ~55°F. A flat baseload model would miss this cooling response and underestimate the counterfactual. Look at the scatter plot — the cooling ramp is visible.</div>';
+  }
+  checkDtDone();
+}
+
+function dtGasAnswer(ans) {
+  dtState.gas = ans;
+  var el = document.getElementById('dt-gas-result');
+  el.style.display = 'block';
+  if (ans === 'yes') {
+    el.innerHTML = '<div style="padding:0.5rem 0.75rem; background:#ecfdf5; border:1px solid #6ee7b7; border-radius:4px; font-size:0.8rem;"><span style="color:var(--green-dark);">✓ <strong>3PH model recommended.</strong></span> Gas consumption at CFHQ is almost entirely heating-driven. Below the heating change-point (~58°F), gas rises steeply. Above it, consumption drops to near-zero baseload (domestic hot water only).<br><span style="color:var(--ink-faint); font-size:0.75rem;">Wrong choice consequence: A 2P baseload model would average heating and non-heating months, producing a meaningless slope. A 5P model would invent a cooling response in gas data that doesn\'t exist.</span></div>';
+  } else {
+    el.innerHTML = '<div style="padding:0.5rem 0.75rem; background:#fef2f2; border:1px solid #fca5a5; border-radius:4px; font-size:0.8rem;"><span style="color:var(--red);">✗ This building has gas-fired heating.</span> Gas consumption rises sharply below ~58°F. A baseload-only model cannot capture this temperature-dependent behavior. The scatter plot shows a clear heating ramp.</div>';
+  }
+  checkDtDone();
+}
+
+function dtIxAnswer(ans) {
+  dtState.ix = ans;
+  var el = document.getElementById('dt-ix-result');
+  el.style.display = 'block';
+  if (ans === 'no') {
+    el.innerHTML = '<div style="padding:0.5rem 0.75rem; background:#ecfdf5; border:1px solid #6ee7b7; border-radius:4px; font-size:0.8rem;"><span style="color:var(--green-dark);">✓ Correct — cross-fuel interactive effects exist.</span> The LED retrofit removes internal heat gain from the lighting fixtures. In winter, the HVAC must compensate with additional gas heating. Electric savings are real, but gas consumption increases. The models are separate (3PC electric, 3PH gas) but the savings are coupled. This interactive effect must be quantified and documented.</div>';
+  } else {
+    el.innerHTML = '<div style="padding:0.5rem 0.75rem; background:#fef2f2; border:1px solid #fca5a5; border-radius:4px; font-size:0.8rem;"><span style="color:var(--red);">✗ The ECMs are NOT independent.</span> ECM-1 (LED retrofit) reduces lighting wattage, which also reduces internal heat gain. In winter, the HVAC system must burn more gas to compensate for the lost heat. This cross-fuel interactive effect means electric savings come with a gas penalty. Separate models per fuel — but document the coupling.</div>';
+  }
+  checkDtDone();
+}
+
+function checkDtDone() {
+  var allAnswered = dtState.elec !== null && dtState.gas !== null && dtState.ix !== null;
+  var allCorrect = dtState.elec === 'yes' && dtState.gas === 'yes' && dtState.ix === 'no';
+  if (allCorrect) {
+    document.getElementById('dt-nudge').style.display = 'none';
+    document.getElementById('dt-summary').style.display = 'block';
+    document.getElementById('dt-done').style.display = 'block';
+  } else if (allAnswered) {
+    document.getElementById('dt-nudge').style.display = 'block';
+    document.getElementById('dt-summary').style.display = 'none';
+    document.getElementById('dt-done').style.display = 'none';
+  }
+}
+
 // ══ Day 3 charts ══
 
 // NRA reporting-period data (from cfhq_nra_scenario.csv)
@@ -2138,7 +3114,90 @@ function switchSavingsChart(fuel) {
   savingsChartFuel = fuel;
   document.getElementById('btn-sav-electric').className = 'toggle-btn'+(fuel==='electric'?' active':'');
   document.getElementById('btn-sav-gas').className = 'toggle-btn'+(fuel==='gas'?' active':'');
+  document.getElementById('savings-chart-label').textContent = fuel==='electric'
+    ? 'ECM-1 Inferred Savings — Electric (kWh/month)'
+    : 'ECM-1 Inferred Savings — Gas (therms/month)';
   drawSavingsChart();
+  populateCut7Table();
+}
+
+function populateCut7Table() {
+  var tbody = document.getElementById('cut7-tbody');
+  var tfoot = document.getElementById('cut7-tfoot');
+  if (!tbody) return;
+  var isElec = savingsChartFuel === 'electric';
+  var postData = isElec ? ecm1ElectricData : ecm1GasData;
+  var unit = isElec ? 'kWh' : 'therms';
+
+  // ── Apply the regression model to reporting-period OAT values ──
+  // The counterfactual: what would consumption have been, given each
+  // reporting month's actual weather, had the ECM not been installed?
+  // This is model(OAT_reporting) — NOT raw observed baseline values.
+  var modelPredictions;
+  if (isElec) {
+    var ccpEl = document.getElementById('ccp');
+    var ccp = ccpEl ? parseInt(ccpEl.value) || 55 : 55;
+    var m = fit3PC(electricData, ccp);
+    modelPredictions = postData.map(function(d) { return Math.round(predict3PC(d.oat, ccp, m)); });
+  } else {
+    var hcpEl = document.getElementById('hcp');
+    var hcp = hcpEl ? parseInt(hcpEl.value) || 58 : 58;
+    var m = fit3P(gasData, hcp);
+    modelPredictions = postData.map(function(d) { return Math.round(predict3P(d.oat, hcp, m)); });
+  }
+
+  // Update column headers
+  document.getElementById('cut7-col-baseline').textContent = 'Model-Predicted Baseline (Reporting Period OAT) (' + unit + ')';
+  document.getElementById('cut7-col-actual').textContent = 'Actual Post-Retrofit (' + unit + ')';
+  document.getElementById('cut7-col-diff').textContent = 'Inferred Savings (' + unit + ')';
+
+  var totalBase = 0, totalPost = 0, totalDiff = 0;
+  var rows = '';
+  for (var i = 0; i < 12; i++) {
+    var base = modelPredictions[i];
+    var post = Math.round(postData[i].kwh);
+    var diff = base - post;
+    totalBase += base; totalPost += post; totalDiff += diff;
+    var diffColor = diff >= 0 ? 'var(--green-dark)' : 'var(--red)';
+    var bg = i % 2 === 1 ? ' background:var(--cream-light);' : '';
+    rows += '<tr style="border-bottom:1px solid var(--border);' + bg + '">'
+      + '<td style="padding:0.3rem 0.5rem;">' + months[i] + '</td>'
+      + '<td style="padding:0.3rem 0.5rem; text-align:right;">' + postData[i].oat + '</td>'
+      + '<td style="padding:0.3rem 0.5rem; text-align:right;">' + base.toLocaleString() + '</td>'
+      + '<td style="padding:0.3rem 0.5rem; text-align:right;">' + post.toLocaleString() + '</td>'
+      + '<td style="padding:0.3rem 0.5rem; text-align:right; font-weight:600; color:' + diffColor + ';">' + (diff >= 0 ? '+' : '') + diff.toLocaleString() + '</td>'
+      + '</tr>';
+  }
+  tbody.innerHTML = rows;
+
+  var diffColor = totalDiff >= 0 ? 'var(--green-dark)' : 'var(--red)';
+  tfoot.innerHTML = '<tr style="border-top:2px solid var(--ink-faint); font-weight:600;">'
+    + '<td style="padding:0.4rem 0.5rem;" colspan="2">Annual Total</td>'
+    + '<td style="padding:0.4rem 0.5rem; text-align:right;">' + totalBase.toLocaleString() + '</td>'
+    + '<td style="padding:0.4rem 0.5rem; text-align:right;">' + totalPost.toLocaleString() + '</td>'
+    + '<td style="padding:0.4rem 0.5rem; text-align:right; color:' + diffColor + ';">' + (totalDiff >= 0 ? '+' : '') + totalDiff.toLocaleString() + '</td>'
+    + '</tr>';
+
+  // Update summary stats
+  var summaryEl = document.getElementById('cut7-annual-summary');
+  if (summaryEl) {
+    summaryEl.innerHTML = ''
+      + '<div class="gof-stat good"><div class="gof-label">Model-Predicted Annual</div><div class="gof-value">' + totalBase.toLocaleString() + '</div><div class="gof-status">' + unit + '</div></div>'
+      + '<div class="gof-stat good"><div class="gof-label">Post-Retrofit Annual</div><div class="gof-value">' + totalPost.toLocaleString() + '</div><div class="gof-status">' + unit + '</div></div>'
+      + '<div class="gof-stat ' + (totalDiff >= 0 ? 'good' : 'bad') + '"><div class="gof-label">Inferred Savings</div><div class="gof-value">' + (totalDiff >= 0 ? '+' : '') + totalDiff.toLocaleString() + '</div><div class="gof-status">' + unit + (totalDiff < 0 ? ' (interactive effect)' : '') + '</div></div>';
+  }
+}
+
+function submitCut7() {
+  var ta = document.getElementById('cut7-response');
+  if (!ta.value.trim()) return;
+  ta.readOnly = true;
+  ta.style.background = 'var(--cream-light)';
+  ta.style.borderColor = '#6ee7b7';
+  document.getElementById('cut7-submit').style.display = 'none';
+  document.getElementById('cut7-banner').style.display = 'inline';
+  document.getElementById('cut7-banner').innerHTML = '✓ Explanation recorded';
+  document.getElementById('cut7-nav').style.display = 'block';
 }
 
 function drawSavingsChart() {
@@ -2153,11 +3212,22 @@ function drawSavingsChart() {
   ctx.fillStyle = '#fff';
   ctx.fillRect(0,0,w,h);
 
-  // Compute monthly savings: baseline - ECM-1 post-retrofit
-  const baseData = savingsChartFuel==='electric' ? electricData : gasData;
+  // Compute monthly savings: model-predicted baseline applied to reporting-period OAT minus ECM-1 actual
   const postData = savingsChartFuel==='electric' ? ecm1ElectricData : ecm1GasData;
-  const savings = baseData.map((d,i) => Math.round(d.kwh - postData[i].kwh));
   const unit = savingsChartFuel==='electric' ? 'kWh' : 'therms';
+  let modelPreds;
+  if (savingsChartFuel === 'electric') {
+    const ccpEl = document.getElementById('ccp');
+    const ccp = ccpEl ? parseInt(ccpEl.value) || 55 : 55;
+    const m = fit3PC(electricData, ccp);
+    modelPreds = postData.map(d => Math.round(predict3PC(d.oat, ccp, m)));
+  } else {
+    const hcpEl = document.getElementById('hcp');
+    const hcp = hcpEl ? parseInt(hcpEl.value) || 58 : 58;
+    const m = fit3P(gasData, hcp);
+    modelPreds = postData.map(d => Math.round(predict3P(d.oat, hcp, m)));
+  }
+  const savings = postData.map((d, i) => modelPreds[i] - Math.round(d.kwh));
 
   const maxAbs = Math.max(...savings.map(Math.abs), 1);
   const yRange = maxAbs * 1.2;
@@ -2211,12 +3281,15 @@ function drawSavingsChart() {
   ctx.restore();
 }
 
+// Global NRA toggle state for Cut 9
+let cut9NraApplied = false;
+
 function drawResidualChart() {
   const canvas = document.getElementById('residual-chart');
   if(!canvas) return;
   const ctx = canvas.getContext('2d');
-  const w = 620, h = 220;
-  const ml = 58, mr = 20, mt = 16, mb = 32;
+  const w = 620, h = 260;
+  const ml = 58, mr = 20, mt = 20, mb = 36;
   const pw = w-ml-mr, ph = h-mt-mb;
 
   ctx.clearRect(0,0,w,h);
@@ -2228,13 +3301,15 @@ function drawResidualChart() {
   const model = fit5P(electricData, lcp, ucp);
 
   // Compute residuals: actual reporting - model prediction at reporting OAT
-  const reportingOats = electricData.map(d => d.oat); // same weather year
+  const reportingOats = electricData.map(d => d.oat);
+  const nraImpact = cut9NraApplied ? 420 : 0;
   const residuals = nraReportingElec.map((actual, i) => {
     const predicted = predict5P(reportingOats[i], lcp, ucp, model);
-    return Math.round(actual - predicted);
+    const adj = nraActive[i] ? nraImpact : 0;
+    return Math.round(actual - adj - predicted);
   });
 
-  const maxAbs = Math.max(...residuals.map(Math.abs), 1);
+  const maxAbs = Math.max(...residuals.map(Math.abs), 500);
   const yRange = maxAbs * 1.3;
   const zeroY = mt + ph/2;
 
@@ -2243,6 +3318,7 @@ function drawResidualChart() {
   ctx.beginPath(); ctx.moveTo(ml, zeroY); ctx.lineTo(ml+pw, zeroY); ctx.stroke();
 
   // Y axis
+  ctx.strokeStyle = '#aaa';
   ctx.beginPath(); ctx.moveTo(ml, mt); ctx.lineTo(ml, mt+ph); ctx.stroke();
 
   // Y labels
@@ -2258,7 +3334,7 @@ function drawResidualChart() {
   });
 
   // NRA threshold line (dashed amber)
-  const thresholdPct = 0.10; // 10% of mean baseline
+  const thresholdPct = 0.10;
   const meanBaseline = mean(electricData.map(d=>d.kwh));
   const threshold = meanBaseline * thresholdPct;
   const threshY = mt + ph * (1 - (threshold + yRange)/(2*yRange));
@@ -2268,54 +3344,263 @@ function drawResidualChart() {
   ctx.beginPath(); ctx.moveTo(ml, threshYNeg); ctx.lineTo(ml+pw, threshYNeg); ctx.stroke();
   ctx.setLineDash([]);
 
-  // Points and connecting line
-  const pts = residuals.map((r,i) => {
-    const x = ml + (i+0.5)/12 * pw;
-    const y = mt + ph * (1 - (r + yRange)/(2*yRange));
-    return {x, y, r, nra: nraActive[i]};
-  });
-
-  // Connecting line
-  ctx.strokeStyle = '#78716c'; ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  pts.forEach((p,i) => i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y));
-  ctx.stroke();
-
-  // Points
-  pts.forEach((p,i) => {
-    ctx.fillStyle = p.nra ? '#c0392b' : '#2d4a3e';
-    ctx.strokeStyle = 'white'; ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.arc(p.x, p.y, 6, 0, 2*Math.PI); ctx.fill(); ctx.stroke();
-    // Month label
-    ctx.fillStyle = '#78716c'; ctx.font = '9px IBM Plex Mono';
-    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
-    ctx.fillText(months[i], p.x, mt+ph+4);
-    // Value
-    ctx.fillStyle = p.nra ? '#c0392b' : '#44403c';
+  // Bars
+  const barW = pw/12 * 0.6;
+  residuals.forEach((r, i) => {
+    const x = ml + (i+0.5)/12 * pw - barW/2;
+    const isNra = nraActive[i] && !cut9NraApplied;
+    ctx.fillStyle = isNra ? '#c0392b' : '#2d4a3e';
+    const barH = Math.abs(r) / yRange * (ph/2);
+    const y = r >= 0 ? zeroY - barH : zeroY;
+    ctx.fillRect(x, y, barW, barH);
+    // Value label
+    ctx.fillStyle = isNra ? '#c0392b' : '#44403c';
     ctx.font = '8px IBM Plex Mono';
-    ctx.textBaseline = p.r >= 0 ? 'bottom' : 'top';
-    ctx.fillText(p.r.toLocaleString(), p.x, p.r >= 0 ? p.y - 9 : p.y + 9);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = r >= 0 ? 'bottom' : 'top';
+    ctx.fillText(r.toLocaleString(), x+barW/2, r >= 0 ? y-2 : y+barH+2);
   });
 
-  // NRA annotation arrow
-  const sep = pts[7]; // Aug (last normal)
-  const nraStart = pts[8]; // Sep (first NRA)
-  ctx.fillStyle = '#c0392b'; ctx.font = '10px IBM Plex Sans';
-  ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
-  ctx.fillText('← NRA: community room addition', nraStart.x + 10, nraStart.y - 4);
+  // Month labels
+  ctx.fillStyle = '#78716c'; ctx.font = '9px IBM Plex Mono';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  months.forEach((m, i) => {
+    const x = ml + (i+0.5)/12 * pw;
+    ctx.fillText(m, x, mt+ph+6);
+  });
+
+  // NRA annotation (only when unadjusted)
+  if (!cut9NraApplied) {
+    const nraX = ml + (8+0.5)/12 * pw;
+    const nraBarH = Math.abs(residuals[8]) / yRange * (ph/2);
+    const nraY = residuals[8] >= 0 ? zeroY - nraBarH : zeroY;
+    ctx.fillStyle = '#c0392b'; ctx.font = '9px IBM Plex Sans';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+    ctx.fillText('← NRA: community room addition', nraX + barW/2 + 4, nraY - 2);
+  }
+
+  // X axis label
+  ctx.fillStyle = '#78716c'; ctx.font = '10px IBM Plex Sans';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+  ctx.fillText('Month (Reporting Period)', ml+pw/2, mt+ph+22);
 
   // Y axis label
   ctx.fillStyle = '#78716c'; ctx.font = '10px IBM Plex Sans';
   ctx.save(); ctx.translate(12, mt+ph/2); ctx.rotate(-Math.PI/2);
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  ctx.fillText('Residual (kWh)', 0, 0);
+  ctx.fillText('Residual (kWh/mo)', 0, 0);
   ctx.restore();
+
+  // Pre-documented NRA overlay from Cut 8
+  drawNraOverlay(ctx, ml, mr, mt, mb, pw, ph, yRange);
+}
+
+function drawNraOverlay(ctx, ml, mr, mt, mb, pw, ph, yRange) {
+  const predoc = localStorage.getItem('nra_predoc');
+  const prompt = document.getElementById('nra-overlay-prompt');
+  const legend = document.getElementById('nra-overlay-legend');
+  if (!prompt || !legend) return;
+
+  if (!predoc) {
+    prompt.style.display = 'block';
+    legend.style.display = 'none';
+    return;
+  }
+
+  prompt.style.display = 'none';
+  legend.style.display = 'inline';
+
+  const data = JSON.parse(predoc);
+  const impact = parseFloat(data.electricImpact) || 0;
+
+  // Draw dashed orange line at the impact value
+  const impactY = mt + ph * (1 - (impact + yRange)/(2*yRange));
+  ctx.save();
+  ctx.setLineDash([6,4]);
+  ctx.strokeStyle = '#f97316';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(ml, impactY);
+  ctx.lineTo(ml+pw, impactY);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Label
+  ctx.fillStyle = '#f97316';
+  ctx.font = '9px IBM Plex Sans';
+  ctx.textAlign = 'right';
+  ctx.textBaseline = 'bottom';
+  ctx.fillText('Pre-documented NRA: +' + impact + ' kWh/mo (Cut 8)', ml+pw, impactY - 3);
+  ctx.restore();
+}
+
+// ── Cut 8: NRA Pre-Documentation ──
+const nraTriggerNames = {
+  'office-occupancy': 'Office Occupancy Change',
+  'lobby-occupancy': 'Lobby Occupancy Change',
+  'office-plugload': 'Office Plug Load Change',
+  'lobby-plugload': 'Lobby Plug Load Change',
+  'office-schedule': 'Office Schedule Change',
+  'lobby-schedule': 'Lobby Schedule Change',
+  'infiltration': 'Envelope Infiltration Change',
+  'floor-area': 'Floor Area Addition',
+  'hvac-replacement': 'HVAC Equipment Replacement'
+};
+
+function nraTriggerChanged() {
+  const sel = document.getElementById('nra-trigger');
+  const nameField = document.getElementById('nra-event-name');
+  if (sel.value && !nameField.value) {
+    nameField.value = nraTriggerNames[sel.value] || '';
+  }
+}
+
+function loadNraExerciseData() {
+  document.getElementById('nra-trigger').value = 'office-plugload';
+  document.getElementById('nra-event-name').value = 'Server Room Expansion';
+  document.getElementById('nra-date').value = '2027-09-01';
+  document.getElementById('nra-electric').value = '420';
+  document.getElementById('nra-gas').value = '28';
+  document.getElementById('nra-notes').value = 'New servers added to east wing. Expected continuous load increase from month 9 onward. Load is outside the original IDF boundary \u2014 not captured in the baseline regression.';
+  document.getElementById('nra-analyst').value = 'CMVP Candidate';
+  // Set cause type radio
+  document.querySelectorAll('input[name="nra-cause"]').forEach(r => r.checked = r.value === 'operational');
+  document.getElementById('nra-error').style.display = 'none';
+}
+
+function submitNraPredoc() {
+  const fields = {
+    trigger: document.getElementById('nra-trigger').value,
+    eventName: document.getElementById('nra-event-name').value,
+    date: document.getElementById('nra-date').value,
+    electricImpact: document.getElementById('nra-electric').value,
+    gasImpact: document.getElementById('nra-gas').value,
+    notes: document.getElementById('nra-notes').value,
+    analyst: document.getElementById('nra-analyst').value
+  };
+  const causeRadio = document.querySelector('input[name="nra-cause"]:checked');
+  fields.causeType = causeRadio ? causeRadio.value : '';
+
+  // Validate
+  const missing = [];
+  if (!fields.trigger) missing.push('NRA Trigger');
+  if (!fields.eventName) missing.push('Event Name');
+  if (!fields.date) missing.push('Date of Change');
+  if (!fields.electricImpact) missing.push('Electric Impact');
+  if (!fields.gasImpact) missing.push('Gas Impact');
+  if (!fields.causeType) missing.push('Cause Type');
+  if (!fields.analyst) missing.push('Analyst Name');
+
+  const errDiv = document.getElementById('nra-error');
+  if (missing.length > 0) {
+    errDiv.textContent = 'Missing: ' + missing.join(', ');
+    errDiv.style.display = 'block';
+    return;
+  }
+  errDiv.style.display = 'none';
+
+  // Save to localStorage
+  localStorage.setItem('nra_predoc', JSON.stringify(fields));
+
+  // Disable all inputs
+  const container = document.getElementById('nra-form-container');
+  container.querySelectorAll('input, select, textarea').forEach(el => el.disabled = true);
+
+  // Show success banner
+  document.getElementById('nra-success-banner').style.display = 'block';
+
+  // Toggle buttons
+  document.getElementById('nra-load-btn').style.display = 'none';
+  document.getElementById('nra-submit-btn').style.display = 'none';
+  document.getElementById('nra-edit-btn').style.display = 'inline-block';
+  document.getElementById('nra-cut9-nav').style.display = 'block';
+}
+
+function editNraPredoc() {
+  const container = document.getElementById('nra-form-container');
+  container.querySelectorAll('input, select, textarea').forEach(el => el.disabled = false);
+  document.getElementById('nra-success-banner').style.display = 'none';
+  document.getElementById('nra-load-btn').style.display = 'inline-block';
+  document.getElementById('nra-submit-btn').style.display = 'inline-block';
+  document.getElementById('nra-edit-btn').style.display = 'none';
+  document.getElementById('nra-cut9-nav').style.display = 'none';
+  localStorage.removeItem('nra_predoc');
+}
+
+// ── Cut 9: NRA toggle and reflection ──
+function toggleNraAdjustment() {
+  cut9NraApplied = !cut9NraApplied;
+  const btn = document.getElementById('nra-toggle-btn');
+  const state = document.getElementById('nra-toggle-state');
+  const summary = document.getElementById('nra-toggle-summary');
+  const banner = document.getElementById('nra-accepted-banner');
+  const gofColHeader = document.getElementById('gof-col-nra');
+  const gofCvrmse = document.getElementById('gof-cvrmse-late');
+  const gofMean = document.getElementById('gof-mean-late');
+
+  if (cut9NraApplied) {
+    btn.textContent = 'Remove NRA';
+    btn.style.background = '#2d4a3e';
+    state.textContent = 'NRA adjustment: ON';
+    state.style.color = '#2d4a3e';
+    summary.innerHTML = 'With the Non-Routine Adjustment applied, residuals return to near zero. The step change is explained by the pre-documented server room expansion &mdash; not by a failure of the ECM-1 savings estimate.';
+    banner.style.display = 'block';
+    gofColHeader.textContent = 'Months 9\u201312 (NRA applied)';
+    gofCvrmse.innerHTML = '<span style="color:#2d4a3e;">4.1% (passes)</span>';
+    gofMean.innerHTML = '<span style="color:#2d4a3e;">-33 kWh</span>';
+  } else {
+    btn.textContent = 'Apply NRA';
+    btn.style.background = '#c0392b';
+    state.textContent = 'NRA adjustment: OFF';
+    state.style.color = '#78716c';
+    summary.innerHTML = 'Months 9&ndash;12 show a persistent positive residual. The model is under-predicting consumption. Something changed.';
+    banner.style.display = 'none';
+    gofColHeader.textContent = 'Months 9\u201312 (unadjusted)';
+    gofCvrmse.innerHTML = '<span style="color:#c0392b;">18.4% (fails)</span>';
+    gofMean.innerHTML = '<span style="color:#c0392b;">+387 kWh</span>';
+  }
+
+  drawResidualChart();
+}
+
+function submitCut9Reflection() {
+  const textarea = document.getElementById('cut9-reflection');
+  if (!textarea.value.trim()) return;
+  textarea.disabled = true;
+  document.getElementById('cut9-reflection-banner').style.display = 'block';
+  document.getElementById('cut9-submit-reflection').style.display = 'none';
+  document.getElementById('cut9-complete-btn').style.display = 'inline-block';
 }
 
 // Initial draw — switchModel sets correct control visibility then calls updateModel → drawPlot
 window.addEventListener('load', () => {
   switchModel('electric');   // sets ctrl-3pc visible, others hidden, draws scatter plot
   // Day 3 charts are drawn on-demand when day3 page is shown (see show())
+  // Check if NRA was previously submitted and restore locked state
+  const predoc = localStorage.getItem('nra_predoc');
+  if (predoc) {
+    try {
+      const data = JSON.parse(predoc);
+      document.getElementById('nra-trigger').value = data.trigger || '';
+      document.getElementById('nra-event-name').value = data.eventName || '';
+      document.getElementById('nra-date').value = data.date || '';
+      document.getElementById('nra-electric').value = data.electricImpact || '';
+      document.getElementById('nra-gas').value = data.gasImpact || '';
+      document.getElementById('nra-notes').value = data.notes || '';
+      document.getElementById('nra-analyst').value = data.analyst || '';
+      if (data.causeType) {
+        document.querySelectorAll('input[name="nra-cause"]').forEach(r => r.checked = r.value === data.causeType);
+      }
+      // Lock form
+      const container = document.getElementById('nra-form-container');
+      container.querySelectorAll('input, select, textarea').forEach(el => el.disabled = true);
+      document.getElementById('nra-success-banner').style.display = 'block';
+      document.getElementById('nra-load-btn').style.display = 'none';
+      document.getElementById('nra-submit-btn').style.display = 'none';
+      document.getElementById('nra-edit-btn').style.display = 'inline-block';
+      document.getElementById('nra-cut9-nav').style.display = 'block';
+    } catch(e) {}
+  }
 });
 </script>
 </body>
