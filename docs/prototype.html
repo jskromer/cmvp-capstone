@@ -1540,7 +1540,7 @@
           <div class="ref-section">
             <div class="ref-section-label">Key References</div>
             <ul class="ref-list">
-              <li>IPMVP Core Concepts — Options A/B (retrofit isolation) vs. C/D (whole facility)</li>
+              <li>IPMVP Core Concepts — Retrofit isolation (ECM boundary) vs. whole-facility (regression boundary) — a CfD boundary decision</li>
               <li>FEMP 4.0 — recommended M&amp;V approaches by ECM type <span>(Table 3-1)</span></li>
               <li>ASHRAE Guideline 14 — performance verification vs. counterfactual method</li>
               <li>ISO 50015:2014 — M&amp;V of energy performance of organizations</li>
@@ -1863,7 +1863,7 @@
             </div>
           </div>
           <div class="explainer-blurb">
-            <strong>Performance vs. performance/operation</strong> is a cost-precision tradeoff, not a quality ranking. Option A (key parameter measurement) can be more defensible than continuous metering if the stipulated parameter is genuinely stable. The CV of the sample drives the required N — students who calculate this by hand understand why sampling plans aren't arbitrary.
+            <strong>Performance vs. performance/operation</strong> is a cost-precision tradeoff, not a quality ranking. Stipulated-parameter measurement can be more defensible than continuous metering if the stipulated parameter is genuinely stable. The CV of the sample drives the required N — students who calculate this by hand understand why sampling plans aren't arbitrary.
           </div>
           <div class="explainer-blurb" style="margin-top: 0.5rem;">
             <strong>Stipulation is a contractual decision, not a shortcut.</strong> When you stipulate an operational factor — say, hours of use — you are explicitly assigning the risk of variation in that factor to the owner. If actual operating hours drop 20% after installation because the tenant changed their schedule, the contractor's lighting ECM performed exactly as specified. The savings shortfall is an operational variance, not a performance failure. The M&amp;V plan records that assignment of risk. The stipulation is the mechanism.
@@ -1875,7 +1875,7 @@
             <div class="ref-section-label">Key References</div>
             <ul class="ref-list">
               <li>ASHRAE Guideline 14 — Table 5-2, retrofit isolation approaches <span>(20+ methods)</span></li>
-              <li>FEMP 4.0 — Option A strengthened: annual key parameter measurement now default</li>
+              <li>FEMP 4.0 — stipulated-parameter approach strengthened: annual key parameter measurement now default</li>
               <li>IPMVP Core Concepts — performance vs. performance/operation terminology</li>
               <li>IPMVP Core Concepts — stipulation requirements and documentation <span>(§4.6)</span></li>
               <li>Section 6 Excel example — CMVP_Retrofit_Isolation_Example.xlsx</li>
@@ -3025,7 +3025,7 @@ var boundaryState = {1: null, 2: null, 3: null};
 var boundaryAnswers = {1: 'in', 2: 'in', 3: 'out'};
 var boundaryReasons = {
   '1-in':  '✓ Correct. The lighting circuit is the ECM — it must be inside the measurement boundary.',
-  '1-out': '✗ The lighting circuit IS the ECM. If it is outside the boundary, you cannot measure the savings.',
+  '1-out': '✗ The lighting circuit IS the ECM. If it is outside the boundary, you cannot infer the savings without a full boundary.',
   '2-in':  '✓ Correct. Removing lighting heat gain changes the HVAC load. Ignoring this interactive effect understates the true impact of the retrofit.',
   '2-out': '✗ The HVAC responds to lighting heat gain changes. Excluding it misses the interactive effect — gas consumption will rise in winter because the building lost internal heat from the old T8 fixtures.',
   '3-in':  '✗ Plug loads are outside the ECM scope. Including them adds noise to the measurement boundary without improving savings accuracy.',
@@ -3458,7 +3458,7 @@ function nraTriggerChanged() {
 function loadNraExerciseData() {
   document.getElementById('nra-trigger').value = 'office-plugload';
   document.getElementById('nra-event-name').value = 'Server Room Expansion';
-  document.getElementById('nra-date').value = '2027-09-01';
+  document.getElementById('nra-date').value = '2026-09-01';
   document.getElementById('nra-electric').value = '420';
   document.getElementById('nra-gas').value = '28';
   document.getElementById('nra-notes').value = 'New servers added to east wing. Expected continuous load increase from month 9 onward. Load is outside the original IDF boundary \u2014 not captured in the baseline regression.';
