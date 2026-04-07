@@ -16,18 +16,45 @@ Build state: read the latest file in docs/audits/ for current status.
    It is the energy audit in computable form.
 4. Savings are inferred from the adjusted counterfactual baseline —
    not from direct measurement.
+5. Use "Checkpoint" not "Cut" — global rename completed 2026-04-07.
 
 ## Architecture
 - Pure static HTML/JS/CSS — no framework, no build step, no npm
 - All simulation data hardcoded inline (intentional — offline-capable)
-- localStorage used for Checkpoint 8 → Checkpoint 9 NRA data persistence
+- localStorage used for Checkpoint 6 boundary decisions and
+  Checkpoint 8 → Checkpoint 9 NRA data persistence
 - EnergyPlus 25.2 simulation files in simulation/
 - IDF factor list: simulation/baseline_static_factors.md
 
-## Current Build State
-- Complete: Hub, Building, Checkpoints 1, 2, 5, 7, 8, 9
-- Stubs (tool not built): Checkpoints 3, 4, 6
-- Run docs/audit-prompt.md against the source files for full status
+## Current Build State (as of 2026-04-07 audit)
+- Complete: Hub, Building, Checkpoints 1, 2, 5, 6, 7, 8, 9
+- Stub (shell exists, tool not built): Checkpoints 3, 4
+- Not built: Steps 0A, 0B, 1, 8, 9, 10, 12, 13, 14
+
+### Checkpoint 6 detail
+Three tools all wired and complete:
+- Tool A: Boundary Decision Matrix (IDF variables → Static/Dynamic/NRA/Stipulated)
+- Tool B: Sampling Calculator (n = (t × CV / precision)², 90% confidence)
+- Tool C: Explain Your Answer (textarea → localStorage → feeds Step 12)
+
+### Checkpoint 1 detail (revised 2026-04-07)
+Three parts with progressive unlock gate:
+- Part A: Physical boundary (3 questions — trivially whole building)
+- Part B: Model boundary (5 questions — what OAT regression accounts for vs. NRA candidates)
+- Part C: Who Controls? (callout connecting boundary → stipulation → NRA)
+
+## Pending Work
+- Checkpoint 3 (Scatter Plots): raw scatter viewer, Electric + Gas vs. OAT,
+  NO model overlay — pre-model-fitting pedagogical step
+- Checkpoint 4 (Baseline Period): 24-month time series selector,
+  coverage factor, anomaly flagging
+- Bug #4 Medium: Checkpoint 6 Lock button enablement logic — verify
+  all selects must be filled before button activates
+- Handouts: Checkpoints 5, 6, 7 missing paper handouts
+- Step 12 (M&V Boundary Document): collect all localStorage inputs
+  (boundary decisions, NRA pre-doc, narrative) into print-to-PDF report
+- Stage 13 (Uncertainty Budget): FSU table, model + metering + sampling
+- Stage 14 (Valuation): cost-avoidance calculator, blended vs. marginal rates
 
 ## CfD Framework
 Three decision axes:
