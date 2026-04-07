@@ -22,22 +22,22 @@ Then produce the following 7 sections:
 ---
 
 ### SECTION 1 — COMPLETE
-Fully built and functional cuts, pages, and tools.
-| Page | Cut # | Cut Name | Interactive Tool | Data Wired |
+Fully built and functional checkpoints, pages, and tools.
+| Page | Checkpoint # | Checkpoint Name | Interactive Tool | Data Wired |
 
 ### SECTION 2 — STUB / PLACEHOLDER
 Content present but interactive tool not built.
-| Cut # | Name | What Exists | What's Missing |
+| Checkpoint # | Name | What Exists | What's Missing |
 
 ### SECTION 3 — NOT BUILT
 Defined in capstone-flow.md but absent from prototype.html.
 | Step | Name | Notes |
 
 ### SECTION 4 — HANDOUTS
-For each cut: does a handout exist in handouts.html?
-Flag gaps where prototype is COMPLETE but handout is missing, 
+For each checkpoint: does a handout exist in handouts.html?
+Flag gaps where prototype is COMPLETE but handout is missing,
 or handout exists but prototype is still a stub.
-| Cut # | Handout Exists | Prototype Status | Gap? |
+| Checkpoint # | Handout Exists | Prototype Status | Gap? |
 
 ### SECTION 5 — KNOWN BUGS
 | # | Severity | Location | Issue |
@@ -58,15 +58,22 @@ Review all built content for:
   These are legacy. Use CfD framework: Boundary, Model Form, 
   Duration.
 
-- CfD FRAMEWORK: Are Boundary, Model Form, and Duration 
+- CfD FRAMEWORK: Are Boundary, Model Form, and Duration
   represented correctly throughout?
+
+- BOUNDARY DOCUMENT COMPLETENESS: For any checkpoint or tool that involves
+  boundary setting or stipulation, verify that a "Who Controls?"
+  or equivalent responsibility assignment is present. The boundary
+  document must be able to answer: "Who turns on/off the lights?"
+  Flag any boundary tool that assigns parameters without assigning
+  responsibility.
 
 | Location | Issue | Severity |
 
 ### SECTION 7 — NAVIGATION INTEGRITY
 Trace the full student path:
-  Hub → Day 1 → Cut 1 → Cut 2 → Day 2 → Cut 3 → Cut 4 →
-  Cut 5 → Cut 6 → Day 3 → Cut 7 → Cut 8 → Cut 9 → Hub
+  Hub → Day 1 → Checkpoint 1 → Checkpoint 2 → Day 2 → Checkpoint 3 → Checkpoint 4 →
+  Checkpoint 5 → Checkpoint 6 → Day 3 → Checkpoint 7 → Checkpoint 8 → Checkpoint 9 → Hub
 
 For each transition verify:
 - "→ Next" or "Proceed" button exists with working onclick

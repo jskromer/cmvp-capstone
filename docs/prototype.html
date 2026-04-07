@@ -212,13 +212,13 @@
     }
     .day-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; }
     .day-sections { font-size: 0.8rem; color: var(--ink-faint); margin-bottom: 1rem; }
-    .day-cuts {
+    .day-checkpoints {
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
       margin-bottom: 1.25rem;
     }
-    .cut-chip {
+    .checkpoint-chip {
       font-size: 0.7rem;
       background: var(--cream-dark);
       border: 1px solid var(--border);
@@ -227,7 +227,7 @@
       color: var(--ink-light);
       white-space: nowrap;
     }
-    .cut-chip.demo {
+    .checkpoint-chip.demo {
       background: #fef3c7;
       border-color: #f59e0b;
       color: #92400e;
@@ -262,8 +262,8 @@
     .day-header h1 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.25rem; }
     .day-header p { color: var(--ink-light); font-size: 0.95rem; }
 
-    /* Cut cards */
-    .cut-card {
+    /* Checkpoint cards */
+    .checkpoint-card {
       background: var(--cream-light);
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -275,35 +275,35 @@
       align-items: start;
       transition: box-shadow 0.2s;
     }
-    .cut-card:hover { box-shadow: var(--shadow); }
-    .cut-card.demo-card {
+    .checkpoint-card:hover { box-shadow: var(--shadow); }
+    .checkpoint-card.demo-card {
       background: var(--amber-light);
       border-color: #f59e0b;
     }
-    .cut-number {
+    .checkpoint-number {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 1.5rem;
       font-weight: 500;
       color: var(--green-dark);
       padding-top: 0.15rem;
     }
-    .cut-number.demo-num { color: #92400e; }
-    .cut-timing {
+    .checkpoint-number.demo-num { color: #92400e; }
+    .checkpoint-timing {
       font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--ink-faint);
       margin-bottom: 0.2rem;
     }
-    .cut-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.2rem; }
-    .cut-dimension {
+    .checkpoint-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .checkpoint-dimension {
       font-size: 0.8rem;
       font-style: italic;
       color: var(--green-dark);
       margin-bottom: 0.5rem;
     }
-    .cut-desc { font-size: 0.875rem; color: var(--ink-light); line-height: 1.5; }
-    .cut-action { padding-top: 0.5rem; }
+    .checkpoint-desc { font-size: 0.875rem; color: var(--ink-light); line-height: 1.5; }
+    .checkpoint-action { padding-top: 0.5rem; }
     .open-btn {
       background: var(--green-dark);
       color: white;
@@ -332,19 +332,19 @@
       white-space: nowrap;
     }
 
-    /* ── Cut page — Model Fitter ── */
-    .cut-layout {
+    /* ── Checkpoint page — Model Fitter ── */
+    .checkpoint-layout {
       display: grid;
       grid-template-columns: 280px 1fr;
       min-height: calc(100vh - 52px);
     }
-    .cut-sidebar {
+    .checkpoint-sidebar {
       background: var(--cream-light);
       border-right: 1px solid var(--border);
       padding: 2rem 1.5rem;
       overflow-y: auto;
     }
-    .cut-main { padding: 2rem; overflow-y: auto; }
+    .checkpoint-main { padding: 2rem; overflow-y: auto; }
 
     .sidebar-tag {
       font-size: 0.7rem;
@@ -514,8 +514,8 @@
     .compare-row .value { font-family: 'IBM Plex Mono', monospace; font-weight: 500; }
     .compare-row .diff { font-size: 0.8rem; color: var(--ink-faint); }
 
-    /* Cut nav */
-    .cut-nav {
+    /* Checkpoint nav */
+    .checkpoint-nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -633,8 +633,8 @@
       border-left: 3px solid #f59e0b;
     }
 
-    /* Inline cut card — embedded within section block */
-    .inline-cut-card {
+    /* Inline checkpoint card — embedded within section block */
+    .inline-checkpoint-card {
       display: flex;
       align-items: flex-start;
       gap: 0.875rem;
@@ -644,7 +644,7 @@
       padding: 0.875rem 1rem;
       margin-top: 0.75rem;
     }
-    .cut-badge {
+    .checkpoint-badge {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 0.75rem;
       font-weight: 500;
@@ -653,15 +653,15 @@
       padding-top: 0.1rem;
       min-width: 52px;
     }
-    .cut-body { flex: 1; }
-    .cut-body .cut-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.15rem; }
-    .cut-trigger {
+    .checkpoint-body { flex: 1; }
+    .checkpoint-body .checkpoint-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.15rem; }
+    .checkpoint-trigger {
       font-size: 0.75rem;
       color: var(--amber);
       font-weight: 500;
       margin-bottom: 0.25rem;
     }
-    .cut-body .cut-desc { font-size: 0.8rem; color: var(--ink-faint); line-height: 1.5; }
+    .checkpoint-body .checkpoint-desc { font-size: 0.8rem; color: var(--ink-faint); line-height: 1.5; }
 
     /* Timeline connector between sections */
     .timeline-connector {
@@ -814,7 +814,7 @@
     <a href="javascript:void(0)" onclick="show('day1')">Day 1</a>
     <a href="javascript:void(0)" onclick="show('day2')">Day 2</a>
     <a href="javascript:void(0)" onclick="show('day3')">Day 3</a>
-    <a href="javascript:void(0)" onclick="show('cut5')">Model Fitter</a>
+    <a href="javascript:void(0)" onclick="show('checkpoint5')">Model Fitter</a>
   </nav>
 </div>
 
@@ -827,7 +827,7 @@
   <div class="hub-hero">
     <div class="hub-title">CMVP Capstone — 3-Day Training</div>
     <div class="hub-subtitle">Counterfactual HQ</div>
-    <div class="hub-desc">One building. Nine cuts. Every major M&V judgment made visible.</div>
+    <div class="hub-desc">One building. Nine checkpoints. Every major M&V judgment made visible.</div>
   </div>
 
   <!-- Building card -->
@@ -917,9 +917,9 @@
       <div class="day-number">Day 1</div>
       <div class="day-title">Context &amp; Boundaries</div>
       <div class="day-sections">Sections 1 · 2</div>
-      <div class="day-cuts">
-        <span class="cut-chip">Cut 1 — Boundary Setting</span>
-        <span class="cut-chip">Cut 2 — Model Form Selection</span>
+      <div class="day-checkpoints">
+        <span class="checkpoint-chip">Checkpoint 1 — Boundary Setting</span>
+        <span class="checkpoint-chip">Checkpoint 2 — Model Form Selection</span>
       </div>
       <button class="day-btn">Open Day 1</button>
     </div>
@@ -928,12 +928,12 @@
       <div class="day-number">Day 2</div>
       <div class="day-title">The Model</div>
       <div class="day-sections">Sections 3.1 · 4 · 5 · 6</div>
-      <div class="day-cuts">
-        <span class="cut-chip">Cut 3 — Scatter Plots</span>
-        <span class="cut-chip">Cut 4 — Baseline Period</span>
-        <span class="cut-chip demo">⚡ MCP Demo</span>
-        <span class="cut-chip">Cut 5 — Model Fitter</span>
-        <span class="cut-chip">Cut 6 — Boundary + Stipulation</span>
+      <div class="day-checkpoints">
+        <span class="checkpoint-chip">Checkpoint 3 — Scatter Plots</span>
+        <span class="checkpoint-chip">Checkpoint 4 — Baseline Period</span>
+        <span class="checkpoint-chip demo">⚡ MCP Demo</span>
+        <span class="checkpoint-chip">Checkpoint 5 — Model Fitter</span>
+        <span class="checkpoint-chip">Checkpoint 6 — Boundary + Stipulation</span>
       </div>
       <button class="day-btn">Open Day 2</button>
     </div>
@@ -942,10 +942,10 @@
       <div class="day-number">Day 3</div>
       <div class="day-title">Plan, Report &amp; Defend</div>
       <div class="day-sections">Sections 7 · 8 · 9</div>
-      <div class="day-cuts">
-        <span class="cut-chip">Cut 7 — ECM-1 Savings</span>
-        <span class="cut-chip">Cut 8 — NRA Pre-Doc</span>
-        <span class="cut-chip">Cut 9 — Residual Plot</span>
+      <div class="day-checkpoints">
+        <span class="checkpoint-chip">Checkpoint 7 — ECM-1 Savings</span>
+        <span class="checkpoint-chip">Checkpoint 8 — NRA Pre-Doc</span>
+        <span class="checkpoint-chip">Checkpoint 9 — Residual Plot</span>
       </div>
       <button class="day-btn">Open Day 3</button>
     </div>
@@ -1307,7 +1307,7 @@
 
     <div class="day-header">
       <h1>Day 1 — Context &amp; Boundaries</h1>
-      <p>Sections 1 · 2 &nbsp;·&nbsp; Cuts are embedded where the section naturally pauses</p>
+      <p>Sections 1 · 2 &nbsp;·&nbsp; Checkpoints are embedded where the section naturally pauses</p>
     </div>
 
     <div class="section-timeline">
@@ -1322,12 +1322,12 @@
           </div>
           <div class="section-slides">75 slides</div>
         </div>
-        <div class="inline-cut-card" style="display:block; padding:1rem 1.25rem;">
+        <div class="inline-checkpoint-card" style="display:block; padding:1rem 1.25rem;">
           <div style="display:flex; align-items:center; gap:0.875rem; margin-bottom:0.75rem;">
-            <div class="cut-badge">▶ CUT 1</div>
+            <div class="checkpoint-badge">▶ CHECKPOINT 1</div>
             <div>
-              <div class="cut-title">Boundary Setting</div>
-              <div class="cut-trigger">↳ After "Three Types of Models" — "Where does the measurement stop?"</div>
+              <div class="checkpoint-title">Boundary Setting</div>
+              <div class="checkpoint-trigger">↳ After "Three Types of Models" — "Where does the measurement stop?"</div>
             </div>
           </div>
 
@@ -1370,23 +1370,23 @@
             <text x="120" y="42" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#2d4a3e" opacity="0.5">ECM-1?</text>
           </svg>
 
-          <!-- Boundary decisions -->
-          <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-faint); margin-bottom:0.5rem;">Boundary Decisions — ECM-1 LED Retrofit</div>
+          <!-- ═══ PART A — Physical Boundary ═══ -->
+          <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-faint); margin-bottom:0.5rem;">Step 1: Which systems are captured by the whole-building meters?</div>
 
           <div id="boundary-q1" style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.75rem 1rem; margin-bottom:0.5rem;">
-            <div style="font-size:0.875rem; font-weight:500; margin-bottom:0.4rem;">1. ECM-1 lighting circuit (office wing, Panel A)</div>
+            <div style="font-size:0.875rem; font-weight:500; margin-bottom:0.4rem;">1. Lighting circuit (office wing, Panel A)</div>
             <div style="display:flex; gap:0.5rem; margin-bottom:0.3rem;">
-              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="checkBoundary(1,'in')">IN boundary</button>
-              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="checkBoundary(1,'out')">OUT boundary</button>
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="checkBoundaryA(1,'in')">Captured by meter</button>
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="checkBoundaryA(1,'out')">Not captured</button>
             </div>
             <div id="boundary-fb1" style="font-size:0.8rem; margin-top:0.3rem; display:none;"></div>
           </div>
 
           <div id="boundary-q2" style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.75rem 1rem; margin-bottom:0.5rem;">
-            <div style="font-size:0.875rem; font-weight:500; margin-bottom:0.4rem;">2. HVAC response to lighting heat gain change</div>
+            <div style="font-size:0.875rem; font-weight:500; margin-bottom:0.4rem;">2. HVAC system (RTU — electric + gas)</div>
             <div style="display:flex; gap:0.5rem; margin-bottom:0.3rem;">
-              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="checkBoundary(2,'in')">IN boundary</button>
-              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="checkBoundary(2,'out')">OUT boundary</button>
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="checkBoundaryA(2,'in')">Captured by meter</button>
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="checkBoundaryA(2,'out')">Not captured</button>
             </div>
             <div id="boundary-fb2" style="font-size:0.8rem; margin-top:0.3rem; display:none;"></div>
           </div>
@@ -1394,21 +1394,86 @@
           <div id="boundary-q3" style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.75rem 1rem; margin-bottom:0.5rem;">
             <div style="font-size:0.875rem; font-weight:500; margin-bottom:0.4rem;">3. Plug loads and other tenant equipment</div>
             <div style="display:flex; gap:0.5rem; margin-bottom:0.3rem;">
-              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="checkBoundary(3,'in')">IN boundary</button>
-              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="checkBoundary(3,'out')">OUT boundary</button>
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="checkBoundaryA(3,'in')">Captured by meter</button>
+              <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="checkBoundaryA(3,'out')">Not captured</button>
             </div>
             <div id="boundary-fb3" style="font-size:0.8rem; margin-top:0.3rem; display:none;"></div>
           </div>
 
-          <!-- Callout -->
-          <div style="background:var(--green-light); border-left:3px solid var(--green-dark); padding:0.75rem 0.875rem; border-radius:0 4px 4px 0; font-size:0.8rem; color:var(--ink); line-height:1.5; margin-top:0.75rem;">
-            <strong>Who turns off the lights?</strong> If building staff control operating hours manually, hours are an operational factor — the owner bears the risk of variation. If automated controls drive hours, it's a performance factor — the contractor is responsible.<br>
-            <span style="font-size:0.75rem; color:var(--ink-faint);">Reference: ASHRAE Guideline 14 §5 | FEMP M&amp;V §3.2</span>
+          <!-- Part A summary (hidden until all 3 correct) -->
+          <div id="boundary-a-summary" style="display:none; background:var(--green-light); border-left:3px solid var(--green-dark); padding:0.75rem 0.875rem; border-radius:0 4px 4px 0; font-size:0.8rem; color:var(--ink); line-height:1.5; margin-top:0.75rem;">
+            <strong>The physical boundary is the whole building</strong> — both the electric and gas meters. This is a whole-facility approach. The regression model will be fit to whole-building consumption data.
           </div>
 
-          <!-- Unlock button -->
+          <!-- ═══ PART B — Model Boundary (hidden until Part A complete) ═══ -->
+          <div id="boundary-part-b" style="display:none; margin-top:1.25rem;">
+            <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-faint); margin-bottom:0.5rem;">Step 2: What does the model account for?</div>
+            <div style="font-size:0.82rem; color:var(--ink-light); line-height:1.5; margin-bottom:0.75rem;">
+              The regression model captures weather-driven variation in energy use. But not everything that affects energy use is captured by the model. Factors <strong>outside</strong> the model are Non-Routine variables — if they change during the reporting period, a pre-documented adjustment is required.
+            </div>
+
+            <div id="model-q1" style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.75rem 1rem; margin-bottom:0.5rem;">
+              <div style="font-size:0.875rem; font-weight:500; margin-bottom:0.4rem;">1. Outdoor air temperature</div>
+              <div style="display:flex; gap:0.5rem; margin-bottom:0.3rem;">
+                <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="checkBoundaryB(1,'inside')">Inside model</button>
+                <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="checkBoundaryB(1,'outside')">Outside model</button>
+              </div>
+              <div id="model-fb1" style="font-size:0.8rem; margin-top:0.3rem; display:none;"></div>
+            </div>
+
+            <div id="model-q2" style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.75rem 1rem; margin-bottom:0.5rem;">
+              <div style="font-size:0.875rem; font-weight:500; margin-bottom:0.4rem;">2. Lighting watts per area (ECM-1 treatment)</div>
+              <div style="display:flex; gap:0.5rem; margin-bottom:0.3rem;">
+                <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="checkBoundaryB(2,'inside')">Inside model</button>
+                <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="checkBoundaryB(2,'outside')">Outside model</button>
+              </div>
+              <div id="model-fb2" style="font-size:0.8rem; margin-top:0.3rem; display:none;"></div>
+            </div>
+
+            <div id="model-q3" style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.75rem 1rem; margin-bottom:0.5rem;">
+              <div style="font-size:0.875rem; font-weight:500; margin-bottom:0.4rem;">3. HVAC response to lighting heat gain change</div>
+              <div style="display:flex; gap:0.5rem; margin-bottom:0.3rem;">
+                <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="checkBoundaryB(3,'inside')">Inside model</button>
+                <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="checkBoundaryB(3,'outside')">Outside model</button>
+              </div>
+              <div id="model-fb3" style="font-size:0.8rem; margin-top:0.3rem; display:none;"></div>
+            </div>
+
+            <div id="model-q4" style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.75rem 1rem; margin-bottom:0.5rem;">
+              <div style="font-size:0.875rem; font-weight:500; margin-bottom:0.4rem;">4. Server room plug load</div>
+              <div style="display:flex; gap:0.5rem; margin-bottom:0.3rem;">
+                <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="checkBoundaryB(4,'inside')">Inside model</button>
+                <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="checkBoundaryB(4,'outside')">Outside model</button>
+              </div>
+              <div id="model-fb4" style="font-size:0.8rem; margin-top:0.3rem; display:none;"></div>
+            </div>
+
+            <div id="model-q5" style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.75rem 1rem; margin-bottom:0.5rem;">
+              <div style="font-size:0.875rem; font-weight:500; margin-bottom:0.4rem;">5. Occupancy schedule changes</div>
+              <div style="display:flex; gap:0.5rem; margin-bottom:0.3rem;">
+                <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem;" onclick="checkBoundaryB(5,'inside')">Inside model</button>
+                <button class="open-btn" style="font-size:0.75rem; padding:0.3rem 0.75rem; background:var(--ink-faint);" onclick="checkBoundaryB(5,'outside')">Outside model</button>
+              </div>
+              <div id="model-fb5" style="font-size:0.8rem; margin-top:0.3rem; display:none;"></div>
+            </div>
+
+            <!-- Part B summary (hidden until all 5 correct) -->
+            <div id="boundary-b-summary" style="display:none; background:var(--green-light); border-left:3px solid var(--green-dark); padding:0.75rem 0.875rem; border-radius:0 4px 4px 0; font-size:0.8rem; color:var(--ink); line-height:1.5; margin-top:0.75rem;">
+              <strong>Your model boundary is defined.</strong> The regression accounts for weather-driven loads. Server room plug loads and occupancy changes are <strong>Non-Routine variables</strong> — if they change during the reporting period, they must be pre-documented before the event occurs. You will return to this in Checkpoint 8.
+            </div>
+          </div>
+
+          <!-- ═══ PART C — Who Controls? (hidden until Part B complete) ═══ -->
+          <div id="boundary-part-c" style="display:none; margin-top:0.75rem;">
+            <div style="background:var(--green-light); border-left:3px solid var(--green-dark); padding:0.75rem 0.875rem; border-radius:0 4px 4px 0; font-size:0.8rem; color:var(--ink); line-height:1.5;">
+              <strong>Who turns off the lights?</strong> Operational factors — like occupied hours — are outside the regression model. If building staff control hours manually, the owner bears the risk of variation. If automated controls drive hours, the contractor is responsible. Either way: if hours change significantly, it's an NRA event.<br>
+              <span style="font-size:0.75rem; color:var(--ink-faint);">Reference: ASHRAE Guideline 14 §5 | FEMP M&amp;V §3.2</span>
+            </div>
+          </div>
+
+          <!-- Unlock button — only after Part A (3/3) AND Part B (5/5) -->
           <div id="boundary-done" style="display:none; margin-top:0.75rem;">
-            <button class="open-btn" onclick="show('day1'); document.getElementById('boundary-q2-section').scrollIntoView({behavior:'smooth'});" style="width:100%; text-align:center;">Boundary confirmed — proceed to Cut 2 ↓</button>
+            <button class="open-btn" onclick="show('day1'); document.getElementById('boundary-q2-section').scrollIntoView({behavior:'smooth'});" style="width:100%; text-align:center;">Boundary confirmed — proceed to Checkpoint 2 ↓</button>
           </div>
         </div>
         <button class="deeper-toggle" onclick="toggleDeeper(this)">
@@ -1424,7 +1489,7 @@
             </div>
           </div>
           <div class="explainer-blurb">
-            <strong>The boundary decision is made once</strong> and governs everything downstream. ECM-1 (lighting) can be isolated at the office wing subpanel — the physics allows it. ECM-2 (controls) cannot be isolated from the whole-facility meter — the savings are invisible at the equipment level. This distinction forces two different approaches for one building.
+            <strong>The boundary has two layers.</strong> The physical boundary defines which meters are in scope — for CFHQ, that's the whole building. The model boundary defines what the regression accounts for. Weather-driven loads are inside the model; non-routine factors (server loads, occupancy changes) are outside it. Students who understand this distinction are prepared for Checkpoint 8, where non-routine events must be pre-documented.
           </div>
           <div class="ref-section">
             <div class="ref-section-label">Key References</div>
@@ -1450,12 +1515,12 @@
           </div>
           <div class="section-slides">44 slides</div>
         </div>
-        <div id="boundary-q2-section" class="inline-cut-card" style="display:block; padding:1rem 1.25rem;">
+        <div id="boundary-q2-section" class="inline-checkpoint-card" style="display:block; padding:1rem 1.25rem;">
           <div style="display:flex; align-items:center; gap:0.875rem; margin-bottom:0.75rem;">
-            <div class="cut-badge">▶ CUT 2</div>
+            <div class="checkpoint-badge">▶ CHECKPOINT 2</div>
             <div>
-              <div class="cut-title">Model Form Selection</div>
-              <div class="cut-trigger">↳ After "Guiding Principles" — "Which model for which ECM?"</div>
+              <div class="checkpoint-title">Model Form Selection</div>
+              <div class="checkpoint-trigger">↳ After "Guiding Principles" — "Which model for which ECM?"</div>
             </div>
           </div>
 
@@ -1572,7 +1637,7 @@
 
     <div class="day-header">
       <h1>Day 2 — The Model</h1>
-      <p>Sections 3.1 · 4 · 5 · 6 &nbsp;·&nbsp; Cuts are embedded where the section naturally pauses</p>
+      <p>Sections 3.1 · 4 · 5 · 6 &nbsp;·&nbsp; Checkpoints are embedded where the section naturally pauses</p>
     </div>
 
     <div class="section-timeline">
@@ -1587,12 +1652,12 @@
           </div>
           <div class="section-slides">31 slides</div>
         </div>
-        <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 3</div>
-          <div class="cut-body">
-            <div class="cut-title">Scatter Plots</div>
-            <div class="cut-trigger">↳ After sampling slides — "What do you see in this data?"</div>
-            <div class="cut-desc">Electric vs. OAT · Gas vs. OAT · Raw points only, no model · Students observe and write before any fitting</div>
+        <div class="inline-checkpoint-card">
+          <div class="checkpoint-badge">▶ CHECKPOINT 3</div>
+          <div class="checkpoint-body">
+            <div class="checkpoint-title">Scatter Plots</div>
+            <div class="checkpoint-trigger">↳ After sampling slides — "What do you see in this data?"</div>
+            <div class="checkpoint-desc">Electric vs. OAT · Gas vs. OAT · Raw points only, no model · Students observe and write before any fitting</div>
           </div>
           <button class="soon-btn">Coming soon</button>
         </div>
@@ -1635,12 +1700,12 @@
           </div>
           <div class="section-slides">23 slides</div>
         </div>
-        <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 4</div>
-          <div class="cut-body">
-            <div class="cut-title">Baseline Period</div>
-            <div class="cut-trigger">↳ After "Three Baseline Concepts" slide — before static factors discussion</div>
-            <div class="cut-desc">24-month time series · Students select 12-month window · Stage 0B service-level check · Static factor inventory for CFHQ · Pre-document NRA trigger</div>
+        <div class="inline-checkpoint-card">
+          <div class="checkpoint-badge">▶ CHECKPOINT 4</div>
+          <div class="checkpoint-body">
+            <div class="checkpoint-title">Baseline Period</div>
+            <div class="checkpoint-trigger">↳ After "Three Baseline Concepts" slide — before static factors discussion</div>
+            <div class="checkpoint-desc">24-month time series · Students select 12-month window · Stage 0B service-level check · Static factor inventory for CFHQ · Pre-document NRA trigger</div>
           </div>
           <button class="soon-btn">Coming soon</button>
         </div>
@@ -1681,7 +1746,7 @@
             <div class="section-name">MCP Demo — Forward Model</div>
             <div class="section-topics">At the § 4 → § 5 transition · Claude Desktop + EnergyPlus-MCP · ~25 minutes</div>
           </div>
-          <button class="open-btn demo-btn">Demo Script →</button>
+          <button class="open-btn demo-btn" style="opacity:0.5; cursor:default;" title="Demo script coming soon">Demo Script (coming soon)</button>
         </div>
         <div class="demo-quote">"This is the answer key. Now forget it. The rest of this session, you work from the meter data backward."</div>
       </div>
@@ -1698,14 +1763,14 @@
           </div>
           <div class="section-slides">30 slides</div>
         </div>
-        <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 5</div>
-          <div class="cut-body">
-            <div class="cut-title">Model Fitter</div>
-            <div class="cut-trigger">↳ After Fractional Savings Uncertainty slides — "Now fit the inverse model"</div>
-            <div class="cut-desc">Scatter plot · Change-point sliders · Live R², CV(RMSE), NMBE · Class spread shows inter-analyst uncertainty · Compare to EnergyPlus savings estimate</div>
+        <div class="inline-checkpoint-card">
+          <div class="checkpoint-badge">▶ CHECKPOINT 5</div>
+          <div class="checkpoint-body">
+            <div class="checkpoint-title">Model Fitter</div>
+            <div class="checkpoint-trigger">↳ After Fractional Savings Uncertainty slides — "Now fit the inverse model"</div>
+            <div class="checkpoint-desc">Scatter plot · Change-point sliders · Live R², CV(RMSE), NMBE · Class spread shows inter-analyst uncertainty · Compare to EnergyPlus savings estimate</div>
           </div>
-          <button class="open-btn" onclick="show('cut5')">Open Tool →</button>
+          <button class="open-btn" onclick="show('checkpoint5')">Open Tool →</button>
         </div>
         <button class="deeper-toggle" onclick="toggleDeeper(this)">
           <span class="arrow">▲</span> Deeper dive · References · Book
@@ -1746,14 +1811,194 @@
           </div>
           <div class="section-slides">22 slides</div>
         </div>
-        <div class="inline-cut-card">
-          <div class="cut-badge">▶ CUT 6</div>
-          <div class="cut-body">
-            <div class="cut-title">Boundary + Stipulation</div>
-            <div class="cut-trigger">↳ After terminology slide — "Draw the measurement boundary"</div>
-            <div class="cut-desc">Annotate single-line diagram · ECM-1 office panel vs. ECM-2 main meter · Lighting stipulation: CV from sample → required N · Boundary as risk allocation decision</div>
+        <div class="inline-checkpoint-card">
+          <div class="checkpoint-badge">▶ CHECKPOINT 6</div>
+          <div class="checkpoint-body">
+            <div class="checkpoint-title">Boundary + Stipulation</div>
+            <div class="checkpoint-trigger">↳ After terminology slide — "Draw the measurement boundary"</div>
+            <div class="checkpoint-desc">Annotate single-line diagram · ECM-1 office panel vs. ECM-2 main meter · Lighting stipulation: CV from sample → required N · Boundary as risk allocation decision</div>
           </div>
-          <button class="soon-btn">Coming soon</button>
+        </div>
+
+        <!-- ═══ TOOL A — Boundary Decision Matrix ═══ -->
+        <div style="margin-top:1rem; padding:1rem 1.25rem; background:white; border:1px solid var(--border); border-radius:6px;">
+          <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--green-dark); margin-bottom:0.5rem;">Tool A — Boundary Decision Matrix</div>
+          <div style="font-size:0.82rem; color:var(--ink-light); line-height:1.5; margin-bottom:0.75rem;">
+            For each factor, confirm the boundary status and select <strong>who controls</strong> it and whether to <strong>stipulate or meter</strong>.
+          </div>
+          <div style="overflow-x:auto;">
+            <table id="bdm-table" style="width:100%; border-collapse:collapse; font-size:0.8rem;">
+              <thead>
+                <tr style="border-bottom:2px solid var(--green-dark);">
+                  <th style="padding:0.5rem 0.5rem; text-align:left; font-weight:600; color:var(--ink-faint);">Factor</th>
+                  <th style="padding:0.5rem 0.5rem; text-align:left; font-weight:600; color:var(--ink-faint);">In Boundary?</th>
+                  <th style="padding:0.5rem 0.5rem; text-align:left; font-weight:600; color:var(--ink-faint);">Method</th>
+                  <th style="padding:0.5rem 0.5rem; text-align:left; font-weight:600; color:var(--ink-faint);">Who Controls?</th>
+                  <th style="padding:0.5rem 0.5rem; text-align:left; font-weight:600; color:var(--ink-faint);">Stipulate or Meter?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:0.4rem 0.5rem; font-weight:500;">Lighting watts/area (ECM-1)</td>
+                  <td style="padding:0.4rem 0.5rem; color:var(--green-dark); font-weight:500;">Yes</td>
+                  <td style="padding:0.4rem 0.5rem;">Spot measurement</td>
+                  <td style="padding:0.4rem 0.5rem;">
+                    <select class="bdm-select" data-row="0" data-col="who" style="font-size:0.78rem; padding:0.25rem 0.4rem; border:1px solid var(--border); border-radius:4px; background:var(--cream); font-family:'IBM Plex Sans',sans-serif;">
+                      <option value="">— select —</option>
+                      <option value="Facilities">Facilities</option>
+                      <option value="Controls contractor">Controls contractor</option>
+                      <option value="IT department">IT department</option>
+                      <option value="Building management">Building management</option>
+                      <option value="Owner">Owner</option>
+                      <option value="Shared/disputed">Shared/disputed</option>
+                    </select>
+                  </td>
+                  <td style="padding:0.4rem 0.5rem;">
+                    <select class="bdm-select" data-row="0" data-col="method" style="font-size:0.78rem; padding:0.25rem 0.4rem; border:1px solid var(--border); border-radius:4px; background:var(--cream); font-family:'IBM Plex Sans',sans-serif;">
+                      <option value="">— select —</option>
+                      <option value="Stipulate">Stipulate</option>
+                      <option value="Meter (continuous)">Meter (continuous)</option>
+                      <option value="Meter (spot)">Meter (spot)</option>
+                      <option value="Pre-doc (NRA)">Pre-doc (NRA)</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border); background:var(--cream-light);">
+                  <td style="padding:0.4rem 0.5rem; font-weight:500;">HVAC night setback (ECM-2)</td>
+                  <td style="padding:0.4rem 0.5rem; color:var(--green-dark); font-weight:500;">Yes</td>
+                  <td style="padding:0.4rem 0.5rem;">BAS schedule log</td>
+                  <td style="padding:0.4rem 0.5rem;">
+                    <select class="bdm-select" data-row="1" data-col="who" style="font-size:0.78rem; padding:0.25rem 0.4rem; border:1px solid var(--border); border-radius:4px; background:var(--cream); font-family:'IBM Plex Sans',sans-serif;">
+                      <option value="">— select —</option>
+                      <option value="Facilities">Facilities</option>
+                      <option value="Controls contractor">Controls contractor</option>
+                      <option value="IT department">IT department</option>
+                      <option value="Building management">Building management</option>
+                      <option value="Owner">Owner</option>
+                      <option value="Shared/disputed">Shared/disputed</option>
+                    </select>
+                  </td>
+                  <td style="padding:0.4rem 0.5rem;">
+                    <select class="bdm-select" data-row="1" data-col="method" style="font-size:0.78rem; padding:0.25rem 0.4rem; border:1px solid var(--border); border-radius:4px; background:var(--cream); font-family:'IBM Plex Sans',sans-serif;">
+                      <option value="">— select —</option>
+                      <option value="Stipulate">Stipulate</option>
+                      <option value="Meter (continuous)">Meter (continuous)</option>
+                      <option value="Meter (spot)">Meter (spot)</option>
+                      <option value="Pre-doc (NRA)">Pre-doc (NRA)</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <td style="padding:0.4rem 0.5rem; font-weight:500;">Server room plug load</td>
+                  <td style="padding:0.4rem 0.5rem; color:var(--amber); font-weight:500;">No — NRA</td>
+                  <td style="padding:0.4rem 0.5rem;">Pre-documentation</td>
+                  <td style="padding:0.4rem 0.5rem;">
+                    <select class="bdm-select" data-row="2" data-col="who" style="font-size:0.78rem; padding:0.25rem 0.4rem; border:1px solid var(--border); border-radius:4px; background:var(--cream); font-family:'IBM Plex Sans',sans-serif;">
+                      <option value="">— select —</option>
+                      <option value="Facilities">Facilities</option>
+                      <option value="Controls contractor">Controls contractor</option>
+                      <option value="IT department">IT department</option>
+                      <option value="Building management">Building management</option>
+                      <option value="Owner">Owner</option>
+                      <option value="Shared/disputed">Shared/disputed</option>
+                    </select>
+                  </td>
+                  <td style="padding:0.4rem 0.5rem;">
+                    <select class="bdm-select" data-row="2" data-col="method" style="font-size:0.78rem; padding:0.25rem 0.4rem; border:1px solid var(--border); border-radius:4px; background:var(--cream); font-family:'IBM Plex Sans',sans-serif;">
+                      <option value="">— select —</option>
+                      <option value="Stipulate">Stipulate</option>
+                      <option value="Meter (continuous)">Meter (continuous)</option>
+                      <option value="Meter (spot)">Meter (spot)</option>
+                      <option value="Pre-doc (NRA)">Pre-doc (NRA)</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr style="background:var(--cream-light);">
+                  <td style="padding:0.4rem 0.5rem; font-weight:500;">Occupancy schedule</td>
+                  <td style="padding:0.4rem 0.5rem; color:var(--amber); font-weight:500;">Partial</td>
+                  <td style="padding:0.4rem 0.5rem;">Proxy (OAT regression)</td>
+                  <td style="padding:0.4rem 0.5rem;">
+                    <select class="bdm-select" data-row="3" data-col="who" style="font-size:0.78rem; padding:0.25rem 0.4rem; border:1px solid var(--border); border-radius:4px; background:var(--cream); font-family:'IBM Plex Sans',sans-serif;">
+                      <option value="">— select —</option>
+                      <option value="Facilities">Facilities</option>
+                      <option value="Controls contractor">Controls contractor</option>
+                      <option value="IT department">IT department</option>
+                      <option value="Building management">Building management</option>
+                      <option value="Owner">Owner</option>
+                      <option value="Shared/disputed">Shared/disputed</option>
+                    </select>
+                  </td>
+                  <td style="padding:0.4rem 0.5rem;">
+                    <select class="bdm-select" data-row="3" data-col="method" style="font-size:0.78rem; padding:0.25rem 0.4rem; border:1px solid var(--border); border-radius:4px; background:var(--cream); font-family:'IBM Plex Sans',sans-serif;">
+                      <option value="">— select —</option>
+                      <option value="Stipulate">Stipulate</option>
+                      <option value="Meter (continuous)">Meter (continuous)</option>
+                      <option value="Meter (spot)">Meter (spot)</option>
+                      <option value="Pre-doc (NRA)">Pre-doc (NRA)</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="bdm-lock-row" style="margin-top:0.75rem; display:flex; align-items:center; gap:0.75rem;">
+            <button id="bdm-lock-btn" class="open-btn" style="font-size:0.78rem; padding:0.4rem 1rem; opacity:0.4; cursor:default;" onclick="lockBoundaryMatrix()">Lock Decision Matrix</button>
+            <span id="bdm-lock-status" style="font-size:0.78rem; color:var(--ink-faint);"></span>
+          </div>
+          <div id="bdm-banner" style="display:none; margin-top:0.75rem; background:var(--green-light); border-left:3px solid var(--green-dark); padding:0.75rem 0.875rem; border-radius:0 4px 4px 0; font-size:0.8rem; color:var(--ink); line-height:1.5;">
+            <strong>&#10003; Boundary decisions recorded.</strong> These flow into your M&amp;V Plan.
+          </div>
+          <div style="margin-top:0.75rem; background:var(--cream); border-left:3px solid var(--amber); padding:0.75rem 0.875rem; border-radius:0 4px 4px 0; font-size:0.8rem; color:var(--ink); line-height:1.5;">
+            <strong>Stipulation is not a shortcut — it is a risk transfer.</strong> When you stipulate a parameter, you are asserting its value without continuous verification. The boundary document records who accepted that risk.
+          </div>
+        </div>
+
+        <!-- ═══ TOOL B — Lighting Stipulation Sampling Calculator ═══ -->
+        <div style="margin-top:1rem; padding:1rem 1.25rem; background:white; border:1px solid var(--border); border-radius:6px;">
+          <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--green-dark); margin-bottom:0.5rem;">Tool B — ECM-1 Lighting: How Many Fixtures Must You Sample?</div>
+          <div style="font-size:0.82rem; color:var(--ink-light); line-height:1.5; margin-bottom:0.75rem;">
+            Stipulating lighting watts/fixture requires a spot measurement sample. The sample size determines your precision — and your epistemic risk. Too small a sample = too much uncertainty in the stipulated value.
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div>
+              <label style="font-size:0.75rem; font-weight:500; color:var(--ink-faint); display:block; margin-bottom:0.25rem;">Population N (fixtures)</label>
+              <input id="samp-N" type="number" value="180" min="1" max="10000" oninput="updateSampling()" style="width:100%; padding:0.35rem 0.5rem; border:1px solid var(--border); border-radius:4px; font-size:0.85rem; font-family:'IBM Plex Mono',monospace; background:var(--cream);">
+            </div>
+            <div>
+              <label style="font-size:0.75rem; font-weight:500; color:var(--ink-faint); display:block; margin-bottom:0.25rem;">Sample CV%</label>
+              <input id="samp-CV" type="number" value="15" min="1" max="100" step="0.5" oninput="updateSampling()" style="width:100%; padding:0.35rem 0.5rem; border:1px solid var(--border); border-radius:4px; font-size:0.85rem; font-family:'IBM Plex Mono',monospace; background:var(--cream);">
+            </div>
+            <div>
+              <label style="font-size:0.75rem; font-weight:500; color:var(--ink-faint); display:block; margin-bottom:0.25rem;">Precision &plusmn;% at 90% conf.</label>
+              <input id="samp-prec" type="number" value="10" min="1" max="50" step="0.5" oninput="updateSampling()" style="width:100%; padding:0.35rem 0.5rem; border:1px solid var(--border); border-radius:4px; font-size:0.85rem; font-family:'IBM Plex Mono',monospace; background:var(--cream);">
+            </div>
+          </div>
+          <div style="font-size:0.78rem; color:var(--ink-faint); margin-bottom:0.5rem; font-family:'IBM Plex Mono',monospace;">
+            n = (t &times; CV / precision)&sup2; &nbsp;&nbsp; where t = 1.645 (90% confidence)
+          </div>
+          <div id="samp-result" style="font-size:0.9rem; font-weight:600; color:var(--ink); padding:0.625rem 0.75rem; background:var(--cream); border-radius:4px; border:1px solid var(--border);"></div>
+          <div id="samp-note" style="margin-top:0.5rem; font-size:0.78rem; font-style:italic;"></div>
+          <div style="margin-top:0.75rem; font-size:0.78rem; color:var(--ink-light); line-height:1.5;">
+            This is epistemic uncertainty — uncertainty about the true mean watts/fixture. A larger sample reduces it. Stipulating a value you have not sampled well transfers risk to whoever relies on the M&amp;V report.
+          </div>
+        </div>
+
+        <!-- ═══ TOOL C — Explain Your Answer ═══ -->
+        <div style="margin-top:1rem; padding:1rem 1.25rem; background:white; border:1px solid var(--border); border-radius:6px;">
+          <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--green-dark); margin-bottom:0.5rem;">Tool C — Explain Your Answer</div>
+          <div style="font-size:0.82rem; color:var(--ink-light); line-height:1.5; margin-bottom:0.75rem;">
+            In your own words: what is the difference between stipulating a parameter and metering it continuously? Who bears the risk in each case? Use the ECM-1 lighting retrofit as your example.
+          </div>
+          <textarea id="cp6-explain" rows="5" style="width:100%; padding:0.5rem 0.75rem; border:1px solid var(--border); border-radius:4px; font-size:0.85rem; font-family:'IBM Plex Sans',sans-serif; line-height:1.5; resize:vertical; background:var(--cream);" placeholder="Type your answer here..."></textarea>
+          <div style="margin-top:0.5rem; display:flex; align-items:center; gap:0.75rem;">
+            <button id="cp6-submit-btn" class="open-btn" style="font-size:0.78rem; padding:0.4rem 1rem;" onclick="submitCheckpoint6()">Submit</button>
+          </div>
+          <div id="cp6-banner" style="display:none; margin-top:0.75rem; background:var(--green-light); border-left:3px solid var(--green-dark); padding:0.75rem 0.875rem; border-radius:0 4px 4px 0; font-size:0.8rem; color:var(--ink); line-height:1.5;">
+            <strong>&#10003; Response recorded.</strong> Checkpoint 6 complete.
+          </div>
+          <div id="cp6-nav" style="display:none; margin-top:0.75rem;">
+            <button class="open-btn" onclick="show('day3')" style="width:100%; text-align:center;">Proceed to Day 3 →</button>
+          </div>
         </div>
 
         <!-- Dimension 1: Cost -->
@@ -1846,7 +2091,7 @@
         <div style="margin-top: 0.875rem; padding: 0.875rem 1rem; background: var(--amber-light); border-left: 3px solid var(--amber); border-radius: 0 6px 6px 0;">
           <div style="font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 0.375rem;">Who turns off the lights?</div>
           <div style="font-size: 0.8rem; color: var(--ink-light); line-height: 1.6;">
-            That answer determines whether operating hours are a <strong style="color: var(--ink);">performance factor</strong> or an <strong style="color: var(--ink);">operational factor</strong> — and who bears the risk if they change. Is it an automated schedule (controls-driven = performance factor, contractor's responsibility)? Or building staff flipping switches (behavior-driven = operational factor, owner's risk)? Or both — automated schedule with manual override? If it's manual or mixed, operating hours are an operational factor. This is why the <strong style="color: var(--ink);">stakeholder and risk matrix</strong> (Step 1 in the capstone flow, pre-Cut 1) is not administrative overhead — it's the document that determines who is liable for what when the numbers don't match expectations.
+            That answer determines whether operating hours are a <strong style="color: var(--ink);">performance factor</strong> or an <strong style="color: var(--ink);">operational factor</strong> — and who bears the risk if they change. Is it an automated schedule (controls-driven = performance factor, contractor's responsibility)? Or building staff flipping switches (behavior-driven = operational factor, owner's risk)? Or both — automated schedule with manual override? If it's manual or mixed, operating hours are an operational factor. This is why the <strong style="color: var(--ink);">stakeholder and risk matrix</strong> (Step 1 in the capstone flow, pre-Checkpoint 1) is not administrative overhead — it's the document that determines who is liable for what when the numbers don't match expectations.
           </div>
         </div>
 
@@ -1907,7 +2152,7 @@
 
     <div class="day-header">
       <h1>Day 3 — Plan, Report &amp; Defend</h1>
-      <p>Sections 7 · 8 · 9 &nbsp;·&nbsp; Cuts are embedded where the section naturally pauses</p>
+      <p>Sections 7 · 8 · 9 &nbsp;·&nbsp; Checkpoints are embedded where the section naturally pauses</p>
     </div>
 
     <div class="section-timeline">
@@ -1922,12 +2167,12 @@
           </div>
           <div class="section-slides">18 slides</div>
         </div>
-        <div class="inline-cut-card" style="display:block; padding:1rem 1.25rem;">
+        <div class="inline-checkpoint-card" style="display:block; padding:1rem 1.25rem;">
           <div style="display:flex; align-items:center; gap:0.875rem; margin-bottom:0.75rem;">
-            <div class="cut-badge">▶ CUT 7</div>
+            <div class="checkpoint-badge">▶ CHECKPOINT 7</div>
             <div>
-              <div class="cut-title">ECM-1 Savings Calculator</div>
-              <div class="cut-trigger">↳ After "Adjusted Baseline Model" review — "Now apply your model to the reporting period"</div>
+              <div class="checkpoint-title">ECM-1 Savings Calculator</div>
+              <div class="checkpoint-trigger">↳ After "Adjusted Baseline Model" review — "Now apply your model to the reporting period"</div>
             </div>
           </div>
 
@@ -1941,21 +2186,21 @@
           <div style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.875rem 1rem; margin-bottom:1rem;">
             <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--green-dark); margin-bottom:0.5rem;">Panel A — Apply the Baseline Model</div>
             <div style="font-size:0.8rem; color:var(--ink-light); margin-bottom:0.75rem; line-height:1.5;">
-              The baseline regression model (from Cut 5) predicts what energy consumption <em>would have been</em> at each month's actual outdoor temperature. The difference between predicted and actual is the <strong style="color:var(--ink);">inferred savings</strong> — not measured, inferred.
+              The baseline regression model (from Checkpoint 5) predicts what energy consumption <em>would have been</em> at each month's actual outdoor temperature. The difference between predicted and actual is the <strong style="color:var(--ink);">inferred savings</strong> — not measured, inferred.
             </div>
             <div style="overflow-x:auto;">
-              <table id="cut7-table" style="width:100%; border-collapse:collapse; font-size:0.8rem; font-family:'IBM Plex Mono',monospace;">
+              <table id="checkpoint7-table" style="width:100%; border-collapse:collapse; font-size:0.8rem; font-family:'IBM Plex Mono',monospace;">
                 <thead>
                   <tr style="border-bottom:2px solid var(--border); font-family:'IBM Plex Sans',sans-serif; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint);">
                     <th style="padding:0.35rem 0.5rem; text-align:left;">Month</th>
                     <th style="padding:0.35rem 0.5rem; text-align:right;">OAT (&deg;F)</th>
-                    <th style="padding:0.35rem 0.5rem; text-align:right;" id="cut7-col-baseline">Model-Predicted Baseline</th>
-                    <th style="padding:0.35rem 0.5rem; text-align:right;" id="cut7-col-actual">Actual Post-Retrofit</th>
-                    <th style="padding:0.35rem 0.5rem; text-align:right;" id="cut7-col-diff">Inferred Savings</th>
+                    <th style="padding:0.35rem 0.5rem; text-align:right;" id="checkpoint7-col-baseline">Model-Predicted Baseline</th>
+                    <th style="padding:0.35rem 0.5rem; text-align:right;" id="checkpoint7-col-actual">Actual Post-Retrofit</th>
+                    <th style="padding:0.35rem 0.5rem; text-align:right;" id="checkpoint7-col-diff">Inferred Savings</th>
                   </tr>
                 </thead>
-                <tbody id="cut7-tbody"></tbody>
-                <tfoot id="cut7-tfoot"></tfoot>
+                <tbody id="checkpoint7-tbody"></tbody>
+                <tfoot id="checkpoint7-tfoot"></tfoot>
               </table>
             </div>
             <div style="margin-top:0.75rem; padding:0.625rem 0.875rem; background:var(--green-light); border-left:3px solid var(--green-dark); border-radius:0 4px 4px 0; font-size:0.78rem; color:var(--ink); line-height:1.6;">
@@ -1972,7 +2217,7 @@
               <span style="color:var(--green-dark);">&#9632; Inferred savings (positive)</span>
               <span style="color:var(--red);">&#9632; Interactive effect (negative)</span>
             </div>
-            <div id="cut7-annual-summary" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; margin-top:0.75rem;"></div>
+            <div id="checkpoint7-annual-summary" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; margin-top:0.75rem;"></div>
             <!-- Interactive effect callout -->
             <div style="margin-top:0.75rem; padding:0.75rem 0.875rem; background:var(--amber-light); border-left:3px solid var(--amber); border-radius:0 4px 4px 0; font-size:0.8rem; color:#92400e; line-height:1.5;">
               <strong>Interactive effect:</strong> ECM-1 lighting retrofit REDUCES electric consumption but INCREASES gas consumption in winter — lighting heat gain was part of the heating load. The old T8 fixtures warmed the office wing; the new LEDs produce less heat. The HVAC must compensate. This is expected, quantifiable, and must be reported.
@@ -1983,13 +2228,13 @@
           <div style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.875rem 1rem;">
             <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--green-dark); margin-bottom:0.5rem;">Panel C — Explain Your Answer</div>
             <div style="font-size:0.85rem; color:var(--ink); margin-bottom:0.5rem; font-weight:500;">In your own words: why does ECM-1 increase gas consumption in winter? What does this tell you about boundary setting?</div>
-            <textarea id="cut7-response" rows="4" style="width:100%; font-family:'IBM Plex Sans',sans-serif; font-size:0.85rem; padding:0.6rem 0.75rem; border:1px solid var(--border); border-radius:4px; background:white; resize:vertical; line-height:1.5;" placeholder="Type your explanation here..."></textarea>
+            <textarea id="checkpoint7-response" rows="4" style="width:100%; font-family:'IBM Plex Sans',sans-serif; font-size:0.85rem; padding:0.6rem 0.75rem; border:1px solid var(--border); border-radius:4px; background:white; resize:vertical; line-height:1.5;" placeholder="Type your explanation here..."></textarea>
             <div style="display:flex; align-items:center; gap:0.75rem; margin-top:0.5rem;">
-              <button id="cut7-submit" class="open-btn" onclick="submitCut7()" style="font-size:0.8rem;">Submit Explanation</button>
-              <div id="cut7-banner" style="display:none; font-size:0.8rem; color:var(--green-dark); font-weight:500;"></div>
+              <button id="checkpoint7-submit" class="open-btn" onclick="submitCheckpoint7()" style="font-size:0.8rem;">Submit Explanation</button>
+              <div id="checkpoint7-banner" style="display:none; font-size:0.8rem; color:var(--green-dark); font-weight:500;"></div>
             </div>
-            <div id="cut7-nav" style="display:none; margin-top:0.75rem;">
-              <button class="open-btn" onclick="show('day3'); setTimeout(function(){ document.getElementById('cut8-section').scrollIntoView({behavior:'smooth'}); }, 100);" style="width:100%; text-align:center;">Proceed to Cut 8 — NRA Pre-Documentation →</button>
+            <div id="checkpoint7-nav" style="display:none; margin-top:0.75rem;">
+              <button class="open-btn" onclick="show('day3'); setTimeout(function(){ document.getElementById('checkpoint8-section').scrollIntoView({behavior:'smooth'}); }, 100);" style="width:100%; text-align:center;">Proceed to Checkpoint 8 — NRA Pre-Documentation →</button>
             </div>
           </div>
         </div>
@@ -2024,7 +2269,7 @@
       <div class="timeline-connector"></div>
 
       <!-- § 8 -->
-      <div id="cut8-section" class="section-block">
+      <div id="checkpoint8-section" class="section-block">
         <div class="section-header-row">
           <div class="section-badge">§ 8</div>
           <div class="section-info">
@@ -2033,12 +2278,12 @@
           </div>
           <div class="section-slides">24 slides</div>
         </div>
-        <div class="inline-cut-card" style="display:block; padding:1rem 1.25rem;">
+        <div class="inline-checkpoint-card" style="display:block; padding:1rem 1.25rem;">
           <div style="display:flex; align-items:center; gap:0.875rem; margin-bottom:0.75rem;">
-            <div class="cut-badge">▶ CUT 8</div>
+            <div class="checkpoint-badge">▶ CHECKPOINT 8</div>
             <div>
-              <div class="cut-title">NRA Pre-Documentation Tool</div>
-              <div class="cut-trigger">↳ After "Static Factors" review — "Document what you expect BEFORE you look at the data"</div>
+              <div class="checkpoint-title">NRA Pre-Documentation Tool</div>
+              <div class="checkpoint-trigger">↳ After "Static Factors" review — "Document what you expect BEFORE you look at the data"</div>
             </div>
           </div>
 
@@ -2155,7 +2400,7 @@
 
             <!-- Success banner (hidden by default) -->
             <div id="nra-success-banner" style="display:none; padding:0.625rem 0.875rem; background:#dcfce7; border:1px solid #86efac; border-radius:4px; margin-bottom:0.75rem; font-size:0.8rem; color:#166534; line-height:1.5;">
-              &#10003; NRA pre-documented. Your estimate will appear as a reference line in Cut 9.
+              &#10003; NRA pre-documented. Your estimate will appear as a reference line in Checkpoint 9.
             </div>
 
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
@@ -2238,9 +2483,9 @@
             <!-- Validation error -->
             <div id="nra-error" style="display:none; margin-top:0.5rem; font-size:0.75rem; color:var(--red);"></div>
 
-            <!-- Cut 9 nav (hidden until submit) -->
-            <div id="nra-cut9-nav" style="display:none; margin-top:1rem; padding-top:0.75rem; border-top:1px solid var(--border);">
-              <button class="open-btn" onclick="show('day3'); setTimeout(function(){ document.getElementById('cut9-section').scrollIntoView({behavior:'smooth'}); }, 100);" style="width:100%; text-align:center;">Proceed to Cut 9 — Residual Plot Tool →</button>
+            <!-- Checkpoint 9 nav (hidden until submit) -->
+            <div id="nra-checkpoint9-nav" style="display:none; margin-top:1rem; padding-top:0.75rem; border-top:1px solid var(--border);">
+              <button class="open-btn" onclick="show('day3'); setTimeout(function(){ document.getElementById('checkpoint9-section').scrollIntoView({behavior:'smooth'}); }, 100);" style="width:100%; text-align:center;">Proceed to Checkpoint 9 — Residual Plot Tool →</button>
             </div>
           </div>
         </div>
@@ -2274,7 +2519,7 @@
       <div class="timeline-connector"></div>
 
       <!-- § 9 -->
-      <div id="cut9-section" class="section-block">
+      <div id="checkpoint9-section" class="section-block">
         <div class="section-header-row">
           <div class="section-badge">§ 9</div>
           <div class="section-info">
@@ -2283,12 +2528,12 @@
           </div>
           <div class="section-slides">16 slides</div>
         </div>
-        <div class="inline-cut-card" style="display:block; padding:1rem 1.25rem;">
+        <div class="inline-checkpoint-card" style="display:block; padding:1rem 1.25rem;">
           <div style="display:flex; align-items:center; gap:0.875rem; margin-bottom:0.75rem;">
-            <div class="cut-badge">▶ CUT 9</div>
+            <div class="checkpoint-badge">▶ CHECKPOINT 9</div>
             <div>
-              <div class="cut-title">Residual Plot Tool</div>
-              <div class="cut-trigger">↳ After "Detecting Non-Routine Events" — "Now look at the residuals"</div>
+              <div class="checkpoint-title">Residual Plot Tool</div>
+              <div class="checkpoint-trigger">↳ After "Detecting Non-Routine Events" — "Now look at the residuals"</div>
             </div>
           </div>
 
@@ -2303,10 +2548,10 @@
               <span>&#9632; <span style="color:var(--green-dark);">Normal residual</span></span>
               <span>&#9632; <span style="color:var(--red);">NRA-affected (month 9+)</span></span>
               <span style="border-left:2px dashed var(--amber); padding-left:0.5rem;">NRA trigger threshold</span>
-              <span id="nra-overlay-legend" style="display:none; border-left:2px dashed #f97316; padding-left:0.5rem;">Pre-documented NRA (Cut 8)</span>
+              <span id="nra-overlay-legend" style="display:none; border-left:2px dashed #f97316; padding-left:0.5rem;">Pre-documented NRA (Checkpoint 8)</span>
             </div>
             <div id="nra-overlay-prompt" style="margin-top:0.5rem; padding:0.5rem 0.75rem; background:var(--cream-light); border:1px solid var(--border); border-radius:4px; font-size:0.75rem; color:var(--ink-faint);">
-              Complete Cut 8 to overlay your pre-documented NRA estimate.
+              Complete Checkpoint 8 to overlay your pre-documented NRA estimate.
             </div>
           </div>
 
@@ -2338,7 +2583,7 @@
           <div style="background:var(--cream); border:1px solid var(--border); border-radius:6px; padding:0.875rem 1rem; margin-bottom:1rem;">
             <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--green-dark); margin-bottom:0.5rem;">Panel C — Goodness-of-Fit: Reporting Period Diagnostics</div>
             <div style="overflow-x:auto;">
-              <table id="cut9-gof-table" style="width:100%; border-collapse:collapse; font-size:0.8rem;">
+              <table id="checkpoint9-gof-table" style="width:100%; border-collapse:collapse; font-size:0.8rem;">
                 <thead>
                   <tr style="border-bottom:2px solid var(--border); font-size:0.7rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-faint);">
                     <th style="padding:0.4rem 0.625rem; text-align:left;">Metric</th>
@@ -2375,16 +2620,16 @@
             <div style="font-size:0.8rem; color:var(--ink-light); margin-bottom:0.5rem; line-height:1.5;">
               In your own words: what would happen to the inferred ECM-1 savings if this NRA were NOT applied? Who bears the risk?
             </div>
-            <textarea id="cut9-reflection" rows="3" placeholder="Write your explanation here..." style="width:100%; padding:0.4rem 0.5rem; font-size:0.8rem; border:1px solid var(--border); border-radius:4px; font-family:'IBM Plex Sans',sans-serif; resize:vertical; box-sizing:border-box;"></textarea>
+            <textarea id="checkpoint9-reflection" rows="3" placeholder="Write your explanation here..." style="width:100%; padding:0.4rem 0.5rem; font-size:0.8rem; border:1px solid var(--border); border-radius:4px; font-family:'IBM Plex Sans',sans-serif; resize:vertical; box-sizing:border-box;"></textarea>
 
             <!-- Reflection success banner (hidden) -->
-            <div id="cut9-reflection-banner" style="display:none; margin-top:0.5rem; padding:0.5rem 0.75rem; background:#dcfce7; border:1px solid #86efac; border-radius:4px; font-size:0.8rem; color:#166534;">
+            <div id="checkpoint9-reflection-banner" style="display:none; margin-top:0.5rem; padding:0.5rem 0.75rem; background:#dcfce7; border:1px solid #86efac; border-radius:4px; font-size:0.8rem; color:#166534;">
               &#10003; Reflection submitted.
             </div>
 
             <div style="display:flex; gap:0.75rem; margin-top:0.75rem; flex-wrap:wrap;">
-              <button id="cut9-submit-reflection" onclick="submitCut9Reflection()" style="padding:0.5rem 1.25rem; font-size:0.8rem; font-weight:500; border:none; border-radius:4px; background:var(--green-dark); color:white; cursor:pointer; font-family:'IBM Plex Sans',sans-serif;">Submit Reflection</button>
-              <button id="cut9-complete-btn" onclick="show('hub')" style="display:none; padding:0.5rem 1.25rem; font-size:0.8rem; font-weight:500; border:none; border-radius:4px; background:var(--green-dark); color:white; cursor:pointer; font-family:'IBM Plex Sans',sans-serif;">→ Day 3 Complete</button>
+              <button id="checkpoint9-submit-reflection" onclick="submitCheckpoint9Reflection()" style="padding:0.5rem 1.25rem; font-size:0.8rem; font-weight:500; border:none; border-radius:4px; background:var(--green-dark); color:white; cursor:pointer; font-family:'IBM Plex Sans',sans-serif;">Submit Reflection</button>
+              <button id="checkpoint9-complete-btn" onclick="show('hub')" style="display:none; padding:0.5rem 1.25rem; font-size:0.8rem; font-weight:500; border:none; border-radius:4px; background:var(--green-dark); color:white; cursor:pointer; font-family:'IBM Plex Sans',sans-serif;">→ Day 3 Complete</button>
             </div>
           </div>
         </div>
@@ -2402,7 +2647,7 @@
             </div>
           </div>
           <div class="explainer-blurb">
-            <strong>This is the payoff moment.</strong> The student who pre-documented the community room expansion in Cut 8 now sees it appear in the residuals — exactly where they predicted it. The student who didn't pre-document it sees a mysterious step change and must explain it after the fact. The difference is the difference between M&amp;V planning and M&amp;V forensics. The former is professional; the latter is expensive.
+            <strong>This is the payoff moment.</strong> The student who pre-documented the community room expansion in Checkpoint 8 now sees it appear in the residuals — exactly where they predicted it. The student who didn't pre-document it sees a mysterious step change and must explain it after the fact. The difference is the difference between M&amp;V planning and M&amp;V forensics. The former is professional; the latter is expensive.
           </div>
           <div class="ref-section">
             <div class="ref-section-label">Key References</div>
@@ -2422,14 +2667,14 @@
 
 
 <!-- ══════════════════════════════════════════════════════
-     PAGE: CUT 5 — MODEL FITTER
+     PAGE: CHECKPOINT 5 — MODEL FITTER
 ══════════════════════════════════════════════════════ -->
-<div id="cut5" class="page">
-  <div class="cut-layout">
+<div id="checkpoint5" class="page">
+  <div class="checkpoint-layout">
 
     <!-- Sidebar -->
-    <div class="cut-sidebar">
-      <div class="sidebar-tag">Day 2 · Cut 5 of 9</div>
+    <div class="checkpoint-sidebar">
+      <div class="sidebar-tag">Day 2 · Checkpoint 5 of 9</div>
       <div class="sidebar-title">Model Fitter</div>
       <div class="sidebar-section-ref">After Section 5 — Whole Facility Approaches</div>
 
@@ -2466,7 +2711,7 @@
     </div>
 
     <!-- Main tool -->
-    <div class="cut-main">
+    <div class="checkpoint-main">
       <div class="tool-header">
         <div class="tool-title">Baseline Model — Counterfactual Headquarters</div>
       </div>
@@ -2572,9 +2817,9 @@
         </div>
       </div>
 
-    </div><!-- end cut-main -->
+    </div><!-- end checkpoint-main -->
   </div>
-</div><!-- end cut5 -->
+</div><!-- end checkpoint5 -->
 
 
 <script>
@@ -2584,8 +2829,8 @@ function show(id) {
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
   // Canvases in hidden pages don't render on load — redraw on navigation
-  if (id === 'day3') { drawSavingsChart(); drawResidualChart(); populateCut7Table(); }
-  if (id === 'cut5') { updateModel(); }
+  if (id === 'day3') { drawSavingsChart(); drawResidualChart(); populateCheckpoint7Table(); }
+  if (id === 'checkpoint5') { updateModel(); }
 }
 
 // ── Deeper dive toggle ──
@@ -2912,7 +3157,7 @@ function drawPlot() {
     ctx.beginPath(); ctx.arc(x,y,5,0,2*Math.PI); ctx.fill(); ctx.stroke();
     // Month label
     ctx.fillStyle='#44403c'; ctx.font='9px IBM Plex Mono'; ctx.textAlign='center'; ctx.textBaseline='bottom';
-    ctx.fillText(d.month.slice(0,1), x, y-6);
+    ctx.fillText(d.month.slice(0,3), x, y-6);
   });
 
   // ── GoF ──
@@ -2957,7 +3202,7 @@ function updateGoF(gof) {
   const cv = gof.cvrmse.toFixed(1)+'%';
   document.getElementById('cvrmse-val').textContent = cv;
   const cvel = document.getElementById('gof-cvrmse');
-  const threshold = currentModel==='electric' ? 20 : 25;
+  const threshold = currentModel==='electric' ? 20 : 15;
   cvel.className = 'gof-stat ' + (gof.cvrmse<threshold?'good':gof.cvrmse<threshold*1.3?'warn':'bad');
   document.getElementById('cvrmse-status').textContent = gof.cvrmse<threshold?'ASHRAE G14 ✓':'Above threshold ⚠';
 
@@ -3020,34 +3265,70 @@ function switchEcm(ecm) {
   drawPlot();
 }
 
-// ══ Cut 1 — Boundary Setting ══
-var boundaryState = {1: null, 2: null, 3: null};
-var boundaryAnswers = {1: 'in', 2: 'in', 3: 'out'};
-var boundaryReasons = {
-  '1-in':  '✓ Correct. The lighting circuit is the ECM — it must be inside the measurement boundary.',
-  '1-out': '✗ The lighting circuit IS the ECM. If it is outside the boundary, you cannot infer the savings without a defined boundary.',
-  '2-in':  '✓ Correct. Removing lighting heat gain changes the HVAC load. Ignoring this interactive effect understates the true impact of the retrofit.',
-  '2-out': '✗ The HVAC responds to lighting heat gain changes. Excluding it misses the interactive effect — gas consumption will rise in winter because the building lost internal heat from the old T8 fixtures.',
-  '3-in':  '✗ Plug loads are outside the ECM scope. Including them adds noise to the measurement boundary without improving savings accuracy.',
-  '3-out': '✓ Correct. Plug loads are unaffected by the lighting retrofit and should remain outside the boundary to keep the measurement clean.'
+// ══ Checkpoint 1 — Boundary Setting ══
+
+// ── Part A: Physical Boundary (3 questions — all correct = 'in') ──
+var boundaryAState = {1: null, 2: null, 3: null};
+var boundaryAAnswers = {1: 'in', 2: 'in', 3: 'in'};
+var boundaryAReasons = {
+  '1-in':  '✓ Correct — the lighting circuit is wired to the main bus and passes through the whole-building electric meter.',
+  '1-out': '✗ The lighting circuit IS wired through the whole-building meter. All electric loads in this building are captured.',
+  '2-in':  '✓ Correct — the RTU is powered by the same electric service and fed by the gas meter. Both fuels are captured.',
+  '2-out': '✗ The HVAC system runs on electric and gas — both metered at the whole-building level. It is inside the physical boundary.',
+  '3-in':  '✓ Correct — plug loads pass through the whole-building electric meter. They are inside the physical boundary even though they are outside the ECM scope.',
+  '3-out': '✗ Plug loads are wired to the same main bus. The whole-building meter captures them whether we want it to or not — the nature of a whole-facility approach.'
 };
 
-function checkBoundary(q, answer) {
-  boundaryState[q] = answer;
-  var correct = answer === boundaryAnswers[q];
+function checkBoundaryA(q, answer) {
+  boundaryAState[q] = answer;
+  var correct = answer === boundaryAAnswers[q];
   var fb = document.getElementById('boundary-fb'+q);
   var card = document.getElementById('boundary-q'+q);
   fb.style.display = 'block';
-  fb.innerHTML = '<span style="color:'+(correct?'var(--green-dark)':'var(--red)')+';">'+boundaryReasons[q+'-'+answer]+'</span>';
+  fb.innerHTML = '<span style="color:'+(correct?'var(--green-dark)':'var(--red)')+';">'+boundaryAReasons[q+'-'+answer]+'</span>';
   card.style.borderColor = correct ? '#6ee7b7' : '#fca5a5';
   card.style.background = correct ? '#ecfdf5' : '#fef2f2';
-  // Check if all correct
-  if (boundaryState[1]==='in' && boundaryState[2]==='in' && boundaryState[3]==='out') {
+  // Check if all 3 correct → show Part A summary, reveal Part B
+  if (boundaryAState[1]==='in' && boundaryAState[2]==='in' && boundaryAState[3]==='in') {
+    document.getElementById('boundary-a-summary').style.display = 'block';
+    document.getElementById('boundary-part-b').style.display = 'block';
+  }
+}
+
+// ── Part B: Model Boundary (5 questions) ──
+var boundaryBState = {1: null, 2: null, 3: null, 4: null, 5: null};
+var boundaryBAnswers = {1: 'inside', 2: 'inside', 3: 'inside', 4: 'outside', 5: 'outside'};
+var boundaryBReasons = {
+  '1-inside':  '✓ OAT is the independent variable — the regression model is built around it.',
+  '1-outside': '✗ OAT is what drives the regression. It is the x-axis of your scatter plot — the core of the model.',
+  '2-inside':  '✓ The lighting retrofit is the treatment being evaluated — the model captures its effect on whole-building consumption.',
+  '2-outside': '✗ ECM-1 is what we are evaluating. The whole-facility model captures the change in lighting load as part of the consumption shift.',
+  '3-inside':  '✓ The whole-facility model captures this interactive effect — removing lighting heat changes HVAC load. That is why we chose whole-facility.',
+  '3-outside': '✗ This is the interactive effect. The whole-facility regression captures it automatically — one of the main reasons we use this approach.',
+  '4-inside':  '✗ Server load does not correlate with OAT. The regression cannot account for it. If it changes during reporting, you need a pre-documented NRA.',
+  '4-outside': '✓ Not weather-driven, not captured by OAT regression — if server load changes, it is a Non-Routine Adjustment candidate.',
+  '5-inside':  '✗ The OAT regression does not know about occupancy. A shift change or new tenant would appear as unexplained residuals — an NRA event.',
+  '5-outside': '✓ Occupancy is not an independent variable in this model — schedule changes require pre-documentation as an NRA event.'
+};
+
+function checkBoundaryB(q, answer) {
+  boundaryBState[q] = answer;
+  var correct = answer === boundaryBAnswers[q];
+  var fb = document.getElementById('model-fb'+q);
+  var card = document.getElementById('model-q'+q);
+  fb.style.display = 'block';
+  fb.innerHTML = '<span style="color:'+(correct?'var(--green-dark)':'var(--red)')+';">'+boundaryBReasons[q+'-'+answer]+'</span>';
+  card.style.borderColor = correct ? '#6ee7b7' : '#fca5a5';
+  card.style.background = correct ? '#ecfdf5' : '#fef2f2';
+  // Check if all 5 correct → show Part B summary, Part C, and Proceed button
+  if (boundaryBState[1]==='inside' && boundaryBState[2]==='inside' && boundaryBState[3]==='inside' && boundaryBState[4]==='outside' && boundaryBState[5]==='outside') {
+    document.getElementById('boundary-b-summary').style.display = 'block';
+    document.getElementById('boundary-part-c').style.display = 'block';
     document.getElementById('boundary-done').style.display = 'block';
   }
 }
 
-// ══ Cut 2 — Model Form Selection ══
+// ══ Checkpoint 2 — Model Form Selection ══
 var dtState = {elec: null, gas: null, ix: null};
 
 function dtElecAnswer(ans) {
@@ -3100,6 +3381,80 @@ function checkDtDone() {
   }
 }
 
+// ══ Checkpoint 6 — Boundary + Stipulation ══
+
+// Tool A: Boundary Decision Matrix
+function checkBdmComplete() {
+  var selects = document.querySelectorAll('.bdm-select');
+  var allFilled = true;
+  selects.forEach(function(s) { if (!s.value) allFilled = false; });
+  var btn = document.getElementById('bdm-lock-btn');
+  if (allFilled) {
+    btn.style.opacity = '1';
+    btn.style.cursor = 'pointer';
+  } else {
+    btn.style.opacity = '0.4';
+    btn.style.cursor = 'default';
+  }
+}
+document.querySelectorAll('.bdm-select').forEach(function(s) {
+  s.addEventListener('change', checkBdmComplete);
+});
+
+function lockBoundaryMatrix() {
+  var selects = document.querySelectorAll('.bdm-select');
+  var allFilled = true;
+  selects.forEach(function(s) { if (!s.value) allFilled = false; });
+  if (!allFilled) return;
+  var decisions = [];
+  var rows = ['Lighting watts/area (ECM-1)', 'HVAC night setback (ECM-2)', 'Server room plug load', 'Occupancy schedule'];
+  for (var i = 0; i < 4; i++) {
+    var who = document.querySelector('.bdm-select[data-row="'+i+'"][data-col="who"]').value;
+    var method = document.querySelector('.bdm-select[data-row="'+i+'"][data-col="method"]').value;
+    decisions.push({factor: rows[i], who: who, method: method});
+  }
+  localStorage.setItem('boundary_decisions', JSON.stringify(decisions));
+  selects.forEach(function(s) { s.disabled = true; s.style.opacity = '0.7'; });
+  document.getElementById('bdm-lock-btn').style.display = 'none';
+  document.getElementById('bdm-banner').style.display = 'block';
+  document.getElementById('bdm-lock-status').textContent = '';
+}
+
+// Tool B: Sampling Calculator
+function updateSampling() {
+  var N = parseInt(document.getElementById('samp-N').value) || 180;
+  var cv = parseFloat(document.getElementById('samp-CV').value) || 15;
+  var prec = parseFloat(document.getElementById('samp-prec').value) || 10;
+  var t = 1.645;
+  var n = Math.ceil(Math.pow(t * cv / prec, 2));
+  if (n > N) n = N;
+  var pct = (n / N * 100).toFixed(1);
+  document.getElementById('samp-result').textContent = 'Required sample: n = ' + n + ' fixtures out of ' + N + '  (' + pct + '% of population)';
+  var noteEl = document.getElementById('samp-note');
+  if (n < 10) {
+    noteEl.textContent = 'Small sample — low cost, higher uncertainty';
+    noteEl.style.color = 'var(--green-dark)';
+  } else if (n <= 30) {
+    noteEl.textContent = 'Moderate sample — reasonable balance';
+    noteEl.style.color = 'var(--amber)';
+  } else {
+    noteEl.textContent = 'Large sample — consider full census or continuous metering';
+    noteEl.style.color = 'var(--red)';
+  }
+}
+updateSampling();
+
+// Tool C: Explain Your Answer
+function submitCheckpoint6() {
+  var text = document.getElementById('cp6-explain').value.trim();
+  if (text.length < 10) return;
+  document.getElementById('cp6-explain').disabled = true;
+  document.getElementById('cp6-explain').style.opacity = '0.7';
+  document.getElementById('cp6-submit-btn').style.display = 'none';
+  document.getElementById('cp6-banner').style.display = 'block';
+  document.getElementById('cp6-nav').style.display = 'block';
+}
+
 // ══ Day 3 charts ══
 
 // NRA reporting-period data (from cfhq_nra_scenario.csv)
@@ -3118,12 +3473,12 @@ function switchSavingsChart(fuel) {
     ? 'ECM-1 Inferred Savings — Electric (kWh/month)'
     : 'ECM-1 Inferred Savings — Gas (therms/month)';
   drawSavingsChart();
-  populateCut7Table();
+  populateCheckpoint7Table();
 }
 
-function populateCut7Table() {
-  var tbody = document.getElementById('cut7-tbody');
-  var tfoot = document.getElementById('cut7-tfoot');
+function populateCheckpoint7Table() {
+  var tbody = document.getElementById('checkpoint7-tbody');
+  var tfoot = document.getElementById('checkpoint7-tfoot');
   if (!tbody) return;
   var isElec = savingsChartFuel === 'electric';
   var postData = isElec ? ecm1ElectricData : ecm1GasData;
@@ -3147,9 +3502,9 @@ function populateCut7Table() {
   }
 
   // Update column headers
-  document.getElementById('cut7-col-baseline').textContent = 'Model-Predicted Baseline (Reporting Period OAT) (' + unit + ')';
-  document.getElementById('cut7-col-actual').textContent = 'Actual Post-Retrofit (' + unit + ')';
-  document.getElementById('cut7-col-diff').textContent = 'Inferred Savings (' + unit + ')';
+  document.getElementById('checkpoint7-col-baseline').textContent = 'Model-Predicted Baseline (Reporting Period OAT) (' + unit + ')';
+  document.getElementById('checkpoint7-col-actual').textContent = 'Actual Post-Retrofit (' + unit + ')';
+  document.getElementById('checkpoint7-col-diff').textContent = 'Inferred Savings (' + unit + ')';
 
   var totalBase = 0, totalPost = 0, totalDiff = 0;
   var rows = '';
@@ -3179,7 +3534,7 @@ function populateCut7Table() {
     + '</tr>';
 
   // Update summary stats
-  var summaryEl = document.getElementById('cut7-annual-summary');
+  var summaryEl = document.getElementById('checkpoint7-annual-summary');
   if (summaryEl) {
     summaryEl.innerHTML = ''
       + '<div class="gof-stat good"><div class="gof-label">Model-Predicted Annual</div><div class="gof-value">' + totalBase.toLocaleString() + '</div><div class="gof-status">' + unit + '</div></div>'
@@ -3188,16 +3543,16 @@ function populateCut7Table() {
   }
 }
 
-function submitCut7() {
-  var ta = document.getElementById('cut7-response');
+function submitCheckpoint7() {
+  var ta = document.getElementById('checkpoint7-response');
   if (!ta.value.trim()) return;
   ta.readOnly = true;
   ta.style.background = 'var(--cream-light)';
   ta.style.borderColor = '#6ee7b7';
-  document.getElementById('cut7-submit').style.display = 'none';
-  document.getElementById('cut7-banner').style.display = 'inline';
-  document.getElementById('cut7-banner').innerHTML = '✓ Explanation recorded';
-  document.getElementById('cut7-nav').style.display = 'block';
+  document.getElementById('checkpoint7-submit').style.display = 'none';
+  document.getElementById('checkpoint7-banner').style.display = 'inline';
+  document.getElementById('checkpoint7-banner').innerHTML = '✓ Explanation recorded';
+  document.getElementById('checkpoint7-nav').style.display = 'block';
 }
 
 function drawSavingsChart() {
@@ -3281,8 +3636,8 @@ function drawSavingsChart() {
   ctx.restore();
 }
 
-// Global NRA toggle state for Cut 9
-let cut9NraApplied = false;
+// Global NRA toggle state for Checkpoint 9
+let checkpoint9NraApplied = false;
 
 function drawResidualChart() {
   const canvas = document.getElementById('residual-chart');
@@ -3296,18 +3651,28 @@ function drawResidualChart() {
   ctx.fillStyle = '#fff';
   ctx.fillRect(0,0,w,h);
 
-  // Fit baseline 5P model at default change-points for residual calc
-  const lcp = 38, ucp = 55;
-  const model = fit5P(electricData, lcp, ucp);
-
-  // Compute residuals: actual reporting - model prediction at reporting OAT
+  // Fit baseline model using student's Checkpoint 5 selection (default: 3PC)
   const reportingOats = electricData.map(d => d.oat);
-  const nraImpact = cut9NraApplied ? 420 : 0;
-  const residuals = nraReportingElec.map((actual, i) => {
-    const predicted = predict5P(reportingOats[i], lcp, ucp, model);
-    const adj = nraActive[i] ? nraImpact : 0;
-    return Math.round(actual - adj - predicted);
-  });
+  const nraImpact = checkpoint9NraApplied ? 420 : 0;
+  let residuals;
+  if (currentModelForm === '5p') {
+    const lcp = parseInt(document.getElementById('lcp').value) || 38;
+    const ucp = parseInt(document.getElementById('ucp').value) || 55;
+    const model = fit5P(electricData, lcp, ucp);
+    residuals = nraReportingElec.map((actual, i) => {
+      const predicted = predict5P(reportingOats[i], lcp, ucp, model);
+      const adj = nraActive[i] ? nraImpact : 0;
+      return Math.round(actual - adj - predicted);
+    });
+  } else {
+    const ccp = parseInt(document.getElementById('ccp').value) || 55;
+    const model = fit3PC(electricData, ccp);
+    residuals = nraReportingElec.map((actual, i) => {
+      const predicted = predict3PC(reportingOats[i], ccp, model);
+      const adj = nraActive[i] ? nraImpact : 0;
+      return Math.round(actual - adj - predicted);
+    });
+  }
 
   const maxAbs = Math.max(...residuals.map(Math.abs), 500);
   const yRange = maxAbs * 1.3;
@@ -3348,7 +3713,7 @@ function drawResidualChart() {
   const barW = pw/12 * 0.6;
   residuals.forEach((r, i) => {
     const x = ml + (i+0.5)/12 * pw - barW/2;
-    const isNra = nraActive[i] && !cut9NraApplied;
+    const isNra = nraActive[i] && !checkpoint9NraApplied;
     ctx.fillStyle = isNra ? '#c0392b' : '#2d4a3e';
     const barH = Math.abs(r) / yRange * (ph/2);
     const y = r >= 0 ? zeroY - barH : zeroY;
@@ -3370,7 +3735,7 @@ function drawResidualChart() {
   });
 
   // NRA annotation (only when unadjusted)
-  if (!cut9NraApplied) {
+  if (!checkpoint9NraApplied) {
     const nraX = ml + (8+0.5)/12 * pw;
     const nraBarH = Math.abs(residuals[8]) / yRange * (ph/2);
     const nraY = residuals[8] >= 0 ? zeroY - nraBarH : zeroY;
@@ -3391,7 +3756,7 @@ function drawResidualChart() {
   ctx.fillText('Residual (kWh/mo)', 0, 0);
   ctx.restore();
 
-  // Pre-documented NRA overlay from Cut 8
+  // Pre-documented NRA overlay from Checkpoint 8
   drawNraOverlay(ctx, ml, mr, mt, mb, pw, ph, yRange);
 }
 
@@ -3430,11 +3795,11 @@ function drawNraOverlay(ctx, ml, mr, mt, mb, pw, ph, yRange) {
   ctx.font = '9px IBM Plex Sans';
   ctx.textAlign = 'right';
   ctx.textBaseline = 'bottom';
-  ctx.fillText('Pre-documented NRA: +' + impact + ' kWh/mo (Cut 8)', ml+pw, impactY - 3);
+  ctx.fillText('Pre-documented NRA: +' + impact + ' kWh/mo (Checkpoint 8)', ml+pw, impactY - 3);
   ctx.restore();
 }
 
-// ── Cut 8: NRA Pre-Documentation ──
+// ── Checkpoint 8: NRA Pre-Documentation ──
 const nraTriggerNames = {
   'office-occupancy': 'Office Occupancy Change',
   'lobby-occupancy': 'Lobby Occupancy Change',
@@ -3513,7 +3878,7 @@ function submitNraPredoc() {
   document.getElementById('nra-load-btn').style.display = 'none';
   document.getElementById('nra-submit-btn').style.display = 'none';
   document.getElementById('nra-edit-btn').style.display = 'inline-block';
-  document.getElementById('nra-cut9-nav').style.display = 'block';
+  document.getElementById('nra-checkpoint9-nav').style.display = 'block';
 }
 
 function editNraPredoc() {
@@ -3523,13 +3888,13 @@ function editNraPredoc() {
   document.getElementById('nra-load-btn').style.display = 'inline-block';
   document.getElementById('nra-submit-btn').style.display = 'inline-block';
   document.getElementById('nra-edit-btn').style.display = 'none';
-  document.getElementById('nra-cut9-nav').style.display = 'none';
+  document.getElementById('nra-checkpoint9-nav').style.display = 'none';
   localStorage.removeItem('nra_predoc');
 }
 
-// ── Cut 9: NRA toggle and reflection ──
+// ── Checkpoint 9: NRA toggle and reflection ──
 function toggleNraAdjustment() {
-  cut9NraApplied = !cut9NraApplied;
+  checkpoint9NraApplied = !checkpoint9NraApplied;
   const btn = document.getElementById('nra-toggle-btn');
   const state = document.getElementById('nra-toggle-state');
   const summary = document.getElementById('nra-toggle-summary');
@@ -3538,7 +3903,7 @@ function toggleNraAdjustment() {
   const gofCvrmse = document.getElementById('gof-cvrmse-late');
   const gofMean = document.getElementById('gof-mean-late');
 
-  if (cut9NraApplied) {
+  if (checkpoint9NraApplied) {
     btn.textContent = 'Remove NRA';
     btn.style.background = '#2d4a3e';
     state.textContent = 'NRA adjustment: ON';
@@ -3563,13 +3928,13 @@ function toggleNraAdjustment() {
   drawResidualChart();
 }
 
-function submitCut9Reflection() {
-  const textarea = document.getElementById('cut9-reflection');
+function submitCheckpoint9Reflection() {
+  const textarea = document.getElementById('checkpoint9-reflection');
   if (!textarea.value.trim()) return;
   textarea.disabled = true;
-  document.getElementById('cut9-reflection-banner').style.display = 'block';
-  document.getElementById('cut9-submit-reflection').style.display = 'none';
-  document.getElementById('cut9-complete-btn').style.display = 'inline-block';
+  document.getElementById('checkpoint9-reflection-banner').style.display = 'block';
+  document.getElementById('checkpoint9-submit-reflection').style.display = 'none';
+  document.getElementById('checkpoint9-complete-btn').style.display = 'inline-block';
 }
 
 // Initial draw — switchModel sets correct control visibility then calls updateModel → drawPlot
@@ -3598,7 +3963,7 @@ window.addEventListener('load', () => {
       document.getElementById('nra-load-btn').style.display = 'none';
       document.getElementById('nra-submit-btn').style.display = 'none';
       document.getElementById('nra-edit-btn').style.display = 'inline-block';
-      document.getElementById('nra-cut9-nav').style.display = 'block';
+      document.getElementById('nra-checkpoint9-nav').style.display = 'block';
     } catch(e) {}
   }
 });
